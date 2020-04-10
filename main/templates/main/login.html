@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="post" id="login-form">
+                    <div class="form-group">
+                        <label for="username">userName</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me">
+                        <label class="form-check-label" for="rememberMe">Check me out</label>
+                    </div>
+                    <a href="{% url 'recoverPassword' %}">
+                        Forget Password?
+                    </a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
