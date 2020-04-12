@@ -1,55 +1,78 @@
-body {
-    background-color: #F8FAFB;
-}
-
 @font-face {
-    font-family: FaNum;
+    font-family: IRANSans;
     src: url("../fonts/IRANSans(FaNum).ttf") format("truetype");
 }
 
-div.btngroup {
+body {
+    background-color: #F8FAFB;
+    font-family: IRANSans !important;
+}
+
+div.radio-group {
     float: right;
     direction: rtl;
     width: fit-content;
     height: fit-content;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #fff;
 }
 
+.radio-group > .form-check > input {
+    display: none;
+}
+
 .form-check {
     float: right;
-    padding-left: 0px;
+    padding-left: 0;
     display: inline-flex;
     margin: 5px;
 }
 
 .form-check > input[type="radio"] + label {
-    font-family: FaNum;
     color: #343A40;
     font-size: small;
     width: 70px;
     text-align: center;
-    padding: 5px 0px;
+    padding: 5px 0;
+    -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -moz-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -ms-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -o-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.form-check > input[value="option2"] + label {
-    border-left: 1px solid #B0BBC6;
-}
-
-.form-check > input[value="option2"]:checked + label {
-    border-left: none !important;
+.form-check > input[type="radio"] + label:hover {
+    cursor: pointer;
 }
 
 .form-check > input[type="radio"]:checked + label {
     background-color: #007BFF;
     color: #fff;
-    border-radius: 3px;
+    -webkit-border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    border-radius: 0.25em;
     width: 70px;
-    font-size: small;
     text-align: center;
-    box-shadow: -1px 1px 3px #007BFF;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
 }
 
-.btngroup > .form-check > input {
+.form-check > input[type="radio"] + label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 1px;
+    height: 80%;
+    background-color: #B0BBC630;
+}
+
+.form-check:last-child > input[type="radio"] + label:after {
     display: none;
 }
