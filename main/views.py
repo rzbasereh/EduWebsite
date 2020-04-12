@@ -1,11 +1,8 @@
-import urllib.parse
-
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.contrib.auth.models import User
 
 
 def index(request):
