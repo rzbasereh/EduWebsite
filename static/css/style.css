@@ -1,0 +1,55 @@
+body {
+    background-color: #F8FAFB;
+}
+
+@font-face {
+    font-family: FaNum;
+    src: url("../fonts/IRANSans(FaNum).ttf") format("truetype");
+}
+
+div.btngroup {
+    float: right;
+    direction: rtl;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.form-check {
+    float: right;
+    padding-left: 0px;
+    display: inline-flex;
+    margin: 5px;
+}
+
+.form-check > input[type="radio"] + label {
+    font-family: FaNum;
+    color: #343A40;
+    font-size: small;
+    width: 70px;
+    text-align: center;
+    padding: 5px 0px;
+}
+
+.form-check > input[value="option2"] + label {
+    border-left: 1px solid #B0BBC6;
+}
+
+.form-check > input[value="option2"]:checked + label {
+    border-left: none !important;
+}
+
+.form-check > input[type="radio"]:checked + label {
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 3px;
+    width: 70px;
+    font-size: small;
+    text-align: center;
+    box-shadow: -1px 1px 3px #007BFF;
+}
+
+.btngroup > .form-check > input {
+    display: none;
+}
