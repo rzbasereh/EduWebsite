@@ -19,7 +19,7 @@ div.radio-group {
     background-color: #fff;
 }
 
-.radio-group > .form-check > input {
+.form-check > input[type="radio"] {
     display: none;
 }
 
@@ -81,20 +81,21 @@ div.radio-group {
     direction: rtl;
 }
 
-.email > .input-group {
-    width: 35%;
-}
-
-.email > .input-group > input[type="text"] {
+.form-control {
     padding-right: 25px;
     font-size: small;
     border: none;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 5px!important;
+    -moz-border-radius: 5px!important;
+    border-radius: 5px!important;
     height: 35px;
 }
-
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 0;
+}
 .fa-at {
     position: absolute;
     z-index: 1000;
@@ -106,8 +107,69 @@ div.radio-group {
 
 .btn {
     font-size: small;
-    width: 250px;
-    height: 30px;
-    display: block;
-    margin-top: 5px;
+    min-width: 85px;
+}
+
+.btn-blue {
+    color: #FFFFFF;
+    background-color: #007BFF;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+.btn-blue:hover {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}
+.btn-blue:focus {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}
+.btn-green {
+    color: #FFFFFF;
+    background-color: #28A745;
+    box-shadow: 0 5px 10px #28A74516, 0 15px 40px #28A74516;
+}
+.btn-green:hover {
+ color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #28A74590;
+}
+.btn-green:focus {
+ color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #28A74590;
+}
+.btn-red {
+    color: #FFFFFF;
+    background-color: #DC3545;
+    box-shadow: 0 5px 10px #DC354516, 0 15px 40px #DC354516;
+}
+.btn-red:hover {
+  color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #DC354590;
+}
+.btn-red:focus {
+  color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #DC354590;
+}
+.btn-yellow {
+    color: #272529;
+    background-color: #FFC107;
+    box-shadow: 0 5px 10px #FFC10716, 0 15px 40px #FFC10716;
+}
+.btn-yellow:hover {
+    color: #272529;
+    box-shadow: 0 2px 8px 0  #FFC10790;
+}
+.btn-yellow:focus {
+    color: #272529;
+    box-shadow: 0 2px 8px 0  #FFC10790;
+}
+.btn-link {
+    color: #272529;
+}
+.btn-link:hover {
+    color: #272529;
+    text-decoration: none;
+}
+.btn-link:focus {
+    color: #272529;
+    text-decoration: none;
 }
