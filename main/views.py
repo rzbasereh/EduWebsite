@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+
+from main.models import Student
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -11,8 +13,8 @@ def index(request):
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return render(request, 'main/index.html', {})
-    return redirect(reverse('index'))
+        return redirect(reverse('index'))
+    return render(request, 'main/login.html', {})
 
 
 def logoutUser(request):
@@ -34,9 +36,16 @@ def LoginPost(request):
             user = authenticate(request, username=email, password=password)
             print(user)
             if user is not None:
-                login(request, user)
-                return JsonResponse({'url': reverse('index')})
+                # login(request, user)
+                return JsonResponse({'url': reverse('index') + userType(user)})
         else:
             return JsonResponse({'form-errors': form.errors})
     else:
         return JsonResponse({'Error'})
+
+
+def userType(user):
+    if Student.objects.filter(user=user).count():
+        return "student"
+    else:
+        return "none"

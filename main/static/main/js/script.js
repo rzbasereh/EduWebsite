@@ -8,6 +8,7 @@ $(document).ready(function () {
             url: loginForm.attr("action"),
             data: loginForm.serialize(),
             success: function (data) {
+                console.log(data);
                 if (data.url) {
                     $(location).attr("href", data.url)
                 }
