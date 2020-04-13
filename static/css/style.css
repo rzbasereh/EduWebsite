@@ -76,3 +76,39 @@ div.radio-group {
 .form-check:last-child > input[type="radio"] + label:after {
     display: none;
 }
+
+.email {
+    direction: rtl;
+}
+
+.email > .input-group {
+    width: 35%;
+}
+
+.email > .input-group > input[type="text"] {
+    padding-right: 25px;
+    font-size: small;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.fa-at {
+    position: absolute;
+    z-index: 1000;
+    top: 11px;
+    right: 5px;
+    color: #343A4090;
+    font-size: 15px;
+}
+
+.btn {
+    font-size: small;
+    width: 250px;
+    height: 30px;
+    display: block;
+    margin-top: 5px;
+}
+
