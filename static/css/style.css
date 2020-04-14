@@ -81,21 +81,24 @@ div.radio-group {
     direction: rtl;
 }
 
-.form-control {
+input[type="text"] {
     padding-right: 25px;
     font-size: small;
     border: none;
-    -webkit-border-radius: 5px!important;
-    -moz-border-radius: 5px!important;
-    border-radius: 5px!important;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
     height: 35px;
+    direction: rtl !important;
 }
+
 .form-control:focus {
     color: #495057;
     background-color: #fff;
     outline: 0;
     box-shadow: 0 0 0 0;
 }
+
 .fa-at {
     position: absolute;
     z-index: 1000;
@@ -115,61 +118,176 @@ div.radio-group {
     background-color: #007BFF;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
 }
+
 .btn-blue:hover {
     color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #007BFF90;
 }
+
 .btn-blue:focus {
     color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #007BFF90;
 }
+
 .btn-green {
     color: #FFFFFF;
     background-color: #28A745;
     box-shadow: 0 5px 10px #28A74516, 0 15px 40px #28A74516;
 }
+
 .btn-green:hover {
- color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #28A74590;
 }
+
 .btn-green:focus {
- color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #28A74590;
 }
+
 .btn-red {
     color: #FFFFFF;
     background-color: #DC3545;
     box-shadow: 0 5px 10px #DC354516, 0 15px 40px #DC354516;
 }
+
 .btn-red:hover {
-  color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #DC354590;
 }
+
 .btn-red:focus {
-  color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #DC354590;
 }
+
 .btn-yellow {
     color: #272529;
     background-color: #FFC107;
     box-shadow: 0 5px 10px #FFC10716, 0 15px 40px #FFC10716;
 }
+
 .btn-yellow:hover {
     color: #272529;
-    box-shadow: 0 2px 8px 0  #FFC10790;
+    box-shadow: 0 2px 8px 0 #FFC10790;
 }
+
 .btn-yellow:focus {
     color: #272529;
-    box-shadow: 0 2px 8px 0  #FFC10790;
+    box-shadow: 0 2px 8px 0 #FFC10790;
 }
+
 .btn-link {
-    color: #272529;
+    color: #007BFF;
 }
+
 .btn-link:hover {
-    color: #272529;
+    color: #007BFF;
     text-decoration: none;
 }
+
 .btn-link:focus {
-    color: #272529;
+    color: #007BFF;
     text-decoration: none;
+}
+
+.customBox {
+    position: relative;
+    padding-right: 25px;
+    cursor: pointer;
+    font-size: small;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.customBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 1px;
+    left: 80px;
+    height: 15px;
+    width: 15px;
+    background-color: #ffffff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+
+.customBox:hover input ~ .checkmark {
+    background-color: #007BFF40;
+}
+
+.customBox input:checked ~ .checkmark {
+    background-color: #007BFF;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.customBox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.customBox .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#inputStateSmall {
+    direction: rtl;
+    -webkit-appearance: none;
+    font-size: small;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    max-width: 40%;
+    box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
+}
+
+[class^="ti-angle-down"] {
+    position: absolute;
+    left: 30px;
+    top: 42px;
+    font-size: small;
+}
+
+#inputStateBig {
+    direction: rtl;
+    -webkit-appearance: none;
+    font-size: small;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding-right: 30px;
+    box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
+}
+
+[class^="ti-calendar"] {
+    position: absolute;
+    right: 25px;
+    top: 42px;
+    font-size: small;
+}
+
+.form-control:hover {
+    cursor: pointer;
 }
