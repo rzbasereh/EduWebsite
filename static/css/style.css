@@ -81,7 +81,7 @@ div.radio-group {
     direction: rtl;
 }
 
-input[type="text"] {
+.fc1 {
     padding-right: 25px;
     font-size: small;
     border: none;
@@ -91,7 +91,12 @@ input[type="text"] {
     height: 35px;
     direction: rtl !important;
 }
-
+input[type="text"]:hover {
+    cursor: auto!important;
+}
+input[type="password"]:hover {
+    cursor: auto!important;
+}
 .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -117,6 +122,7 @@ input[type="text"] {
     color: #FFFFFF;
     background-color: #007BFF;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+    width: 100%;
 }
 
 .btn-blue:hover {
@@ -216,7 +222,7 @@ input[type="text"] {
     left: 80px;
     height: 15px;
     width: 15px;
-    background-color: #ffffff;
+    background-color: #F8FAFB;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
 }
@@ -241,11 +247,11 @@ input[type="text"] {
 
 .customBox .checkmark:after {
     left: 5px;
-    top: 2px;
+    top: 1px;
     width: 5px;
     height: 10px;
     border: solid white;
-    border-width: 0 2px 2px 0;
+    border-width: 0 1px 1px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
@@ -290,4 +296,54 @@ input[type="text"] {
 
 .form-control:hover {
     cursor: pointer;
+}
+.card {
+    border:none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;!important;
+    width: 50%;
+    height: 55%;
+    top: 155px;
+    left: 330px;
+    padding: 40px 0px 40px 55px;
+    direction: rtl;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+    font-size: small;
+}
+.card-header {
+    background-color: #ffffff;
+}
+#cb-bottom {
+    background-color: rgba(0,0,0,.03);
+}
+.fc2 {
+    padding-right: 25px;
+    font-size: small;
+    border: none;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    height: 35px;
+    direction: rtl !important;
+}
+.bg-transparent {
+    background-color: #F8FAFB!important;
+}
+.loginCloL{
+padding-right: 80px;
+}
+.loginHeading {
+    font-size: x-large!important;
+    font-weight: bold;
+    margin-top: 30px;
+    display: flex;
+    margin-bottom: 20px;
+}
+.loginImg {
+    height: 100% !important;
+}
+.row {
+    width: 100%;
 }
