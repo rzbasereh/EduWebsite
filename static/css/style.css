@@ -91,12 +91,15 @@ div.radio-group {
     height: 35px;
     direction: rtl !important;
 }
+
 input[type="text"]:hover {
-    cursor: auto!important;
+    cursor: auto !important;
 }
+
 input[type="password"]:hover {
-    cursor: auto!important;
+    cursor: auto !important;
 }
+
 .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -104,13 +107,13 @@ input[type="password"]:hover {
     box-shadow: 0 0 0 0;
 }
 
-.fa-at {
+.iconInput {
     position: absolute;
     z-index: 1000;
-    top: 11px;
-    right: 5px;
     color: #343A4090;
     font-size: 15px;
+    display: flex;
+    transform: translate(-15px, -25px);
 }
 
 .btn {
@@ -198,9 +201,9 @@ input[type="password"]:hover {
 
 .customBox {
     position: relative;
-    padding-right: 25px;
+    padding-right: 20px;
     cursor: pointer;
-    font-size: small;
+    font-size: 11px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -217,11 +220,11 @@ input[type="password"]:hover {
 
 .checkmark {
     position: absolute;
-    top: 1px;
-    left: 80px;
+    top: 0px;
+    left: 70px;
     height: 15px;
     width: 15px;
-    background-color: #F8FAFB;
+    background-color: #8697A830;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
 }
@@ -296,28 +299,37 @@ input[type="password"]:hover {
 .form-control:hover {
     cursor: pointer;
 }
+
 .card {
-    border:none;
+    border: none;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     padding: 40px 0px 40px 55px;
     direction: rtl;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
     font-size: 11px;
+    width: fit-content;
+    height: fit-content;
 }
+
 .card-header {
     background-color: #ffffff;
 }
+
 #cb-bottom {
-    background-color: rgba(0,0,0,.03);
+    background-color: rgba(0, 0, 0, .03);
 }
+
 .fc2 {
-    padding-right: 25px;
+    padding-right: 40px;
     font-size: small;
     border: none;
     -webkit-border-radius: 5px !important;
@@ -326,19 +338,39 @@ input[type="password"]:hover {
     height: 35px;
     direction: rtl !important;
 }
+
 .bg-transparent {
-    background-color: #F8FAFB!important;
+    background-color: #F8FAFB !important;
 }
-.loginCloL{
-padding-right: 80px;
+
+.loginCloL {
+    padding-right: 80px;
 }
-.loginHeading {
-    font-size: x-large!important;
+
+h1 {
+    font-size: x-large !important;
     font-weight: bold;
     margin-top: 30px;
     display: flex;
     margin-bottom: 20px;
+    color: #343A40;
 }
+
 .loginImg {
     height: 100% !important;
+}
+
+.loginAnchor {
+    position: relative;
+    top: 5px;
+    color: #007BFF;
+}
+
+.loginAnchor:hover {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+#loginBtn {
+    margin-top: 35px;
 }

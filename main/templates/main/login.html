@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 </head>
 <body>
 <div class="container">
@@ -20,10 +21,14 @@
                     {% csrf_token %}
                     <h1 class="loginHeading">خوش آمدید</h1>
                     <div class="form-group">
-                        <input type="text" class="form-control fc2 bg-transparent" id="username" name="email">
+                        <input type="text" class="form-control fc2 bg-transparent" id="username" name="email"
+                               placeholder="نام کاربری">
+                        <span class="ti-user iconInput"></span>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control fc2 bg-transparent" id="password" name="password">
+                        <input type="password" class="form-control fc2 bg-transparent" id="password" name="password"
+                               placeholder="رمز عبور">
+                        <span class="ti-lock iconInput"></span>
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label customBox" for="exampleCheck1">به خاطر بسپار
@@ -31,7 +36,7 @@
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <a href="{% url 'recoverPassword' %}">
+                    <a href="{% url 'recoverPassword' %}" class="loginAnchor">
                         فراموشی رمز عبور
                     </a>
                     <button type="submit" class="btn btn-blue w-100" id="loginBtn">ورود</button>
