@@ -122,7 +122,6 @@ input[type="password"]:hover {
     color: #FFFFFF;
     background-color: #007BFF;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
-    width: 100%;
 }
 
 .btn-blue:hover {
@@ -302,15 +301,14 @@ input[type="password"]:hover {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    position: absolute;!important;
-    width: 50%;
-    height: 55%;
-    top: 155px;
-    left: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 40px 0px 40px 55px;
     direction: rtl;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
-    font-size: small;
+    font-size: 11px;
 }
 .card-header {
     background-color: #ffffff;
@@ -343,7 +341,4 @@ padding-right: 80px;
 }
 .loginImg {
     height: 100% !important;
-}
-.row {
-    width: 100%;
 }
