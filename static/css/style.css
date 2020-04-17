@@ -322,12 +322,22 @@ input[type="password"]:hover {
 
 .card-header {
     background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border-bottom: none;
 }
+
 .card-body {
     background-color: #F8FAFB;
-    padding-right: 60px;
-    padding-left: 60px;
+    padding-right: 55px;
+    padding-left: 55px;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    -webkit-border-bottom-right-radius: 10px !important;
+    -webkit-border-bottom-left-radius: 10px !important;
 }
+
 #cb-bottom {
     background-color: rgba(0, 0, 0, .03);
 }
@@ -368,8 +378,14 @@ h1 {
     position: relative;
     top: 15px;
     color: #007BFF;
-    left: 30%;
+    left: 25%;
 }
+
+.recoverAnchor:hover {
+    text-decoration: none;
+    color: #007BFF;
+}
+
 .Anchor:hover {
     text-decoration: none;
     color: #007BFF;
@@ -378,36 +394,41 @@ h1 {
 #loginBtn {
     margin-top: 35px;
 }
+
 .recoverImg {
-    width: 30%;
-    transform: translate(115%, 15%);
+    width: 100px;
+    margin-left: 20px;
 }
+
 .card2 {
-    width: 30%;
+    width: 25%;
     position: absolute;
-    height: 55%;
+    height: 53%;
     font-size: 11px;
     top: 45%;
     left: 35%;
     transform: translate(0%, -45%);
     border: none;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+    direction: rtl;
 }
+
 #recover-h1 {
-    margin: 0!important;
+    margin: 0 !important;
     width: fit-content;
-    transform: translate(77%, 10%);
     padding-top: 20px;
     padding-bottom: 5px;
 }
+
 #recoverInput {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
 #recoverIcon {
-    right: 14%;
-    top: 265px;
+    top: 253px;
+    padding-right: 0px;
 }
