@@ -289,7 +289,7 @@ input[type="password"]:hover {
     box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
 }
 
-[class^="ti-calendar"] {
+#index-calender {
     position: absolute;
     right: 25px;
     top: 42px;
@@ -431,4 +431,87 @@ h1 {
 #recoverIcon {
     top: 253px;
     padding-right: 0px;
+}
+
+.topDrive {
+    border-bottom: 1px solid #8697A8;
+    background-color: #ffffff;
+    height: 60px;
+    position: absolute;
+    top: 0px;
+    width: calc(100% - 200px);
+}
+
+.rightDrive {
+    border-left: 1px solid #8697A8;
+    width: 200px;
+    background-color: #ffffff;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    direction: rtl;
+}
+
+.rightDrive > ul {
+    list-style: none;
+    margin-top: 60px;
+    padding-right: 0px !important;
+    width: 100%;
+    font-size: 14px;
+    color: #44566C;
+}
+
+.rightDrive > ul > li {
+    display: flex;
+    padding-right: 30px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.rightDrive > ul > li:hover {
+    content: '';
+    background-color: #F8FAFB;
+    display: flex;
+    padding-right: 25px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    border-right: 5px solid #0081FF;
+    transition: 0.2s;
+}
+
+.rightDrive > ul > li > [class^="ti-"] {
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.topDrive > .input-group {
+    width: fit-content;
+    position: absolute;
+    right: 0px;
+    top: 25%;
+    margin-bottom: 0px !important;
+    padding-right: 40px;
+}
+
+.topDrive > .input-group > input[type="text"] {
+    background-color: #F8FAFB;
+    padding-right: 35px !important;
+    font-size: 11px !important;
+    height: 30px !important;
+}
+
+[class^="ti-menu"] {
+    position: absolute;
+    right: 0px;
+    padding-top: 22px;
+    padding-right: 20px;
+}
+
+[class^="ti-search"] {
+    position: relative;
+    top: 7px;
+    right: 28px;
+    z-index: 1000;
+    height: fit-content;
+    transform: rotate(90deg);
 }
