@@ -36,7 +36,7 @@ def LoginPost(request):
             user = authenticate(request, username=email, password=password)
             print(user)
             if user is not None:
-                # login(request, user)
+                login(request, user)
                 return JsonResponse({'url': reverse('index') + userType(user)})
         else:
             return JsonResponse({'form-errors': form.errors})
