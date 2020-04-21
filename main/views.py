@@ -32,11 +32,14 @@ def LoginPost(request):
         if form.is_valid():
             email = request.POST.get('email')
             password = request.POST.get('password')
-            remember_token = request.POST.get('remember_token', 'off')
+            remember_token = request.POST.get('remember_me', None)
             user = authenticate(request, username=email, password=password)
             print(user)
+            print(remember_token)
             if user is not None:
                 login(request, user)
+                if not remember_token:
+                    request.session.set_expiry(0)
                 return JsonResponse({'url': reverse('index') + userType(user)})
         else:
             return JsonResponse({'form-errors': form.errors})
