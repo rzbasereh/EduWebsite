@@ -15,20 +15,26 @@
 <div class="topDrive">
     {{ user.full_name }}
     <img src="{{ user.avatar }}">
-    {{ user.has_message }}
-    {{ user.has_notification }}
-    <i class='far fa-bell'></i>
-    <i class='far fa-envelope'></i>
-    <span class="ti-menu"></span>
+    <span class="{% if  user.has_notification  %}
+    new
+    {% endif %}" >
+        <i class='far fa-bell'></i>
+    </span>
+    <span class="{% if  user.has_message  %}
+    new1
+    {% endif %}">
+        <i class='far fa-envelope'></i>
+    </span>
+    <span class="menuIcon"><span class="ti-menu"></span></span>
     <div class="input-group mb-3">
         <input type="text" class="form-control fc1" placeholder="جستجو" aria-label="Username"
                aria-describedby="basic-addon1">
         <span class="ti-search"></span>
     </div>
 </div>
-<div class="rightDrive">
+<div class="sidebar">
     <ul>
-        <li><span class="ti-view-grid"></span><span>داشبورد</span></li>
+        <li class="blueBand"><span class="ti-view-grid"></span><span>داشبورد</span></li>
         <li><span class="ti-blackboard"></span><span>کلاس ها</span></li>
         <li><span class="ti-check-box"></span><span>آزمون ها</span></li>
         <li><span class="ti-comments"></span><span>گفتگو </span></li>
@@ -49,5 +55,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
