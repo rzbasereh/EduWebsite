@@ -23,6 +23,26 @@ class Student(models.Model):
         return self.user.username
 
 
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    STATUS = (
+        ('Check', 'در حال بررسی'),
+        ('Active', 'فعال'),
+        ('Suspend', 'مسدود'),
+    )
+    status = models.CharField(max_length=7, choices=STATUS, default="Check")
+    USER_TYPE = (
+        ('S', 'student'),
+        ('E', 'teacher'),
+        ('C', 'consultant'),
+        ('CE', 'consultant&expert'),
+    )
+    type = models.CharField(max_length=2, choices=USER_TYPE, default='S')
+
+    def __str__(self):
+        return self.user.username
+
+
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100, null=True, blank=True)
