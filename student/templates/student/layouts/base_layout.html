@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %} Dashboard {% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -11,38 +11,53 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-
 <div class="topDrive">
-    {{ user.full_name }}
-    <img src="{{ user.avatar }}">
-    <span class="{% if  user.has_notification  %}
-    new
-    {% endif %}" >
-        <i class='far fa-bell'></i>
-    </span>
-    <span class="{% if  user.has_message  %}
-    new1
-    {% endif %}">
-        <i class='far fa-envelope'></i>
-    </span>
-    <span class="menuIcon"><span class="ti-menu"></span></span>
+    <div class="dropdown firstDropdown">
+        <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+            <img src="{{ user.avatar }}" class="userImg">
+            <span class="fullName">{{ user.full_name }}</span>
+        </span>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <ul>
+                <li><a href="#">تنظیمات کاربری</a></li>
+                <li><a href="{% url 'index' %}">خروج</a></li>
+            </ul>
+        </div>
+    </div>
+    <span class="spanBorder"></span>
+    <div class="dropdown bellEnvelope">
+        <span class=" dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+                        <i class='far fa-bell {% if  user.has_message %}new{% endif %} '></i></span>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        </div>
+    </div>
+
+    <div class="dropdown bellEnvelope">
+        <span class="dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+                        <i class='far fa-envelope {% if  user.has_message %}new1{% endif %} '></i></span>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        </div>
+    </div>
     <div class="input-group mb-3">
         <input type="text" class="form-control fc1" placeholder="جستجو" aria-label="Username"
                aria-describedby="basic-addon1">
         <span class="ti-search"></span>
     </div>
+    <i class="fas fa-sliders-h"></i>
 </div>
 <div class="sidebar">
     <ul>
         <li class="blueBand"><span class="ti-view-grid"></span><span>داشبورد</span></li>
         <li><span class="ti-blackboard"></span><span>کلاس ها</span></li>
-        <li><span class="ti-check-box"></span><span>آزمون ها</span></li>
+        <li><i class="far fa-check-square"></i><span>آزمون ها</span></li>
         <li><span class="ti-comments"></span><span>گفتگو </span></li>
-        <li><span class="ti-calendar"></span><span>برنامه درسی</span></li>
+        <li><i class="far fa-calendar"></i><span>برنامه درسی</span></li>
     </ul>
 </div>
 <div class="pageBody">
-
 </div>
 
 
