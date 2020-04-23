@@ -408,6 +408,9 @@ h1 {
     top: 45%;
     left: 35%;
     transform: translate(0%, -45%);
+    -webkit-transform: translate(0%, -45%);
+    -moz-transform: translate(0%, -45%);
+    -o-transform: translate(0%, -45%);
     border: none;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
     -webkit-border-radius: 10px !important;
@@ -442,6 +445,7 @@ h1 {
     width: calc(100% - 200px);
     transition: 0.3s;
     color: #8697A8;
+    direction: rtl;
 }
 
 .sidebar {
@@ -471,6 +475,10 @@ h1 {
     padding-bottom: 13px;
 }
 
+.sidebar > ul > li > span {
+    z-index: 1;
+}
+
 .sidebar > ul > li:hover {
     background-color: #F8FAFB;
     cursor: pointer;
@@ -478,17 +486,25 @@ h1 {
 }
 
 .sidebar > ul > li > [class^="ti-"] {
-    font-size: 20px;
+    font-size: 16px;
     padding-left: 10px;
+    font-weight: 600;
+}
+
+.sidebar > ul > li > i {
+    font-size: 17px;
+    padding-left: 10px;
+}
+
+.sidebar > ul > li:first-child {
+    color: #44566C;
 }
 
 .topDrive > .input-group {
     width: fit-content;
-    position: absolute;
-    right: 0px;
-    top: 25%;
-    margin-bottom: 0px !important;
-    padding-right: 40px;
+    position: relative;
+    top: 20%;
+    padding-right: 80px;
 }
 
 .topDrive > .input-group > input[type="text"] {
@@ -496,15 +512,19 @@ h1 {
     padding-right: 35px !important;
     font-size: 11px !important;
     height: 30px !important;
+    margin-left: 0px !important;
 }
 
 [class^="ti-search"] {
-    position: relative;
-    top: 7px;
-    right: 28px;
+    position: absolute;
+    top: 18px;
     z-index: 1000;
     height: fit-content;
     transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    padding-right: 20px;
 }
 
 .showSlideBar {
@@ -524,14 +544,14 @@ h1 {
 }
 
 .fa-envelope {
-    padding-left: 15px;
-    padding-top: 22px;
     font-size: 20px;
-    color: #8697A8!important;
+    color: #8697A8 !important;
 }
+
 .fa-envelope:hover {
     cursor: pointer;
 }
+
 .new1:after {
     content: '';
     position: absolute;
@@ -540,23 +560,26 @@ h1 {
     height: 8px;
     background-color: #FF3D57;
     border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     border: 1px solid white;
-    left: 20%;
-    transform: translate(-11px, 1px);
-    -webkit-transform: translate(-11px, 1px);
-    -moz-transform: translate(-11px, 1px);
-    -o-transform: translate(-11px, 1px);
+    left: 115%;
+    transform: translate(-12px, 3px);
+    -webkit-transform: translate(-12px, 3px);
+    -moz-transform: translate(-12px, 3px);
+    -o-transform: translate(-12px, 3px);
 }
+
 .fa-bell {
-    padding-left: 15px;
-    padding-top: 22px;
     font-size: 20px;
-    color: #8697A8!important;
+    color: #8697A8 !important;
 }
+
 .fa-bell:hover {
     cursor: pointer;
 }
-.new:after{
+
+.new:after {
     content: '';
     position: absolute;
     top: 35%;
@@ -564,37 +587,14 @@ h1 {
     height: 8px;
     background-color: #FF3D57;
     border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     border: 1px solid white;
     left: 15%;
-    transform: translate(3px, 0px);
-    -webkit-transform: translate(3px, 0px);
-    -moz-transform: translate(3px, 0px);
-    -o-transform: translate(3px, 0px);
-}
-.fa-bell:after {
-    content: '';
-    position: absolute;
-    top: 52%;
-    left: 159px;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 1px;
-    height: 65%;
-    background-color: #B0BBC630;
-}
-
-[class^="ti-menu"] {
-    position: absolute;
-    right: 0px;
-    padding-top: 22px;
-    padding-right: 20px;
-}
-
-[class^="ti-menu"]:hover {
-    cursor: pointer;
+    transform: translate(33px, 3px);
+    -webkit-transform: translate(33px, 3px);
+    -moz-transform: translate(33px, 3px);
+    -o-transform: translate(33px, 3px);
 }
 
 .blueBand:before {
@@ -607,17 +607,111 @@ h1 {
     -ms-transform: translateY(-12%);
     -o-transform: translateY(-12%);
     transform: translateY(-12%);
-    width: 8px;
+    width: 6px;
     height: 7%;
-    -webkit-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
     background-color: #0081FF;
+    z-index: 1;
 }
-.topDrive > img {
+
+.blueBand:after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 0;
+    -webkit-transform: translateY(-12%);
+    -moz-transform: translateY(-12%);
+    -ms-transform: translateY(-12%);
+    -o-transform: translateY(-12%);
+    transform: translateY(-12%);
+    width: 100%;
+    height: 7%;
+    background-color: #F8FAFB;
+}
+
+.userImg {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
     width: 45px;
+}
+
+.dropdown {
+    float: left;
+}
+
+.noTriangle:after {
+    display: none !important;
+}
+
+.spanBorder:after {
+    content: '';
+    position: absolute;
+    margin: 8px 87px 0px 0px;
+    width: 1px;
+    height: 70%;
+    background-color: #B0BBC630;
+}
+
+.firstDropdown {
+    padding-left: 30px;
+    padding-top: 7px;
+    margin-right: 10px;
+}
+
+.topDrive > .firstDropdown > .dropdown-toggle:hover {
+    cursor: pointer;
+}
+
+.topDrive > .firstDropdown > .dropdown-menu > ul {
+    list-style: none;
+    direction: ltr;
+    text-align: right;
+    font-size: 12px;
+    padding: 0px 10px 0px 5px;
+}
+
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a {
+    color: #343A40;
+}
+
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:hover {
+    text-decoration: none;
+    color: #343A40 !important;
+}
+
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus {
+    color: #343A40 !important;
+}
+
+.dropdown-toggle::after {
+    vertical-align: inherit;
+    transform: translateX(-10px);
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+}
+
+.fullName {
+    font-size: 15px;
+}
+
+.bellEnvelope {
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.fa-sliders-h {
+    float: right;
+    transform: translate(-30px, -27px);
+    -webkit-transform: translate(-30px, -27px);
+    -moz-transform: translate(-30px, -27px);
+    -o-transform: translate(-30px, -27px);
+    font-size: 20px;
+}
+
+.fa-sliders-h:hover {
+    cursor: pointer;
 }
