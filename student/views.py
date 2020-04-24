@@ -7,7 +7,7 @@ from .models import StudentForm, ExamResult
 # Create your views here.
 def commonData(request):
     full_name = request.user.get_full_name()
-    avatar = StudentForm.objects.filter(user=request.user)
+    avatar = StudentForm.objects.filter(user=request.user.student)[0].avatar.url
     has_message = Message.objects.filter(user=request.user, is_seen=False).exists()
     message = Message.objects.filter(user=request.user)
     has_notification = Notification.objects.filter(user=request.user, is_seen=False).exists()
@@ -49,6 +49,6 @@ def index(request):
 
 def exam(request):
     user = commonData(request)
-    exams = ExamResult.objects.filter(user=request.user).order_by('-date')
-    data = examResult(request.user, exams.first().date)
+    exams = ExamResult.objects.filter(user=request.user.student).order_by('-date')
+    data = examResult(request.user.student, exams.first().date)
     return render(request, 'student/exam.html', {'user': user, 'exams': exams, 'data': data})
