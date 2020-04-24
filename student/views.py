@@ -1,21 +1,24 @@
 from django.shortcuts import render
 from main.models import Notification, Message
 from teacher.models import Exam
-from .models import UserForm, ExamResult
+from .models import StudentForm, ExamResult
 
 
 # Create your views here.
 def commonData(request):
     full_name = request.user.get_full_name()
-    avatar = UserForm.objects.filter(user=request.user)[0].avatar.url
+    avatar = StudentForm.objects.filter(user=request.user)
     has_message = Message.objects.filter(user=request.user, is_seen=False).exists()
+    message = Message.objects.filter(user=request.user)
     has_notification = Notification.objects.filter(user=request.user, is_seen=False).exists()
+    notification = Notification.objects.filter(user=request.user, is_seen=False)
     user = {
         'full_name': full_name,
         'avatar': avatar,
         'has_message': has_message,
+        'message': message,
         'has_notification': has_notification,
-
+        'notification': notification,
     }
     return user
 
@@ -23,18 +26,20 @@ def commonData(request):
 def examResult(user, exam_date):
     exam_key = list(Exam.objects.filter(date=exam_date).first().examKey)
     user_ans = list(ExamResult.objects.filter(user=user, date=exam_date).first().answers)
-    result = list()
+
+    reply = list()
     for i in range(len(exam_key)):
         if exam_key == '-':
-            result.append("D")
-        elif user_ans[i] == '0':
-            result.append("N")
+            reply.append("D")
         elif user_ans[i] == exam_key[i]:
-            result.append("T")
+            reply.append("T")
         else:
-            result.append("F")
+            reply.append(exam_key[i])
 
-    return result
+    data = {
+        'reply': reply,
+    }
+    return data
 
 
 def index(request):

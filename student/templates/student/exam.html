@@ -1,1 +1,4 @@
-{{ data }}
+{{ data.reply }}
+{% for notif in user.notification %}
+    {{ notif.text }}
+{% endfor %}
