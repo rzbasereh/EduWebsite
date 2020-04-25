@@ -11,16 +11,12 @@ class Student(models.Model):
         ('Suspend', 'مسدود'),
     )
     status = models.CharField(max_length=7, choices=STATUS, default="Check")
-    USER_TYPE = (
-        ('S', 'student'),
-        ('E', 'expert'),
-        ('C', 'consultant'),
-        ('CE', 'consultant&expert'),
-    )
-    type = models.CharField(max_length=2, choices=USER_TYPE, default='S')
 
     def __str__(self):
         return self.user.username
+
+    def get_full_name(self):
+        return self.user.get_full_name()
 
 
 class Teacher(models.Model):
@@ -31,13 +27,32 @@ class Teacher(models.Model):
         ('Suspend', 'مسدود'),
     )
     status = models.CharField(max_length=7, choices=STATUS, default="Check")
-    USER_TYPE = (
-        ('S', 'student'),
-        ('E', 'teacher'),
-        ('C', 'consultant'),
-        ('CE', 'consultant&expert'),
+
+    def __str__(self):
+        return self.user.username
+
+
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    STATUS = (
+        ('Check', 'در حال بررسی'),
+        ('Active', 'فعال'),
+        ('Suspend', 'مسدود'),
     )
-    type = models.CharField(max_length=2, choices=USER_TYPE, default='S')
+    status = models.CharField(max_length=7, choices=STATUS, default="Check")
+
+    def __str__(self):
+        return self.user.username
+
+
+class Adviser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    STATUS = (
+        ('Check', 'در حال بررسی'),
+        ('Active', 'فعال'),
+        ('Suspend', 'مسدود'),
+    )
+    status = models.CharField(max_length=7, choices=STATUS, default="Check")
 
     def __str__(self):
         return self.user.username

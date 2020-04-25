@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
-from main.models import Student
+from main.models import Student, Teacher, Adviser, Manager
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -50,5 +50,11 @@ def LoginPost(request):
 def userType(user):
     if Student.objects.filter(user=user).count():
         return "student"
+    elif Teacher.objects.filter(user=user).count():
+        return "teacher"
+    elif Adviser.objects.filter(user=user).count():
+        return "adviser"
+    elif Manager.objects.filter(user=user).count():
+        return "manager"
     else:
         return "none"

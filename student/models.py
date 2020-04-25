@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
+from main.models import Student
 from django.db import models
+from django.utils.timezone import now
 import datetime
 import jdatetime
 
@@ -7,8 +8,8 @@ import jdatetime
 # Create your models here.
 
 
-class UserForm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class StudentForm(models.Model):
+    user = models.OneToOneField(Student, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='uploads/student', default="defaults/avatar/default.jpg")
 
     def __str__(self):
@@ -16,8 +17,8 @@ class UserForm(models.Model):
 
 
 class ExamResult(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    date = models.DateField(default=datetime.date.today())
+    user = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateField(default=now())
     TYPE = (
         ('12', 'کنکوری'),
         ('11', 'پایه یازدهم'),
