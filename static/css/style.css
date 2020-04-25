@@ -443,7 +443,6 @@ h1 {
     position: absolute;
     top: 0px;
     width: calc(100% - 200px);
-    transition: 0.3s;
     color: #8697A8;
     direction: rtl;
 }
@@ -456,7 +455,6 @@ h1 {
     right: 0px;
     height: 100%;
     direction: rtl;
-    transition: 0.3s;
 }
 
 .sidebar > ul {
@@ -468,35 +466,35 @@ h1 {
     color: #8697A8;
 }
 
-.sidebar > ul > li {
+.sidebar > ul > a {
     display: flex;
     padding-right: 30px;
     padding-top: 13px;
     padding-bottom: 13px;
 }
 
-.sidebar > ul > li > span {
+.sidebar > ul > a > li > span {
     z-index: 1;
 }
 
-.sidebar > ul > li:hover {
+.sidebar > ul > a:hover {
     background-color: #F8FAFB;
     cursor: pointer;
     color: #343A40;
 }
 
-.sidebar > ul > li > [class^="ti-"] {
+.sidebar > ul > a > li > [class^="ti-"] {
     font-size: 16px;
     padding-left: 10px;
     font-weight: 600;
 }
 
-.sidebar > ul > li > i {
+.sidebar > ul > a > li > i {
     font-size: 17px;
     padding-left: 10px;
 }
 
-.sidebar > ul > li:first-child {
+.sidebar > ul > a > li:first-child {
     color: #44566C;
 }
 
@@ -529,18 +527,13 @@ h1 {
 
 .showSlideBar {
     width: 80px !important;
-    transition: 0.3s;
-
 }
-
 .removeText {
     display: none !important;
-    transition: 0.3s;
 }
 
 .changeTopDrive {
     width: calc(100% - 80px);
-    transition: 0.3s;
 }
 
 .fa-envelope {
@@ -673,7 +666,16 @@ h1 {
     font-size: 12px;
     padding: 0px 10px 0px 5px;
 }
-
+.sidebar > ul > a {
+    color: #343A40;
+}
+.sidebar > ul > a:hover {
+     text-decoration: none;
+    color: #343A40 !important;
+}
+.sidebar > ul > a:focus {
+    color: #343A40 !important;
+}
 .topDrive > .firstDropdown > .dropdown-menu > ul > li > a {
     color: #343A40;
 }
