@@ -32,6 +32,7 @@ class Exam(models.Model):
         ('3', 'انسانی'),
     )
     filed = models.CharField(choices=FIELD, max_length=2, blank=True, null=True)
+    is_online = models.BooleanField(default=False)
     examKey = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
     keyMapper = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
 

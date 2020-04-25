@@ -23,21 +23,48 @@ def commonData(request):
     return user
 
 
-def examResult(user, exam_date):
-    exam_key = list(Exam.objects.filter(date=exam_date).first().examKey)
-    user_ans = list(ExamResult.objects.filter(user=user, date=exam_date).first().answers)
+def percentCalc(key, ans):
+    n = len(key)
+    T = 0
+    F = 0
+    for i in range(len(key)):
+        if key[i] == "-":
+            n = n - 1
+        elif key[i] == ans[i]:
+            T = T + 1
+        elif ans[i] != "0":
+            F = F + 1
+    percent = (T * 3 - F) / (n * 3)
+    return "{0:.2f}".format(percent * 100).rstrip('0').rstrip('.')
 
-    reply = list()
-    for i in range(len(exam_key)):
-        if exam_key == '-':
-            reply.append("D")
-        elif user_ans[i] == exam_key[i]:
-            reply.append("T")
-        else:
-            reply.append(exam_key[i])
+
+def examResult(user, exam_date):
+    result = list()
+    user_ans = list(ExamResult.objects.filter(user=user, date=exam_date).first().answers)
+    if Exam.objects.filter(date=exam_date).first().is_online:
+        exam_key = user_ans  # # TODO: when is_online=True => get Exam key from question code
+    else:
+        exam_key = list(Exam.objects.filter(date=exam_date).first().examKey)
+        mapper = str(Exam.objects.filter(date=exam_date).first().keyMapper)
+        while mapper != "":
+            lesson_data = {}
+            dash = mapper.find("-")
+            plus = mapper.find("+")
+            key = mapper[:dash]
+            lesson_data.update({'name': key})
+            question_num = list(map(int, mapper[dash + 1:plus]))
+            lesson_data.update({'percent': percentCalc(
+                exam_key[question_num[0]:question_num[-1] + 1],
+                user_ans[question_num[0]:question_num[-1] + 1])
+            })
+            result.append(lesson_data)
+            mapper = mapper[plus + 1:]
+            print(exam_key[question_num[0]:question_num[-1] + 1])
 
     data = {
-        'reply': reply,
+        'ans': user_ans,
+        'key': exam_key,
+        'result': result,
     }
     return data
 
