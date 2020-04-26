@@ -50,10 +50,15 @@
 </div>
 <div class="sidebar">
     <ul>
-        <a href="{% url 'student:index' %}" ><li
-       ><span class="ti-view-grid"></span><span>داشبورد</span></li></a>
+        {% url 'student:index' as index %}
+        <a href="{% url 'student:index' %}" class="{% if request.path == index %}
+        closed-sidebar
+        {% endif %}"><li><span class="ti-view-grid"></span><span>داشبورد</span></li></a>
         <a href="#"><li><span class="ti-blackboard"></span><span>کلاس ها</span></li></a>
-        <a href="{% url 'student:exam' %}"><li><i class="far fa-check-square"></i><span>آزمون ها</span></li></a>
+        {% url 'student:exam' as exam %}
+        <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}
+        closed-sidebar
+        {% endif %}"><li><i class="far fa-check-square"></i><span>آزمون ها</span></li></a>
         <a href="#"><li><span class="ti-comments"></span><span>گفتگو </span></li></a>
         <a href="#"><li><i class="far fa-calendar"></i><span>برنامه درسی</span></li></a>
     </ul>
