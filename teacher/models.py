@@ -18,6 +18,7 @@ class Exam(models.Model):
     teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     class_name = models.CharField
     date = models.DateField(default=now, blank=True, null=True)
+    code = models.CharField(max_length=100, blank=True, null=True)
     GRADE = (
         ('12', 'کنکوری'),
         ('11', 'پایه یازدهم'),

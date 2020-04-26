@@ -2,6 +2,7 @@ from django.shortcuts import render
 from main.models import Notification, Message
 from teacher.models import Exam
 from .models import StudentForm, ExamResult
+import ast
 
 
 # Create your views here.
@@ -34,32 +35,71 @@ def percentCalc(key, ans):
             T = T + 1
         elif ans[i] != "0":
             F = F + 1
-    percent = (T * 3 - F) / (n * 3)
+    percent = 0
+    if n != 0:
+        percent = (T * 3 - F) / (n * 3)
     return "{0:.2f}".format(percent * 100).rstrip('0').rstrip('.')
 
 
-def examResult(user, exam_date):
+def levelCalc(code, key, first, end, percent):
+    allResults = ExamResult.objects.filter(code=code)
+    ave = 0
+    for i in range(len(allResults)):
+        ave = ave + float(percentCalc(key, allResults[i].answers[first:end + 1]))
+    ave = ave / len(allResults)
+    sigma = 0
+    for i in range(len(allResults)):
+        sigma = sigma + (ave - float(percentCalc(key, allResults[i].answers[first:end + 1]))) ** 2
+    sigma = (sigma / len(allResults)) ** 0.5
+
+    print(sigma)
+    if sigma != 0:
+        z = (float(percent) - ave) / sigma
+    else:
+        z = 0
+    level = 2000 * z + 500
+    return "{0:.2f}".format(level).rstrip('0').rstrip('.')
+
+
+def examResult(user, code):
     result = list()
-    user_ans = list(ExamResult.objects.filter(user=user, date=exam_date).first().answers)
-    if Exam.objects.filter(date=exam_date).first().is_online:
+    user_ans = list(ExamResult.objects.filter(user=user, code=code).first().answers)
+    if Exam.objects.filter(code=code).first().is_online:
         exam_key = user_ans  # # TODO: when is_online=True => get Exam key from question code
     else:
-        exam_key = list(Exam.objects.filter(date=exam_date).first().examKey)
-        mapper = str(Exam.objects.filter(date=exam_date).first().keyMapper)
-        while mapper != "":
-            lesson_data = {}
-            dash = mapper.find("-")
-            plus = mapper.find("+")
-            key = mapper[:dash]
-            lesson_data.update({'name': key})
-            question_num = list(map(int, mapper[dash + 1:plus]))
-            lesson_data.update({'percent': percentCalc(
-                exam_key[question_num[0]:question_num[-1] + 1],
-                user_ans[question_num[0]:question_num[-1] + 1])
-            })
-            result.append(lesson_data)
-            mapper = mapper[plus + 1:]
-            print(exam_key[question_num[0]:question_num[-1] + 1])
+        # {'om':{'ada':'01','arab':'23'},'ekh':{'gos':'45','sh':'67'}}
+        exam_key = list(Exam.objects.filter(code=code).first().examKey)
+        # while mapper != "":
+        #     lesson_data = {}
+        #     dash = mapper.find("-")
+        #     plus = mapper.find("+")
+        #     key = mapper[:dash]
+        #     lesson_data.update({'name': key})
+        #     question_num = list(map(int, mapper[dash + 1:plus]))
+        #     lesson_data.update({'percent': percentCalc(
+        #         exam_key[question_num[0]:question_num[-1] + 1],
+        #         user_ans[question_num[0]:question_num[-1] + 1])
+        #     })
+        #     result.append(lesson_data)
+        #     mapper = mapper[plus + 1:]
+        mapper = ast.literal_eval(str(Exam.objects.filter(code=code).first().keyMapper))
+        for i in range(len(mapper)):
+            value = list(mapper.values())[i]
+            key = list(mapper.keys())[i]
+            data = {}
+            lesson_data = list()
+            for j in range(len(value)):
+                dict_data = {}
+                first = int(list(value.values())[j][0])
+                end = int(list(value.values())[j][-1])
+                percent = percentCalc(exam_key[first:end + 1], user_ans[first:end + 1])
+                dict_data.update({'name': list(value.keys())[j],
+                                  'percent': percent,
+                                  'level': levelCalc(code, exam_key[first:end + 1], first, end, percent)
+                                  })
+                lesson_data.append(dict_data)
+            data.update({'type': key, 'lessonDate': lesson_data})
+            result.append(data)
 
     data = {
         'ans': user_ans,
@@ -77,5 +117,5 @@ def index(request):
 def exam(request):
     user = commonData(request)
     exams = ExamResult.objects.filter(user=request.user.student).order_by('-date')
-    data = examResult(request.user.student, exams.first().date)
+    data = examResult(request.user.student, exams.first().code)
     return render(request, 'student/exam.html', {'user': user, 'exams': exams, 'data': data})
