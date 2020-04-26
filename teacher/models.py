@@ -1,5 +1,3 @@
-import datetime
-
 import jdatetime
 from django.contrib.auth.models import User
 from main.models import Teacher, Student
@@ -19,7 +17,7 @@ class TeacherForm(models.Model):
 class Exam(models.Model):
     teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     class_name = models.CharField
-    date = models.DateField(default=now(), blank=True, null=True)
+    date = models.DateField(default=now, blank=True, null=True)
     GRADE = (
         ('12', 'کنکوری'),
         ('11', 'پایه یازدهم'),
@@ -71,7 +69,7 @@ class Question(models.Model):
 class ClassRoom(models.Model):
     name = models.CharField(max_length=1000)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-    students = models.ManyToManyField(Student, blank=True, null=True)
+    students = models.ManyToManyField(Student, blank=True)
 
     def __str__(self):
         return self.name
