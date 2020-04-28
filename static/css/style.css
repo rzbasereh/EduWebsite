@@ -855,8 +855,6 @@ h1 {
 }
 
 .pack {
-    width: 25%;
-    height: 50%;
     background-color: #F8FAFB;
     border-radius: 5px;
     direction: ltr !important;
@@ -880,6 +878,12 @@ h1 {
     background-color: #FFFFFF;
     -webkit-border-radius: 4px;
     border: 1px solid #8697A850;
+    display: inline-block;
+    margin-left: 5px;
+}
+.choice-pack div span:first-child {
+    background-color: transparent;
+    border: none;
 }
 
 .true-choice {
