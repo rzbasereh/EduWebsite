@@ -910,30 +910,32 @@ h1 {
     content: "";
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 0;
     width: 0px;
-    height: 15px;
+    height: 14px;
     border: solid #FF3D57;
     border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(53deg) translate(-50% , -50%);
-    -ms-transform: rotate(53deg) translate(-50% , -50%);
-    -moz-transform: rotate(53deg) translate(-50% , -50%);
-    transform: rotate(53deg) translate(-50% , -50%);
+    transform-origin: center;
+    -webkit-transform: rotate(53deg) ;
+    -ms-transform: rotate(53deg);
+    -moz-transform: rotate(53deg);
+    transform: rotate(53deg) ;
 }
 
 .false-choice:after {
     content: "";
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 0;
     width: 0px;
-    height: 15px;
+    height: 14px;
     border: solid #FF3D57;
     border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(-53deg) translate(-50% , -50%);
-    -ms-transform: rotate(-53deg) translate(-50% , -50%);
-    -moz-transform: rotate(-53deg) translate(-50% , -50%);
-    transform: rotate(-53deg) translate(-50% , -50%);
+    transform-origin: center;
+    -webkit-transform: rotate(-53deg);
+    -ms-transform: rotate(-53deg);
+    -moz-transform: rotate(-53deg);
+    transform: rotate(-53deg);
 }
 
 .filled-choice {
