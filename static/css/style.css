@@ -809,8 +809,8 @@ h1 {
     padding-left: 35px;
 }
 
-.middle-row > .form-group:last-child > .ti-angle-down {
-    left: 108%;
+.middle-row > .form-group > .ti-angle-down {
+    left: 10px;
 }
 
 .bottom-row .col-5 {
