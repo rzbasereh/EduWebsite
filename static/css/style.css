@@ -863,15 +863,11 @@ h1 {
     padding: 10px;
 }
 
-.number-pack {
-    float: left;
-}
-
 .choice-pack {
     padding-top: 4px;
 }
 
-.choice-pack div span {
+.pack div span {
     position: relative;
     height: 15px;
     width: 20px;
@@ -880,8 +876,9 @@ h1 {
     border: 1px solid #8697A850;
     display: inline-block;
     margin-left: 5px;
+    font-size: 15px;
 }
-.choice-pack div span:first-child {
+.pack span:first-child {
     background-color: transparent;
     border: none;
 }
@@ -940,7 +937,7 @@ h1 {
 }
 
 .filled-choice {
-    background-color: #44566C !important;
+    background-color: #000000 !important;
 }
 .form-group {
     position: relative;

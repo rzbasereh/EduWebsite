@@ -57,42 +57,26 @@
         <div class="col-7">
             <div class="card">
                 <div class="card-body">
-                    <h1>پاسخبرگ</h1>
-                    <div class="pack">
-                        <div class="choice-pack">
-                            <div>
-                                <span>1.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>2.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>3.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>4.</span><span></span><span class="false-choice"></span><span class="true-choice"></span><span
-                                        class="filled-choice"></span>
-                            </div>
-                            <div>
-                                <span>5.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>6.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>7.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>8.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>9.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>10.</span><span></span><span></span><span></span><span></span>
-                            </div>
+                <h1>پاسخبرگ</h1>
+                    {% for keys in  data.keys %}
+                        {% if forloop.counter0|divisibleby:10 %}
+                            <div class="pack">
+                        {% endif %}
+                        <div>
+                            <span>
+                                {{ forloop.counter0 }}
+                                .
+                            </span>
+                        {% for key in "0123"|make_list %}
+                            <span {% if forloop.counter0 == data.ans %}
+                            class="filled-choice"
+                            {% endif %}></span>
+                        {% endfor %}
                         </div>
-                    </div>
+                        {% if forloop.counter0|add:1|divisibleby:10 %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

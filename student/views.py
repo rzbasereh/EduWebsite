@@ -115,7 +115,7 @@ def examResult(user, code):
             result.append(data)
     data = {
         'ans': user_ans,
-        'key': exam_key,
+        'keys': exam_key,
         'result': result,
     }
     return data
