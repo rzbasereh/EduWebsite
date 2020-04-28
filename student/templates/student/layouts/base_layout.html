@@ -64,7 +64,7 @@
                 <span>داشبورد</span></li>
         </a>
         <a href="#">
-            <li><span class="ti-blackboard"></span><span>کلاس ها</span></li>
+            <li><i class="ti-blackboard"></i><span>کلاس ها</span></li>
         </a>
         {% url 'student:exam' as exam %}
         <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}
@@ -73,7 +73,7 @@
             <li><i class="far fa-check-square"></i><span>آزمون ها</span></li>
         </a>
         <a href="#">
-            <li><span class="ti-comments"></span><span>گفتگو </span></li>
+            <li><i class="ti-comments"></i><span>گفتگو </span></li>
         </a>
         <a href="#">
             <li><i class="far fa-calendar"></i><span>برنامه درسی</span></li>

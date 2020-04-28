@@ -474,15 +474,16 @@ h1 {
     padding-right: 30px;
     padding-top: 13px;
     padding-bottom: 13px;
+    position: relative;
 }
 
 .sidebar a:first-child svg {
     font-size: 17px;
-    margin-left: 10px;
 }
 
 .sidebar span {
     z-index: 1;
+    padding-right: 10px;
 }
 
 .sidebar a:hover {
@@ -623,12 +624,9 @@ h1 {
     content: '';
     position: absolute;
     right: 0;
-    -webkit-transform: translateY(-27%);
-    -moz-transform: translateY(-27%);
-    -ms-transform: translateY(-27%);
-    -o-transform: translateY(-27%);
+    top: 0;
     width: 6px;
-    height: 7%;
+    height: 100%;
     -webkit-border-bottom-left-radius: 3px;
     border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
@@ -695,6 +693,7 @@ h1 {
 
 .sidebar > ul > a {
     color: #343A40;
+    margin-bottom: 5px;
 }
 
 .sidebar > ul > a:hover {
@@ -943,9 +942,9 @@ h1 {
     height: 20px;
     border: solid #FF3D57;
     border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(53deg);
+    -ms-transform: rotate(53deg);
+    -moz-transform: rotate(53deg);
     transform: rotate(53deg);
 }
 
@@ -958,9 +957,9 @@ h1 {
     height: 20px;
     border: solid #FF3D57;
     border-width: 0px 1px 1px 0px;
-    -webkit-transform: rotate(-45deg);
-    -ms-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(-53deg);
+    -ms-transform: rotate(-53deg);
+    -moz-transform: rotate(-53deg);
     transform: rotate(-53deg);
 }
 
