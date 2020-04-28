@@ -57,51 +57,26 @@
         <div class="col-7">
             <div class="card">
                 <div class="card-body">
-                    <h1>پاسخبرگ</h1>
-                    {% for key in data.keys %}
+                <h1>پاسخبرگ</h1>
+                    {% for key, ans in  data.key_ans %}
                         {% if forloop.counter0|divisibleby:10 %}
                             <div class="pack">
-                            {{ forloop.counter0|divisibleby:10 }}
                         {% endif %}
-                        {% if not forloop.counter0|add:1|divisibleby:10 == 0 %}
+                        <div>
+                            <span>
+                                {{ forloop.counter }}
+                                .
+                            </span>
+                        {% for i in "1234"|make_list %}
+                            <span {% if ans == key and ans == i %}
+                            class="filled-choice"
+                            {% endif %}></span>
+                        {% endfor %}
+                        </div>
+                        {% if forloop.counter0|add:1|divisibleby:10 or forloop.last %}
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <div class="pack">
-                        <div class="choice-pack">
-                            <div>
-                                <span>1.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>2.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>3.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>4.</span><span></span><span class="false-choice"></span><span class="true-choice"></span><span
-                                        class="filled-choice"></span>
-                            </div>
-                            <div>
-                                <span>5.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>6.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>7.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>8.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>9.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div>
-                                <span>10.</span><span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
