@@ -113,9 +113,9 @@ def examResult(user, code):
                 lesson_data.append(dict_data)
             data.update({'type': key, 'lessonDate': lesson_data})
             result.append(data)
+    key_ans = zip(exam_key, user_ans)
     data = {
-        'ans': user_ans,
-        'key': exam_key,
+        'key_ans': key_ans,
         'result': result,
     }
     return data
