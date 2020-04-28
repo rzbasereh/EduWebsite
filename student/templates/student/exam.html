@@ -1,8 +1,112 @@
-
-    {{ data.ans }}<br>
-    {{ data.key }}<br>
-    {{ data.result }}
-
-    {% for res in data.result %}
-        {{ res.lessonData }}
-    {% endfor %}
+{% extends 'student/layouts/base_layout.html' %}
+{% block title %}exam{% endblock %}
+{% block content %}
+    <div class="row top-row"></div>
+    <div class="row">
+        <h1>کارنامه آزمون ها</h1>
+    </div>
+    <div class="row middle-row">
+        <div class="form-group col-md-4">
+            <select id="inputStateBig" class="form-control">
+                <option selected>12 فروردین 1399</option>
+            </select>
+            <span class="ti-angle-down"></span>
+            <span class="ti-calendar" id="index-calender"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <select id="inputStateSmall" class="form-control">
+                <option selected>همه</option>
+            </select>
+            <span class="ti-angle-down"></span>
+        </div>
+    </div>
+    <div class="row bottom-row">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <h1>نتیجه آزمون</h1>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">وضعیت کلی</th>
+                            <th scope="col">تراز</th>
+                            <th scope="col">رتبه در کلاس</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">کل</th>
+                            <td>7800</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">اختصاصی</th>
+                            <td>8000</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">عمومی</th>
+                            <td>7400</td>
+                            <td>5</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="card">
+                <div class="card-body">
+                    <h1>پاسخبرگ</h1>
+                    <div class="pack">
+                        <div class="number-pack">
+                            <div>1.</div>
+                            <div>2.</div>
+                            <div>3.</div>
+                            <div>4.</div>
+                            <div>5.</div>
+                            <div>6.</div>
+                            <div>7.</div>
+                            <div>8.</div>
+                            <div>9.</div>
+                            <div>10.</div>
+                        </div>
+                        <div class="choice-pack">
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span class="false-choice"></span><span class="true-choice"></span><span
+                                        class="filled-choice"></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div>&nbsp;
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
