@@ -18,7 +18,8 @@ class StudentForm(models.Model):
 
 class ExamResult(models.Model):
     user = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True, null=True)
-    date = models.DateField(default=now())
+    date = models.DateField(default=now)
+    code = models.CharField(max_length=100, blank=True, null=True)
     TYPE = (
         ('12', 'کنکوری'),
         ('11', 'پایه یازدهم'),

@@ -1,10 +1,8 @@
-import datetime
-
 import jdatetime
 from django.contrib.auth.models import User
 from main.models import Teacher, Student
 from django.db import models
-from django.utils.timezone import now
+from django.utils.timezone import now, timedelta
 
 
 # Create your models here.
@@ -16,10 +14,9 @@ class TeacherForm(models.Model):
         return self.user.get_full_name()
 
 
-class Exam(models.Model):
-    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-    class_name = models.CharField
-    date = models.DateField(default=now(), blank=True, null=True)
+class ClassRoom(models.Model):
+    name = models.CharField(max_length=1000)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     GRADE = (
         ('12', 'کنکوری'),
         ('11', 'پایه یازدهم'),
@@ -31,7 +28,56 @@ class Exam(models.Model):
         ('2', 'ریاضی و فیزیک'),
         ('3', 'انسانی'),
     )
-    filed = models.CharField(choices=FIELD, max_length=2, blank=True, null=True)
+    field = models.CharField(choices=FIELD, max_length=2, blank=True, null=True)
+    students = models.ManyToManyField(Student, blank=True)
+    initial_date = models.DateField(default=now)
+    validate_date = models.DateField(default=now() + timedelta(days=30))
+
+    def __str__(self):
+        return self.name
+
+
+class Question(models.Model):
+    author = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    body = models.TextField()
+    correct_ans = models.CharField(max_length=1, blank=True, null=True)
+    verbose_ans = models.TextField()
+    GRADE = (
+        ('12', 'دوازدهم'),
+        ('11', 'یازدهم'),
+        ('10', 'دهم'),
+        ('10', 'نهم'),
+    )
+    grade = models.CharField(choices=GRADE, max_length=2, blank=True, null=True)
+    lesson = models.CharField(max_length=100, blank=True, null=True)
+    chapter = models.CharField(max_length=500, blank=True, null=True)
+    head_line = models.CharField(max_length=1000, blank=True, null=True)
+    SOURCE = (
+        ('Author', 'تالیفی'),
+        ('Entrance', 'کنکور سراسری'),
+        ('Kanoon', 'قلم چی')
+    )
+    source = models.CharField(choices=SOURCE, max_length=10, blank=True, null=True)
+    LEVEL = (
+        ('1', 'ساده'),
+        ('2', 'متوسط'),
+        ('3', 'دشوار'),
+        ('4', 'دشوارتر'),
+    )
+    level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
+
+    def __str__(self):
+        return self.grade
+
+
+class Exam(models.Model):
+    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    className = models.ManyToManyField(ClassRoom, blank=True)
+    initial_date = models.DateTimeField(default=now, blank=True, null=True)
+    hold_from = models.DateTimeField(blank=True, null=True)
+    hold_to = models.DateTimeField(blank=True, null=True)
+    preview = models.BooleanField(default=False)
+    code = models.CharField(max_length=100, blank=True, null=True)
     is_online = models.BooleanField(default=False)
     examKey = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
     keyMapper = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
@@ -39,42 +85,11 @@ class Exam(models.Model):
     def __str__(self):
         jdatetime.set_locale(locale='fa_IR')
         date = jdatetime.date.fromgregorian(
-            day=self.date.day,
-            month=self.date.month,
-            year=self.date.year
+            day=self.initial_date.day,
+            month=self.initial_date.month,
+            year=self.initial_date.year
         )
         return date.strftime('%d %B %y')
-
-
-class Question(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    body = models.TextField()
-    correct_ans = models.CharField(max_length=1, blank=True, null=True)
-    verbose_ans = models.TextField()
-    GRADE = (
-        ('12', 'کنکوری'),
-        ('11', 'پایه یازدهم'),
-        ('10', 'پایه دهم'),
-    )
-    grade = models.CharField(choices=GRADE, max_length=2, blank=True, null=True)
-    SOURCE = (
-        ('Author', 'تالیفی'),
-        ('Entrance', 'کنکور سراسری'),
-        ('Kanoon', 'قلم چی')
-    )
-    source = models.CharField(choices=SOURCE, max_length=10, blank=True, null=True)
-
-    def __str__(self):
-        return self.grade
-
-
-class ClassRoom(models.Model):
-    name = models.CharField(max_length=1000)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-    students = models.ManyToManyField(Student, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
 
 # class Report(models.Model):
 #     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
