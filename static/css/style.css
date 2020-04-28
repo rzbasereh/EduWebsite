@@ -261,6 +261,7 @@ input[type="password"]:hover {
 }
 
 #inputStateSmall {
+    position: relative;
     direction: rtl;
     -webkit-appearance: none;
     font-size: small;
@@ -292,11 +293,12 @@ input[type="password"]:hover {
     box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
 }
 
-#index-calender {
+.select-icon {
     position: absolute;
-    right: 23px;
-    top: 30%;
+    right: 10px;
+    top: 50%;
     font-size: small;
+    transform: translateY(-50%);
 }
 
 .form-control:hover {
@@ -800,13 +802,11 @@ h1 {
 }
 
 .middle-row > .form-group:first-child > .ti-angle-down {
-    left: 45%;
+    left: 10px;
 }
 
 .middle-row > .form-group:last-child > select {
-    max-width: 20%;
-    left: 30% !important;
-    position: relative;
+    padding-left: 35px;
 }
 
 .middle-row > .form-group:last-child > .ti-angle-down {
@@ -967,4 +967,7 @@ h1 {
 
 .filled-choice {
     background-color: #44566C !important;
+}
+.form-group {
+    position: relative;
 }
