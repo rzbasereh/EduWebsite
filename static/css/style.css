@@ -794,7 +794,9 @@ h1 {
 }
 
 .middle-row > .form-group:first-child > select {
-    max-width: 60% !important;
+    width: fit-content;
+    padding-left: 35px;
+    position: relative;
 }
 
 .middle-row > .form-group:first-child > .ti-angle-down {
