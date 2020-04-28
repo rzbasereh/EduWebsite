@@ -52,13 +52,24 @@ def levelCalc(code, key, first, end, percent):
         sigma = sigma + (ave - float(percentCalc(key, allResults[i].answers[first:end + 1]))) ** 2
     sigma = (sigma / len(allResults)) ** 0.5
 
-    print(sigma)
     if sigma != 0:
         z = (float(percent) - ave) / sigma
     else:
         z = 0
-    level = 2000 * z + 500
+    level = 900 * z + 6000
     return "{0:.2f}".format(level).rstrip('0').rstrip('.')
+
+
+def rankCalc(code, key, first, end, level):
+    levels = list()
+    allResults = ExamResult.objects.filter(code=code)
+    for i in range(len(allResults)):
+        user_percent = percentCalc(key, allResults[i].answers[first: end + 1])
+        user_level = levelCalc(code, key, first, end, user_percent)
+        levels.append(user_level)
+    levels = list(dict.fromkeys(levels))
+    rank = sorted(levels, reverse=True).index(level) + 1
+    return rank
 
 
 def examResult(user, code):
@@ -93,14 +104,15 @@ def examResult(user, code):
                 first = int(list(value.values())[j][0])
                 end = int(list(value.values())[j][-1])
                 percent = percentCalc(exam_key[first:end + 1], user_ans[first:end + 1])
+                level = levelCalc(code, exam_key[first:end + 1], first, end, percent)
                 dict_data.update({'name': list(value.keys())[j],
                                   'percent': percent,
-                                  'level': levelCalc(code, exam_key[first:end + 1], first, end, percent)
+                                  'level': level,
+                                  'rank': rankCalc(code, exam_key[first:end + 1], first, end, level)
                                   })
                 lesson_data.append(dict_data)
             data.update({'type': key, 'lessonDate': lesson_data})
             result.append(data)
-
     data = {
         'ans': user_ans,
         'key': exam_key,
