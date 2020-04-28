@@ -57,25 +57,29 @@
         <div class="col-7">
             <div class="card">
                 <div class="card-body">
-                <h1>پاسخبرگ</h1>
+                    <h1>پاسخبرگ</h1>
                     {% for key, ans in  data.key_ans %}
                         {% if forloop.counter0|divisibleby:10 %}
                             <div class="pack">
                         {% endif %}
-                        <div>
+                    <div>
                             <span>
                                 {{ forloop.counter }}
                                 .
                             </span>
                         {% for i in "1234"|make_list %}
                             <span {% if ans == key and ans == i %}
-                            class="filled-choice"
+                                class="filled-choice"
+                            {% elif ans == i %}
+                                class="false-choice"
+                            {% elif key == i %}
+                                class="true-choice"
                             {% endif %}></span>
                         {% endfor %}
+                    </div>
+                    {% if forloop.counter0|add:1|divisibleby:10 or forloop.last %}
                         </div>
-                        {% if forloop.counter0|add:1|divisibleby:10 or forloop.last %}
-                            </div>
-                        {% endif %}
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

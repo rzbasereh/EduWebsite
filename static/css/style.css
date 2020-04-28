@@ -291,11 +291,12 @@ input[type="password"]:hover {
     -moz-border-radius: 5px;
     padding-right: 30px;
     box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
+    margin-right: 15px;
 }
 
 .select-icon {
     position: absolute;
-    right: 10px;
+    right: 25px;
     top: 50%;
     font-size: small;
     transform: translateY(-50%);
@@ -795,6 +796,14 @@ h1 {
     padding-right: 15px;
 }
 
+.form-group {
+    position: relative;
+}
+
+.middle-row > .form-group:last-child {
+    right: 50px !important;
+}
+
 .middle-row > .form-group:first-child > select {
     width: fit-content;
     padding-left: 35px;
@@ -878,6 +887,7 @@ h1 {
     margin-left: 5px;
     font-size: 15px;
 }
+
 .pack span:first-child {
     background-color: transparent;
     border: none;
@@ -916,10 +926,10 @@ h1 {
     border: solid #FF3D57;
     border-width: 0px 1px 1px 0px;
     transform-origin: center;
-    -webkit-transform: rotate(53deg) ;
+    -webkit-transform: rotate(53deg);
     -ms-transform: rotate(53deg);
     -moz-transform: rotate(53deg);
-    transform: rotate(53deg) ;
+    transform: rotate(53deg);
 }
 
 .false-choice:after {
@@ -940,7 +950,4 @@ h1 {
 
 .filled-choice {
     background-color: #000000 !important;
-}
-.form-group {
-    position: relative;
 }
