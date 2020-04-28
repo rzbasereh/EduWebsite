@@ -873,42 +873,12 @@ h1 {
     padding-top: 4px;
 }
 
-.choice-pack div span:first-child {
-    position: absolute;
+.choice-pack div span {
+    position: relative;
     height: 15px;
     width: 20px;
     background-color: #FFFFFF;
     -webkit-border-radius: 4px;
-    border: 1px solid #8697A850;
-}
-
-.choice-pack div span:nth-child(2) {
-    position: absolute;
-    height: 15px;
-    width: 20px;
-    background-color: #FFFFFF;
-    -webkit-border-radius: 4px;
-    margin-left: 30px;
-    border: 1px solid #8697A850;
-}
-
-.choice-pack div span:nth-child(3) {
-    position: absolute;
-    height: 15px;
-    width: 20px;
-    background-color: #FFFFFF;
-    -webkit-border-radius: 4px;
-    margin-left: 60px;
-    border: 1px solid #8697A850;
-}
-
-.choice-pack div span:last-child {
-    position: absolute;
-    height: 15px;
-    width: 20px;
-    background-color: #FFFFFF;
-    -webkit-border-radius: 4px;
-    margin-left: 90px;
     border: 1px solid #8697A850;
 }
 
