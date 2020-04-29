@@ -20,8 +20,11 @@
                     <button type="button" class="btn btn-blue">Login</button>
                 </a>
             {% else %}
-                <a href="{% url 'logout' %}">
-                    <button type="button" class="btn btn-danger">Logout</button>
+                <a href="{% url 'student:index' %}">
+                    <button type="button" class="btn btn-success">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </button>
                 </a>
             {% endif %}
         </div>

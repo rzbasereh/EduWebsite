@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from main.models import Notification, Message
-from teacher.models import Exam
+from teacher.models import Exam, QuestionPack
 from .models import StudentForm, ExamResult
 import ast
 
@@ -76,23 +76,26 @@ def examResult(user, code):
     result = list()
     user_ans = list(ExamResult.objects.filter(user=user, code=code).first().answers)
     if Exam.objects.filter(code=code).first().is_online:
-        exam_key = user_ans  # # TODO: when is_online=True => get Exam key from question code
+        questions = QuestionPack.objects.filter(exam_code=code).first().questions
+        lessons = list()
+        for question in questions.all():
+            lessons.append(question.lesson)
+        lessons = list(dict.fromkeys(lessons))
+        lesson_data = list()
+        for lesson in lessons:
+            dict_data = {}
+            # percent = percentCalc(,)
+            # level = levelCalc(code, exam_key[first:end + 1], first, end, percent)
+            dict_data.update({'name': lesson,
+                              'percent': "",
+                              'level': "",
+                              'rank': "",
+                              })
+            lesson_data.append(dict_data)
+        print(lesson_data)
+        exam_key = user_ans
     else:
-        # {'om':{'ada':'01','arab':'23'},'ekh':{'gos':'45','sh':'67'}}
         exam_key = list(Exam.objects.filter(code=code).first().examKey)
-        # while mapper != "":
-        #     lesson_data = {}
-        #     dash = mapper.find("-")
-        #     plus = mapper.find("+")
-        #     key = mapper[:dash]
-        #     lesson_data.update({'name': key})
-        #     question_num = list(map(int, mapper[dash + 1:plus]))
-        #     lesson_data.update({'percent': percentCalc(
-        #         exam_key[question_num[0]:question_num[-1] + 1],
-        #         user_ans[question_num[0]:question_num[-1] + 1])
-        #     })
-        #     result.append(lesson_data)
-        #     mapper = mapper[plus + 1:]
         mapper = ast.literal_eval(str(Exam.objects.filter(code=code).first().keyMapper))
         for i in range(len(mapper)):
             value = list(mapper.values())[i]

@@ -1,6 +1,7 @@
 import jdatetime
 from django.contrib.auth.models import User
 from main.models import Teacher, Student
+from manager.models import Lesson, Chapter, HeadLine
 from django.db import models
 from django.utils.timezone import now, timedelta
 
@@ -40,18 +41,16 @@ class ClassRoom(models.Model):
 class Question(models.Model):
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     body = models.TextField()
+    choice_1 = models.CharField(max_length=1000, blank=True, null=True)
+    choice_2 = models.CharField(max_length=1000, blank=True, null=True)
+    choice_3 = models.CharField(max_length=1000, blank=True, null=True)
+    choice_4 = models.CharField(max_length=1000, blank=True, null=True)
+    choice_5 = models.CharField(max_length=1000, blank=True, null=True)
     correct_ans = models.CharField(max_length=1, blank=True, null=True)
-    verbose_ans = models.TextField()
-    GRADE = (
-        ('12', 'دوازدهم'),
-        ('11', 'یازدهم'),
-        ('10', 'دهم'),
-        ('10', 'نهم'),
-    )
-    grade = models.CharField(choices=GRADE, max_length=2, blank=True, null=True)
-    lesson = models.CharField(max_length=100, blank=True, null=True)
-    chapter = models.CharField(max_length=500, blank=True, null=True)
-    head_line = models.CharField(max_length=1000, blank=True, null=True)
+    verbose_ans = models.TextField(null=True, blank=True)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, blank=True, null=True)
+    head_line = models.ForeignKey(HeadLine, on_delete=models.CASCADE, blank=True, null=True)
     SOURCE = (
         ('Author', 'تالیفی'),
         ('Entrance', 'کنکور سراسری'),
@@ -67,7 +66,7 @@ class Question(models.Model):
     level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
 
     def __str__(self):
-        return self.grade
+        return self.lesson.name
 
 
 class Exam(models.Model):
@@ -90,6 +89,14 @@ class Exam(models.Model):
             year=self.initial_date.year
         )
         return date.strftime('%d %B %y')
+
+
+class QuestionPack(models.Model):
+    exam_code = models.CharField(max_length=100, blank=True, null=True)
+    questions = models.ManyToManyField(Question)
+
+    def __str__(self):
+        return self.exam_code
 
 # class Report(models.Model):
 #     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
