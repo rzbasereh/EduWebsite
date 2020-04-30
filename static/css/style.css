@@ -392,6 +392,11 @@ h1 {
     color: #007BFF;
 }
 
+.Anchor {
+    position: relative;
+    top: 5px;
+}
+
 .Anchor:hover {
     text-decoration: none;
     color: #007BFF;
@@ -525,8 +530,8 @@ h1 {
 
 .showSlideBar a:hover {
     border-radius: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
     background-color: #F8FAFB;
 }
 
@@ -870,13 +875,14 @@ h1 {
     float: left;
     margin-left: 10px;
     padding: 10px;
+    border-collapse: separate;
 }
 
 .choice-pack {
     padding-top: 4px;
 }
 
-.pack div span {
+.pack tr span {
     position: relative;
     height: 15px;
     width: 20px;
@@ -888,9 +894,10 @@ h1 {
     font-size: 15px;
 }
 
-.pack span:first-child {
+.pack td:first-child span {
     background-color: transparent;
     border: none;
+    white-space: nowrap;
 }
 
 .true-choice {
@@ -950,4 +957,93 @@ h1 {
 
 .filled-choice {
     background-color: #000000 !important;
+}
+
+.no-padding-Page-Body {
+    padding: 0px;
+    overflow: hidden;
+}
+
+.question-sidebar {
+    border-left: 1px solid #8697A8;
+    width: 200px;
+    background-color: #ffffff;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    direction: rtl;
+    padding: 0px !important;
+}
+
+.question-sidebar .btn-blue {
+    margin: 20px 0px 20px 47px;
+    box-shadow: none !important;
+}
+
+.question-sidebar a {
+    display: flex;
+    padding: 10px 30px;
+    position: relative;
+    color: #343A40;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.question-sidebar a:nth-child(4) {
+    padding-right: 15px !important;
+}
+
+.question-sidebar i {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.question-page-body {
+    position: absolute;
+    left: 0;
+    padding: 0 !important;
+    overflow: scroll;
+    height: 100%;
+    max-width: calc(100% - 200px) !important;
+}
+
+.question-page-body h1 span {
+    opacity: 60%;
+}
+
+.question-page-body .input-group {
+    width: 30% !important;
+    position: absolute;
+    left: 0;
+    margin-left: 25px;
+    box-shadow: 0 5px 10px #00000015, 0 15px 40px #00000015;
+}
+
+.question-page-body .input-group input {
+    font-size: 12px !important;
+}
+
+.question-page-body .ti-search {
+    top: 20px !important;
+}
+
+.path {
+    width: fit-content;
+    margin-right: 15px;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.path span {
+    color: #8697A8 !important;
+}
+
+.path span a {
+    color: #8697A8;
+}
+
+.path span a:last-child {
+    color: #343A40 !important;
 }

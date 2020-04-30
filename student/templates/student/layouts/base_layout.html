@@ -11,7 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="topDrive">
+<div class="topDrive {% block change-top-drive %}{% endblock %}">
     <div class="dropdown firstDropdown">
         <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
@@ -48,7 +48,7 @@
     </div>
     <i class="fas fa-sliders-h"></i>
 </div>
-<div class="sidebar">
+<div class="sidebar {% block change-sidebar %}{% endblock %}">
     <ul>
         {% url 'student:index' as index %}
         <a href="{% url 'student:index' %}" class="{% if request.path == index %}
@@ -61,26 +61,26 @@
                           d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
                           clip-rule="evenodd"/>
                 </svg>
-                <span>داشبورد</span></li>
+                <span class="{% block remove-text %}{% endblock %}">داشبورد</span></li>
         </a>
         <a href="#">
-            <li><i class="ti-blackboard"></i><span>کلاس ها</span></li>
+            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>
         </a>
         {% url 'student:exam' as exam %}
         <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}
          active
         {% endif %}">
-            <li><i class="far fa-check-square"></i><span>آزمون ها</span></li>
+            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span></li>
         </a>
         <a href="#">
-            <li><i class="ti-comments"></i><span>گفتگو </span></li>
+            <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
         </a>
         <a href="#">
-            <li><i class="far fa-calendar"></i><span>برنامه درسی</span></li>
+            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span></li>
         </a>
     </ul>
 </div>
-<div class="Page-Body" id="content">
+<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}" id="content">
     {% block content %}{% endblock %}
 </div>
 

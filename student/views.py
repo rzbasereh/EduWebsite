@@ -131,3 +131,7 @@ def exam(request):
     exams = ExamResult.objects.filter(user=request.user.student).order_by('-date')
     data = examResult(request.user.student, exams.first().code)
     return render(request, 'student/exam.html', {'user': user, 'exams': exams, 'data': data})
+
+
+def questionBank(request):
+    return render(request, 'student/questionBank.html', {})

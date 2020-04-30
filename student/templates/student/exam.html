@@ -25,32 +25,28 @@
             <div class="card">
                 <div class="card-body">
                     <h1>نتیجه آزمون</h1>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">وضعیت کلی</th>
-                            <th scope="col">تراز</th>
-                            <th scope="col">رتبه در کلاس</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">کل</th>
-                            <td>7800</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">اختصاصی</th>
-                            <td>8000</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">عمومی</th>
-                            <td>7400</td>
-                            <td>5</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    {% for table in data.result %}
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">{{ table.type }}</th>
+                                <th scope="col">درصد</th>
+                                <th scope="col">تراز</th>
+                                <th scope="col">رتبه</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for rows in table.lessonDate %}
+                                <tr>
+                                    <td class="text-right">{{ rows.name }}</td>
+                                    <td>{{ rows.percent }}</td>
+                                    <td>{{ rows.level }}</td>
+                                    <td>{{ rows.rank }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -60,14 +56,17 @@
                     <h1>پاسخبرگ</h1>
                     {% for key, ans in  data.key_ans %}
                         {% if forloop.counter0|divisibleby:10 %}
-                            <div class="pack">
+                            <table class="pack">
                         {% endif %}
-                    <div>
+                    <tr>
+                        <td>
                             <span>
                                 {{ forloop.counter }}
                                 .
                             </span>
+                        </td>
                         {% for i in "1234"|make_list %}
+                            <td>
                             <span {% if ans == key and ans == i %}
                                 class="filled-choice"
                             {% elif ans == i %}
@@ -75,10 +74,11 @@
                             {% elif key == i %}
                                 class="true-choice"
                             {% endif %}></span>
+                            </td>
                         {% endfor %}
-                    </div>
+                    </tr>
                     {% if forloop.counter0|add:1|divisibleby:10 or forloop.last %}
-                        </div>
+                        </table>
                     {% endif %}
                     {% endfor %}
                 </div>
