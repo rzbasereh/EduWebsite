@@ -980,6 +980,10 @@ h1 {
     box-shadow: none !important;
 }
 
+.question-sidebar .btn-blue svg {
+    font-size: 17px;
+}
+
 .question-sidebar a {
     display: flex;
     padding: 10px 30px;
@@ -1012,7 +1016,7 @@ h1 {
 }
 
 .question-page-body .input-group {
-    width: 30% !important;
+    width: 25% !important;
     position: absolute;
     left: 0;
     margin-left: 25px;

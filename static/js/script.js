@@ -5,4 +5,8 @@ $(document).ready(function () {
         $(".topDrive").toggleClass('changeTopDrive');
         $(".Page-Body").toggleClass('max-width');
     });
+    $(".question-sidebar  a").click(function () {
+        $(".active").removeClass('active');
+        $(this).addClass('active');
+    });
 });
