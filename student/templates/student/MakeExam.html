@@ -2,6 +2,14 @@
 {% load static %}
 {% block title %}MakeExam{% endblock %}
 {% block content %}
+    {% block script %}
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    {% endblock %}
+    {% block style %}
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    {% endblock %}
     <div class="make-exam-top">
         <h1 class="make-exam-h1">افزودن سوال جدید</h1>
         <div class="top-icons">
@@ -130,6 +138,9 @@
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
+                    </div>
+                    <div class="row">
+                        <input class="tag-input">
                     </div>
                 </form>
             </div>

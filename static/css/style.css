@@ -1136,11 +1136,11 @@ a:hover {
 }
 
 .question-textarea {
-    height: 150px;
+    min-height: 200px;
 }
 
 .complete-ans {
-    height: 150px;
+    min-height: 150px;
 }
 
 #complete-ans {
@@ -1202,7 +1202,7 @@ a:hover {
     height: 17px;
     width: 17px;
     background-color: #eee;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 .left-choices-tick {
@@ -1226,7 +1226,7 @@ a:hover {
 
 .custom-input .tick:after {
     left: 6px;
-    top: 1px;
+    top: 0px;
     width: 6px;
     height: 13px;
     border: solid white;
