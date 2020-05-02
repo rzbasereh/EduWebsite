@@ -139,3 +139,7 @@ def exam(request):
 def questionBank(request):
     user = commonData(request)
     return render(request, 'student/questionBank.html', {'user': user})
+
+def MakeExam(request):
+    user = commonData(request)
+    return render(request, 'student/MakeExam.html', {'user': user})

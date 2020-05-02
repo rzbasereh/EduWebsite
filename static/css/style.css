@@ -1046,8 +1046,227 @@ a:hover {
 
 .path span a {
     color: #8697A8;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .path span a:last-child {
     color: #343A40 !important;
+}
+
+.make-exam-top h1 {
+    margin-bottom: 0px !important;
+    margin-top: 10px !important;
+}
+
+.top-icons {
+    direction: ltr;
+}
+
+.top-icons span {
+    border-radius: 50%;
+    padding: 5px 10px;
+    background-color: #8697A820;
+    margin-right: 10px;
+}
+
+.top-icons img {
+    height: 20px;
+}
+
+.make-exam-top .path {
+    margin-right: 0px !important;
+}
+
+.make-exam-bottom-row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 30px;
+    height: 100%;
+}
+
+.make-exam-bottom-row .card {
+    border: none !important;
+    border-radius: 1.25rem;
+}
+
+.make-exam-bottom-row .card-body {
+    background-color: #FFFFFF !important;
+    border-radius: 10px;
+}
+
+.make-exam-bottom-row label {
+    display: table-header-group;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#question-textarea {
+    background-color: #8697A820;
+    border: none !important;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.change-btns {
+    width: fit-content;
+    display: inline-block;
+    background-color: #8697A820;
+    border-radius: 5px;
+    padding: 4px;
+    margin-top: 10px;
+}
+
+.change-btns .btn {
+    min-width: 50px !important;
+}
+
+.change-btns .btn:first-child svg {
+    font-size: 20px;
+}
+
+.change-btns .btn:last-child svg {
+    font-size: 21px;
+}
+
+.make-exam-bottom-row form {
+    position: inherit;
+    height: 100%;
+}
+
+.question-textarea {
+    height: 150px;
+}
+
+.complete-ans {
+    height: 150px;
+}
+
+#complete-ans {
+    background-color: #8697A820;
+    border: none !important;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.choices {
+    margin-top: 20px;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.choice {
+    padding: 0;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+.choice div {
+    background-color: #8697A820;
+    width: 450px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.choice span {
+    display: inherit;
+}
+
+.custom-input {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.custom-input input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.tick {
+    position: absolute;
+    top: 2px;
+    right: 80px;
+    height: 17px;
+    width: 17px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.left-choices-tick {
+    right: 145px !important;
+}
+
+
+.custom-input input:checked ~ .tick {
+    background-color: #0081FF;
+}
+
+.tick:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-input input:checked ~ .tick:after {
+    display: block;
+}
+
+.custom-input .tick:after {
+    left: 6px;
+    top: 1px;
+    width: 6px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+.left-choices {
+    padding-right: 65px;
+}
+
+.state {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 30px;
+}
+
+.state .form-group {
+    max-width: 24.333333% !important;
+    padding: 0px !important;
+}
+
+.state .form-group:first-child {
+    margin-left: 138px;
+}
+
+.state .form-group:nth-child(2) {
+    margin-left: 139px;
+}
+
+.state .form-control {
+    margin-top: 10px;
+}
+
+.state [class^="ti-angle-down"] {
+    position: absolute;
+    left: 10px;
+    top: 45px;
+    font-size: 10px;
 }
