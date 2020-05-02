@@ -9,5 +9,5 @@ $(document).ready(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
     });
-    $("input.tag-input").tagsinput();
+    $("input.tag-input").tagsInput();
 });
