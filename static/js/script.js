@@ -10,4 +10,5 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
     $("input.tag-input").tagsInput();
+    $(".tagsinput input").attr("data-default","");
 });
