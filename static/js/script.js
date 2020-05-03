@@ -9,6 +9,7 @@ $(document).ready(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
     });
-    $("input.tag-input").tagsInput();
-    $(".tagsinput input").attr("data-default","");
+    $("input.tag-input").tagsInput({
+         defaultText:'',
+    });
 });
