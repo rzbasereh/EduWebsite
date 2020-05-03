@@ -1102,7 +1102,7 @@ a:hover {
 }
 
 #question-textarea {
-    background-color: #8697A820;
+    background-color: #F8FAFB!important;
     border: none !important;
     border-radius: 5px;
     margin-top: 10px;
@@ -1112,7 +1112,7 @@ a:hover {
 .change-btns {
     width: fit-content;
     display: inline-block;
-    background-color: #8697A820;
+    background-color: #F8FAFB!important;
     border-radius: 5px;
     padding: 4px;
     margin-top: 10px;
@@ -1144,7 +1144,7 @@ a:hover {
 }
 
 #complete-ans {
-    background-color: #8697A820;
+    background-color: #F8FAFB;
     border: none !important;
     border-radius: 5px;
     margin-top: 10px;
@@ -1164,11 +1164,12 @@ a:hover {
 }
 
 .choice div {
-    background-color: #8697A820;
-    width: 450px;
+    width: 470px;
     height: 40px;
     border-radius: 5px;
     margin-top: 5px;
+        background-color: #F8FAFB;
+
 }
 
 .choice span {
@@ -1201,12 +1202,12 @@ a:hover {
     right: 80px;
     height: 17px;
     width: 17px;
-    background-color: #eee;
+    background-color: #F8FAFB;
     border-radius: 4px;
 }
 
 .left-choices-tick {
-    right: 145px !important;
+    right: 125px !important;
 }
 
 
@@ -1238,7 +1239,7 @@ a:hover {
 }
 
 .left-choices {
-    padding-right: 65px;
+    padding-right: 45px;
 }
 
 .state {
@@ -1262,6 +1263,8 @@ a:hover {
 
 .state .form-control {
     margin-top: 10px;
+    background-color: #F8FAFB;
+    box-shadow: none!important;
 }
 
 .state [class^="ti-angle-down"] {
@@ -1270,3 +1273,22 @@ a:hover {
     top: 45px;
     font-size: 10px;
 }
+.tg-input {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+div.tagsinput {
+    border: none!important;
+    background-color: #F8FAFB!important;
+    padding: 5px;
+    width: 100%!important;
+    min-height: 40px!important;
+    height: 40px!important;
+    overflow-y: auto;
+    border-radius: 5px!important;
+}
+div.tagsinput div {
+    display: block;
+    float: right!important;
+}
+
