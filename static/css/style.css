@@ -1164,7 +1164,7 @@ a:hover {
 }
 
 .choice div {
-    width: 470px;
+    width: 90%;
     height: 40px;
     border-radius: 5px;
     margin-top: 5px;
@@ -1239,7 +1239,7 @@ a:hover {
 }
 
 .left-choices {
-    padding-right: 45px;
+    float:left;
 }
 
 .state {
@@ -1283,7 +1283,7 @@ div.tagsinput {
     padding: 5px;
     width: 100%!important;
     min-height: 40px!important;
-    height: 40px!important;
+    height: fit-content!important;
     overflow-y: auto;
     border-radius: 5px!important;
 }
