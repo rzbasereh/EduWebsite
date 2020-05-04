@@ -9,7 +9,13 @@ $(document).ready(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
     });
+    // Make Exam Page
     $("input.tag-input").tagsInput({
-         defaultText:'',
+        defaultText: '',
+    });
+    let addQuestionForm = $(".add-question-form");
+    addQuestionForm.submit(function (e) {
+        e.preventDefault();
+     // Todo  sadra: Check all field are fill and show appropriate warnings
     });
 });
