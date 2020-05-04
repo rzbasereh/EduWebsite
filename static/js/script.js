@@ -16,22 +16,25 @@ $(document).ready(function () {
     let addQuestionForm = $(".add-question-form");
     addQuestionForm.submit(function (e) {
         e.preventDefault();
-     // Todo  sadra: Check all field are fill and show appropriate warnings
+        // Todo  sadra: Check all field are fill and show appropriate warnings
     });
     $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-        }
-    }
-});
+        loop: false,
+        margin: 10,
+        nav: false,
+        items: 1,
+        dots: false,
+    });
+    $('.change-btns .btn:last-child').click(function () {
+        $('.owl-carousel').trigger('next.owl.carousel');
+        $(".owl-carousel .owl-stage").css('transition', '1s');
+        $(".change-btns .btn:first-child").removeClass('btn-blue');
+        $(this).addClass('btn-blue')
+    });
+    $('.change-btns .btn:first-child').click(function () {
+        $('.owl-carousel').trigger('prev.owl.carousel', [300]);
+        $(".owl-carousel .owl-stage").css('transition', '1s');
+        $(".change-btns .btn:last-child").removeClass('btn-blue');
+        $(this).addClass('btn-blue');
+    });
 });

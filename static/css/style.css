@@ -628,7 +628,7 @@ h1 {
     -o-transform: translate(33px, 3px);
 }
 
-.active:before {
+.sidebar .active:before {
     content: '';
     position: absolute;
     right: 0;
@@ -643,7 +643,7 @@ h1 {
     z-index: 1;
 }
 
-.active {
+.sidebar .active {
     background-color: #F8FAFB;
 }
 
@@ -1429,4 +1429,26 @@ input:checked + .slider:before {
     margin-left: 0 !important;
     margin-right: 0 !important;
     margin-top: 30px;
+}
+
+.owl-carousel .owl-stage-outer {
+    direction: ltr !important;
+}
+
+.owl-carousel.owl-drag .owl-item {
+    direction: rtl;
+}
+
+.owl-transition {
+    transition: 1s;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.reset-btn {
+    background-color: #D8ECFF !important;
+    color: #0081FF !important;
 }

@@ -1,39 +1,29 @@
 {% extends 'student/layouts/base_layout.html' %}
 {% load static %}
 {% block title %}MakeExam{% endblock %}
+{% block script %}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+{% endblock %}
+{% block owl-js %}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+{% endblock %}
+{% block animate.css %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+{% endblock %}
 {% block content %}
-    {% block script %}
-        <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
-    {% endblock %}
-    {% block owl-js %}
-        <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
-    {% endblock %}
-    {% block style %}
-        <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
-    {% endblock %}
-    {% block owl-css %}
-        <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-    {% endblock %}
-    {% block owl-theme %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
-    {% endblock %}
-    {% block owl-th %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
-    {% endblock %}
-    {% block owl-thww %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.css">
-    {% endblock %}
-    {% block owl-img %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/ajax-loader.gif">
-    {% endblock %}
-    {% block animate.css %}
-        <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    {% endblock %}
     <div class="make-exam-top">
         <h1 class="make-exam-h1">افزودن سوال جدید</h1>
         <div class="top-icons">
@@ -105,57 +95,69 @@
                             </svg>
                         </button>
                     </div>
-
-                    <label for="complete-ans">پاسخ تشریحی</label>
-                    <div id="complete-ans" class="w-100 complete-ans">
+                    <div class="row w-100">
+                        <div class="owl-carousel owl-theme">
+                            <div class="item">
+                                <div class="row w-100 choices">
+                                    <table class="w-100">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="col-lg-12 choice">
+                                                    <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
+                                                        <input type="radio" id="1th-choice" name="choice"
+                                                               value="first-choice">
+                                                        <span class="tick"></span>
+                                                    </label>
+                                                    <div></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12 choice">
+                                                    <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
+                                                        <input type="radio" id="2th-choice" name="choice"
+                                                               value="first-choice">
+                                                        <span class="tick left-choices-tick"></span>
+                                                    </label>
+                                                    <div></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="col-lg-12 choice">
+                                                    <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
+                                                        <input type="radio" id="3th-choice" name="choice"
+                                                               value="first-choice">
+                                                        <span class="tick"></span>
+                                                    </label>
+                                                    <div></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12 choice">
+                                                    <label for="4th-choice"
+                                                           class="custom-input"><span>گزینه چهارم</span>
+                                                        <input type="radio" id="4th-choice" name="choice"
+                                                               value="first-choice">
+                                                        <span class="tick left-choices-tick"></span>
+                                                    </label>
+                                                    <div></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="item"><label for="complete-ans">پاسخ تشریحی</label>
+                                <div id="complete-ans" class="w-100 complete-ans">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="row w-100 choices">
-                        <table class="w-100">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="col-lg-12 choice">
-                                        <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
-                                            <input type="radio" id="1th-choice" name="choice" value="first-choice">
-                                            <span class="tick"></span>
-                                        </label>
-                                        <div></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="col-lg-12 choice">
-                                        <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
-                                            <input type="radio" id="2th-choice" name="choice" value="first-choice">
-                                            <span class="tick left-choices-tick"></span>
-                                        </label>
-                                        <div></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="col-lg-12 choice">
-                                        <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
-                                            <input type="radio" id="3th-choice" name="choice" value="first-choice">
-                                            <span class="tick"></span>
-                                        </label>
-                                        <div></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="col-lg-12 choice">
-                                        <label for="4th-choice" class="custom-input"><span>گزینه چهارم</span>
-                                            <input type="radio" id="4th-choice" name="choice" value="first-choice">
-                                            <span class="tick left-choices-tick"></span>
-                                        </label>
-                                        <div></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
                     <div class="row w-100 state">
                         <div class="form-group col-md-4">
                             <label for="inputStateSmall">پایه</label>
@@ -190,24 +192,12 @@
                             <span class="slider round"></span>
                         </label>
                     </div>
+                    <div class="me-btns">
+                        <input type="reset" class="btn reset-btn" value="انصراف">
+                        <input type="submit" class="btn btn-blue" value="ثبت سوال">
+                    </div>
                 </form>
             </div>
-        </div>
-        <div class="row w-100">
-        <<div class="owl-carousel owl-theme">
-    <div class="item"><h4>1</h4></div>
-    <div class="item"><h4>2</h4></div>
-    <div class="item"><h4>3</h4></div>
-    <div class="item"><h4>4</h4></div>
-    <div class="item"><h4>5</h4></div>
-    <div class="item"><h4>6</h4></div>
-    <div class="item"><h4>7</h4></div>
-    <div class="item"><h4>8</h4></div>
-    <div class="item"><h4>9</h4></div>
-    <div class="item"><h4>10</h4></div>
-    <div class="item"><h4>11</h4></div>
-    <div class="item"><h4>12</h4></div>
-</div>
         </div>
     </div>
 {% endblock %}
