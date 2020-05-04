@@ -59,7 +59,8 @@
     <div class="row make-exam-bottom-row w-100">
         <div class="card w-100">
             <div class="card-body">
-                <form class="add-question-form" method="post">
+                <form id="add-question-form" method="post" action="{% url 'student:saveNewQuestion' %}">
+                    {% csrf_token %}
                     <label for="question-textarea">صورت سوال</label>
                     <div id="question-textarea" class="w-100 question-textarea">
                     </div>
@@ -166,6 +167,7 @@
                             <span class="slider round"></span>
                         </label>
                     </div>
+                    <button type="submit">submit</button>
                 </form>
             </div>
         </div>

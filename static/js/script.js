@@ -13,9 +13,22 @@ $(document).ready(function () {
     $("input.tag-input").tagsInput({
         defaultText: '',
     });
-    let addQuestionForm = $(".add-question-form");
+    let addQuestionForm = $("#add-question-form");
     addQuestionForm.submit(function (e) {
         e.preventDefault();
-     // Todo  sadra: Check all field are fill and show appropriate warnings
+        // Todo  sadra: Check all field are fill and show appropriate warnings
+        $.ajax({
+            type: "POST",
+            url: addQuestionForm.attr("action"),
+            data: {
+                'data': "DATA",
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
     });
 });

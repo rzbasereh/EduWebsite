@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import Notification, Message
 from teacher.models import Exam, QuestionPack
@@ -140,6 +141,14 @@ def questionBank(request):
     user = commonData(request)
     return render(request, 'student/questionBank.html', {'user': user})
 
+
 def MakeExam(request):
     user = commonData(request)
     return render(request, 'student/MakeExam.html', {'user': user})
+
+
+def addQuestion(request):
+    if request.method == "POST":
+        return JsonResponse({'success', request})
+    else:
+        return JsonResponse({'error', 'Invalid Request!'})
