@@ -64,9 +64,10 @@ class Question(models.Model):
         ('4', 'دشوارتر'),
     )
     level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
+    is_publish = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.lesson.name
+        return str(self.id)
 
 
 class Exam(models.Model):

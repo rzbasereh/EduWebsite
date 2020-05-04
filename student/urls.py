@@ -8,5 +8,5 @@ urlpatterns = [
     path('exam', views.exam, name='exam'),
     path('QuestionBank', views.questionBank),
     path('MakeExam', views.MakeExam, name='MakeExam'),
-    path('saveQuestion', views.addQuestion, name='saveNewQuestion')
+    path('MakeExam/save', views.addQuestion, name='saveNewQuestion')
 ]

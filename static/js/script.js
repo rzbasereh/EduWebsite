@@ -14,14 +14,17 @@ $(document).ready(function () {
         defaultText: '',
     });
     let addQuestionForm = $("#add-question-form");
-    addQuestionForm.submit(function (e) {
-        e.preventDefault();
+    addQuestionForm.submit(function (event) {
+        event.preventDefault();
         // Todo  sadra: Check all field are fill and show appropriate warnings
+        console.log($("input[name='is_publish']").val());
         $.ajax({
             type: "POST",
             url: addQuestionForm.attr("action"),
             data: {
-                'data': "DATA",
+                'pk': addQuestionForm.closest(".card").attr("id"),
+                'body': "Question Body",
+                'is_publish': $("input[name='is_publish']").val()
             },
             success: function (data) {
                 console.log(data);
@@ -32,19 +35,40 @@ $(document).ready(function () {
         })
     });
     $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
+        loop: false,
+        margin: 10,
+        nav: true,
+        items: 1,
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
         }
+        return cookieValue;
     }
-});
+
+    function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    let csrf_token = getCookie('csrftoken');
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
 });

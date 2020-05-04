@@ -628,7 +628,7 @@ h1 {
     -o-transform: translate(33px, 3px);
 }
 
-.active:before {
+.sidebar .active:before {
     content: '';
     position: absolute;
     right: 0;
@@ -643,7 +643,7 @@ h1 {
     z-index: 1;
 }
 
-.active {
+.sidebar .active {
     background-color: #F8FAFB;
 }
 

@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import Notification, Message
-from teacher.models import Exam, QuestionPack
+from manager.models import Lesson
+from teacher.models import Exam, QuestionPack, Question
 from .models import StudentForm, ExamResult
 import ast
 
@@ -139,16 +140,38 @@ def exam(request):
 
 def questionBank(request):
     user = commonData(request)
-    return render(request, 'student/questionBank.html', {'user': user})
+    questions = Question.objects.all()
+    return render(request, 'student/questionBank.html', {'user': user, 'questions': questions})
 
 
 def MakeExam(request):
     user = commonData(request)
-    return render(request, 'student/MakeExam.html', {'user': user})
+    pk = Question.objects.last().id + 1
+    return render(request, 'student/MakeExam.html', {'user': user, 'pk': pk})
 
 
 def addQuestion(request):
     if request.method == "POST":
-        return JsonResponse({'success', request})
+        pk = request.POST.get('pk')
+        auther = ""
+        body = request.POST.get('body')
+        choice1 = ""
+        choice2 = ""
+        choice3 = ""
+        choice4 = ""
+        choice5 = ""
+        correct_ans = ""
+        verbose_ans = ""
+        is_publish = False
+        if Question.objects.filter(id=pk).exists():
+            question = Question.objects.get(id=pk)
+            question.body = body
+            question.is_publish = is_publish
+            question.save()
+            return JsonResponse({'success': "update"})
+        else:
+            question = Question(body=body, is_publish=is_publish)
+            question.save()
+            return JsonResponse({'success': "new"})
     else:
-        return JsonResponse({'error', 'Invalid Request!'})
+        return JsonResponse({'error': 'Invalid Request!'})
