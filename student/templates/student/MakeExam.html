@@ -87,34 +87,50 @@
                     </div>
 
                     <div class="row w-100 choices">
-                        <div class="col-lg-6 choice">
-                            <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
-                                <input type="radio" id="1th-choice" name="choice" value="first-choice">
-                                <span class="tick"></span>
-                            </label>
-                            <div></div>
-                        </div>
-                        <div class="col-lg-6 choice left-choices">
-                            <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
-                                <input type="radio" id="2th-choice" name="choice" value="first-choice">
-                                <span class="tick left-choices-tick"></span>
-                            </label>
-                            <div></div>
-                        </div>
-                        <div class="col-lg-6 choice">
-                            <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
-                                <input type="radio" id="3th-choice" name="choice" value="first-choice">
-                                <span class="tick"></span>
-                            </label>
-                            <div></div>
-                        </div>
-                        <div class="col-lg-6 choice left-choices">
-                            <label for="4th-choice" class="custom-input"><span>گزینه چهارم</span>
-                                <input type="radio" id="4th-choice" name="choice" value="first-choice">
-                                <span class="tick left-choices-tick"></span>
-                            </label>
-                            <div></div>
-                        </div>
+                        <table class="w-100">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 choice">
+                                        <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
+                                            <input type="radio" id="1th-choice" name="choice" value="first-choice">
+                                            <span class="tick"></span>
+                                        </label>
+                                        <div></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-lg-12 choice">
+                                        <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
+                                            <input type="radio" id="2th-choice" name="choice" value="first-choice">
+                                            <span class="tick left-choices-tick"></span>
+                                        </label>
+                                        <div></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 choice">
+                                        <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
+                                            <input type="radio" id="3th-choice" name="choice" value="first-choice">
+                                            <span class="tick"></span>
+                                        </label>
+                                        <div></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-lg-12 choice">
+                                        <label for="4th-choice" class="custom-input"><span>گزینه چهارم</span>
+                                            <input type="radio" id="4th-choice" name="choice" value="first-choice">
+                                            <span class="tick left-choices-tick"></span>
+                                        </label>
+                                        <div></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row w-100 state">
                         <div class="form-group col-md-4">
@@ -140,7 +156,15 @@
                         </div>
                     </div>
                     <div class="row w-100 tg-input">
-                        <input class="tag-input">
+                        <label for="tag-input">کلید واژه</label>
+                        <input id="tag-input" class="tag-input">
+                    </div>
+                    <div class="row toggle-switch">
+                        <span>انتشار</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                 </form>
             </div>
