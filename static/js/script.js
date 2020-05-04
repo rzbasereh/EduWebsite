@@ -18,4 +18,20 @@ $(document).ready(function () {
         e.preventDefault();
      // Todo  sadra: Check all field are fill and show appropriate warnings
     });
+    $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+});
 });
