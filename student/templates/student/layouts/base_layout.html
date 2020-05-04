@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
     {% block style %}{% endblock %}
+    {% block owl-css %}{% endblock %}
+    {% block owl-theme %}{% endblock %}
+    {% block owl-th %}{% endblock %}
+    {% block owl-thww %}{% endblock %}
+    {% block owl-img %}{% endblock %}
+    {% block animate.css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -71,17 +77,20 @@
         <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}
          active
         {% endif %}">
-            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span></li>
+            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span>
+            </li>
         </a>
         <a href="#">
             <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
         </a>
         <a href="#">
-            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span></li>
+            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span>
+            </li>
         </a>
     </ul>
 </div>
-<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}" id="content">
+<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"
+     id="content">
     {% block content %}{% endblock %}
 </div>
 
@@ -95,6 +104,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 {% block script %}{% endblock %}
+{% block owl-js %}{% endblock %}
 <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
