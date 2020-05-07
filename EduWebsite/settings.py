@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.middleware.AuthRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'EduWebsite.urls'
@@ -129,3 +130,9 @@ AUTHENTICATION_BACKENDS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EXEMPT_URLS = (
+    r'^/student/$',
+    r'^/teacher/$',
+    r'^/manager/$',
+)

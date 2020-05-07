@@ -1,4 +1,5 @@
 {% load static %}
+{% load auth_user_info %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
                     <button type="button" class="btn btn-blue">Login</button>
                 </a>
             {% else %}
-                <a href="{% url 'student:index' %}">
+                <a href="{% index_url user %}">
                     <button type="button" class="btn btn-success">
                         <i class="fas fa-home"></i>
                         Dashboard
