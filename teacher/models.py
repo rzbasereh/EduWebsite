@@ -8,7 +8,7 @@ from django.utils.timezone import now, timedelta
 
 # Create your models here.
 class TeacherForm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(Teacher, on_delete=models.CASCADE, null=True, blank=True)
     avatar = models.ImageField(upload_to='uploads/student', default="defaults/avatar/default.jpg")
 
     def __str__(self):

@@ -31,6 +31,9 @@ class Teacher(models.Model):
     def __str__(self):
         return self.user.username
 
+    def get_full_name(self):
+        return self.user.get_full_name()
+
 
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
