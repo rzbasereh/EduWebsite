@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TeacherAccess, Grade, SubGrade, Field, LessonField, Lesson, Chapter, HeadLine
+from .models import TeacherAccess, Grade, SubGrade, Field, LessonField, Lesson, Chapter, HeadLine, ManagerForm
 
 # Register your models here.
 admin.site.register(TeacherAccess)
@@ -10,3 +10,4 @@ admin.site.register(Lesson)
 admin.site.register(LessonField)
 admin.site.register(Chapter)
 admin.site.register(HeadLine)
+admin.site.register(ManagerForm)
