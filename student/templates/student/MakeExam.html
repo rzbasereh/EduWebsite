@@ -4,6 +4,8 @@
 {% block script %}
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 {% endblock %}
 {% block owl-js %}
     <script type="text/javascript"
@@ -18,10 +20,31 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 {% endblock %}
 {% block animate.css %}
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+{% endblock %}
+{% block loader-in-sidebar %}
+    <div class="dispensing w-100">
+        <div class="updating">
+            <span>در حال به روز رسانی ...</span>
+            <div class="loader"></div>
+        </div>
+        <div class="saved">
+            <span>
+                <svg class="bi bi-cloud" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M4.887 7.2l-.964-.165A2.5 2.5 0 103.5 12h10a1.5 1.5 0 00.237-2.981L12.7 8.854l.216-1.028a4 4 0 10-7.843-1.587l-.185.96zm9.084.341a5 5 0 00-9.88-1.492A3.5 3.5 0 103.5 13h9.999a2.5 2.5 0 00.394-4.968c.033-.16.06-.324.077-.49z"
+                          clip-rule="evenodd"/>
+                    </svg>
+            </span>
+            <span>ثبت اخیر 1 دقیقه قبل</span>
+        </div>
+    </div>
 {% endblock %}
 {% block content %}
     <div class="make-exam-top">
@@ -74,7 +97,7 @@
         <div class="card w-100">
             <div class="card-body">
                 <form class="add-question-form" method="post">
-                    <label for="question-textarea">صورت سوال</label>
+                    <label for="question-textarea" class="question-textarea-label">صورت سوال</label>
                     <div id="question-textarea" class="w-100 question-textarea">
                     </div>
                     <div class="change-btns">
@@ -109,7 +132,7 @@
                                                                value="first-choice">
                                                         <span class="tick"></span>
                                                     </label>
-                                                    <div></div>
+                                                    <div class="choice-text"></div>
                                                 </div>
                                             </td>
                                             <td>
@@ -119,7 +142,7 @@
                                                                value="first-choice">
                                                         <span class="tick left-choices-tick"></span>
                                                     </label>
-                                                    <div></div>
+                                                    <div class="choice-text"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -131,7 +154,7 @@
                                                                value="first-choice">
                                                         <span class="tick"></span>
                                                     </label>
-                                                    <div></div>
+                                                    <div class="choice-text"></div>
                                                 </div>
                                             </td>
                                             <td>
@@ -142,7 +165,7 @@
                                                                value="first-choice">
                                                         <span class="tick left-choices-tick"></span>
                                                     </label>
-                                                    <div></div>
+                                                    <div class="choice-text"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -150,7 +173,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="item"><label for="complete-ans">پاسخ تشریحی</label>
+                            <div class="item"><label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
                                 <div id="complete-ans" class="w-100 complete-ans">
                                 </div>
                             </div>
@@ -162,21 +185,29 @@
                         <div class="form-group col-md-4">
                             <label for="inputStateSmall">پایه</label>
                             <select id="inputStateSmall" class="form-control">
-                                <option selected>همه</option>
+                                <option selected>انتخاب کنید</option>
+                                <option class="no-select">اx</option>
+                                <option class="no-select">kguj</option>
+
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputStateSmall">درس</label>
                             <select id="inputStateSmall" class="form-control">
-                                <option selected>همه</option>
+                                <option selected>انتخاب کنید</option>
+                                <option class="no-select">s</option>
+                                <option class="no-select">sl;jl</option>
+
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputStateSmall">فصل</label>
                             <select id="inputStateSmall" class="form-control">
-                                <option selected>همه</option>
+                                <option selected>انتخاب کنید</option>
+                                <option class="no-select">انتب کنید</option>
+                                <option class="no-select">انتب کنیkjgkjjد</option>
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
@@ -193,7 +224,7 @@
                         </label>
                     </div>
                     <div class="me-btns">
-                        <input type="reset" class="btn reset-btn" value="انصراف">
+                        <input type="reset" class="btn dispensing-btn" value="انصراف">
                         <input type="submit" class="btn btn-blue" value="ثبت سوال">
                     </div>
                 </form>

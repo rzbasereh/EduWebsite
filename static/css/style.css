@@ -1186,9 +1186,6 @@ a:hover {
 
 }
 
-.choice span {
-    display: inherit;
-}
 
 .choices td {
     width: 50% !important;
@@ -1238,7 +1235,7 @@ a:hover {
 }
 
 .custom-input input:checked ~ .tick {
-    background-color: #0081FF;
+    background-color: #0081FF !important;
 }
 
 .tick:after {
@@ -1448,7 +1445,100 @@ input:checked + .slider:before {
     margin-right: 0 !important;
 }
 
-.reset-btn {
+.dispensing-btn {
     background-color: #D8ECFF !important;
     color: #0081FF !important;
+}
+
+.warning {
+    color: #FF3D57;
+    font-size: 10px;
+    margin-right: 10px;
+    font-weight: bold !important;
+}
+
+.choice-warning {
+    color: #FF3D57;
+    font-size: 10px;
+    margin-right: 10px;
+    font-weight: bold !important;
+    display: flex;
+    position: relative;
+    width: fit-content;
+}
+
+.izi-font {
+    font-family: IRANSans;
+}
+
+.dispensing {
+    height: 13%;
+    position: absolute;
+    bottom: 0;
+}
+
+.dispensing > div {
+    width: 80%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #1BBDFE;
+    background-color: #F8FAFB;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    display: none;
+}
+
+.loader {
+    border: 3px solid #F8FAFB;
+    border-top: 3px solid #1BBDFE;
+    border-right: 3px solid #1BBDFE;
+    border-bottom: 3px solid #1BBDFE;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: spin 1.5s linear infinite;
+    margin-top: 7px;
+    margin-right: 10px;
+    float: right;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.updating span {
+    font-size: 11px;
+    padding-right: unset;
+    margin-left: 10px;
+    margin-top: 11px;
+    display: inline-flex;
+    color: #1BBDFE;
+}
+
+.saved span:first-child {
+    float: right;
+    font-size: 28px;
+    color: #1BBDFE;
+}
+
+.saved span:last-child {
+    font-size: 11px;
+    padding-right: unset;
+    margin-left: 20px;
+    margin-top: 14px;
+    display: inline-flex;
+    color: #1BBDFE;
+}
+.saved-show {
+    display: block!important;
+}
+.updating-show {
+    display: block!important;
 }
