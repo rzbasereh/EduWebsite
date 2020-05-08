@@ -35,7 +35,10 @@ def questions(request):
 
 def newQuestion(request):
     user = commonData(request)
-    pk = Question.objects.last().id + 1
+    if Question.objects.count() == 0:
+        pk = 1
+    else:
+        pk = Question.objects.last().id + 1
     return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
 
 
