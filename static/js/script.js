@@ -9,37 +9,7 @@ $(document).ready(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
     });
-    // Make Exam Page
-    $("input.tag-input").tagsInput({
-        defaultText: '',
-    });
-    let addQuestionForm = $("#add-question-form");
-    addQuestionForm.submit(function (event) {
-        event.preventDefault();
-        // Todo  sadra: Check all field are fill and show appropriate warnings
-        console.log($("input[name='is_publish']").val());
-        $.ajax({
-            type: "POST",
-            url: addQuestionForm.attr("action"),
-            data: {
-                'pk': addQuestionForm.closest(".card").attr("id"),
-                'body': "Question Body",
-                'is_publish': $("input[name='is_publish']").val()
-            },
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        })
-    });
-    $('.owl-carousel').owlCarousel({
-        loop: false,
-        margin: 10,
-        nav: true,
-        items: 1,
-    });
+
 
     function getCookie(name) {
         let cookieValue = null;
@@ -54,7 +24,7 @@ $(document).ready(function () {
                 }
             }
         }
-        return cookieValue;
+    return cookieValue;
     }
 
     function csrfSafeMethod(method) {

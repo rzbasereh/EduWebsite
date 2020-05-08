@@ -42,7 +42,7 @@ def newQuestion(request):
 def addQuestion(request):
     if request.method == "POST":
         pk = request.POST.get('pk')
-        auther = ""
+        author = request.user.teacher
         body = request.POST.get('body')
         choice1 = ""
         choice2 = ""
@@ -50,16 +50,18 @@ def addQuestion(request):
         choice4 = ""
         choice5 = ""
         correct_ans = ""
-        verbose_ans = ""
+        verbose_ans = request.POST.get('verbose_ans')
         is_publish = False
         if Question.objects.filter(id=pk).exists():
             question = Question.objects.get(id=pk)
             question.body = body
+            question.author = author
+            question.verbose_ans = verbose_ans
             question.is_publish = is_publish
             question.save()
             return JsonResponse({'success': "update"})
         else:
-            question = Question(body=body, is_publish=is_publish)
+            question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans)
             question.save()
             return JsonResponse({'success': "new"})
     else:

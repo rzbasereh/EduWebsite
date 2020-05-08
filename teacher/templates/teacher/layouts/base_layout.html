@@ -17,7 +17,7 @@
     <div class="dropdown firstDropdown">
         <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-            <img src="{{ user.avatar }}" class="userImg">
+            <img src="{{ user.avatar }}" class="userImg" alt="">
             <span class="fullName">{{ user.full_name }}</span>
         </span>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -61,9 +61,10 @@
                      xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                           d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
-                          clip-rule="evenodd"/>
+                          clip-rule="evenodd"></path>
                 </svg>
-                <span class="{% block remove-text %}{% endblock %}">داشبورد</span></li>
+                <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
+            </li>
         </a>
         <a href="#">
             <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>
@@ -102,5 +103,6 @@
 {% block script %}{% endblock %}
 {% block owl-js %}{% endblock %}
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'teacher/js/script.js' %}"></script>
 </body>
 </html>
