@@ -126,6 +126,8 @@ $(document).ready(function () {
         })
     });
     $('.owl-carousel').owlCarousel({
+        mouseDrag:false,
+        touchDrag: false,
         loop: false,
         margin: 10,
         nav: false,
