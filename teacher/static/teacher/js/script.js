@@ -8,34 +8,38 @@ $(document).ready(function () {
     function collectData(element, mute) {
         mute = !mute;
         if (element === "QuestionSubject") {
-            let QuestionSubjectData = $("div.question-textarea").text().trim().length;
-            if (QuestionSubjectData === 0 && mute) {
-                $(".question-textarea-label").append("<span class='warning'><span>*</span> لطفا صورت سوال را کامل کنید</span>");
-                if ($(".question-textarea-label > span.warning").length > 1) {
-                    $(".question-textarea-label > span.warning:last-child").css('display', 'none');
+            let QuestionSubjectData = $("div.question-textarea").text();
+            if (QuestionSubjectData.trim().length === 0) {
+                if (mute) {
+                    $(".question-textarea-label").append("<span class='warning'><span>*</span> لطفا صورت سوال را کامل کنید</span>");
+                    if ($(".question-textarea-label > span.warning").length > 1) {
+                        $(".question-textarea-label > span.warning:last-child").css('display', 'none');
+                    }
+                    $(".Page-Body").scrollTop($(".question-textarea-label").position().top);
+                    $("div.question-textarea").click(function () {
+                        $(".question-textarea-label > span.warning").css('display', 'none');
+                    });
                 }
-                $(".Page-Body").scrollTop($(".question-textarea-label").position().top);
-                $("div.question-textarea").click(function () {
-                    $(".question-textarea-label > span.warning").css('display', 'none');
-                });
             } else {
                 return QuestionSubjectData;
             }
             return false;
         } else if (element === "CompleteAns") {
-            let CompleteAnsData = $("div.complete-ans").text().trim().length;
-            if (CompleteAnsData === 0 && mute) {
-                $(".complete-ans-label").append("<span class='warning'><span>*</span> لطفا پاسخ تشریحی را وارد کنید</span>");
-                if ($(".complete-ans-label > span.warning").length > 1) {
-                    $(".complete-ans-label > span.warning:last-child").css('display', 'none');
+            let CompleteAnsData = $("div.complete-ans").text();
+            if (CompleteAnsData.trim().length === 0) {
+                if (mute) {
+                    $(".complete-ans-label").append("<span class='warning'><span>*</span> لطفا پاسخ تشریحی را وارد کنید</span>");
+                    if ($(".complete-ans-label > span.warning").length > 1) {
+                        $(".complete-ans-label > span.warning:last-child").css('display', 'none');
+                    }
+                    $('.owl-carousel').trigger('next.owl.carousel');
+                    $(".change-btns .btn:first-child").removeClass('btn-blue');
+                    $('.change-btns .btn:last-child').addClass('btn-blue');
+                    $(".Page-Body").scrollTop($(".complete-ans").position().top);
+                    $("div.complete-ans").click(function () {
+                        $(".complete-ans-label > span.warning").css('display', 'none');
+                    });
                 }
-                $('.owl-carousel').trigger('next.owl.carousel');
-                $(".change-btns .btn:first-child").removeClass('btn-blue');
-                $('.change-btns .btn:last-child').addClass('btn-blue');
-                $(".Page-Body").scrollTop($(".complete-ans").position().top);
-                $("div.complete-ans").click(function () {
-                    $(".complete-ans-label > span.warning").css('display', 'none');
-                });
             } else {
                 return CompleteAnsData;
             }
@@ -69,23 +73,105 @@ $(document).ready(function () {
             });
             return false;
         } else if (element === "ChoiceVal1") {
-
+            let ChoiceVal1 = $(".first-choice-text").text();
+            if (ChoiceVal1.length === 0) {
+                if (mute) {
+                    $(".first-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    }
+                }
+            }
+            $(".first-choice-text").click(function () {
+                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "ChoiceVal2") {
-
+            let ChoiceVal2 = $(".second-choice-text").text();
+            if (ChoiceVal2.length === 0) {
+                if (mute) {
+                    $(".second-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    }
+                }
+            }
+            $(".second-choice-text").click(function () {
+                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "ChoiceVal3") {
-
+            let ChoiceVal3 = $(".third-choice-text").text();
+            if (ChoiceVal3.length === 0) {
+                if (mute) {
+                    $(".third-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    }
+                }
+            }
+            $(".third-choice-text").click(function () {
+                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "ChoiceVal4") {
-
+            let ChoiceVal4 = $(".fourth-choice-text").text();
+            if (ChoiceVal4.length === 0) {
+                if (mute) {
+                    $(".fourth-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    }
+                }
+            }
+            $(".fourth-choice-text").click(function () {
+                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "GradeSelect") {
-
+            let GradeSelect = $("#grade-select").val();
+            let GradeSelectOption = $("#grade-select").closest(".form-group").find("option[selected]").text();
+            if (GradeSelect === GradeSelectOption){
+                if (mute) {
+                $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                }
+                }
+            }
+            $("#grade-select").click(function () {
+                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "LessonSelect") {
-
+            let LessonSelect = $("#lesson-select").val();
+            let LessonSelectOption = $("#lesson-select").closest(".form-group").find("option[selected]").text();
+            if (LessonSelect === LessonSelectOption){
+                if (mute) {
+                $("#lesson-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                }
+                }
+            }
+            $("#lesson-select").click(function () {
+                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+            });
+            return false;
         } else if (element === "ChapterSelect") {
-
-        } else if (element === "IsPublish") {
-
-        } else if (element === "Tags") {
-
+            let ChapterSelect = $("#chapter-select").val();
+            let ChapterSelectOption = $("#chapter-select").closest(".form-group").find("option[selected]").text();
+            if (ChapterSelect === ChapterSelectOption){
+                if (mute) {
+                $("#chapter-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                }
+                }
+            }
+            $("#chapter-select").click(function () {
+                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+            });
         }
         return false;
     }
@@ -93,19 +179,6 @@ $(document).ready(function () {
     let addQuestionForm = $("#add-question-form");
     addQuestionForm.submit(function (event) {
         event.preventDefault();
-
-        // let ChoiceTextData = $(".choice-text").text().length;
-        // $(".choice-text").each(function (index, element) {
-        //     if (ChoiceTextData === 0) {
-        //         $(this).closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-        //         if ($(this).closest('.choice').find('.choice-warning').length > 1) {
-        //             $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
-        //         }
-        //     }
-        //     $(this).click(function () {
-        //         $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-        //     });
-        // });
 
         console.log($("input[name='is_publish']").val());
         $.ajax({
@@ -115,7 +188,14 @@ $(document).ready(function () {
                 'pk': addQuestionForm.closest(".card").attr("id"),
                 'body': collectData("QuestionSubject", false),
                 'verbose_ans': collectData("CompleteAns", false),
-                'is_publish': $("input[name='is_publish']").val()
+                'is_publish': $("input[name='is_publish']").val(),
+                'ChoiceVal1': collectData("ChoiceVal1", false),
+                'ChoiceVal2': collectData("ChoiceVal2", false),
+                'ChoiceVal3': collectData("ChoiceVal3", false),
+                'ChoiceVal4': collectData("ChoiceVal4", false),
+                'GradeSelect': collectData("GradeSelect", false),
+                'LessonSelect': collectData("LessonSelect", false),
+                'ChapterSelect': collectData("ChapterSelect", false),
             },
             success: function (data) {
                 console.log(data);
@@ -126,7 +206,7 @@ $(document).ready(function () {
         })
     });
     $('.owl-carousel').owlCarousel({
-        mouseDrag:false,
+        mouseDrag: false,
         touchDrag: false,
         loop: false,
         margin: 10,
@@ -164,8 +244,9 @@ $(document).ready(function () {
     }
 
     function intervalSave() {
-        $(".updating").removeClass("updating-show ");
-        $(".saved").addClass('saved-show');
+        $(".saved").removeClass('saved-show');
+        $(".updating").addClass("updating-show ");
+
         let data = {};
         data.pk = addQuestionForm.closest(".card").attr("id");
         if (collectData("QuestionSubject", true) !== false) {
@@ -185,8 +266,8 @@ $(document).ready(function () {
             data: data,
             success: function (data) {
                 console.log(data);
-                $(".saved").removeClass('saved-show');
-                $(".updating").addClass("updating-show ");
+                $(".updating").removeClass("updating-show ");
+                $(".saved").addClass('saved-show');
             },
             error: function (data) {
                 console.log(data);

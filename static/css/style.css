@@ -260,7 +260,7 @@ input[type="password"]:hover {
     transform: rotate(45deg);
 }
 
-#inputStateSmall {
+#grade-select, #lesson-select, #chapter-select {
     position: relative;
     direction: rtl;
     -webkit-appearance: none;
@@ -1167,6 +1167,7 @@ a:hover {
     margin-top: 20px;
     margin-right: 0px !important;
     margin-left: 0px !important;
+    direction: rtl !important;
 }
 
 .choice {
@@ -1184,19 +1185,6 @@ a:hover {
     margin-top: 5px;
     background-color: #F8FAFB;
 
-}
-
-
-.choices td {
-    width: 50% !important;
-}
-
-.choices tr td:last-child {
-    direction: ltr;
-}
-
-.choices tr td:last-child .choice {
-    direction: rtl !important;
 }
 
 .custom-input {
@@ -1536,9 +1524,15 @@ input:checked + .slider:before {
     display: inline-flex;
     color: #1BBDFE;
 }
+
 .saved-show {
-    display: block!important;
+    display: block !important;
 }
+
 .updating-show {
-    display: block!important;
+    display: block !important;
+}
+
+.owl-carousel .owl-item {
+    direction: rtl !important;
 }

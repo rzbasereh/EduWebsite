@@ -122,55 +122,39 @@
                         <div class="owl-carousel owl-theme">
                             <div class="item">
                                 <div class="row w-100 choices">
-                                    <table class="w-100">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="col-lg-12 choice">
-                                                    <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
-                                                        <input type="radio" id="1th-choice" name="choice"
-                                                               value="first-choice">
-                                                        <span class="tick"></span>
-                                                    </label>
-                                                    <div class="choice-text"></div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12 choice">
-                                                    <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
-                                                        <input type="radio" id="2th-choice" name="choice"
-                                                               value="first-choice">
-                                                        <span class="tick left-choices-tick"></span>
-                                                    </label>
-                                                    <div class="choice-text"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="col-lg-12 choice">
-                                                    <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
-                                                        <input type="radio" id="3th-choice" name="choice"
-                                                               value="first-choice">
-                                                        <span class="tick"></span>
-                                                    </label>
-                                                    <div class="choice-text"></div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12 choice">
-                                                    <label for="4th-choice"
-                                                           class="custom-input"><span>گزینه چهارم</span>
-                                                        <input type="radio" id="4th-choice" name="choice"
-                                                               value="first-choice">
-                                                        <span class="tick left-choices-tick"></span>
-                                                    </label>
-                                                    <div class="choice-text"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="col-lg-6 choice">
+                                        <label for="1th-choice" class="custom-input"><span>گزینه اول</span>
+                                            <input type="radio" id="1th-choice" name="choice"
+                                                   value="first-choice">
+                                            <span class="tick"></span>
+                                        </label>
+                                        <div class="first-choice-text"></div>
+                                    </div>
+                                    <div class="col-lg-6 choice">
+                                        <label for="2th-choice" class="custom-input"><span>گزینه دوم</span>
+                                            <input type="radio" id="2th-choice" name="choice"
+                                                   value="first-choice">
+                                            <span class="tick left-choices-tick"></span>
+                                        </label>
+                                        <div class="second-choice-text">aa</div>
+                                    </div>
+                                    <div class="col-lg-6 choice">
+                                        <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
+                                            <input type="radio" id="3th-choice" name="choice"
+                                                   value="first-choice">
+                                            <span class="tick"></span>
+                                        </label>
+                                        <div class="third-choice-text"></div>
+                                    </div>
+                                    <div class="col-lg-6 choice">
+                                        <label for="4th-choice"
+                                               class="custom-input"><span>گزینه چهارم</span>
+                                            <input type="radio" id="4th-choice" name="choice"
+                                                   value="first-choice">
+                                            <span class="tick left-choices-tick"></span>
+                                        </label>
+                                        <div class="fourth-choice-text"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="item"><label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
@@ -181,8 +165,8 @@
                     </div>
                     <div class="row w-100 state">
                         <div class="form-group col-md-4">
-                            <label for="inputStateSmall">پایه</label>
-                            <select id="inputStateSmall" class="form-control">
+                            <label for="grade-select">پایه</label>
+                            <select id="grade-select" class="form-control">
                                 <option selected>انتخاب کنید</option>
                                 <option class="no-select">اx</option>
                                 <option class="no-select">kguj</option>
@@ -191,8 +175,8 @@
                             <span class="ti-angle-down"></span>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputStateSmall">درس</label>
-                            <select id="inputStateSmall" class="form-control">
+                            <label for="lesson-select">درس</label>
+                            <select id="lesson-select" class="form-control">
                                 <option selected>انتخاب کنید</option>
                                 <option class="no-select">s</option>
                                 <option class="no-select">sl;jl</option>
@@ -201,8 +185,8 @@
                             <span class="ti-angle-down"></span>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputStateSmall">فصل</label>
-                            <select id="inputStateSmall" class="form-control">
+                            <label for="chapter-select">فصل</label>
+                            <select id="chapter-select" class="form-control">
                                 <option selected>انتخاب کنید</option>
                                 <option class="no-select">انتب کنید</option>
                                 <option class="no-select">انتب کنیkjgkjjد</option>

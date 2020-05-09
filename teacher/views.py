@@ -47,10 +47,10 @@ def addQuestion(request):
         pk = request.POST.get('pk')
         author = request.user.teacher
         body = request.POST.get('body')
-        choice1 = ""
-        choice2 = ""
-        choice3 = ""
-        choice4 = ""
+        choice1 = request.POST.get('ChoiceVal1')
+        choice2 = request.POST.get('ChoiceVal2')
+        choice3 = request.POST.get('ChoiceVal3')
+        choice4 = request.POST.get('ChoiceVal4')
         choice5 = ""
         correct_ans = ""
         verbose_ans = request.POST.get('verbose_ans')
