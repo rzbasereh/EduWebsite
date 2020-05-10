@@ -1536,3 +1536,71 @@ input:checked + .slider:before {
 .owl-carousel .owl-item {
     direction: rtl !important;
 }
+
+.modal-backdrop {
+    background-color: #8697A8 !important;
+}
+
+.modal-content {
+    max-width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px !important;
+    -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    border: none !important;
+}
+
+.yellow-circle {
+    background-color: #FFD700;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 25px;
+}
+
+.yellow-circle svg {
+    font-size: 90px;
+    color: #FFFFFF;
+}
+
+.modal-body h1 {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    display: table;
+    padding-right: 0 !important;
+    margin-top: 20px !important;
+    font-size: 22px !important;
+}
+
+.modal-footer {
+    padding: 0 !important;
+    border-top: none !important;
+}
+
+.modal-footer .btn {
+    min-width: 0 !important;
+    width: 50%;
+    float: right;
+    background-color: #F8FAFB;
+    margin: 0;
+    font-size: 17px;
+    height: 45px;
+}
+
+.modal-footer button {
+    color: #8697A8;
+    border-bottom-left-radius: 15px !important;
+    -webkit-border-bottom-left-radius: 15px !important;
+}
+
+.modal-footer a {
+    border-bottom-right-radius: 15px !important;
+    -webkit-border-bottom-right-radius: 15px !important;
+    padding-top: 10px !important;
+}

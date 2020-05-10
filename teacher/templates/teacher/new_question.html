@@ -136,7 +136,7 @@
                                                    value="first-choice">
                                             <span class="tick left-choices-tick"></span>
                                         </label>
-                                        <div class="second-choice-text">aa</div>
+                                        <div class="second-choice-text"></div>
                                     </div>
                                     <div class="col-lg-6 choice">
                                         <label for="3th-choice" class="custom-input"><span>گزینه سوم</span>
@@ -206,7 +206,8 @@
                         </label>
                     </div>
                     <div class="me-btns">
-                        <input type="reset" class="btn dispensing-btn" value="انصراف">
+                        <input type="reset" class="btn dispensing-btn" value="انصراف" data-toggle="modal" data-target="#exampleModalCenter">
+                        {% include 'teacher/layouts/alert-modals.html' %}
                         <input type="submit" class="btn btn-blue" value="ثبت سوال">
                     </div>
                 </form>
@@ -214,4 +215,3 @@
         </div>
     </div>
 {% endblock %}
-
