@@ -6,6 +6,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script type="text/javascript" src="{% static 'teacher/js/Editor.js' %}"></script>
 {% endblock %}
 {% block owl-js %}
     <script type="text/javascript"
@@ -99,7 +100,9 @@
                 <form id="add-question-form" method="post" action="{% url 'teacher:saveNewQuestion' %}">
                     {% csrf_token %}
                     <label for="question-textarea" class="question-textarea-label">صورت سوال</label>
-                    <div id="question-textarea" class="w-100 question-textarea"></div>
+                    <div id="question-textarea" class="w-100 question-textarea" >
+                        <div class="write" contenteditable="true"></div>
+                    </div>
                     <div class="change-btns">
                         <button type="button" class="btn btn-blue">
                             <svg class="bi bi-grid" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
