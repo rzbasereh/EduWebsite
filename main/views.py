@@ -22,6 +22,10 @@ def logoutUser(request):
     return redirect('/')
 
 
+def notFound(request):
+    return render(request, 'main/404.html', {})
+
+
 def recoverPassword(request):
     return render(request, 'main/recoverPassword.html', {})
 

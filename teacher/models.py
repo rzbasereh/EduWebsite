@@ -1,9 +1,9 @@
 import jdatetime
 from django.contrib.auth.models import User
 from main.models import Teacher, Student
-from manager.models import Lesson, Chapter, HeadLine
+from manager.models import Lesson, Chapter, SubGrade
 from django.db import models
-from django.utils.timezone import now, timedelta
+from django.utils.timezone import now
 
 
 # Create your models here.
@@ -48,9 +48,9 @@ class Question(models.Model):
     choice_5 = models.CharField(max_length=1000, blank=True, null=True)
     correct_ans = models.CharField(max_length=1, blank=True, null=True)
     verbose_ans = models.TextField(null=True, blank=True)
+    grade = models.ForeignKey(SubGrade, on_delete=models.CASCADE, blank=True, null=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, blank=True, null=True)
-    head_line = models.ForeignKey(HeadLine, on_delete=models.CASCADE, blank=True, null=True)
     SOURCE = (
         ('Author', 'تالیفی'),
         ('Entrance', 'کنکور سراسری'),

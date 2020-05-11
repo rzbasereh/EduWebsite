@@ -80,11 +80,13 @@ $(document).ready(function () {
                     if ($(this).closest('.choice').find('.choice-warning').length > 1) {
                         $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
+                    $(".first-choice-text").click(function () {
+                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                    });
                 }
+            }else {
+                return ChoiceVal1;
             }
-            $(".first-choice-text").click(function () {
-                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "ChoiceVal2") {
             let ChoiceVal2 = $(".second-choice-text").text();
@@ -94,11 +96,13 @@ $(document).ready(function () {
                     if ($(this).closest('.choice').find('.choice-warning').length > 1) {
                         $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
+                    $(".second-choice-text").click(function () {
+                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                    });
                 }
+            } else {
+                return ChoiceVal2;
             }
-            $(".second-choice-text").click(function () {
-                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "ChoiceVal3") {
             let ChoiceVal3 = $(".third-choice-text").text();
@@ -108,11 +112,13 @@ $(document).ready(function () {
                     if ($(this).closest('.choice').find('.choice-warning').length > 1) {
                         $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
+                    $(".third-choice-text").click(function () {
+                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                    });
                 }
+            } else {
+                return ChoiceVal3;
             }
-            $(".third-choice-text").click(function () {
-                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "ChoiceVal4") {
             let ChoiceVal4 = $(".fourth-choice-text").text();
@@ -122,56 +128,65 @@ $(document).ready(function () {
                     if ($(this).closest('.choice').find('.choice-warning').length > 1) {
                         $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
+                    $(".fourth-choice-text").click(function () {
+                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                    });
                 }
+            } else {
+                return ChoiceVal4;
             }
-            $(".fourth-choice-text").click(function () {
-                $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "GradeSelect") {
             let GradeSelect = $("#grade-select").val();
             let GradeSelectOption = $("#grade-select").closest(".form-group").find("option[selected]").text();
             if (GradeSelect === GradeSelectOption){
                 if (mute) {
-                $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
-                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    }
+                    $("#grade-select").click(function () {
+                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                    });
                 }
-                }
+            } else {
+                return GradeSelect;
             }
-            $("#grade-select").click(function () {
-                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "LessonSelect") {
             let LessonSelect = $("#lesson-select").val();
             let LessonSelectOption = $("#lesson-select").closest(".form-group").find("option[selected]").text();
             if (LessonSelect === LessonSelectOption){
                 if (mute) {
-                $("#lesson-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
-                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    $("#lesson-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    }
+                    $("#lesson-select").click(function () {
+                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                    });
                 }
-                }
+            } else {
+                return LessonSelect;
             }
-            $("#lesson-select").click(function () {
-                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
-            });
             return false;
         } else if (element === "ChapterSelect") {
             let ChapterSelect = $("#chapter-select").val();
             let ChapterSelectOption = $("#chapter-select").closest(".form-group").find("option[selected]").text();
             if (ChapterSelect === ChapterSelectOption){
                 if (mute) {
-                $("#chapter-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                if ($(this).closest(".form-group").find(".choice-warning").length > 1){
-                    $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    $("#chapter-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    }
+                    $("#chapter-select").click(function () {
+                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                    });
                 }
-                }
+            } else {
+                return ChapterSelect;
             }
-            $("#chapter-select").click(function () {
-                $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
-            });
+            return false;
         }
         return false;
     }
@@ -179,31 +194,41 @@ $(document).ready(function () {
     let addQuestionForm = $("#add-question-form");
     addQuestionForm.submit(function (event) {
         event.preventDefault();
-
-        console.log($("input[name='is_publish']").val());
-        $.ajax({
-            type: "POST",
-            url: addQuestionForm.attr("action"),
-            data: {
-                'pk': addQuestionForm.closest(".card").attr("id"),
-                'body': collectData("QuestionSubject", false),
-                'verbose_ans': collectData("CompleteAns", false),
-                'is_publish': $("input[name='is_publish']").val(),
-                'ChoiceVal1': collectData("ChoiceVal1", false),
-                'ChoiceVal2': collectData("ChoiceVal2", false),
-                'ChoiceVal3': collectData("ChoiceVal3", false),
-                'ChoiceVal4': collectData("ChoiceVal4", false),
-                'GradeSelect': collectData("GradeSelect", false),
-                'LessonSelect': collectData("LessonSelect", false),
-                'ChapterSelect': collectData("ChapterSelect", false),
-            },
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        })
+        body = collectData("QuestionSubject", false);
+        verbose_ans = collectData("CompleteAns", false);
+        ChoiceVal1 = collectData("ChoiceVal1", false);
+        ChoiceVal2 = collectData("ChoiceVal2", false);
+        ChoiceVal3 = collectData("ChoiceVal3", false);
+        ChoiceVal4 = collectData("ChoiceVal4", false);
+        GradeSelect = collectData("GradeSelect", false);
+        LessonSelect = collectData("LessonSelect", false);
+        ChapterSelect = collectData("ChapterSelect", false);
+        if(body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
+            ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false) {
+            $.ajax({
+                type: "POST",
+                url: addQuestionForm.attr("action"),
+                data: {
+                    'pk': addQuestionForm.closest(".card").attr("id"),
+                    'body': body,
+                    'verbose_ans': verbose_ans,
+                    'is_publish': $("input[name='is_publish']").val(),
+                    'ChoiceVal1': ChoiceVal1,
+                    'ChoiceVal2': ChoiceVal2,
+                    'ChoiceVal3': ChoiceVal3,
+                    'ChoiceVal4': ChoiceVal4,
+                    'GradeSelect': GradeSelect,
+                    'LessonSelect': LessonSelect,
+                    'ChapterSelect': ChapterSelect,
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
     });
     $('.owl-carousel').owlCarousel({
         mouseDrag: false,
@@ -259,6 +284,41 @@ $(document).ready(function () {
         } else {
             data.verbose_ans = ""
         }
+        if(collectData("ChoiceVal1", true) !== false) {
+            data.ChoiceVal1 = collectData("ChoiceVal1", true);
+        } else {
+            data.ChoiceVal1 = ""
+        }
+        if(collectData("ChoiceVal2", true) !== false) {
+            data.ChoiceVal2 = collectData("ChoiceVal2", true);
+        } else {
+            data.ChoiceVal2 = ""
+        }
+        if(collectData("ChoiceVal3", true) !== false) {
+            data.ChoiceVal3 = collectData("ChoiceVal3", true);
+        } else {
+            data.ChoiceVal3 = ""
+        }
+        if(collectData("ChoiceVal4", true) !== false) {
+            data.ChoiceVal4 = collectData("ChoiceVal4", true);
+        } else {
+            data.ChoiceVal4 = ""
+        }
+        if(collectData("GradeSelect", true) !== false) {
+            data.GradeSelect = collectData("GradeSelect", true);
+        } else {
+            data.GradeSelect = ""
+        }
+        if(collectData("LessonSelect", true) !== false) {
+            data.LessonSelect = collectData("LessonSelect", true);
+        } else {
+            data.LessonSelect = ""
+        }
+        if(collectData("ChapterSelect", true) !== false) {
+            data.ChapterSelect = collectData("ChapterSelect", true);
+        } else {
+            data.ChapterSelect = ""
+        }
         data.is_publish = $("input[name='is_publish']").val();
         $.ajax({
             type: "POST",
@@ -275,8 +335,9 @@ $(document).ready(function () {
         })
     }
 
+    setInterval(intervalSave, 60000);
     $(".dispensing-btn").click(function () {
-        intervalSave();
+        
     });
 
     function csrfSafeMethod(method) {

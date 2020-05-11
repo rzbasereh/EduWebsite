@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import TeacherForm, Question
+from manager.models import SubGrade
 from main.models import Message, Notification
 
 
@@ -39,7 +40,8 @@ def newQuestion(request):
         pk = 1
     else:
         pk = Question.objects.last().id + 1
-    return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
+    grades = SubGrade.objects.all()
+    return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk, 'grades': grades})
 
 
 def addQuestion(request):
@@ -51,7 +53,15 @@ def addQuestion(request):
         choice2 = request.POST.get('ChoiceVal2')
         choice3 = request.POST.get('ChoiceVal3')
         choice4 = request.POST.get('ChoiceVal4')
-        choice5 = ""
+        # choice5 = ""
+        if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
+            grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
+        else:
+            grade = None
+        # lesson = request.POST.get('LessonSelect')
+        # chapter = request.POST.get('ChapterSelect')
+        lesson = None
+        chapter = None
         correct_ans = ""
         verbose_ans = request.POST.get('verbose_ans')
         is_publish = False
@@ -60,11 +70,20 @@ def addQuestion(request):
             question.body = body
             question.author = author
             question.verbose_ans = verbose_ans
+            question.choice_1 = choice1
+            question.choice_2 = choice2
+            question.choice_3 = choice3
+            question.choice_4 = choice4
+            question.grade = grade
+            question.lesson = lesson
+            question.chapter = chapter
             question.is_publish = is_publish
             question.save()
             return JsonResponse({'success': "update"})
         else:
-            question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans)
+            question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans,
+                                choice_1=choice1, choice_2=choice2, choice_3=choice3, choice_4=choice4,
+                                correct_ans=correct_ans, grade=grade, lesson=lesson, chapter=chapter)
             question.save()
             return JsonResponse({'success': "new"})
     else:

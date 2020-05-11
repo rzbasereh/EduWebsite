@@ -42,7 +42,7 @@
                           clip-rule="evenodd"></path>
                     </svg>
             </span>
-            <span>ثبت اخیر 1 دقیقه قبل</span>
+            <span>ثبت اخیر<span> لحظات</span> قبل</span>
         </div>
     </div>
 {% endblock %}
@@ -168,9 +168,9 @@
                             <label for="grade-select">پایه</label>
                             <select id="grade-select" class="form-control">
                                 <option selected>انتخاب کنید</option>
-                                <option class="no-select">اx</option>
-                                <option class="no-select">kguj</option>
-
+                                {% for grade in grades %}
+                                    <option class="no-select">{{ grade.name }}</option>
+                                {% endfor%}
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
