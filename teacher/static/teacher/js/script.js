@@ -57,21 +57,6 @@ $(document).ready(function () {
                 return CorrectChoice;
             }
             return false;
-        } else if (element === "StateData") {
-            $(".state .form-control").each(function (index, element) {
-                let StateData = $(this).val();
-                let SelectedOptionDate = $(this).closest(".form-group").find('option[selected]').text();
-                if (StateData === SelectedOptionDate && mute) {
-                    $(this).closest(".form-group").append("<span class='choice-warning'><span>*</span> لطفا وضعیت را مشخص کنید </span>");
-                    if ($(this).closest(".form-group").find('.choice-warning').length > 1) {
-                        $(this).closest(".form-group").find('.choice-warning:last-child').css('display', 'none');
-                    }
-                }
-                $(this).click(function () {
-                    $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
-                })
-            });
-            return false;
         } else if (element === "ChoiceVal1") {
             let ChoiceVal1 = $(".first-choice-text").text();
             if (ChoiceVal1.length === 0) {
@@ -84,7 +69,7 @@ $(document).ready(function () {
                         $(this).closest('.choice').find('.choice-warning').css('display', 'none');
                     });
                 }
-            }else {
+            } else {
                 return ChoiceVal1;
             }
             return false;
@@ -128,10 +113,10 @@ $(document).ready(function () {
                     if ($(this).closest('.choice').find('.choice-warning').length > 1) {
                         $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
-                    $(".fourth-choice-text").click(function () {
-                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
-                    });
                 }
+                $(".fourth-choice-text").click(function () {
+                    $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                });
             } else {
                 return ChoiceVal4;
             }
@@ -139,10 +124,10 @@ $(document).ready(function () {
         } else if (element === "GradeSelect") {
             let GradeSelect = $("#grade-select").val();
             let GradeSelectOption = $("#grade-select").closest(".form-group").find("option[selected]").text();
-            if (GradeSelect === GradeSelectOption){
+            if (GradeSelect === GradeSelectOption) {
                 if (mute) {
                     $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
                         $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
                     }
                     $("#grade-select").click(function () {
@@ -156,10 +141,10 @@ $(document).ready(function () {
         } else if (element === "LessonSelect") {
             let LessonSelect = $("#lesson-select").val();
             let LessonSelectOption = $("#lesson-select").closest(".form-group").find("option[selected]").text();
-            if (LessonSelect === LessonSelectOption){
+            if (LessonSelect === LessonSelectOption) {
                 if (mute) {
                     $("#lesson-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
                         $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
                     }
                     $("#lesson-select").click(function () {
@@ -173,20 +158,19 @@ $(document).ready(function () {
         } else if (element === "ChapterSelect") {
             let ChapterSelect = $("#chapter-select").val();
             let ChapterSelectOption = $("#chapter-select").closest(".form-group").find("option[selected]").text();
-            if (ChapterSelect === ChapterSelectOption){
+            if (ChapterSelect === ChapterSelectOption) {
                 if (mute) {
                     $("#chapter-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1){
+                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
                         $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
                     }
                     $("#chapter-select").click(function () {
                         $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
                     });
                 }
-            } else {
-                return ChapterSelect;
             }
-            return false;
+        } else {
+            return ChapterSelect;
         }
         return false;
     }
@@ -337,7 +321,7 @@ $(document).ready(function () {
 
     setInterval(intervalSave, 60000);
     $(".dispensing-btn").click(function () {
-        
+
     });
 
     function csrfSafeMethod(method) {
@@ -354,4 +338,8 @@ $(document).ready(function () {
             }
         }
     });
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    });
+    editor($('.write'));
 });
