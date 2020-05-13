@@ -2,7 +2,18 @@
     font-family: IRANSans;
     src: url("../fonts/IRANSans(FaNum).ttf") format("truetype");
 }
-
+@font-face {
+    font-family: "B Mitra";
+    src: url("../fonts/BMitra.ttf") format("truetype");
+}
+@font-face {
+    font-family: "B Yekan";
+    src: url("../fonts/Yekan.ttf") format("truetype");
+}
+@font-face {
+    font-family: "B Nazanin";
+    src: url("../fonts/nazanin.ttf") format("truetype");
+}
 body {
     background-color: #F8FAFB;
     font-family: IRANSans !important;
@@ -1606,18 +1617,76 @@ input:checked + .slider:before {
     -webkit-border-bottom-right-radius: 15px !important;
     padding-top: 10px !important;
 }
-.tool {
-    width: 100%;
-    height: 40px;
+#toolbar-container .ql-font span[data-label="نازنین"]::before {
+  font-family: "B Nazanin";
+}
+#toolbar-container .ql-font span[data-label="یکان"]::before {
+  font-family: "B Yekan";
+}
+#toolbar-container .ql-font span[data-label="میترا"]::before {
+  font-family: "B Mitra";
+}
+
+/* Set content font-families */
+.ql-font-yakan {
+  font-family: "B Yekan";
+}
+.ql-font-mitra {
+  font-family: "B Mitra";
+}
+#editor-container {
+  font-family: "B Nazanin";
+  font-size: 14px;
+}
+/*#toolbar-container {*/
+/*    display: none;*/
+/*}*/
+.toolbar-container-show {
+    display: flex!important;
+}
+.ql-container.ql-snow {
+    border: none;
+}
+.ql-snow .ql-picker.ql-font {
+    width: 65px!important;
+    color: #8697A8;
+    font-weight: bold;
+}
+.ql-snow .ql-picker {
+    font-size: 16px!important;
+}
+.ql-toolbar.ql-snow {
+font-family: "B Nazanin" !important;
+    border: none;
+    border-bottom: 1px solid #8697A820!important;
+}
+.ql-picker-label {
+    display: flex!important;
+}
+.ql-picker-label svg {
+    display: none!important;
+}
+.ql-picker-label .ti-angle-down {
+    font-size: 10px;
+    top: 9px;
+    left: 13px;
+}
+.ql-toolbar.ql-snow .ql-picker-label {
+border: none;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label:focus, .ql-snow .ql-picker.ql-font:focus, .ql-picker-options span:focus {
+        outline: none!important;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options span {
     display: flex;
-    position: relative;
-    top: 0!important;
 }
-.write {
-    width: 100%;
-    height: calc(100% - 40px) ;
-    background-color: #FFFFFF;
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    margin-right: -5px;
 }
+.ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover{
+        color: #8697A8!important;
+}
+
 .ML__cmr, .ML__mathbf {
     font-family: IRANSans;
 }
