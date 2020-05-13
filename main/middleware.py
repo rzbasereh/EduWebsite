@@ -8,6 +8,7 @@ from .models import Student, Teacher, Adviser, Manager
 if hasattr(settings, "EXEMPT_URLS"):
     EXEMPT_URLS = [re.compile(url) for url in settings.EXEMPT_URLS]
 
+
 class AuthRequiredMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
@@ -20,9 +21,11 @@ class AuthRequiredMiddleware(MiddlewareMixin):
             user_type = userType(request.user)
             print("user: " + user_type)
             if any(url.match(path) for url in EXEMPT_URLS):
+                print("user is in EXEMPT_URLS")
                 if user_type not in path:
                     return HttpResponseRedirect(reverse('notFound'))
         return None
+
 
 def userType(user):
     if Student.objects.filter(user=user).count():
