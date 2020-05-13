@@ -1,5 +1,7 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
+from django.contrib import messages
 from .models import TeacherForm, Question
 from manager.models import SubGrade
 from main.models import Message, Notification
@@ -31,7 +33,11 @@ def index(request):
 
 def questions(request):
     user = commonData(request)
-    return render(request, 'teacher/questions.html', {'user': user})
+    questions_data = {
+        'count': Question.objects.all().count(),
+        'list': Question.objects.all(),
+    }
+    return render(request, 'teacher/questions.html', {'user': user, 'questions': questions_data})
 
 
 def newQuestion(request):
@@ -88,3 +94,10 @@ def addQuestion(request):
             return JsonResponse({'success': "new"})
     else:
         return JsonResponse({'error': 'Invalid Request!'})
+
+
+def cancelAddQuestion(request, pk):
+    if Question.objects.filter(id=pk).exists():
+        Question.objects.filter(id=pk).delete()
+    messages.success(request, "تغییرات با موفقیت لغو شد!")
+    return HttpResponseRedirect(reverse('teacher:questions'))

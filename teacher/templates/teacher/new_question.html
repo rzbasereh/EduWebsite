@@ -6,11 +6,11 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script type="text/javascript" src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script type="text/javascript" src="{% static 'teacher/js/Editor.js' %}"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://unpkg.com/mathlive"></script>
     <script type="module" src="{% static 'teacher/js/MathLive.js' %}"></script>
-    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 {% endblock %}
 {% block owl-js %}
     <script type="text/javascript"
@@ -107,18 +107,18 @@
                 <form id="add-question-form" method="post" action="{% url 'teacher:saveNewQuestion' %}">
                     {% csrf_token %}
                     <label for="question-textarea" class="question-textarea-label">صورت سوال</label>
-                    <div id="question-textarea" class="w-100 question-textarea" contenteditable="true">
+                    <div id="question-textarea" class="w-100 question-textarea">
                         <div id="toolbar" contenteditable="false">
-                            <select class="ql-size">
-                                <option value="small"></option>
-                                <!-- Note a missing, thus falsy value, is used to reset to default -->
-                                <option selected></option>
-                                <option value="large"></option>
-                                <option value="huge"></option>
-                            </select>
-                            <!-- Add a bold button -->
+{#                            <select class="ql-size">#}
+{#                                <option value="small"></option>#}
+{#                                <!-- Note a missing, thus falsy value, is used to reset to default -->#}
+{#                                <option selected></option>#}
+{#                                <option value="large"></option>#}
+{#                                <option value="huge"></option>#}
+{#                            </select>#}
+{#                            <!-- Add a bold button -->#}
 {#                            <button class="ql-bold"></button>#}
-                            <!-- Add subscript and superscript buttons -->
+{#                            <!-- Add subscript and superscript buttons -->#}
 {#                            <button class="ql-script" value="sub"></button>#}
 {#                            <button class="ql-script" value="super"></button>#}
 {#                                                        <select class="ql-font">#}
@@ -238,7 +238,8 @@
                     <div class="me-btns">
                         <input type="reset" class="btn dispensing-btn" value="انصراف" data-toggle="modal"
                                data-target="#exampleModalCenter">
-                        {% include 'teacher/layouts/alert-modals.html' %}
+                        {% url 'teacher:cancelAddQuestion' pk as cancelAddQuestion %}
+                        {% include 'teacher/layouts/alert-modals.html' with href=cancelAddQuestion %}
                         <input type="submit" class="btn btn-blue" value="ثبت سوال">
                     </div>
                 </form>
