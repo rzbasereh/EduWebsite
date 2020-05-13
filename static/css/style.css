@@ -1618,3 +1618,9 @@ input:checked + .slider:before {
     height: calc(100% - 40px) ;
     background-color: #FFFFFF;
 }
+.ML__cmr, .ML__mathbf {
+    font-family: IRANSans;
+}
+.ML__keyboard div .rows>ul>li {
+    font-size: 14px;
+}

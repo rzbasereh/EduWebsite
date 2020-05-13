@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from main.models import Teacher, Student
 from manager.models import Lesson, Chapter, SubGrade
 from django.db import models
-from django.utils.timezone import now
+from django.utils.timezone import now, timedelta
 
 
 # Create your models here.

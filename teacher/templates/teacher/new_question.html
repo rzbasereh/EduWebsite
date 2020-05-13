@@ -7,6 +7,9 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <script type="text/javascript" src="{% static 'teacher/js/Editor.js' %}"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="https://unpkg.com/mathlive"></script>
+    <script type="module" src="{% static 'teacher/js/MathLive.js' %}"></script>
 {% endblock %}
 {% block owl-js %}
     <script type="text/javascript"
@@ -23,6 +26,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css"/>
 {% endblock %}
 {% block animate.css %}
     <link rel="stylesheet" type="text/css"
@@ -100,8 +105,8 @@
                 <form id="add-question-form" method="post" action="{% url 'teacher:saveNewQuestion' %}">
                     {% csrf_token %}
                     <label for="question-textarea" class="question-textarea-label">صورت سوال</label>
-                    <div id="question-textarea" class="w-100 question-textarea" >
-                        <div class="write" contenteditable="true"></div>
+                    <div id="question-textarea" class="w-100 question-textarea" contenteditable="true">
+                        <div class="write"></div>
                     </div>
                     <div class="change-btns">
                         <button type="button" class="btn btn-blue">
@@ -173,7 +178,7 @@
                                 <option selected>انتخاب کنید</option>
                                 {% for grade in grades %}
                                     <option class="no-select">{{ grade.name }}</option>
-                                {% endfor%}
+                                {% endfor %}
                             </select>
                             <span class="ti-angle-down"></span>
                         </div>
@@ -209,7 +214,8 @@
                         </label>
                     </div>
                     <div class="me-btns">
-                        <input type="reset" class="btn dispensing-btn" value="انصراف" data-toggle="modal" data-target="#exampleModalCenter">
+                        <input type="reset" class="btn dispensing-btn" value="انصراف" data-toggle="modal"
+                               data-target="#exampleModalCenter">
                         {% include 'teacher/layouts/alert-modals.html' %}
                         <input type="submit" class="btn btn-blue" value="ثبت سوال">
                     </div>

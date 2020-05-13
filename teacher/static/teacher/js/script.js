@@ -178,16 +178,16 @@ $(document).ready(function () {
     let addQuestionForm = $("#add-question-form");
     addQuestionForm.submit(function (event) {
         event.preventDefault();
-        body = collectData("QuestionSubject", false);
-        verbose_ans = collectData("CompleteAns", false);
-        ChoiceVal1 = collectData("ChoiceVal1", false);
-        ChoiceVal2 = collectData("ChoiceVal2", false);
-        ChoiceVal3 = collectData("ChoiceVal3", false);
-        ChoiceVal4 = collectData("ChoiceVal4", false);
-        GradeSelect = collectData("GradeSelect", false);
-        LessonSelect = collectData("LessonSelect", false);
-        ChapterSelect = collectData("ChapterSelect", false);
-        if(body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
+        let body = collectData("QuestionSubject", false);
+        let verbose_ans = collectData("CompleteAns", false);
+        let ChoiceVal1 = collectData("ChoiceVal1", false);
+        let ChoiceVal2 = collectData("ChoiceVal2", false);
+        let ChoiceVal3 = collectData("ChoiceVal3", false);
+        let ChoiceVal4 = collectData("ChoiceVal4", false);
+        let GradeSelect = collectData("GradeSelect", false);
+        let LessonSelect = collectData("LessonSelect", false);
+        let ChapterSelect = collectData("ChapterSelect", false);
+        if (body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
             ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false) {
             $.ajax({
                 type: "POST",
@@ -268,37 +268,37 @@ $(document).ready(function () {
         } else {
             data.verbose_ans = ""
         }
-        if(collectData("ChoiceVal1", true) !== false) {
+        if (collectData("ChoiceVal1", true) !== false) {
             data.ChoiceVal1 = collectData("ChoiceVal1", true);
         } else {
             data.ChoiceVal1 = ""
         }
-        if(collectData("ChoiceVal2", true) !== false) {
+        if (collectData("ChoiceVal2", true) !== false) {
             data.ChoiceVal2 = collectData("ChoiceVal2", true);
         } else {
             data.ChoiceVal2 = ""
         }
-        if(collectData("ChoiceVal3", true) !== false) {
+        if (collectData("ChoiceVal3", true) !== false) {
             data.ChoiceVal3 = collectData("ChoiceVal3", true);
         } else {
             data.ChoiceVal3 = ""
         }
-        if(collectData("ChoiceVal4", true) !== false) {
+        if (collectData("ChoiceVal4", true) !== false) {
             data.ChoiceVal4 = collectData("ChoiceVal4", true);
         } else {
             data.ChoiceVal4 = ""
         }
-        if(collectData("GradeSelect", true) !== false) {
+        if (collectData("GradeSelect", true) !== false) {
             data.GradeSelect = collectData("GradeSelect", true);
         } else {
             data.GradeSelect = ""
         }
-        if(collectData("LessonSelect", true) !== false) {
+        if (collectData("LessonSelect", true) !== false) {
             data.LessonSelect = collectData("LessonSelect", true);
         } else {
             data.LessonSelect = ""
         }
-        if(collectData("ChapterSelect", true) !== false) {
+        if (collectData("ChapterSelect", true) !== false) {
             data.ChapterSelect = collectData("ChapterSelect", true);
         } else {
             data.ChapterSelect = ""
@@ -341,5 +341,6 @@ $(document).ready(function () {
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     });
-    editor($('.write'));
+    // editor($('.question-textarea'));
+
 });
