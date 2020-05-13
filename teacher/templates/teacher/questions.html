@@ -22,7 +22,7 @@
                           clip-rule="evenodd"></path>
                 </svg>
                 افزودن سوال
-                </button>
+                </a>
                 <a href="#" class="active">
                     <i>
                         <svg class="bi bi-list-ul" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -92,7 +92,7 @@
                 <span class="ti-search"></span>
             </div>
             {% for question in questions.list %}
-                {{ question.body }}/
+                {{ question.body }}
                 <br>
             {% endfor %}
             {% if messages %}

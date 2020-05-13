@@ -204,6 +204,7 @@ $(document).ready(function () {
                     'GradeSelect': GradeSelect,
                     'LessonSelect': LessonSelect,
                     'ChapterSelect': ChapterSelect,
+                    'redirect': true,
                 },
                 success: function (data) {
                     console.log(data);
@@ -304,6 +305,7 @@ $(document).ready(function () {
             data.ChapterSelect = ""
         }
         data.is_publish = $("input[name='is_publish']").val();
+        data.redirect = false;
         $.ajax({
             type: "POST",
             url: addQuestionForm.attr("action"),
