@@ -45,6 +45,7 @@ $(document).ready(function () {
             }
             return false;
         } else if (element === "CorrectChoice") {
+            console.log("12");
             let CorrectChoice = $(".custom-input input:checked ~ .tick").length;
             if (CorrectChoice === 0 && mute) {
                 iziToast.warning({
@@ -126,9 +127,8 @@ $(document).ready(function () {
             let GradeSelectOption = $("#grade-select").closest(".form-group").find("option[selected]").text();
             if (GradeSelect === GradeSelectOption) {
                 if (mute) {
-                    $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
-                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    if ($("#grade-select").closest(".form-group").find(".choice-warning").length === 0) {
+                        $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
                     }
                     $("#grade-select").click(function () {
                         $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
@@ -187,8 +187,9 @@ $(document).ready(function () {
         let GradeSelect = collectData("GradeSelect", false);
         let LessonSelect = collectData("LessonSelect", false);
         let ChapterSelect = collectData("ChapterSelect", false);
+        let CorrectChoice = collectData("CorrectChoice", false);
         if (body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
-            ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false) {
+            ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false && CorrectChoice !== false) {
             $.ajax({
                 type: "POST",
                 url: addQuestionForm.attr("action"),
@@ -204,6 +205,7 @@ $(document).ready(function () {
                     'GradeSelect': GradeSelect,
                     'LessonSelect': LessonSelect,
                     'ChapterSelect': ChapterSelect,
+                    'CorrectChoice': CorrectChoice,
                     'redirect': true,
                 },
                 success: function (data) {
@@ -303,6 +305,11 @@ $(document).ready(function () {
             data.ChapterSelect = collectData("ChapterSelect", true);
         } else {
             data.ChapterSelect = ""
+        }
+        if (collectData("CorrectChoice", true) !== false) {
+            data.CorrectChoice = collectData("CorrectChoice", true);
+        } else {
+            data.CorrectChoice = ""
         }
         data.is_publish = $("input[name='is_publish']").val();
         data.redirect = false;
