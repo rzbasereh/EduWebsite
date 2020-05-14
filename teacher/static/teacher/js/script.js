@@ -46,8 +46,7 @@ $(document).ready(function () {
             return false;
         } else if (element === "CorrectChoice") {
             let CorrectChoice = $(".custom-input input:checked ~ .tick").length;
-            console.log($(".custom-input input:checked ~ .tick").length);
-            if (CorrectChoice === 0 ) {
+            if (CorrectChoice === 0) {
                 if (mute) {
                 iziToast.warning({
                     title: 'خطا',
