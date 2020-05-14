@@ -19,9 +19,7 @@ class AuthRequiredMiddleware(MiddlewareMixin):
                 return HttpResponseRedirect(reverse('login'))  # or http response
         else:
             user_type = userType(request.user)
-            print("user: " + user_type)
             if any(url.match(path) for url in EXEMPT_URLS):
-                print("user is in EXEMPT_URLS")
                 if user_type not in path:
                     return HttpResponseRedirect(reverse('notFound'))
         return None

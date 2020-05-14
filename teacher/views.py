@@ -65,6 +65,8 @@ def addQuestion(request):
         choice4 = request.POST.get('ChoiceVal4')
         is_redirect = request.POST.get('redirect')
         # choice5 = ""
+        # print(is_redirect == "tru")
+        is_redirect = False
         if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
             grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
         else:
@@ -90,15 +92,18 @@ def addQuestion(request):
             question.chapter = chapter
             question.is_publish = is_publish
             question.save()
-            if is_redirect == false:
+            if not is_redirect:
+                print("update successful")
                 return JsonResponse({'success': "update"})
         else:
             question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans,
                                 choice_1=choice1, choice_2=choice2, choice_3=choice3, choice_4=choice4,
                                 correct_ans=correct_ans, grade=grade, lesson=lesson, chapter=chapter)
             question.save()
-            if is_redirect == false:
+            if not is_redirect:
+                print("new successful")
                 return JsonResponse({'success': "new"})
+        print("redirect")
         messages.success(request, 'successfully add')
         return HttpResponseRedirect(reverse('teacher:questions'))
     else:

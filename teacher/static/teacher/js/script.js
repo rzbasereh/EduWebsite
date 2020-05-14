@@ -45,7 +45,6 @@ $(document).ready(function () {
             }
             return false;
         } else if (element === "CorrectChoice") {
-            console.log("12");
             let CorrectChoice = $(".custom-input input:checked ~ .tick").length;
             if (CorrectChoice === 0) {
                 if (mute) {
@@ -314,7 +313,8 @@ $(document).ready(function () {
             data.CorrectChoice = ""
         }
         data.is_publish = $("input[name='is_publish']").val();
-        data.redirect = false;
+        data.redirect = "true";
+        console.log("updating ...");
         $.ajax({
             type: "POST",
             url: addQuestionForm.attr("action"),
