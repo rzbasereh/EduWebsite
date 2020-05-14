@@ -64,11 +64,11 @@ $(document).ready(function () {
             if (ChoiceVal1.length === 0) {
                 if (mute) {
                     $(".first-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    if ($(".first-choice-text").closest('.choice').find('.choice-warning').length > 1) {
+                        $(".first-choice-text").closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
                     $(".first-choice-text").click(function () {
-                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                        $(".first-choice-text").closest('.choice').find('.choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -80,11 +80,11 @@ $(document).ready(function () {
             if (ChoiceVal2.length === 0) {
                 if (mute) {
                     $(".second-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.left-choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
+                    if ($(".second-choice-text").closest('.choice').find('.left-choice-warning').length > 1) {
+                        $(".second-choice-text").closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
                     }
                     $(".second-choice-text").click(function () {
-                        $(this).closest('.choice').find('.left-choice-warning').css('display', 'none');
+                        $(".second-choice-text").closest('.choice').find('.left-choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -96,11 +96,11 @@ $(document).ready(function () {
             if (ChoiceVal3.length === 0) {
                 if (mute) {
                     $(".third-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    if ($(".third-choice-text").closest('.choice').find('.choice-warning').length > 1) {
+                        $(".third-choice-text").closest('.choice').find('.choice-warning:last-child').css('display', 'none');
                     }
                     $(".third-choice-text").click(function () {
-                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                        $(".third-choice-text").closest('.choice').find('.choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -112,12 +112,12 @@ $(document).ready(function () {
             if (ChoiceVal4.length === 0) {
                 if (mute) {
                     $(".fourth-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.left-choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
+                    if ($(".fourth-choice-text").closest('.choice').find('.left-choice-warning').length > 1) {
+                        $(".fourth-choice-text").closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
                     }
                 }
                 $(".fourth-choice-text").click(function () {
-                    $(this).closest('.choice').find('.left-choice-warning').css('display', 'none');
+                    $(".fourth-choice-text").closest('.choice').find('.left-choice-warning').css('display', 'none');
                 });
             } else {
                 return ChoiceVal4;
@@ -132,7 +132,7 @@ $(document).ready(function () {
                         $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
                     }
                     $("#grade-select").click(function () {
-                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                        $("#grade-select").closest(".form-group").find('.choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -145,11 +145,11 @@ $(document).ready(function () {
             if (LessonSelect === LessonSelectOption) {
                 if (mute) {
                     $("#lesson-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
-                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    if ($("#lesson-select").closest(".form-group").find(".choice-warning").length > 1) {
+                        $("#lesson-select").closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
                     }
                     $("#lesson-select").click(function () {
-                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                        $("#lesson-select").closest(".form-group").find('.choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -162,11 +162,11 @@ $(document).ready(function () {
             if (ChapterSelect === ChapterSelectOption) {
                 if (mute) {
                     $("#chapter-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                    if ($(this).closest(".form-group").find(".choice-warning").length > 1) {
-                        $(this).closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                    if ($("#chapter-select").closest(".form-group").find(".choice-warning").length > 1) {
+                        $("#chapter-select").closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
                     }
                     $("#chapter-select").click(function () {
-                        $(this).closest(".form-group").find('.choice-warning').css('display', 'none');
+                        $("#chapter-select").closest(".form-group").find('.choice-warning').css('display', 'none');
                     });
                 }
             }

@@ -791,7 +791,7 @@ h1 {
 }
 
 ::-webkit-scrollbar {
-    width: 0px !important;
+    width: 5px !important;
 }
 
 .max-width {
@@ -1108,6 +1108,7 @@ a:hover {
     border-radius: 1.25rem;
     -webkit-border-radius: 1.25rem;
     -moz-border-radius: 1.25rem;
+    margin-bottom: 20px;
 }
 
 .make-exam-bottom-row .card-body {
@@ -1195,7 +1196,7 @@ a:hover {
 }
 
 .choice div {
-    width: 90%;
+    width: 93%;
     height: 40px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -1204,7 +1205,11 @@ a:hover {
     background-color: #F8FAFB;
 
 }
-
+@media (max-width: 992px) {
+    .choice div {
+        width: 100%;
+    }
+}
 .custom-input {
     display: block;
     position: relative;
@@ -1237,9 +1242,13 @@ a:hover {
 }
 
 .left-choices-tick {
-    right: 140px !important;
+    right: 125px;
 }
-
+@media (max-width: 992px) {
+    .left-choices-tick {
+    right: 80px;
+}
+}
 .custom-input input:checked ~ .tick {
     background-color: #0081FF !important;
 }
@@ -1733,6 +1742,15 @@ input:checked + .slider:before {
 .second-choice-text, .fourth-choice-text {
     float: left !important;
 }
+
 .left-choices-label {
-    margin-right: 50px!important;
+    margin-right: 35px;
+}
+@media (max-width: 992px) {
+    .left-choices-label {
+    margin-right:0;
+}
+}
+.card {
+    box-shadow: 0 0 10px 0 rgba(183,192,206,.2) !important;
 }
