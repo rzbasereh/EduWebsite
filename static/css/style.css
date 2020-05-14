@@ -2,18 +2,22 @@
     font-family: IRANSans;
     src: url("../fonts/IRANSans(FaNum).ttf") format("truetype");
 }
+
 @font-face {
     font-family: "B Mitra";
     src: url("../fonts/BMitra.ttf") format("truetype");
 }
+
 @font-face {
     font-family: "B Yekan";
     src: url("../fonts/Yekan.ttf") format("truetype");
 }
+
 @font-face {
     font-family: "B Nazanin";
     src: url("../fonts/nazanin.ttf") format("truetype");
 }
+
 body {
     background-color: #F8FAFB;
     font-family: IRANSans !important;
@@ -763,16 +767,16 @@ h1 {
     padding-left: 30px;
 }
 
-.fa-sliders-h {
+.slider-control {
     float: right;
-    transform: translate(-30px, -27px);
-    -webkit-transform: translate(-30px, -27px);
-    -moz-transform: translate(-30px, -27px);
-    -o-transform: translate(-30px, -27px);
+    transform: translate(-30px, -32px);
+    -webkit-transform: translate(-30px, -32px);
+    -moz-transform: translate(-30px, -32px);
+    -o-transform: translate(-30px, -32px);
     font-size: 20px;
 }
 
-.fa-sliders-h:hover {
+.slider-control:hover {
     cursor: pointer;
 }
 
@@ -1631,80 +1635,99 @@ input:checked + .slider:before {
     -webkit-border-bottom-right-radius: 15px !important;
     padding-top: 14px !important;
 }
+
 #toolbar-container .ql-font span[data-label="نازنین"]::before {
-  font-family: "B Nazanin";
+    font-family: "B Nazanin";
 }
+
 #toolbar-container .ql-font span[data-label="یکان"]::before {
-  font-family: "B Yekan";
+    font-family: "B Yekan";
 }
+
 #toolbar-container .ql-font span[data-label="میترا"]::before {
-  font-family: "B Mitra";
+    font-family: "B Mitra";
 }
 
 /* Set content font-families */
 .ql-font-yakan {
-  font-family: "B Yekan";
+    font-family: "B Yekan";
 }
+
 .ql-font-mitra {
-  font-family: "B Mitra";
+    font-family: "B Mitra";
 }
+
 #editor-container {
-  font-family: "B Nazanin";
-  font-size: 14px;
+    font-family: "B Nazanin";
+    font-size: 14px;
 }
+
 /*#toolbar-container {*/
 /*    display: none;*/
 /*}*/
 .toolbar-container-show {
-    display: flex!important;
+    display: flex !important;
 }
+
 .ql-container.ql-snow {
     border: none;
 }
+
 .ql-snow .ql-picker.ql-font {
-    width: 65px!important;
+    width: 65px !important;
     color: #8697A8;
     font-weight: bold;
 }
+
 .ql-snow .ql-picker {
-    font-size: 16px!important;
+    font-size: 16px !important;
 }
+
 .ql-toolbar.ql-snow {
-font-family: "B Nazanin" !important;
+    font-family: "B Nazanin" !important;
     border: none;
-    border-bottom: 1px solid #8697A820!important;
+    border-bottom: 1px solid #8697A820 !important;
 }
+
 .ql-picker-label {
-    display: flex!important;
+    display: flex !important;
 }
+
 .ql-picker-label svg {
-    display: none!important;
+    display: none !important;
 }
+
 .ql-picker-label .ti-angle-down {
     font-size: 10px;
     top: 9px;
     left: 13px;
 }
+
 .ql-toolbar.ql-snow .ql-picker-label {
-border: none;
+    border: none;
 }
+
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label:focus, .ql-snow .ql-picker.ql-font:focus, .ql-picker-options span:focus {
-        outline: none!important;
+    outline: none !important;
 }
+
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options span {
     display: flex;
 }
+
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
     margin-right: -5px;
 }
-.ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover{
-        color: #8697A8!important;
+
+.ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover {
+    color: #8697A8 !important;
 }
 
 .ML__cmr, .ML__mathbf {
     font-family: IRANSans;
 }
-.ML__keyboard div .rows>ul>li {
+
+.ML__keyboard div .rows > ul > li {
     font-size: 14px;
 }
 .second-choice-text, .fourth-choice-text {

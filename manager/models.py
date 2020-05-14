@@ -13,7 +13,8 @@ class ManagerForm(models.Model):
 
 class TeacherAccess(models.Model):
     teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, null=True, blank=True)
-    online_exam = models.BooleanField(default=False)
+    online_exam_access = models.BooleanField(default=False)
+    add_question_access = models.BooleanField(default=False)
 
     def __str__(self):
         return self.teacher.get_full_name()
