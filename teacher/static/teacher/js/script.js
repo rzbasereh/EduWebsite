@@ -46,13 +46,16 @@ $(document).ready(function () {
             return false;
         } else if (element === "CorrectChoice") {
             let CorrectChoice = $(".custom-input input:checked ~ .tick").length;
-            if (CorrectChoice === 0 && mute) {
+            console.log($(".custom-input input:checked ~ .tick").length);
+            if (CorrectChoice === 0 ) {
+                if (mute) {
                 iziToast.warning({
                     title: 'خطا',
                     message: 'لطفا گزینه ی صحیح را علامت بزنید',
                     rtl: 'true',
                     class: 'izi-font',
                 });
+                }
             } else {
                 return CorrectChoice;
             }
@@ -77,12 +80,12 @@ $(document).ready(function () {
             let ChoiceVal2 = $(".second-choice-text").text();
             if (ChoiceVal2.length === 0) {
                 if (mute) {
-                    $(".second-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    $(".second-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.left-choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
                     }
                     $(".second-choice-text").click(function () {
-                        $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                        $(this).closest('.choice').find('.left-choice-warning').css('display', 'none');
                     });
                 }
             } else {
@@ -109,13 +112,13 @@ $(document).ready(function () {
             let ChoiceVal4 = $(".fourth-choice-text").text();
             if (ChoiceVal4.length === 0) {
                 if (mute) {
-                    $(".fourth-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                    if ($(this).closest('.choice').find('.choice-warning').length > 1) {
-                        $(this).closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                    $(".fourth-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
+                    if ($(this).closest('.choice').find('.left-choice-warning').length > 1) {
+                        $(this).closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
                     }
                 }
                 $(".fourth-choice-text").click(function () {
-                    $(this).closest('.choice').find('.choice-warning').css('display', 'none');
+                    $(this).closest('.choice').find('.left-choice-warning').css('display', 'none');
                 });
             } else {
                 return ChoiceVal4;
