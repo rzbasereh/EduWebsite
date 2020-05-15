@@ -96,21 +96,21 @@
                        aria-describedby="basic-addon1">
                 <span class="ti-search"></span>
             </div>
-        <div class="questions">
-        <div>
-            {% for question in questions.list %}
-                {{ question.body }}
-                <br>
-            {% endfor %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-success" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        </div>
+            <div class="questions">
+                <div>
+                    {% for question in questions.list %}
+                        {{ question.body }}
+                        <br>
+                    {% endfor %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
