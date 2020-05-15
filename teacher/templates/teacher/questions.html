@@ -13,6 +13,7 @@
     <div class="row w-100">
         <div class="col-3 question-sidebar">
             <a href="{% url 'teacher:newQuestion' %}" class="btn btn-blue">
+                <span>
                 <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -21,49 +22,53 @@
                     <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
                           clip-rule="evenodd"></path>
                 </svg>
-                افزودن سوال
-                </a>
-                <a href="#" class="active">
-                    <i>
-                        <svg class="bi bi-list-ul" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                    </i>
-                    <span>همه ی سوالات </span>
-                </a>
-                <a href="#">
-                    <i>
-                        <svg class="bi bi-person-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z"
-                                  clip-rule="evenodd"></path>
-                            <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                    </i>
-                    <span>سوال های من </span>
-                </a>
-                <a href="#">
-                    <span>فیلتر ها</span>
-                </a>
-                <a href="#">
-                    <span>سوالات شما</span>
-                </a>
+                <span>افزودن سوال</span>
+                </span>
+            </a>
+            <a href="#" class="active">
+                <i>
+                    <svg class="bi bi-list-ul" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </i>
+                <span>همه ی سوالات </span>
+            </a>
+            <a href="#">
+                <i>
+                    <svg class="bi bi-person-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </i>
+                <span>سوال های من </span>
+            </a>
+            <a href="#">
+                <span>فیلتر ها</span>
+            </a>
+            <a href="#">
+                <span>سوالات شما</span>
+            </a>
         </div>
         <div class="col-9 question-page-body">
             <h1>همه ی سوالات <span>({{ questions.count }})</span></h1>
             <div class="path">
                     <span>
                         <a href="{% url 'student:index' %}">
-                            <svg class="bi bi-house-door-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                            <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.5 10.995V14.5a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-7a.5.5 0 01.146-.354l6-6a.5.5 0 01.708 0l6 6a.5.5 0 01.146.354v7a.5.5 0 01-.5.5h-4a.5.5 0 01-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"></path>
-                                    <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
-                                          clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                      d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                                      clip-rule="evenodd"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                                      clip-rule="evenodd"/>
                             </svg>
                         </a>
                         <span>
@@ -91,6 +96,8 @@
                        aria-describedby="basic-addon1">
                 <span class="ti-search"></span>
             </div>
+        <div class="questions">
+        <div>
             {% for question in questions.list %}
                 {{ question.body }}
                 <br>
@@ -102,6 +109,8 @@
                     </div>
                 {% endfor %}
             {% endif %}
+        </div>
+        </div>
         </div>
     </div>
 {% endblock %}

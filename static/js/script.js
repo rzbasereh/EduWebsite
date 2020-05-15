@@ -5,9 +5,11 @@ $(document).ready(function () {
         $(".topDrive").toggleClass('changeTopDrive');
         $(".Page-Body").toggleClass('max-width');
     });
-    $(".question-sidebar  a").click(function () {
+
+    $(".question-sidebar  a:nth-child(2), .question-sidebar  a:nth-child(3)").click(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
+        $(".path a:last-child").text($(this).text());
     });
 
 
