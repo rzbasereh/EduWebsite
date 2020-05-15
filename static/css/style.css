@@ -1072,7 +1072,7 @@ a:hover {
 .make-exam-top h1 {
     margin-bottom: 0px !important;
     margin-top: 10px !important;
-    font-size: 23px!important;
+    font-size: 23px !important;
 }
 
 .top-icons {
@@ -1205,11 +1205,13 @@ a:hover {
     background-color: #F8FAFB;
 
 }
+
 @media (max-width: 992px) {
     .choice div {
         width: 100%;
     }
 }
+
 .custom-input {
     display: block;
     position: relative;
@@ -1244,11 +1246,13 @@ a:hover {
 .left-choices-tick {
     right: 125px;
 }
+
 @media (max-width: 992px) {
     .left-choices-tick {
-    right: 80px;
+        right: 80px;
+    }
 }
-}
+
 .custom-input input:checked ~ .tick {
     background-color: #0081FF !important;
 }
@@ -1481,6 +1485,7 @@ input:checked + .slider:before {
     position: relative;
     width: fit-content;
 }
+
 .left-choice-warning {
     color: #FF3D57;
     font-size: 10px;
@@ -1491,6 +1496,7 @@ input:checked + .slider:before {
     width: fit-content;
     float: right;
 }
+
 .izi-font {
     font-family: IRANSans;
 }
@@ -1612,12 +1618,14 @@ input:checked + .slider:before {
     padding-right: 0 !important;
     margin-top: 15px !important;
     font-size: 18px !important;
-    margin-bottom: 7px!important;
+    margin-bottom: 7px !important;
 }
+
 .modal-body {
-        padding-bottom: 10px!important;
+    padding-bottom: 10px !important;
 
 }
+
 .modal-footer {
     padding: 0 !important;
     border-top: none !important;
@@ -1645,6 +1653,12 @@ input:checked + .slider:before {
     padding-top: 14px !important;
 }
 
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-label="iran-sans"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-label="iran-sans"]::before{
+     content: 'iran sans';
+    font-family: "IRANSans", serif;
+}
+
 #toolbar-container .ql-font span[data-label="نازنین"]::before {
     font-family: "B Nazanin";
 }
@@ -1658,6 +1672,9 @@ input:checked + .slider:before {
 }
 
 /* Set content font-families */
+.ql-font-iran-sans {
+    font-family: 'IRANSans';
+}
 .ql-font-yakan {
     font-family: "B Yekan";
 }
@@ -1683,7 +1700,6 @@ input:checked + .slider:before {
 }
 
 .ql-snow .ql-picker.ql-font {
-    width: 65px !important;
     color: #8697A8;
     font-weight: bold;
 }
@@ -1696,14 +1712,8 @@ input:checked + .slider:before {
     font-family: "B Nazanin" !important;
     border: none;
     border-bottom: 1px solid #8697A820 !important;
-}
-
-.ql-picker-label {
-    display: flex !important;
-}
-
-.ql-picker-label svg {
-    display: none !important;
+    text-align: right;
+    margin: 0 10px;
 }
 
 .ql-picker-label .ti-angle-down {
@@ -1712,16 +1722,9 @@ input:checked + .slider:before {
     left: 13px;
 }
 
-.ql-toolbar.ql-snow .ql-picker-label {
-    border: none;
-}
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label:focus, .ql-snow .ql-picker.ql-font:focus, .ql-picker-options span:focus {
     outline: none !important;
-}
-
-.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options span {
-    display: flex;
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
@@ -1739,6 +1742,7 @@ input:checked + .slider:before {
 .ML__keyboard div .rows > ul > li {
     font-size: 14px;
 }
+
 .second-choice-text, .fourth-choice-text {
     float: left !important;
 }
@@ -1746,11 +1750,38 @@ input:checked + .slider:before {
 .left-choices-label {
     margin-right: 35px;
 }
+
 @media (max-width: 992px) {
     .left-choices-label {
-    margin-right:0;
+        margin-right: 0;
+    }
 }
-}
+
 .card {
-    box-shadow: 0 0 10px 0 rgba(183,192,206,.2) !important;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important;
+}
+
+.ql-toolbar.ql-snow .ql-formats {
+    margin-right: 10px;
+    padding-left: 10px;
+    margin-left: 0;
+    border-left: 1px solid #8697A820;
+}
+
+.ql-toolbar.ql-snow .ql-formats:last-child {
+    border-left: none;
+}
+
+.ql-snow .ql-toolbar.snow, .ql-snow .ql-stroke {
+    stroke: #8697A8;
+}
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+    fill: #8697A8;
+}
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+    right: auto;
+    left: 0;
+}
+.ql-snow .ql-color-picker .ql-picker-label svg, .ql-snow .ql-icon-picker .ql-picker-label svg {
+    vertical-align: baseline;
 }

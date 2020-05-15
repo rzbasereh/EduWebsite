@@ -115,3 +115,8 @@ def cancelAddQuestion(request, pk):
         Question.objects.filter(id=pk).delete()
     messages.success(request, "تغییرات با موفقیت لغو شد!")
     return HttpResponseRedirect(reverse('teacher:questions'))
+
+
+def classRoom(request):
+    user = commonData(request)
+    return render(request, 'teacher/class_room.html', {'user': user})

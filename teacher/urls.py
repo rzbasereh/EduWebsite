@@ -9,4 +9,5 @@ urlpatterns = [
     path('questions/add_new', views.newQuestion, name="newQuestion"),
     path('questions/add_new/save', views.addQuestion, name='saveNewQuestion'),
     path('questions/add_new/cancel/<int:pk>', views.cancelAddQuestion, name='cancelAddQuestion'),
+    path('class', views.classRoom, name="class"),
 ]

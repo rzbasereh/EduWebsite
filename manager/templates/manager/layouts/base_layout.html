@@ -80,7 +80,7 @@
         <a href="{% url 'teacher:class' %}" class="{% if request.path == index %}
          active
         {% endif %}">
-            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>
+            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کاربران</span></li>
         </a>
         {% url 'teacher:questions' as exam %}
         <a href="{% url 'teacher:questions' %}" class="{% if request.path == exam %}
