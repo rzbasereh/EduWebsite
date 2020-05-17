@@ -9,19 +9,25 @@
 {% block remove-text3 %}removeText{% endblock %}
 {% block remove-text4 %}removeText{% endblock %}
 {% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+{% endblock %}
 {% block content %}
     <div class="row w-100">
         <div class="col-3 question-sidebar">
             <a href="{% url 'teacher:newQuestion' %}" class="btn btn-blue">
                 <span>
-                <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                           d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
-                          clip-rule="evenodd"></path>
+                          clip-rule="evenodd">
+                    </path>
                     <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
-                          clip-rule="evenodd"></path>
-                </svg>
+                          clip-rule="evenodd">
+                    </path>
+                    </svg>
                 <span>افزودن سوال</span>
                 </span>
             </a>
@@ -31,7 +37,8 @@
                          xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                               d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z"
-                              clip-rule="evenodd"></path>
+                              clip-rule="evenodd">
+                        </path>
                     </svg>
                 </i>
                 <span>همه ی سوالات </span>
@@ -44,7 +51,8 @@
                               d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z"
                               clip-rule="evenodd"></path>
                         <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z"
-                              clip-rule="evenodd"></path>
+                              clip-rule="evenodd">
+                        </path>
                     </svg>
                 </i>
                 <span>سوال های من </span>
@@ -57,7 +65,7 @@
             </a>
         </div>
         <div class="col-9 question-page-body">
-            <h1>همه ی سوالات <span>({{ questions.count }})</span></h1>
+            <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
             <div class="path">
                     <span>
                         <a href="{% url 'teacher:index' %}">
@@ -91,29 +99,134 @@
                         <a href="#">همه ی سوالات</a>
                     </span>
             </div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات" aria-label="Username"
-                       aria-describedby="basic-addon1">
-                <span class="ti-search"></span>
+            <div class="row state-search">
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>پایه</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>درس</option>
+                    </select>
+                    <span class="ti-angle-down "></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>تالیف</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>سطح</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات" aria-label="Username"
+                           aria-describedby="basic-addon1">
+                    <span class="ti-search"></span>
+                </div>
             </div>
             <div class="questions">
-                <div>
+                <div class="row questions-content">
                     {% for question in questions.list %}
-                        {{ question.body }}
-                        <br>
-                    {% endfor %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-success" role="alert">
-                                {{ message }}
+
+                        <div class="card w-100" id="1">
+                            <div class="card-body">
+                                <div class="form-group form-check">
+                                    <label class="form-check-label customBox" for="exampleCheck-{{ forloop.counter0 }}">
+                                        <input type="checkbox" class="form-check-input"
+                                               id="exampleCheck-{{ forloop.counter0 }}"
+                                               name="remember_me">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="question-text">
+                                    <p>
+                                        {{ question.body }}
+                                    </p>
+
+                                    <span class="type">
+                                    <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M9.5 13a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                                                  clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>تالیفی</span>
+                                </span>
+                                </div>
+                                <div class="question-inline-choices">
+                                    <span>1) {{ question.choice_1 }}</span>
+                                    <span class="selected-correct-choice"><span
+                                            class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
+                                    <span>3) {{ question.choice_3 }}</span>
+                                    <span>4) {{ question.choice_4 }}</span>
+                                </div>
+                                <div class="question-level">
+                                </div>
                             </div>
-                        {% endfor %}
-                    {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    {#                    <div class="card w-100" id="2">#}
+                    {#                        <div class="card-body">#}
+                    {#                            <div class="form-group form-check">#}
+                    {#                                <label class="form-check-label customBox" for="exampleCheck2">#}
+                    {#                                    <input type="checkbox" class="form-check-input" id="exampleCheck2"#}
+                    {#                                           name="remember_me">#}
+                    {#                                    <span class="checkmark"></span>#}
+                    {#                                </label>#}
+                    {#                            </div>#}
+                    {#                            <div class="question-text">#}
+                    {#                                <p>در کدام گزینه غلط املایی دیده می شود#}
+                    {#                                    ؟</p>#}
+                    {#                                <span class="type">#}
+                    {#                                    <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"#}
+                    {#                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+                    {#                                            <path fill-rule="evenodd"#}
+                    {#                                                  d="M9.5 13a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"#}
+                    {#                                                  clip-rule="evenodd"/>#}
+                    {#                                    </svg>#}
+                    {#                                    <span>سراسری</span>#}
+                    {#                                </span>#}
+                    {#                            </div>#}
+                    {#                            <div class="question-block-choices">#}
+                    {#                                <div><span>1)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                    {#                                </div>#}
+                    {#                                <div><span>2)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                    {#                                </div>#}
+                    {#                                <div><span>3)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                    {#                                </div>#}
+                    {#                                <div class="selected-correct-choice"><span>4)</span><span#}
+                    {#                                        class="block-selected-correct-choice-tick"></span><span class="question-texts "> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                            <div class="question-level">#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+{% block questions-alert %}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script type="text/javascript">
+        {% if messages %}
+            {% for message in messages %}
+                iziToast.warning({
+                    title: 'Hey',
+                    message: '{{message}}',
+                    timeout:1000000,
+                });
+            {% endfor %}
 
-
-
+        {% endif %}
+    </script>
+{% endblock %}

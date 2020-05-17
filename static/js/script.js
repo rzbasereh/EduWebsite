@@ -10,6 +10,7 @@ $(document).ready(function () {
         $(".active").removeClass('active');
         $(this).addClass('active');
         $(".path a:last-child").text($(this).text());
+        $(".question-page-body h1 > span:first-child").text($(this).text());
     });
 
 
