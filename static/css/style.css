@@ -523,6 +523,7 @@ h1 {
 
 .sidebar a:first-child svg {
     font-size: 17px;
+    margin-left: 10px;
 }
 
 .sidebar span {
@@ -1017,6 +1018,7 @@ h1 {
     margin: 20px auto;
     color: #fff;
     box-shadow: none !important;
+    font-weight: unset;
 }
 
 .question-sidebar .btn-blue svg {
@@ -1982,7 +1984,6 @@ input:checked + .slider:before {
 
 .question-block-choices {
     direction: rtl;
-    /*display: grid;*/
     width: 70%;
     float: right;
     position: relative;
@@ -2038,6 +2039,174 @@ input:checked + .slider:before {
     width: 20px;
     height: 20px;
     background-color: #343A40;
+}
+
+.customized-izi-text {
+    display: inline-grid !important;
+    float: none !important;
+    position: relative;
+    direction: rtl;
+    left: 10%;
+    font-size: 15px !important;
+}
+
+.customized-izi-close {
+    left: 5%;
+    top: 30% !important;
+    right: unset;
+    height: 30px !important;
+    width: 30px !important;
+    background-size: 14px !important;
+    border-radius: 50%;
+    background-color: #F8FAFB !important;
+    border: 1px !important;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
+}
+
+.customized-izi-icon {
+    left: 97% !important;
+    top: 25% !important;
+    margin-top: auto !important;
+}
+
+.warning-alert-circle {
+    background-color: #FF3D57;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.warning-alert-circle svg {
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+.customized-izi-title {
+    text-align: right !important;
+    margin-right: unset !important;
+    line-height: unset !important;
+    font-size: 15px !important;
+
+}
+
+.customized-warning-izi-toast, .customized-success-izi-toast, .customized-info-izi-toast {
+    background-color: #FFFFFF !important;
+    font-family: IRANSans;
+    border: none;
+    width: 360px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.customized-warning-izi-toast:after, .customized-success-izi-toast:after, .customized-info-izi-toast:after {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
+}
+
+.customized-warning-izi-toast:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    background-color: #FF3D57;
+    z-index: 1;
+}
+
+.customized-success-izi-toast:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    background-color: #2BDE3F;
+    z-index: 1;
+}
+
+.success-alert-circle {
+    background-color: #2BDE3F;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.success-alert-circle svg {
+    font-size: 22px;
+    color: #FFFFFF;
+    position: relative;
+    top: 6px;
+    left: 4px;
+}
+
+.customized-info-izi-toast:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    background-color: #FFC007;
+    z-index: 1;
+}
+
+.info-alert-circle {
+    background-color: #FFC007;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.info-alert-circle svg {
+    color: #FFFFFF;
+    font-size: 30px;
+}
+.outer-circle404 {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background-color: #F7FBFF;
+    /*width: 50%;*/
+    height: 120%;
+    padding-right: 120%;
+    position: relative;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+}
+/*.middle-circle404 {*/
+/*border-radius: 50%;*/
+/*    -webkit-border-radius: 50%;*/
+/*    -moz-border-radius: 50%;*/
+/*    background-color: #F2F9FF;*/
+/*    width: 70%;*/
+/*    height: 70%;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    position: relative;*/
+/*    top: 15%;*/
+/*}*/
+.outer-circle404 h1 {
+    margin-top: unset;
+    font-family: sans-serif !important;
 }
 
 .second-toolbar {
