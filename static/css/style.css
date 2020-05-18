@@ -2175,3 +2175,31 @@ input:checked + .slider:before {
     color: #FFFFFF;
     font-size: 30px;
 }
+.outer-circle404 {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background-color: #F7FBFF;
+    /*width: 50%;*/
+    height: 120%;
+    padding-right: 120%;
+    position: relative;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+}
+/*.middle-circle404 {*/
+/*border-radius: 50%;*/
+/*    -webkit-border-radius: 50%;*/
+/*    -moz-border-radius: 50%;*/
+/*    background-color: #F2F9FF;*/
+/*    width: 70%;*/
+/*    height: 70%;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    position: relative;*/
+/*    top: 15%;*/
+/*}*/
+.outer-circle404 h1 {
+    margin-top: unset;
+    font-family: sans-serif !important;
+}
