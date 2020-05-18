@@ -1208,7 +1208,6 @@ a:hover {
     -moz-border-radius: 5px;
     margin-top: 10px;
     font-size: 13px;
-    overflow: hidden;
     direction: rtl;
 }
 
@@ -1935,7 +1934,7 @@ input:checked + .slider:before {
 }
 
 .question-text p {
-direction: rtl;
+    direction: rtl;
     float: right;
     margin-right: 15px;
     margin-block-end: auto;
@@ -2034,8 +2033,27 @@ direction: rtl;
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
 .alert-circle {
     width: 20px;
     height: 20px;
     background-color: #343A40;
+}
+
+.second-toolbar {
+    display: none;
+}
+.fr-box.fr-basic.fr-top .fr-wrapper {
+    border: none;
+    background-color: transparent;
+}
+.fr-toolbar.fr-top {
+    position: absolute;
+    top: -120px!important;
+    left: 0;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important
 }
