@@ -92,11 +92,11 @@ class Exam(models.Model):
 
 
 class QuestionPack(models.Model):
-    exam_code = models.CharField(max_length=100, blank=True, null=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
-        return self.exam_code
+        return str(self.id)
 
 # class Report(models.Model):
 #     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)

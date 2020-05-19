@@ -361,17 +361,55 @@ $(document).ready(function () {
         $(".question-page-body h1 > span:first-child").text($(this).text());
     });
     $(".questions-content .checkmark").click(function () {
-        $(".question-counter").addClass("question-counter-active");
-        $(".question-counter h2 > span").removeClass("counter-parent");
-        $(this).toggleClass("clicked");
-        $(".counter").html($(".clicked").length);
-        if ($("span.clicked").length === 0) {
-            $(".question-counter").removeClass("question-counter-active");
-            $(".question-counter h2 > span").addClass("counter-parent");
+        let state = "add";
+        if ($(this).hasClass("clicked")) {
+            state = "remove";
         }
+        $.ajax({
+            method: "POST",
+            url: $(".question-counter").attr("data-url"),
+            data: {
+                "pk": $(this).closest(".card").attr("id"),
+                "state": state,
+                "pack_pk": parseInt($(".question-counter").attr("id").replace("pack-", ""), 10)
+            },
+            success: function (data) {
+                if (data.value === "success") {
+                    $(".question-counter").addClass("question-counter-active");
+                    $(".question-counter h2 > span").removeClass("counter-parent");
+                    $(this).toggleClass("clicked");
+                    $(".counter").html($(".clicked").length);
+                    if ($("span.clicked").length === 0) {
+                        $(".question-counter").removeClass("question-counter-active");
+                        $(".question-counter h2 > span").addClass("counter-parent");
+                    }
+                    iziToast.success({
+                        class: 'customized-warning-izi-toast-small',
+                        message: 'سوال با موفقییت انتخاب شد!',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
+                            $(".iziToast-title").addClass("customized-izi-title");
+                            $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                            $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
+                            $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
+                                "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+                                "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                "                    </svg>\n" +
+                                "                </div>");
+                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+
+            }
+        });
     });
     $(".question-counter").click(function () {
-        if ($("span.clicked").length === 0) {
+        if ($("span.clicked").length !== 0) {
             iziToast.warning({
                 class: 'customized-warning-izi-toast-small',
                 title: 'هشدار',
@@ -395,7 +433,19 @@ $(document).ready(function () {
             $('.owl-carousel').trigger('next.owl.carousel');
             $('.question-sidebar a.active').removeClass("active");
             $(".owl-carousel .owl-stage").css('transition', '0.8s');
-
+            $.ajax({
+                method: "GET",
+                url: $(".question-counter").attr("data-url"),
+                data: {
+                    "pack_pk": parseInt($(".question-counter").attr("id").replace("pack-", ""), 10)
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
         }
     });
     $(".question-sidebar a:nth-child(2)").click(function () {
