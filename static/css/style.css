@@ -1063,20 +1063,27 @@ h1 {
     margin-left: 10px;
     font-size: 17px;
 }
-
-.question-page-body {
+.question-body {
+    padding: 0;
     position: absolute;
     left: 0;
+    max-width: calc(100% - 200px);
+    direction: ltr;
+    height: 100%;
+    overflow-y: hidden;
+}
+.question-body:hover {
+    overflow-y: scroll;
+}
+.question-page-body {
     padding: 0 !important;
     height: 100%;
-    max-width: calc(100% - 200px);
 }
 .next-question-page-body {
     position: absolute;
     left: 0;
     padding: 0 !important;
     height: 100%;
-    max-width: calc(100% - 200px);
 }
 
 .question-page-body h1 span {
@@ -1128,27 +1135,17 @@ a:hover {
     color: #343A40 !important;
 }
 
-.questions {
-    overflow: hidden;
-    direction: ltr;
-    height: calc(100% - 168px);
-}
 
-.questions:hover {
-    overflow: auto;
-}
-
-.questions::-webkit-scrollbar {
-    width: 10px;
-    background-color: #FFFFFF;
+.question-body::-webkit-scrollbar {
+    width: 5px;
     border-radius: 5px;
 }
 
-.questions::-webkit-scrollbar-track {
+.question-body::-webkit-scrollbar-track {
     border-radius: 5px;
 }
 
-.questions::-webkit-scrollbar-thumb {
+.question-body::-webkit-scrollbar-thumb {
     background: #0081FF;
     border-radius: 5px;
 }
@@ -1905,6 +1902,7 @@ input:checked + .slider:before {
 
 .questions-content {
     margin: 20px 15px;
+    direction: ltr;
 }
 
 .questions-content .card {
@@ -2126,7 +2124,11 @@ input:checked + .slider:before {
 .customized-info-izi-toast:after {
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
-
+.customized-warning-izi-toast-small:after,
+.customized-success-izi-toast-small:after,
+.customized-info-izi-toast-small:after {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
+}
 .customized-warning-izi-toast:before {
     content: '';
     position: absolute;
@@ -2237,7 +2239,6 @@ input:checked + .slider:before {
 .counter-parent {
     display: none;
 }
-
 
 .second-toolbar {
     display: none;
