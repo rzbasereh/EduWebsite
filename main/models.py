@@ -71,6 +71,13 @@ class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100, null=True, blank=True)
     text = models.TextField()
+    TYPE = (
+        ('error', 'خطا'),
+        ('warning', "هشدار"),
+        ('info', 'درباره'),
+        ('success', 'موفقیت')
+    )
+    type = models.CharField(choices=TYPE, max_length=7, null=True, blank=True)
     is_seen = models.BooleanField(default=False)
 
     def __str__(self):

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
 from .models import TeacherForm, Question
-from manager.models import SubGrade, TeacherAccess
+from manager.models import TeacherAccess
 from main.models import Message, Notification
 
 
@@ -67,10 +67,10 @@ def addQuestion(request):
         # choice5 = ""
         # print(is_redirect == "tru")
         is_redirect = False
-        if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
-            grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
-        else:
-            grade = None
+        # if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
+        #     grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
+        # else:
+        grade = ""
         # lesson = request.POST.get('LessonSelect')
         # chapter = request.POST.get('ChapterSelect')
         lesson = None

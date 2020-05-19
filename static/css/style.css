@@ -2216,13 +2216,18 @@ input:checked + .slider:before {
     border: none;
     background-color: transparent;
 }
+.editor-toolbar.fr-box.fr-basic.fr-top .fr-wrapper {
+    display: none;
+}
 .fr-toolbar.fr-top {
     position: absolute;
-    top: -120px!important;
-    left: 0;
-    -webkit-border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    border-radius: 0.5em;
+    top: 75px!important;
+    left: -720px;
+    padding-right: 50px;
+    -webkit-border-radius: 0 0.5em 0.5em 0;
+    -moz-border-radius: 0 0.5em 0.5em 0;
+    border-radius: 0 0.5em 0.5em 0;
     border: 1px solid #CCCCCC;
-    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important;
+    z-index: 999;
 }
