@@ -1,6 +1,15 @@
 $(document).ready(function () {
 
     // add question Page
+    $('.owl-carousel').owlCarousel({
+        mouseDrag: false,
+        touchDrag: false,
+        loop: false,
+        margin: 10,
+        nav: false,
+        items: 1,
+        dots: false,
+    });
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
             defaultText: '',
@@ -219,15 +228,6 @@ $(document).ready(function () {
                 });
             }
         });
-        $('.owl-carousel').owlCarousel({
-            mouseDrag: false,
-            touchDrag: false,
-            loop: false,
-            margin: 10,
-            nav: false,
-            items: 1,
-            dots: false,
-        });
         $('.change-btns .btn:last-child').click(function () {
             $('.owl-carousel').trigger('next.owl.carousel');
             $(".owl-carousel .owl-stage").css('transition', '0.8s');
@@ -391,21 +391,17 @@ $(document).ready(function () {
                     $(".iziToast>.iziToast-close").addClass("customized-izi-close");
                 }
             });
+        } else {
+            $('.owl-carousel').trigger('next.owl.carousel');
+            $('.question-sidebar a.active').removeClass("active");
+            $(".owl-carousel .owl-stage").css('transition', '0.8s');
+
         }
     });
-    $('.owl-carousel').owlCarousel({
-            mouseDrag: false,
-            touchDrag: false,
-            loop: false,
-            margin: 10,
-            nav: false,
-            items: 1,
-            dots: true,
-    });
-    $(".question-counter").click(function () {
-        $('.owl-carousel').trigger('next.owl.carousel');
-    });
-    $(".question-counter").click(function () {
-        $('.owl-carousel').trigger('prev.owl.carousel',[300]);
+    $(".question-sidebar a:nth-child(2)").click(function () {
+        $('.owl-carousel').trigger('prev.owl.carousel');
+        $(this).addClass("active");
+        $(".owl-carousel .owl-stage").css('transition', '0.8s');
+
     });
 });
