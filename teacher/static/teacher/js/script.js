@@ -409,7 +409,7 @@ $(document).ready(function () {
         });
     });
     $(".question-counter").click(function () {
-        if ($("span.clicked").length !== 0) {
+        if ($("span.clicked").length === 0) {
             iziToast.warning({
                 class: 'customized-warning-izi-toast-small',
                 title: 'هشدار',
