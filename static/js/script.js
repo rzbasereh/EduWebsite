@@ -6,14 +6,6 @@ $(document).ready(function () {
         $(".Page-Body").toggleClass('max-width');
     });
 
-    $(".question-sidebar  a:nth-child(2), .question-sidebar  a:nth-child(3)").click(function () {
-        $(".active").removeClass('active');
-        $(this).addClass('active');
-        $(".path a:last-child").text($(this).text());
-        $(".question-page-body h1 > span:first-child").text($(this).text());
-    });
-
-
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
