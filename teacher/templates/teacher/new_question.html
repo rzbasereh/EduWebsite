@@ -6,25 +6,28 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript">
-        tinymce.init({
-            selector: '#question-textarea',
-            height: 300,
-            plugins: [
-                'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                'table emoticons template paste help'
-            ],
-            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullpage | ' +
-                'forecolor backcolor emoticons | help',
-            menu: {
-                favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons'}
-            },
-            menubar: 'favs file edit view insert format tools table help',
-            content_css: 'css/content.css'
+        let editor = new FroalaEditor('#question-textarea', {
+            toolbarButtons: {
+                'moreText': {
+                    'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
+                },
+                'moreParagraph': {
+                    'buttons': ['alignRight', 'alignCenter', 'formatOLSimple', 'alignLeft', 'alignJustify', 'formatOL', 'formatUL', 'paragraphStyle', 'lineHeight', 'outdent', 'indent']
+                },
+                'moreRich': {
+                    'buttons': ['insertImage', 'insertTable', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
+                },
+                'moreMisc': {
+                    'buttons': ['undo', 'redo'],
+                    'align': 'right',
+                    'buttonsVisible': 2
+                }
+            }
         });
+
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     {#    <script src="https://unpkg.com/mathlive"></script>#}
@@ -90,14 +93,9 @@
         <div class="path">
                     <span>
                         <a href="{% url 'teacher:index' %}">
-                            <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
-                                      clip-rule="evenodd"/>
-                                <path fill-rule="evenodd"
-                                      d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
-                                      clip-rule="evenodd"/>
+                            <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z" clip-rule="evenodd"/>
                             </svg>
                         </a>
                         <span>
@@ -203,10 +201,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <label for="complete-ans" class="complete-ans-label">
-                                    پاسخ تشریحی
-                                </label>
+                            <div class="item"><label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
                                 <div id="complete-ans" class="w-100 complete-ans">
                                 </div>
                             </div>
