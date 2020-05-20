@@ -361,7 +361,7 @@ $(document).ready(function () {
         $(".question-page-body h1 > span:first-child").text($(this).text());
     });
     $(".questions-content .checkmark").click(function () {
-        let f = $(this);
+        let this_element = $(this);
         let state = "add";
         if ($(".questions-content .checkmark").hasClass("clicked")) {
             state = "remove";
@@ -375,35 +375,39 @@ $(document).ready(function () {
                 "pack_pk": parseInt($(".question-counter").attr("id").replace("pack-", ""), 10)
             },
             success: function (data) {
-                if (data.value === "success") {
+                if (data.value === "add question successful") {
                     $(".question-counter").addClass("question-counter-active");
                     $(".question-counter h2 > span").removeClass("counter-parent");
-                    $(f).toggleClass("clicked");
+                    this_element.toggleClass("clicked");
                     $(".counter").html($(".clicked").length);
                     if ($("span.clicked").length === 0) {
                         $(".question-counter").removeClass("question-counter-active");
                         $(".question-counter h2 > span").addClass("counter-parent");
                     }
                     iziToast.success({
-                    class: 'customized-success-izi-toast-small',
-                    title: '',
-                    message: 'سوال با موفقیت انتخاب شد !',
-                    position: 'bottomLeft',
-                    onOpening: function () {
-                        $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
-                        $(".iziToast-title").addClass("customized-izi-title");
-                        $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
-                        $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
-                        $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
-                            "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                            "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
-                            "</svg>\n" +
-                            "</div>");
-                        $(".iziToast>.iziToast-close").addClass("customized-izi-close");
-                    }
+                        class: 'customized-success-izi-toast-small',
+                        title: '',
+                        message: 'سوال با موفقیت انتخاب شد !',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
+                            $(".iziToast-title").addClass("customized-izi-title");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
+                                "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>\n" +
+                                "</div>");
+                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                        }
                     });
+                } else if (data.value === "remove question successful") {
+
+                } else {
+
                 }
-                },
+            },
             error: function (data) {
 
             }
