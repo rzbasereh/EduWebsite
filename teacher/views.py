@@ -49,14 +49,26 @@ def newQuestion(request):
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
-        if Question.objects.count() == 0:
-            pk = 1
-        else:
-            pk = Question.objects.last().id + 1
-        grades = SubGrade.objects.all()
-        return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk, 'grades': grades})
+        pk = request.session['pk']
+        return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
     messages.error(request, "شما مجاز به انجام این عملیات نیستید!")
     return HttpResponseRedirect(reverse('teacher:questions'))
+
+
+def saveGrades(request):
+    if request.method == "POST":
+        grades = request.POST.getlist('grades[]')
+        if len(grades) == 0:
+            return JsonResponse({"value": "empty list"})
+        else:
+            author = request.user.teacher
+            question = Question(author=author, grades=grades)
+            question.save()
+            pk = question.id
+            request.session['pk'] = pk
+            return HttpResponseRedirect(reverse("teacher:newQuestion"))
+    else:
+        return JsonResponse({"value": "invalid Request"})
 
 
 def addQuestion(request):
@@ -98,17 +110,14 @@ def addQuestion(request):
             question.is_publish = is_publish
             question.save()
             if not is_redirect:
-                print("update successful")
                 return JsonResponse({'success': "update"})
         else:
-            question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans,
-                                choice_1=choice1, choice_2=choice2, choice_3=choice3, choice_4=choice4,
-                                correct_ans=correct_ans, grade=grade, lesson=lesson, chapter=chapter)
-            question.save()
+            # question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans,
+            #                     choice_1=choice1, choice_2=choice2, choice_3=choice3, choice_4=choice4,
+            #                     correct_ans=correct_ans, grade=grade, lesson=lesson, chapter=chapter)
+            # question.save()
             if not is_redirect:
-                print("new successful")
                 return JsonResponse({'success': "new"})
-        print("redirect")
         messages.success(request, 'successfully add')
         return HttpResponseRedirect(reverse('teacher:questions'))
     else:

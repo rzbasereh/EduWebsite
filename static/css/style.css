@@ -1063,6 +1063,7 @@ h1 {
     margin-left: 10px;
     font-size: 17px;
 }
+
 .question-body {
     padding: 0;
     position: absolute;
@@ -1072,13 +1073,16 @@ h1 {
     height: 100%;
     overflow-y: hidden;
 }
+
 .question-body:hover {
     overflow-y: scroll;
 }
+
 .question-page-body {
     padding: 0 !important;
     height: 100%;
 }
+
 .next-question-page-body {
     position: absolute;
     left: 0;
@@ -1396,7 +1400,7 @@ form label {
 
 div.tagsinput {
     border: none !important;
-    background-color: #F8FAFB !important;
+    background-color: #F8FAFB;
     padding: 5px 5px 0 5px !important;
     width: 100% !important;
     min-height: 40px !important;
@@ -1655,7 +1659,6 @@ input:checked + .slider:before {
 }
 
 .modal-content {
-    max-width: 62% !important;
     margin-left: auto;
     margin-right: auto;
     border-radius: 8px !important;
@@ -1698,11 +1701,14 @@ input:checked + .slider:before {
 }
 
 .modal-footer {
-    padding: 0 !important;
     border-top: none !important;
 }
 
-.modal-footer .btn {
+.alert-modal .modal-footer {
+    padding: 0 !important;
+}
+
+.alert-modal .modal-footer .btn {
     min-width: 0 !important;
     width: 50%;
     float: right;
@@ -1712,7 +1718,7 @@ input:checked + .slider:before {
     height: 50px;
 }
 
-.modal-footer button {
+.alert-modal .modal-footer button {
     color: #8697A8;
     border-bottom-left-radius: 15px !important;
     -webkit-border-bottom-left-radius: 15px !important;
@@ -2124,11 +2130,13 @@ input:checked + .slider:before {
 .customized-info-izi-toast:after {
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
+
 .customized-warning-izi-toast-small:after,
 .customized-success-izi-toast-small:after,
 .customized-info-izi-toast-small:after {
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
+
 .customized-warning-izi-toast:before {
     content: '';
     position: absolute;
@@ -2243,16 +2251,19 @@ input:checked + .slider:before {
 .second-toolbar {
     display: none;
 }
+
 .fr-box.fr-basic.fr-top .fr-wrapper {
     border: none;
     background-color: transparent;
 }
+
 .editor-toolbar.fr-box.fr-basic.fr-top .fr-wrapper {
     display: none;
 }
+
 .fr-toolbar.fr-top {
     position: absolute;
-    top: 75px!important;
+    top: 75px !important;
     left: -720px;
     padding-right: 50px;
     -webkit-border-radius: 0 0.5em 0.5em 0;
@@ -2261,4 +2272,90 @@ input:checked + .slider:before {
     border: 1px solid #CCCCCC;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important;
     z-index: 999;
+}
+
+.fancy-tree-container {
+    /*direction: rtl;*/
+}
+
+ul.fancytree-container {
+    border: none;
+    font-family: "IRANSans", serif;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-header .modal-title {
+    font-weight: bold;
+    color: #44566C;
+}
+
+.modal-header .close {
+    position: relative;
+    opacity: 1;
+    padding: 15px;
+    color: #44566C;
+    background-color: #E9ECEF;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: 0 auto 0 0;
+}
+
+.modal-header .close svg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+    opacity: unset;
+}
+
+.modal-header .close:hover, .modal-header .close:focus {
+    outline: none;
+    color: #fff;
+    background-color: #FF3D57;
+    box-shadow: 0 0 5px 0 #FF3D5790;
+}
+
+.fancy-tree-selected {
+    /*border: 1px solid #135;*/
+}
+
+.min-h-300 {
+    min-height: 300px !important;
+}
+
+span.vr-hr {
+    position: relative;
+}
+
+span.vr-hr:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #8697A8;
+}
+
+.fancy-tree-selected div.tagsinput {
+    background-color: transparent;
+}
+
+.fancy-tree-selected div.tagsinput div {
+    display: none;
+}
+
+.fancytree-node:not(.fancytree-folder) span.fancytree-icon {
+    display: none;
 }

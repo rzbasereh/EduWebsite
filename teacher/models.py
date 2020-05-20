@@ -47,9 +47,7 @@ class Question(models.Model):
     choice_5 = models.CharField(max_length=1000, blank=True, null=True)
     correct_ans = models.CharField(max_length=1, blank=True, null=True)
     verbose_ans = models.TextField(null=True, blank=True)
-    grade = models.CharField(max_length=1000, blank=True, null=True)
-    lesson = models.CharField(max_length=1000, blank=True, null=True)
-    chapter = models.CharField(max_length=1000, blank=True, null=True)
+    grades = models.CharField(max_length=1000, blank=True, null=True)
     SOURCE = (
         ('Author', 'تالیفی'),
         ('Entrance', 'کنکور سراسری'),

@@ -10,7 +10,6 @@ $(document).ready(function () {
         nav: false,
         items: 1,
         dots: false,
-        rtl:true,
     });
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
@@ -323,37 +322,6 @@ $(document).ready(function () {
         setInterval(intervalSave, 60000);
     }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            let cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    function csrfSafeMethod(method) {
-// these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    let csrf_token = getCookie('csrftoken');
-    $.ajaxSetup({
-        crossDomain: false, // obviates need for sameOrigin test
-        beforeSend: function (xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrf_token);
-            }
-        }
-    });
-
     // editor($('.question-textarea'));
 
     $(".question-sidebar  a:nth-child(2), .question-sidebar  a:nth-child(3)").click(function () {
@@ -461,5 +429,76 @@ $(document).ready(function () {
         $('.owl-carousel').trigger('prev.owl.carousel');
         $(this).addClass("active");
         $(".owl-carousel .owl-stage").css('transition', '0.8s');
+    });
+
+    $("#selectGrade").find(".modal-footer button").click(function () {
+        let grades = [];
+        $.each($("#tags_tagsinput").find(".tag"), function () {
+            grades.push($(this).find("span").text().slice(0, -2));
+        });
+        $.ajax({
+            method: "POST",
+            url: $(this).attr("data-url"),
+            data: {
+                "grades": grades
+            },
+            success: function (data) {
+                if (data.value === "empty list") {
+                    iziToast.warning({
+                        class: 'customized-warning-izi-toast',
+                        message: 'شما هیچ موضوعی را انتخاب نکرده اید!',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
+                            $(".iziToast-title").addClass("customized-izi-title");
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
+                                "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+                                "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                "                    </svg>\n" +
+                                "                </div>");
+                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                        }
+                    });
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    let csrf_token = getCookie('csrftoken');
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
     });
 });
