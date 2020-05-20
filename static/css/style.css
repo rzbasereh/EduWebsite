@@ -1939,7 +1939,7 @@ input:checked + .slider:before {
     height: 12px;
 }
 
-.question-text p {
+.question-text pre {
     direction: rtl;
     float: right;
     margin-right: 15px;
