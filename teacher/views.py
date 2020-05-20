@@ -2,9 +2,10 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
-from .models import TeacherForm, Question
-from manager.models import SubGrade, TeacherAccess
+from .models import TeacherForm, Question, QuestionPack
+from manager.models import TeacherAccess
 from main.models import Message, Notification
+from django.core import serializers
 
 
 # Create your views here.
@@ -37,7 +38,11 @@ def questions(request):
         'count': Question.objects.all().count(),
         'list': Question.objects.all(),
     }
-    return render(request, 'teacher/questions.html', {'user': user, 'questions': questions_data})
+    if QuestionPack.objects.all().count() == 0:
+        pack_pk = 1
+    else:
+        pack_pk = QuestionPack.objects.last().id + 1
+    return render(request, 'teacher/questions.html', {'user': user, 'questions': questions_data, 'pack_pk': pack_pk})
 
 
 def newQuestion(request):
@@ -67,10 +72,10 @@ def addQuestion(request):
         # choice5 = ""
         # print(is_redirect == "tru")
         is_redirect = False
-        if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
-            grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
-        else:
-            grade = None
+        # if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
+        #     grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
+        # else:
+        grade = ""
         # lesson = request.POST.get('LessonSelect')
         # chapter = request.POST.get('ChapterSelect')
         lesson = None
@@ -115,6 +120,35 @@ def cancelAddQuestion(request, pk):
         Question.objects.filter(id=pk).delete()
     messages.success(request, "تغییرات با موفقیت لغو شد!")
     return HttpResponseRedirect(reverse('teacher:questions'))
+
+
+def selectedQuestion(request):
+    if request.method == "POST":
+        pack_pk = request.POST.get('pack_pk')
+        pk = request.POST.get('pk')
+        state = request.POST.get('state')
+        teacher = request.user.teacher
+        if state == "add":
+            if QuestionPack.objects.filter(id=pack_pk).exists():
+                question_pack = QuestionPack.objects.get(id=pack_pk)
+                question_pack.questions.add(Question.objects.filter(id=pk).first())
+            else:
+                question_pack = QuestionPack(teacher=teacher)
+                question_pack.save()
+                question_pack.questions.add(Question.objects.filter(id=pk).first())
+        elif state == "remove":
+            if QuestionPack.objects.filter(id=pack_pk).exists():
+                question_pack = QuestionPack.objects.get(id=pack_pk)
+                question_pack.questions.remove(Question.objects.filter(id=pk).first())
+        return JsonResponse({"value": "success"})
+    elif request.method == "GET":
+        pack_pk = request.GET.get('pack_pk')
+        if QuestionPack.objects.filter(id=pack_pk).exists():
+            question_pack = QuestionPack.objects.get(id=pack_pk)
+            selected_questions = serializers.serialize("json", question_pack.questions.all())
+            return JsonResponse({"value": "success", "questions": selected_questions})
+        else:
+            return JsonResponse({"value": "forbidden access"})
 
 
 def classRoom(request):

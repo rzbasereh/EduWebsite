@@ -9,7 +9,7 @@
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript">
-        let editor = new FroalaEditor('#question-textarea', {
+        let editor = new FroalaEditor('#editor-toolbar', {
             toolbarButtons: {
                 'moreText': {
                     'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
@@ -27,7 +27,7 @@
                 }
             }
         });
-
+        $("#editor-toolbar .fr-toolbar.fr-top").html("456");
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     {#    <script src="https://unpkg.com/mathlive"></script>#}
@@ -75,6 +75,7 @@
     </div>
 {% endblock %}
 {% block content %}
+    <div class="editor-toolbar" id="editor-toolbar"></div>
     <div class="make-exam-top">
         <h1 class="make-exam-h1">افزودن سوال جدید</h1>
         <div class="top-icons">

@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import Notification, Message
-from manager.models import Lesson
 from teacher.models import Exam, QuestionPack, Question
 from .models import StudentForm, ExamResult
 import ast
