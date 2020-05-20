@@ -9,6 +9,7 @@ $(document).ready(function () {
         nav: false,
         items: 1,
         dots: false,
+        rtl:true,
     });
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
