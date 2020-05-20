@@ -132,17 +132,17 @@ def selectedQuestion(request):
             if QuestionPack.objects.filter(id=pack_pk).exists():
                 question_pack = QuestionPack.objects.get(id=pack_pk)
                 question_pack.questions.add(Question.objects.filter(id=pk).first())
-                return JsonResponse({"value": "add question successful"})
+                return JsonResponse({"value": "success", "type": "add"})
             else:
                 question_pack = QuestionPack(teacher=teacher)
                 question_pack.save()
                 question_pack.questions.add(Question.objects.filter(id=pk).first())
-                return JsonResponse({"value": "add question successful"})
+                return JsonResponse({"value": "success", "type": "add"})
         elif state == "remove":
             if QuestionPack.objects.filter(id=pack_pk).exists():
                 question_pack = QuestionPack.objects.get(id=pack_pk)
                 question_pack.questions.remove(Question.objects.filter(id=pk).first())
-                return JsonResponse({"value": "remove question successful"})
+                return JsonResponse({"value": "success", "type": "remove"})
         return JsonResponse({"value": "error"})
     elif request.method == "GET":
         pack_pk = request.GET.get('pack_pk')
