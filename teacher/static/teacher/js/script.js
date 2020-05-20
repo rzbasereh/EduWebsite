@@ -372,7 +372,7 @@ $(document).ready(function () {
             method: "POST",
             url: $(".question-counter").attr("data-url"),
             data: {
-                "pk": $(".questions-content .checkmark").closest(".card").attr("id"),
+                "pk": this_element.closest(".card").attr("id"),
                 "state": state,
                 "pack_pk": parseInt($(".question-counter").attr("id").replace("pack-", ""), 10)
             },

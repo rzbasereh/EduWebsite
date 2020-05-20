@@ -132,6 +132,7 @@ def selectedQuestion(request):
             if QuestionPack.objects.filter(id=pack_pk).exists():
                 question_pack = QuestionPack.objects.get(id=pack_pk)
                 question_pack.questions.add(Question.objects.filter(id=pk).first())
+                print(question_pack.questions.all())
                 return JsonResponse({"value": "success", "type": "add"})
             else:
                 question_pack = QuestionPack(teacher=teacher)
