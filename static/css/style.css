@@ -1518,13 +1518,13 @@ input:checked + .slider:before {
     margin-top: 30px;
 }
 
-.owl-carousel .owl-stage-outer {
-    direction: ltr !important;
-}
+/*.owl-carousel .owl-stage-outer {*/
+/*    direction: rtl !important;*/
+/*}*/
 
-.owl-carousel.owl-drag .owl-item {
-    direction: rtl;
-}
+/*.owl-carousel.owl-drag .owl-item {*/
+/*    direction: ltr;*/
+/*}*/
 
 .owl-transition {
     transition: 1s;
@@ -2218,7 +2218,7 @@ input:checked + .slider:before {
     color: #1BBDFE;
     border: 1px solid #1BBDFE;
     position: relative;
-    top: 40%;
+    top: 45%;
     opacity: 50%;
 }
 
