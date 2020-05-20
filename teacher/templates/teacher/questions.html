@@ -133,6 +133,38 @@
             </div>
         </div>
         <div class="col-9 question-body">
+            <div class="row scrolled-header">
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>پایه</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>درس</option>
+                    </select>
+                    <span class="ti-angle-down "></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>تالیف</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control question-page-selects">
+                        <option selected>سطح</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
+                           aria-label="Username"
+                           aria-describedby="basic-addon1">
+                    <span class="ti-search"></span>
+                </div>
+            </div>
             <div class="owl-carousel owl-theme">
                 <div class="item">
                     <div class="question-page-body">
@@ -170,7 +202,7 @@
                         <a href="#">همه ی سوالات</a>
                     </span>
                         </div>
-                        <div class="row state-search">
+                        <div class="row header">
                             <div class="form-group">
                                 <select class="form-control question-page-selects">
                                     <option selected>پایه</option>
@@ -220,7 +252,6 @@
                                             <pre>
                                                 {{ question.body }}
                                             </pre>
-
                                                 <span class="type">
                                     <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"
                                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -230,19 +261,19 @@
                                     </svg>
                                     <span>تالیفی</span>
                                 </span>
-                                            </div>
-                                            <div class="question-inline-choices">
-                                                <span>1) {{ question.choice_1 }}</span>
-                                                <span class="selected-correct-choice"><span
-                                                        class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
-                                                <span>3) {{ question.choice_3 }}</span>
-                                                <span>4) {{ question.choice_4 }}</span>
-                                            </div>
-                                            <div class="question-level">
-                                            </div>
+                                        </div>
+                                        <div class="question-inline-choices">
+                                            <span>1) {{ question.choice_1 }}</span>
+                                            <span class="selected-correct-choice"><span
+                                                    class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
+                                            <span>3) {{ question.choice_3 }}</span>
+                                            <span>4) {{ question.choice_4 }}</span>
+                                        </div>
+                                        <div class="question-level">
                                         </div>
                                     </div>
-                                {% endfor %}
+                                </div>
+                            {% endfor %}
 
                                 {#                    <div class="card w-100" id="2">#}
                                 {#                        <div class="card-body">#}
