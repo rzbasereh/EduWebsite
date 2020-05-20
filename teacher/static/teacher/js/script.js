@@ -10,7 +10,7 @@ $(document).ready(function () {
         nav: false,
         items: 1,
         dots: false,
-        rtl:true,
+        autoHeight: true,
     });
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
@@ -389,27 +389,59 @@ $(document).ready(function () {
                     if (data.type === "add") {
                         iziToast.success({
                             class: 'customized-success-izi-toast-small',
-                            title: '',
                             message: 'سوال با موفقیت انتخاب شد !',
                             position: 'bottomLeft',
                             onOpening: function () {
-                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
-                                $(".iziToast-title").addClass("customized-izi-title");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
                                 $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
-                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
                                 $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
                                     "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
                                     "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
                                     "</svg>\n" +
                                     "</div>");
-                                $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                                $(".iziToast>.iziToast-close").addClass("customized-izi-close-small");
                             }
                         });
                     } else if (data.type === "remove") {
-
+                        iziToast.success({
+                            class: 'customized-success-izi-toast-small',
+                            message: 'سوال با موفقیت حذف شد !',
+                            position: 'bottomLeft',
+                            onOpening: function () {
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
+                                    "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "</svg>\n" +
+                                    "</div>");
+                                $(".iziToast>.iziToast-close").addClass("customized-izi-close-small");
+                            }
+                        });
                     }
                 } else {
-
+                    iziToast.info({
+                        class: 'customized-info-izi-toast',
+                        title: 'هشدار',
+                        message: 'لطفا دوباره امتحان کنید',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-info-izi-toast>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
+                            $(".iziToast-title").addClass("customized-izi-title");
+                            $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").removeClass("ico-info");
+                            $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
+                            $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"info-alert-circle\">\n" +
+                                "    <svg class=\"bi bi-info\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+                                "         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "        <path d=\"M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z\"/>\n" +
+                                "        <circle cx=\"8\" cy=\"4.5\" r=\"1\"/>\n" +
+                                "    </svg>\n" +
+                                "</div>");
+                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                        }
+                    });
                 }
             },
             error: function (data) {
@@ -462,4 +494,17 @@ $(document).ready(function () {
         $(this).addClass("active");
         $(".owl-carousel .owl-stage").css('transition', '0.8s');
     });
+    // $(".question-page-body").onscroll = function () {
+    //     scrollFunction()
+    // };
+
+    $(".question-page-body").onscroll(function () {
+        if ($(".question-page-body").scrollTop > 100) {
+            // console.log($(".question-page-body").scrollTop);
+            $(".scrolled-header").css("display", "none");
+        } else {
+            $(".scrolled-header").css("display", "block");
+        }
+    });
+
 });
