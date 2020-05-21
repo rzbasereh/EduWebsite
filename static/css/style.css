@@ -1433,8 +1433,8 @@ div.tagsinput span.tag {
     float: right !important;
     padding: 5px;
     text-decoration: none;
-    background: #EAEDF0 !important;
-    color: #343A40 !important;
+    background: #EAEDF0;
+    color: #343A40;
     margin-right: 5px;
     margin-bottom: 5px;
     font-family: IRANSans !important;
@@ -1442,7 +1442,7 @@ div.tagsinput span.tag {
 }
 
 div.tagsinput span.tag a {
-    color: #343A40 !important;
+    color: #343A40;
 }
 
 .btn:focus {
@@ -2410,4 +2410,42 @@ span.vr-hr:after {
 
 .fancytree-node:not(.fancytree-folder) span.fancytree-icon {
     display: none;
+}
+
+.modal-open .modal {
+    overflow-y: hidden;
+}
+
+span.fancytree-icon {
+    margin-right: 10px;
+}
+
+.fancytree-container.fancytree-rtl .fancytree-exp-n span.fancytree-expander,
+.fancytree-container.fancytree-rtl .fancytree-exp-nl span.fancytree-expander {
+    margin-right: 10px;
+}
+
+span.fancytree-expander {
+    margin-left: 5px;
+}
+
+span.fancytree-checkbox:hover {
+    cursor: pointer;
+}
+
+.fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active:hover span.fancytree-title {
+    background-color: transparent;
+    border-color: unset!important;
+    color: unset;
+}
+.fancytree-plain.fancytree-container span.fancytree-node.fancytree-active span.fancytree-title {
+    background-color: transparent!important;
+    color: unset;
+}
+.fancy-tree-selected div.tagsinput span.tag{
+    background-color: #F8FAFB;
+    color: #44566C;
+}
+.fancy-tree-selected div.tagsinput span.tag a {
+    color: #44566C;
 }

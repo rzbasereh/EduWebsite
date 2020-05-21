@@ -463,9 +463,7 @@ $(document).ready(function () {
         $(this).addClass("active");
         $(".owl-carousel .owl-stage").css('transition', '0.8s');
     });
-    // $(".question-page-body").onscroll = function () {
-    //     scrollFunction()
-    // };
+
     $(".question-body").scroll(function () {
         if ($(".question-body").scrollTop() > 100) {
             $(".scrolled-header").css("display", "block");
@@ -487,7 +485,9 @@ $(document).ready(function () {
                 "grades": grades
             },
             success: function (data) {
-                if (data.value === "empty list") {
+                if(data.value === "success") {
+                    $(location).attr("href", data.url);
+                }else if (data.value === "empty list") {
                     iziToast.warning({
                         class: 'customized-warning-izi-toast',
                         message: 'شما هیچ موضوعی را انتخاب نکرده اید!',

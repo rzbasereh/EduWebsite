@@ -29,7 +29,7 @@
 {% endblock %}
 {% block content %}
     <div class="modal fade" id="selectGrade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">انتخاب موضوع سوال</h5>
@@ -261,19 +261,19 @@
                                     </svg>
                                     <span>تالیفی</span>
                                 </span>
-                                        </div>
-                                        <div class="question-inline-choices">
-                                            <span>1) {{ question.choice_1 }}</span>
-                                            <span class="selected-correct-choice"><span
-                                                    class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
-                                            <span>3) {{ question.choice_3 }}</span>
-                                            <span>4) {{ question.choice_4 }}</span>
-                                        </div>
-                                        <div class="question-level">
+                                            </div>
+                                            <div class="question-inline-choices">
+                                                <span>1) {{ question.choice_1 }}</span>
+                                                <span class="selected-correct-choice"><span
+                                                        class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
+                                                <span>3) {{ question.choice_3 }}</span>
+                                                <span>4) {{ question.choice_4 }}</span>
+                                            </div>
+                                            <div class="question-level">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
 
                                 {#                    <div class="card w-100" id="2">#}
                                 {#                        <div class="card-body">#}
@@ -395,13 +395,24 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.35.0/jquery.fancytree-all-deps.min.js"></script>
     <script type="text/javascript">
         $('#selectGrade').on('show.bs.modal', function (event) {
-
+            let close_svg = '<svg class="bi bi-x" width="15px" height="15px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                '  <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>\n' +
+                '  <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>\n' +
+                '</svg>';
             $("#tags").tagsInput({
                 defaultText: "",
                 interactive: true,
-                onRemoveTag: function () {
-                    console.log("Todo questions.html")
+                onRemoveTag: function (data) {
+                    $("#tags_tagsinput .tag a").html(close_svg);
+                    $("#grade-fancy-tree").find(".fancytree-selected").each(function () {
+                        if ($(this).find(".fancytree-title").text() === data) {
+
+                        }
+                    });
                 },
+                onAddTag: function (data) {
+                    $("#tags_tagsinput .tag a").html(close_svg);
+                }
             });
 
             let grade = "{\n" +
@@ -422,6 +433,54 @@
                 "    }\n" +
                 "  ]\n" +
                 "}";
+
+            function _svg(className, addClass) {
+                let html = '';
+                switch (className) {
+                    case "folder":
+                        html = '<svg class="bi bi-folder" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path d="M9.828 4a3 3 0 01-2.12-.879l-.83-.828A1 1 0 006.173 2H2.5a1 1 0 00-1 .981L1.546 4h-1L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3v1z"/>\n' +
+                            '  <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 00-.996 1.09l.637 7a1 1 0 00.995.91h10.348a1 1 0 00.995-.91l.637-7A1 1 0 0013.81 4zM2.19 3A2 2 0 00.198 5.181l.637 7A2 2 0 002.826 14h10.348a2 2 0 001.991-1.819l.637-7A2 2 0 0013.81 3H2.19z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+                    case "folderOpen":
+                        html = '<svg class="bi bi-folder-minus" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M9.828 4H2.19a1 1 0 00-.996 1.09l.637 7a1 1 0 00.995.91H9v1H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3h3.982a2 2 0 011.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0013.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 011-.98h3.672a1 1 0 01.707.293z" clip-rule="evenodd"/>\n' +
+                            '  <path fill-rule="evenodd" d="M11 11.5a.5.5 0 01.5-.5h4a.5.5 0 010 1h-4a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+                    case "checkbox":
+                        html = '<svg class="bi bi-square" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+                    case "checkboxSelected":
+                        html = '<svg class="bi bi-check-box" width="23px" height="23px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>\n' +
+                            '  <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+                    case "checkboxUnknown":
+                        html = '<svg class="bi bi-dash-square" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>\n' +
+                            '  <path fill-rule="evenodd" d="M3.5 8a.5.5 0 01.5-.5h8a.5.5 0 010 1H4a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break
+                    case "expanderClosed":
+                        html = '<svg class="bi bi-chevron-left" width="16px" height="16px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+                    case "expanderOpen":
+                        html = '<svg class="bi bi-chevron-down" width="16px" height="16px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clip-rule="evenodd"/>\n' +
+                            '</svg>';
+                        break;
+
+                }
+                return {html: html};
+            }
+
             let tree = $("#grade-fancy-tree").fancytree({
                 extensions: ["glyph"],
                 checkbox: true,
@@ -453,18 +512,18 @@
                     preset: "awesome5",
                     map: {
                         {#_addClass: "",#}
-                        {#checkbox: "fas fa-square",#}
-                        {#checkboxSelected: "fas fa-check-square",#}
-                        {#checkboxUnknown: "fas fa-square",#}
+                        checkbox: _svg("checkbox"),
+                        checkboxSelected: _svg("checkboxSelected"),
+                        checkboxUnknown: _svg("checkboxUnknown"),
                         {#radio: "fas fa-circle",#}
                         {#radioSelected: "fas fa-circle",#}
                         {#radioUnknown: "fas fa-dot-circle",#}
                         {#dragHelper: "fas fa-arrow-right",#}
                         {#dropMarker: "fas fa-long-arrow-right",#}
                         {#error: "fas fa-exclamation-triangle",#}
-                        expanderClosed: "fas fa-chevron-left",
+                        expanderClosed: _svg("expanderClosed"),
                         {#expanderLazy: "fas fa-angle-right",#}
-                        expanderOpen: "fas fa-chevron-down",
+                        expanderOpen: _svg("expanderOpen"),
                         {#loading: "fas fa-spinner fa-pulse",#}
                         {#nodata: "fas fa-meh",#}
                         {#noExpander: "",#}
@@ -472,8 +531,8 @@
                         {#// (Use tree.options.icon callback to define custom icons based on node data)#}
                         {#doc: "fas fa-screwdriver",#}
                         {#docOpen: "fas fa-screwdriver",#}
-                        {#folder: "fas fa-folder",#}
-                        {#folderOpen: "fas fa-folder-open"#}
+                        folder: _svg("folder"),
+                        folderOpen: _svg("folderOpen")
                     }
                 },
             });

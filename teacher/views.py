@@ -50,6 +50,7 @@ def newQuestion(request):
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
         pk = request.session['pk']
+        del request.session['pk']
         return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
     messages.error(request, "شما مجاز به انجام این عملیات نیستید!")
     return HttpResponseRedirect(reverse('teacher:questions'))
@@ -66,7 +67,7 @@ def saveGrades(request):
             question.save()
             pk = question.id
             request.session['pk'] = pk
-            return HttpResponseRedirect(reverse("teacher:newQuestion"))
+            return JsonResponse({"value": "success", "url": reverse("teacher:newQuestion")})
     else:
         return JsonResponse({"value": "invalid Request"})
 
@@ -112,12 +113,7 @@ def addQuestion(request):
             if not is_redirect:
                 return JsonResponse({'success': "update"})
         else:
-            # question = Question(body=body, is_publish=is_publish, author=author, verbose_ans=verbose_ans,
-            #                     choice_1=choice1, choice_2=choice2, choice_3=choice3, choice_4=choice4,
-            #                     correct_ans=correct_ans, grade=grade, lesson=lesson, chapter=chapter)
-            # question.save()
-            if not is_redirect:
-                return JsonResponse({'success': "new"})
+            return JsonResponse({'success': "Error"})
         messages.success(request, 'successfully add')
         return HttpResponseRedirect(reverse('teacher:questions'))
     else:
