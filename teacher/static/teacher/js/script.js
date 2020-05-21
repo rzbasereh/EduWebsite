@@ -369,7 +369,10 @@ $(document).ready(function () {
                                     "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
                                     "</svg>\n" +
                                     "</div>");
-                                $(".iziToast>.iziToast-close").addClass("customized-izi-close-small");
+                                $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "</svg>");
                             }
                         });
                     } else if (data.type === "remove") {
@@ -386,7 +389,10 @@ $(document).ready(function () {
                                     "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
                                     "</svg>\n" +
                                     "</div>");
-                                $(".iziToast>.iziToast-close").addClass("customized-izi-close-small");
+                                $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "</svg>");
                             }
                         });
                     }
@@ -397,10 +403,8 @@ $(document).ready(function () {
                         message: 'لطفا دوباره امتحان کنید',
                         position: 'bottomLeft',
                         onOpening: function () {
-                            $(".customized-info-izi-toast>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
                             $(".iziToast-title").addClass("customized-izi-title");
                             $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").removeClass("ico-info");
-                            $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
                             $(".customized-info-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"info-alert-circle\">\n" +
                                 "    <svg class=\"bi bi-info\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                                 "         xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -408,7 +412,10 @@ $(document).ready(function () {
                                 "        <circle cx=\"8\" cy=\"4.5\" r=\"1\"/>\n" +
                                 "    </svg>\n" +
                                 "</div>");
-                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                            $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>");
                         }
                     });
                 }
@@ -426,17 +433,17 @@ $(document).ready(function () {
                 message: 'سوالی انتخاب نشده است !',
                 position: 'bottomLeft',
                 onOpening: function () {
-                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
-                    $(".iziToast-title").addClass("customized-izi-title");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-warning");
-                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                         "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                         "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
                         "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
                         "                    </svg>\n" +
                         "                </div>");
-                    $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                    $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                        "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                        "</svg>");
                 }
             });
         } else {
@@ -463,17 +470,22 @@ $(document).ready(function () {
         $(this).addClass("active");
         $(".owl-carousel .owl-stage").css('transition', '0.8s');
     });
-    // $(".question-page-body").onscroll = function () {
-    //     scrollFunction()
-    // };
-    $(".question-body").scroll(function () {
-        if ($(".question-body").scrollTop() > 100) {
-            $(".scrolled-header").css("display", "block");
-        } else {
-            $(".scrolled-header").css("display", "none");
-        }
+
+    $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
+    $(window).resize(function () {
+        $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
+    });
+    $(".slider-control").click(function () {
+        $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
     });
 
+    $(".question-body").scroll(function () {
+        if ($(".questions").offset().top === 148) {
+            $(".scrolled-header").addClass("scrolled-header-show");
+        } else if ($(".questions").offset().top > 148) {
+            $(".scrolled-header").removeClass("scrolled-header-show");
+        }
+    });
 
     $("#selectGrade").find(".modal-footer button").click(function () {
         let grades = [];
@@ -490,20 +502,21 @@ $(document).ready(function () {
                 if (data.value === "empty list") {
                     iziToast.warning({
                         class: 'customized-warning-izi-toast',
+                        title: 'هشدار',
                         message: 'شما هیچ موضوعی را انتخاب نکرده اید!',
                         position: 'bottomLeft',
                         onOpening: function () {
-                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-texts").addClass("customized-izi-text");
-                            $(".iziToast-title").addClass("customized-izi-title");
                             $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").removeClass("ico-warning");
-                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").addClass("customized-izi-icon");
                             $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                                 "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                                 "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
                                 "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
                                 "                    </svg>\n" +
                                 "                </div>");
-                            $(".iziToast>.iziToast-close").addClass("customized-izi-close");
+                            $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>");
                         }
                     });
                 }
