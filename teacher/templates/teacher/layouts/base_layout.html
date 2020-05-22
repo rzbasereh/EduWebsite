@@ -88,8 +88,8 @@
         {% endif %}">
             <li><i class="ti-blackboard"></i><span class="">مدیریت آزمون</span></li>
         </a>
-        {% url 'teacher:questions' as questions %}
-        <a href="{% url 'teacher:questions' %}" class="{% if request.path == questions %}
+        {% url 'teacher:questions' as question_bank %}
+        <a href="{% url 'teacher:questions' %}" class="{% if request.path == question_bank %}
          active
         {% endif %}">
             <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">بانک سوال</span>
