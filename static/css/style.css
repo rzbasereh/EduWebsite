@@ -2683,7 +2683,7 @@ span.fancytree-checkbox:hover {
 
 div.pagination {
     margin-top: 30px;
-    padding: 0 10px 0 20px;
+    padding: 0 20px;
 }
 
 div.pagination > div:first-child {
@@ -2727,13 +2727,23 @@ ul.pagination {
     line-height: 20px;
     background-color: #fff;
     border: none;
-    height: 27px;
+    height: 28px;
     padding: 0;
     color: #44566C;
     border-radius: 3px;
 }
-
-.page-link i,
+.page-link[aria-label="next"],
+.page-link[aria-label="prev"] {
+    background-color: transparent;
+    color: inherit;
+}
+.page-link i {
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-top: 2px;
+}
 .page-link span {
     position: absolute;
     top: 50%;
@@ -2761,7 +2771,14 @@ ul.pagination {
 }
 
 .page-link:hover {
-    z-index: 2;
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #0081FF;
+    border-color: #FFFFFF;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+.page-item:first-child:hover,
+.page-item:last-child:hover {
     color: #FFFFFF;
     text-decoration: none;
     background-color: #0081FF;
