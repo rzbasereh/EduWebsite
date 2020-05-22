@@ -458,9 +458,9 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.value === "success") {
-                        console.log(data);
-                        for (question in data.questions) {
-                            console.log(question.fields.body)
+                        let questions = JSON.parse(data["questions"]);
+                        for (let i in questions) {
+                            console.log(questions[i]["fields"]["body"]);
                         }
                     }
                 },
