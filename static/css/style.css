@@ -2732,8 +2732,8 @@ ul.pagination {
     color: #44566C;
     border-radius: 3px;
 }
-.page-link[aria-label="next"],
-.page-link[aria-label="prev"] {
+.page-link[aria-label="Next"],
+.page-link[aria-label="Previous"] {
     background-color: transparent;
     color: inherit;
 }
