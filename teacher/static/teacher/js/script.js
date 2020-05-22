@@ -480,7 +480,7 @@ $(document).ready(function () {
     });
 
     $(".question-body").scroll(function () {
-        if ($(".questions").offset().top === 148) {
+        if ($(".questions").offset().top < 148) {
             $(".scrolled-header").addClass("scrolled-header-show");
         } else if ($(".questions").offset().top > 148) {
             $(".scrolled-header").removeClass("scrolled-header-show");
@@ -499,9 +499,9 @@ $(document).ready(function () {
                 "grades": grades
             },
             success: function (data) {
-                if(data.value === "success") {
+                if (data.value === "success") {
                     $(location).attr("href", data.url);
-                }else if (data.value === "empty list") {
+                } else if (data.value === "empty list") {
                     iziToast.warning({
                         class: 'customized-warning-izi-toast',
                         title: 'هشدار',
@@ -528,7 +528,13 @@ $(document).ready(function () {
             }
         });
     });
-
+    $(".questions .card-body > span").closest(".card").find(".verbose-ans").hide();
+    $(".questions .card-body > span").click(function () {
+        $(this).closest(".card").find(".verbose-ans").show();
+    });
+    $(".verbose-ans .close").click(function () {
+        $(this).closest(".card").find(".verbose-ans").hide();
+    });
 
     function getCookie(name) {
         let cookieValue = null;
