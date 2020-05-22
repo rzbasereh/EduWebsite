@@ -2503,7 +2503,7 @@ span.fancytree-checkbox:hover {
 
 .question-type {
     position: absolute;
-    top: 3%;
+    margin-top: 5px;
     right: 0;
     margin-right: 15px;
 }
