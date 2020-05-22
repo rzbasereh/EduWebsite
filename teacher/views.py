@@ -163,3 +163,9 @@ def selectedQuestion(request):
 def classRoom(request):
     user = commonData(request)
     return render(request, 'teacher/class_room.html', {'user': user})
+
+
+def examManagement(request):
+    user = commonData(request)
+    question_packs = QuestionPack.objects.all()
+    return render(request, 'teacher/manage_exam.html', {'user': user, 'packs': question_packs})

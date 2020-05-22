@@ -1,0 +1,10 @@
+{% extends 'teacher/layouts/base_layout.html' %}
+{% block title %}مدیریت آزمون{% endblock %}
+
+{% block content %}
+    <div class="row w-100">
+        {% for pack in packs %}
+            {{ pack.name }}
+        {% endfor %}
+    </div>
+{% endblock %}

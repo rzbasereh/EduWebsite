@@ -12,4 +12,5 @@ urlpatterns = [
     path('questions/add_new/cancel/<int:pk>', views.cancelAddQuestion, name='cancelAddQuestion'),
     path('questions/selected', views.selectedQuestion, name="selectedQuestion"),
     path('class', views.classRoom, name="class"),
+    path('exam', views.examManagement, name="examManagement"),
 ]
