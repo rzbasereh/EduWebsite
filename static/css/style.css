@@ -2749,9 +2749,6 @@ ul.pagination {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.page-link span {
     padding-top: 2px;
 }
 
