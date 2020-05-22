@@ -457,7 +457,12 @@ $(document).ready(function () {
                     "pack_pk": parseInt($(".question-counter").attr("id").replace("pack-", ""), 10)
                 },
                 success: function (data) {
-                    console.log(data);
+                    if (data.value === "success") {
+                        console.log(data);
+                        for (question in data.questions) {
+                            console.log(question.fields.body)
+                        }
+                    }
                 },
                 error: function (data) {
                     console.log(data);
