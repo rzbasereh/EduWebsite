@@ -425,6 +425,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $(".question-counter").click(function () {
         if ($("span.clicked").length === 0) {
             iziToast.warning({
@@ -459,9 +460,131 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.value === "success") {
                         let questions = JSON.parse(data["questions"]);
+
                         for (let i in questions) {
+
+                            // $(".next-question-page-body .card").attr("id", questions[i]["pk"]);
+                            // $(".next-question-page-body .question-text").append("<pre>" + questions[i]["fields"]["body"] + "</pre>");
+                            // $(".next-question-page-body .question-inline-choices > span:first-child > .choice-amount").text(questions[i]["fields"]["choice_1"]);
+                            // $(".next-question-page-body .question-inline-choices > span:nth-child(2) > .choice-amount").text(questions[i]["fields"]["choice_2"]);
+                            // $(".next-question-page-body .question-inline-choices > span:nth-child(3) > .choice-amount").text(questions[i]["fields"]["choice_3"]);
+                            // $(".next-question-page-body .question-inline-choices > span:last-child > .choice-amount").text(questions[i]["fields"]["choice_4"]);
                             console.log(questions[i]["fields"]["body"]);
+                            console.log($(".next-question-page-body pre").html());
+                        let vv = "<div class=\"questions\">\n" +
+        "                            <div class=\"row questions-content\">\n" +
+        "                                    <div class=\"card w-100\" id=\"\">\n" +
+        "                                        <div class=\"card-body\">\n" +
+        "                                            <div class=\"question-type\">\n" +
+        "                                                    <span>\n" +
+        "                                                        <span>پایه دهم</span>\n" +
+        "                                                        <span>\n" +
+        "                                                            <svg class=\"bi bi-chevron-left\" width=\"1em\" height=\"1em\"\n" +
+        "                                                                 viewBox=\"0 0 16 16\"\n" +
+        "                                                                 fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                                    <path fill-rule=\"evenodd\"\n" +
+        "                                                                          d=\"M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z\"\n" +
+        "                                                                          clip-rule=\"evenodd\"></path>\n" +
+        "                                                            </svg>\n" +
+        "                                                        </span>\n" +
+        "                                                        <span>بانک سوال</span>\n" +
+        "                                                        <span>\n" +
+        "                                                        <svg class=\"bi bi-chevron-left\" width=\"1em\" height=\"1em\"\n" +
+        "                                                             viewBox=\"0 0 16 16\"\n" +
+        "                                                             fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                            <path fill-rule=\"evenodd\"\n" +
+        "                                                                  d=\"M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z\"\n" +
+        "                                                                  clip-rule=\"evenodd\"></path>\n" +
+        "                                                        </svg>\n" +
+        "                                                        </span>\n" +
+        "                                                        <span>همه ی سوالات</span>\n" +
+        "                                                    </span>\n" +
+        "                                            </div>\n" +
+        "                                            <div class=\"question-info\">\n" +
+        "                                                <div class=\"question-info-data\">\n" +
+        "                                                    <span class=\"question-level\">\n" +
+        "                                                        <svg class=\"bi bi-dot bi-dot-simple\" width=\"1em\" height=\"1em\"\n" +
+        "                                                             viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+        "                                                             xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                            <path fill-rule=\"evenodd\"\n" +
+        "                                                                  d=\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\"\n" +
+        "                                                                  clip-rule=\"evenodd\"></path>\n" +
+        "                                                        </svg>\n" +
+        "                                                        <span>ساده</span>\n" +
+        "                                                    </span>\n" +
+        "                                                    <span data-toggle=\"modal\" data-target=\"#questionInfo\">\n" +
+        "                                                    <svg class=\"bi bi-pie-chart\" width=\"1em\" height=\"1em\"\n" +
+        "                                                         viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+        "                                                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                        <path fill-rule=\"evenodd\"\n" +
+        "                                                              d=\"M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z\"\n" +
+        "                                                              clip-rule=\"evenodd\"></path>\n" +
+        "                                                        <path fill-rule=\"evenodd\"\n" +
+        "                                                              d=\"M7.5 7.793V1h1v6.5H15v1H8.207l-4.853 4.854-.708-.708L7.5 7.793z\"\n" +
+        "                                                              clip-rule=\"evenodd\"></path>\n" +
+        "                                                    </svg>\n" +
+        "                                                        </span>\n" +
+        "                                                    <div class=\"dropdown\">\n" +
+        "                                                        <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\"\n" +
+        "                                                                id=\"dropdownMenuButton\" data-toggle=\"dropdown\"\n" +
+        "                                                                aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+        "                                                            <svg class=\"bi bi-three-dots\" width=\"1em\" height=\"1em\"\n" +
+        "                                                                 viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+        "                                                                 xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                                <path fill-rule=\"evenodd\"\n" +
+        "                                                                      d=\"M3 9.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z\"\n" +
+        "                                                                      clip-rule=\"evenodd\"/>\n" +
+        "                                                            </svg>\n" +
+        "                                                        </button>\n" +
+        "                                                        <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
+        "                                                        </div>\n" +
+        "                                                    </div>\n" +
+        "                                                </div>\n" +
+        "                                                <div class=\"question-info-img\">\n" +
+        "                                                    <p>98-99</p>\n" +
+        "                                                </div>\n" +
+        "                                            </div>\n" +
+        "                                            <div class=\"form-group form-check\">\n" +
+        "                                                <label class=\"form-check-label customBox\"\n" +
+        "                                                       for=\"exampleCheck\">\n" +
+        "                                                    <input type=\"checkbox\" class=\"form-check-input\"\n" +
+        "                                                           id=\"exampleCheck\"\n" +
+        "                                                           name=\"remember_me\">\n" +
+        "                                                    <span class=\"checkmark\"></span>\n" +
+        "                                                </label>\n" +
+        "                                            </div>\n" +
+        "                                            <div class=\"question-text\">\n" +
+                                                        questions[i]["fields"]["body"] +
+        "                                            </div>\n" +
+        "                                            <div class=\"question-inline-choices\">\n" +
+        "                                                <span>1)<span class='choice-amount'></span></span>\n" +
+        "                                                <span class=\"selected-correct-choice\"><span\n" +
+        "                                                        class=\"inline-selected-correct-choice-tick\"></span>2)<span class='choice-amount'></span></span>\n" +
+        "                                                <span>3)<span class='choice-amount'></span></span>\n" +
+        "                                                <span>4)<span class='choice-amount'></span></span>\n" +
+        "                                            </div>\n" +
+        "                                            <span>پاسخ تشریحی</span>\n" +
+        "                                        </div>\n" +
+        "                                        <div class=\"verbose-ans\">\n" +
+        "                                            <h3>پاسخ تشریحی</h3>\n" +
+        "                                            <pre></pre>\n" +
+        "                                            <button type=\"button\" class=\"close\">\n" +
+        "                                                <svg class=\"bi bi-x\" width=\"20px\" height=\"20px\" viewBox=\"0 0 16 16\"\n" +
+        "                                                     fill=\"currentColor\"\n" +
+        "                                                     xmlns=\"http://www.w3.org/2000/svg\">\n" +
+        "                                                    <path fill-rule=\"evenodd\"\n" +
+        "                                                          d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\"\n" +
+        "                                                          clip-rule=\"evenodd\"></path>\n" +
+        "                                                    <path fill-rule=\"evenodd\"\n" +
+        "                                                          d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\"\n" +
+        "                                                          clip-rule=\"evenodd\"></path>\n" +
+        "                                                </svg>\n" +
+        "                                            </button>\n" +
+        "                                        </div>\n" +
+        "                                    </div>\n";
                         }
+                         $(".next-question-page-body").append(vv);
+
                     }
                 },
                 error: function (data) {
@@ -470,6 +593,7 @@ $(document).ready(function () {
             })
         }
     });
+
     $(".question-sidebar a:nth-child(2)").click(function () {
         $('.owl-carousel').trigger('prev.owl.carousel');
         $(this).addClass("active");
@@ -540,7 +664,6 @@ $(document).ready(function () {
     $(".verbose-ans .close").click(function () {
         $(this).closest(".card").find(".verbose-ans").hide();
     });
-
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

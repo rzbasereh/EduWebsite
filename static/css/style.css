@@ -1071,7 +1071,7 @@ h1 {
     left: 0;
     max-width: calc(100% - 200px);
     direction: ltr;
-    height: 100%;
+    height:100%;
     overflow-y: scroll;
 }
 
@@ -1085,8 +1085,6 @@ h1 {
 }
 
 .next-question-page-body {
-    position: absolute;
-    left: 0;
     padding: 0 !important;
     height: 100%;
 }
@@ -2781,4 +2779,7 @@ ul.pagination {
     background-color: #0081FF;
     border-color: #FFFFFF;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+.question-body .owl-carousel .owl-stage-outer {
+    height: calc(100% - 60px) !important;
 }
