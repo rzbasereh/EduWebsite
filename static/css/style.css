@@ -2725,7 +2725,7 @@ ul.pagination {
     line-height: 20px;
     background-color: #fff;
     border: none;
-    height: 28px;
+    height: 30px;
     padding: 0;
     color: #44566C;
     border-radius: 3px;
@@ -2783,3 +2783,6 @@ ul.pagination {
 .question-body .owl-carousel .owl-stage-outer {
     height: calc(100% - 60px) !important;
 }
+/*.disappearing-tick:after {*/
+/*    visibility: hidden;*/
+/*}*/
