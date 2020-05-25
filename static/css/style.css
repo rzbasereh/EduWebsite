@@ -2627,16 +2627,30 @@ span.fancytree-checkbox:hover {
     margin: 5px auto 0 5px;
     top: 0;
 }
-
+.card-body .close {
+    position: absolute;
+    opacity: 1;
+    padding: 12px;
+    color: #44566C;
+    background-color: #E9ECEF;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: -3px auto 0 5px;
+    right: 0;
+}
 .verbose-ans .close:focus,
-.verbose-ans .close:hover {
+.card-body .close:focus,
+.verbose-ans .close:hover,
+.card-body .close:hover {
     outline: none;
     color: #fff;
     background-color: #FF3D57;
     box-shadow: 0 0 5px 0 #FF3D5790;
 }
 
-.verbose-ans .close svg {
+.verbose-ans .close svg,
+.card-body .close svg {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2710,7 +2724,7 @@ div.pagination li:first-child {
 div.pagination li {
     padding: 3px;
     background-color: #fff;
-    height: 5vh;
+    height: 35px;
     width: 30px;
 }
 
@@ -2725,7 +2739,7 @@ ul.pagination {
     line-height: 20px;
     background-color: #fff;
     border: none;
-    height: 30px;
+    height: 29px;
     padding: 0;
     color: #44566C;
     border-radius: 3px;
@@ -2783,6 +2797,3 @@ ul.pagination {
 .question-body .owl-carousel .owl-stage-outer {
     height: calc(100% - 60px) !important;
 }
-/*.disappearing-tick:after {*/
-/*    visibility: hidden;*/
-/*}*/

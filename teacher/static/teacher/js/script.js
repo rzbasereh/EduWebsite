@@ -534,15 +534,6 @@ $(document).ready(function () {
                                                     <p>98-99</p>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-check">
-                                                <label class="form-check-label customBox"
-                                                       for="exampleCheck">
-                                                    <input type="checkbox" class="form-check-input"
-                                                           id="exampleCheck"
-                                                           name="remember_me">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
                                             <div class="question-text">
                                              <pre>${questions[i]["fields"]["body"]}</pre>
                                             </div>
@@ -551,8 +542,23 @@ $(document).ready(function () {
                                                 <span class="selected-correct-choice"><span
                                                         class="inline-selected-correct-choice-tick"></span>2) ${questions[i]["fields"]["choice_2"]}</span>
                                                 <span>3) ${questions[i]["fields"]["choice_3"]}</span>
-                                                <span>4) `;
+                                                <span>4) ${questions[i]["fields"]["choice_4"]}</span>
+                                            </div>
+                                            <span>پاسخ تشریحی</span>
+                                        </div>
+                                        <div class="verbose-ans">
+                                            <h3>پاسخ تشریحی</h3>
+                                            <pre></pre>
+                                            <button type="button" class="close">
+`;
                             $(".next-question-page-body").append(SelectedQuestions);
+                            $(".next-question-page-body .questions .card-body > span").closest(".card").find(".verbose-ans").hide();
+                            $(".next-question-page-body .questions .card-body > span").click(function () {
+                                $(this).closest(".card").find(".verbose-ans").show();
+                            });
+                            $(".next-question-page-body .verbose-ans .close").click(function () {
+                                $(this).closest(".card").find(".verbose-ans").hide();
+                            });
                         }
                     }
                 },
@@ -633,6 +639,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $(".questions .card-body > span").closest(".card").find(".verbose-ans").hide();
     $(".questions .card-body > span").click(function () {
         $(this).closest(".card").find(".verbose-ans").show();
