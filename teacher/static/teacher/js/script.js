@@ -535,15 +535,6 @@ $(document).ready(function () {
                                 "                                                    <p>98-99</p>\n" +
                                 "                                                </div>\n" +
                                 "                                            </div>\n" +
-                                "                                            <div class=\"form-group form-check\">\n" +
-                                "                                                <label class=\"form-check-label customBox\"\n" +
-                                "                                                       for=\"exampleCheck\">\n" +
-                                "                                                    <input type=\"checkbox\" class=\"form-check-input\"\n" +
-                                "                                                           id=\"exampleCheck\"\n" +
-                                "                                                           name=\"remember_me\">\n" +
-                                "                                                    <span class=\"checkmark\"></span>\n" +
-                                "                                                </label>\n" +
-                                "                                            </div>\n" +
                                 "                                            <div class=\"question-text\">\n" +
                                 "                                             <pre>" +
                                 questions[i]["fields"]["body"] +
@@ -584,6 +575,13 @@ $(document).ready(function () {
                                 "                                        </div>\n" +
                                 "                                    </div>\n";
                             $(".next-question-page-body").append(SelectedQuestions);
+                            $(".next-question-page-body .questions .card-body > span").closest(".card").find(".verbose-ans").hide();
+                            $(".next-question-page-body .questions .card-body > span").click(function () {
+                                $(this).closest(".card").find(".verbose-ans").show();
+                            });
+                            $(".next-question-page-body .verbose-ans .close").click(function () {
+                                $(this).closest(".card").find(".verbose-ans").hide();
+                            });
                         }
                     }
                 },
@@ -604,7 +602,7 @@ $(document).ready(function () {
             $(".customBox input:checked").prop("checked", false);
             $(".question-counter").removeClass("question-counter-active");
             $(".question-counter h2 > span").addClass("counter-parent");
-            }
+        }
     });
 
     $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
@@ -664,6 +662,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $(".questions .card-body > span").closest(".card").find(".verbose-ans").hide();
     $(".questions .card-body > span").click(function () {
         $(this).closest(".card").find(".verbose-ans").show();
