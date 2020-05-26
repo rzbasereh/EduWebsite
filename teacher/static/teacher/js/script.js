@@ -451,6 +451,22 @@ $(document).ready(function () {
             $('.owl-carousel').trigger('next.owl.carousel');
             $('.question-sidebar a.active').removeClass("active");
             $(".owl-carousel .owl-stage").css('transition', '0.8s');
+            $(".question-sidebar").hide();
+            $(".sidebar").removeClass("showSlideBar");
+            $(".sidebar li span").removeClass("removeText");
+            $(".topDrive").removeClass("changeTopDrive");
+            $(".Page-Body").removeClass("max-width");
+            $(".question-body").css("max-width", "unset");
+            $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
+            $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
+            $(window).resize(function () {
+                $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
+                $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
+            });
+            $(".slider-control").click(function () {
+                $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
+                $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
+            });
             $.ajax({
                 method: "GET",
                 url: $(".question-counter").attr("data-url"),
@@ -534,6 +550,18 @@ $(document).ready(function () {
                                                     <p>98-99</p>
                                                 </div>
                                             </div>
+                                                                                        <button type="button" class="close">
+                                                <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
+                                                     fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd"
+                                                          d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
                                             <div class="question-text">
                                              <pre>${questions[i]["fields"]["body"]}</pre>
                                             </div>
@@ -550,6 +578,17 @@ $(document).ready(function () {
                                             <h3>پاسخ تشریحی</h3>
                                             <pre></pre>
                                             <button type="button" class="close">
+                                                <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
+                                                     fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd"
+                                                          d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
 `;
                             $(".next-question-page-body").append(SelectedQuestions);
                             $(".next-question-page-body .questions .card-body > span").closest(".card").find(".verbose-ans").hide();
@@ -558,6 +597,11 @@ $(document).ready(function () {
                             });
                             $(".next-question-page-body .verbose-ans .close").click(function () {
                                 $(this).closest(".card").find(".verbose-ans").hide();
+                            });
+                            $(".card-body .close").click(function () {
+                                $(this).closest(".card").remove();
+                                $(".question-counter").removeClass("question-counter-active");
+                                $(".question-counter h2 > span").addClass("counter-parent");
                             });
                         }
                     }
@@ -568,7 +612,6 @@ $(document).ready(function () {
             })
         }
     });
-
     $(".question-sidebar a:nth-child(2)").click(function () {
         if ($(".question-body .owl-item:last-child").hasClass("active")) {
             $('.owl-carousel').trigger('prev.owl.carousel');
