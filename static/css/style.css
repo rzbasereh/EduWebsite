@@ -1065,6 +1065,14 @@ h1 {
     font-size: 17px;
 }
 
+.sidebar-bottom-box {
+    padding: 0 !important;
+    width: 100%;
+    position: absolute !important;
+    left: 0;
+    bottom: 15px;
+}
+
 .question-body {
     padding: 0;
     position: absolute;
@@ -1081,7 +1089,7 @@ h1 {
 
 .question-page-body {
     padding: 0 !important;
-    height: 100%;
+    direction: rtl;
 }
 
 .next-question-page-body {
@@ -1089,7 +1097,7 @@ h1 {
     height: 100%;
 }
 
-.question-page-body h1 span ,
+.question-page-body h1 span,
 .next-question-page-body h1 span {
     opacity: 60%;
 }
@@ -2305,17 +2313,12 @@ pre {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    max-height: 7%;
-    margin-left: auto;
-    margin-right: auto;
     background-color: #F8FAFB;
-    width: 85%;
-    padding: 10px 5px;
+    padding: 12px 15px;
     color: #1BBDFE;
     border: 1px solid #1BBDFE;
-    position: relative;
-    top: 45%;
     opacity: 50%;
+    margin: auto;
 }
 
 .question-counter-active {
@@ -2326,6 +2329,7 @@ pre {
 .question-counter h2 {
     font-size: 13px;
     text-align: center;
+    margin: 0;
 }
 
 .question-counter h2 svg {
@@ -2618,6 +2622,7 @@ span.fancytree-checkbox:hover {
     z-index: 1;
     border-top: 1px solid #8697A8;
     background-color: #F8FAFB;
+    display: none;
 }
 
 .verbose-ans .close {
@@ -2703,6 +2708,7 @@ span.fancytree-checkbox:hover {
 div.pagination {
     margin-top: 30px;
     padding: 0 20px;
+    direction: rtl;
 }
 
 div.pagination > div:first-child {
@@ -2944,14 +2950,16 @@ ul.pagination {
     font-weight: unset;
     margin-top: 2px;
 }
+
 .trash-and-drag {
-margin-right: auto;
+    margin-right: auto;
     margin-left: 15px;
     display: flex;
     position: relative;
     bottom: 15px;
 }
-.trash-and-drag div{
+
+.trash-and-drag div {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -2961,12 +2969,14 @@ margin-right: auto;
     margin-right: 15px;
     cursor: pointer;
 }
+
 .trash-and-drag svg {
     font-size: 20px;
     position: relative;
     top: 10px;
     left: 10px;
 }
+
 .plus-question {
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -2974,11 +2984,12 @@ margin-right: auto;
     width: 40px;
     height: 40px;
     background-color: #0081FF;
-    margin: 0 15px ;
+    margin: 0 15px;
     cursor: pointer;
     position: relative;
     bottom: 3px;
 }
+
 .plus-question svg {
     font-size: 30px;
     position: relative;
@@ -2986,10 +2997,12 @@ margin-right: auto;
     left: 5px;
     color: #FFFFFF;
 }
+
 .next-question-page-body .header .input-group {
     width: 22%;
     margin-right: auto;
 }
+
 /*.question-body .btn-blue {*/
 /*        position: fixed;*/
 /*    top: 90%;*/

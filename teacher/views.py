@@ -6,6 +6,7 @@ from .models import TeacherForm, Question, QuestionPack
 from manager.models import TeacherAccess
 from main.models import Message, Notification
 from django.core import serializers
+from django.db.models import Q
 
 
 # Create your views here.
@@ -35,14 +36,16 @@ def index(request):
 def questions(request):
     user = commonData(request)
     questions_data = {
-        'count': Question.objects.all().count(),
-        'list': Question.objects.all().order_by('-pk')[:2],
+        'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
+        'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
     }
-    if QuestionPack.objects.all().count() == 0:
-        pack_pk = 1
-    else:
-        pack_pk = QuestionPack.objects.last().id + 1
-    return render(request, 'teacher/questions.html', {'user': user, 'questions': questions_data, 'pack_pk': pack_pk})
+    selected_question = []
+    if QuestionPack.objects.filter(teacher=request.user.teacher).count() > 0:
+        if not QuestionPack.objects.filter(teacher=request.user.teacher).last().submit:
+            pack_pk = QuestionPack.objects.last().id
+            selected_question = list(QuestionPack.objects.get(id=pack_pk).questions.all().values_list('id', flat=True))
+    return render(request, 'teacher/questions.html',
+                  {'user': user, 'questions': questions_data, 'selected_question': selected_question})
 
 
 def newQuestion(request):
@@ -129,35 +132,35 @@ def cancelAddQuestion(request, pk):
 
 def selectedQuestion(request):
     if request.method == "POST":
-        pack_pk = request.POST.get('pack_pk')
         pk = request.POST.get('pk')
         state = request.POST.get('state')
         teacher = request.user.teacher
         if state == "add":
-            if QuestionPack.objects.filter(id=pack_pk).exists():
-                question_pack = QuestionPack.objects.get(id=pack_pk)
-                question_pack.questions.add(Question.objects.filter(id=pk).first())
-                print(question_pack.questions.all())
-                return JsonResponse({"value": "success", "type": "add"})
-            else:
+
+            if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0 or QuestionPack.objects.filter(
+                    teacher=request.user.teacher).last().submit:
                 question_pack = QuestionPack(teacher=teacher)
                 question_pack.save()
-                question_pack.questions.add(Question.objects.filter(id=pk).first())
+                question_pack.questions.add(Question.objects.get(id=pk))
+                return JsonResponse({"value": "success", "type": "add"})
+            else:
+                question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
+                question_pack.questions.add(Question.objects.get(id=pk))
                 return JsonResponse({"value": "success", "type": "add"})
         elif state == "remove":
-            if QuestionPack.objects.filter(id=pack_pk).exists():
-                question_pack = QuestionPack.objects.get(id=pack_pk)
-                question_pack.questions.remove(Question.objects.filter(id=pk).first())
+            if QuestionPack.objects.filter(teacher=request.user.teacher, submit=False).exists():
+                question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
+                question_pack.questions.remove(Question.objects.get(id=pk))
                 return JsonResponse({"value": "success", "type": "remove"})
         return JsonResponse({"value": "error"})
-    elif request.method == "GET":
-        pack_pk = request.GET.get('pack_pk')
-        if QuestionPack.objects.filter(id=pack_pk).exists():
-            question_pack = QuestionPack.objects.get(id=pack_pk)
-            selected_questions = serializers.serialize("json", question_pack.questions.all())
-            return JsonResponse({"value": "success", "questions": selected_questions})
-        else:
-            return JsonResponse({"value": "forbidden access"})
+    # elif request.method == "GET":
+    #     pack_pk = request.GET.get('pack_pk')
+    #     if QuestionPack.objects.filter(id=pack_pk).exists():
+    #         question_pack = QuestionPack.objects.get(id=pack_pk)
+    #         selected_questions = serializers.serialize("json", question_pack.questions.all())
+    #         return JsonResponse({"value": "success", "questions": selected_questions})
+    #     else:
+    #         return JsonResponse({"value": "forbidden access"})
 
 
 def filter_page(request):
@@ -171,6 +174,27 @@ def filter_page(request):
             return JsonResponse({"value": "success", "questions": new_questions})
     else:
         return JsonResponse({"value": "forbidden access"})
+
+
+def new_exam(request):
+    user = commonData(request)
+    if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0:
+        messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
+        return HttpResponseRedirect(reverse("teacher:questions"))
+    else:
+        if QuestionPack.objects.filter(teacher=request.user.teacher).last().submit:
+            messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
+            return HttpResponseRedirect(reverse("teacher:questions"))
+        else:
+            selected_questions = QuestionPack.objects.filter(teacher=request.user.teacher).last().questions.all()
+            pack_pk = QuestionPack.objects.filter(teacher=request.user.teacher).last().id
+            return render(request, 'teacher/pre_submit_exam.html',
+                          {"user": user, "questions": selected_questions, "pack_pk": pack_pk})
+
+
+def delete_exam(request, pack_pk):
+    QuestionPack.objects.get(id=pack_pk).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def classRoom(request):

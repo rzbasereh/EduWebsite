@@ -94,6 +94,7 @@ class QuestionPack(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=1000, blank=True, null=True)
     questions = models.ManyToManyField(Question)
+    submit = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)

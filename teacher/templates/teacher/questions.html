@@ -171,21 +171,26 @@
             <a href="#">
                 <span>سوالات شما</span>
             </a>
-            <div class="question-counter" data-url="{% url 'teacher:selectedQuestion' %}" id="pack-{{ pack_pk }}">
-                <h2>
-                    <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z"
-                              clip-rule="evenodd"></path>
-                        <path fill-rule="evenodd"
-                              d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z"
-                              clip-rule="evenodd"></path>
-                    </svg>
-                    سوالات انتخاب شده
-                    <span class="counter-parent">(<span class="counter"></span>)</span>
-                </h2>
-            </div>
+            <a href="{% url 'teacher:new_exam' %}" class="sidebar-bottom-box">
+                <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}" data-url="{% url 'teacher:selectedQuestion' %}">
+                    <h2>
+                        <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                        سوالات انتخاب شده
+                        <span class="counter-parent"
+                              style="{% if selected_question|length %}display:inline-block{% endif %}">
+                            (<span class="counter">{{ selected_question|length }}</span>)
+                        </span>
+                    </h2>
+                </div>
+            </a>
         </div>
         <div class="col-9 question-body">
             <div class="row scrolled-header">
@@ -196,11 +201,9 @@
                     <span class="ti-search"></span>
                 </div>
             </div>
-            <div class="owl-carousel owl-theme">
-                <div class="item">
-                    <div class="question-page-body">
-                        <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
-                        <div class="path">
+            <div class="question-page-body">
+                <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
+                <div class="path">
                         <span>
                         <a href="{% url 'teacher:index' %}">
                             <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
@@ -232,76 +235,76 @@
                         </span>
                         <a href="#">همه ی سوالات</a>
                         </span>
+                </div>
+                <div class="row header">
+                    <span>نمایش</span>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span>20</span>
+                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
-                        <div class="row header">
-                            <span>نمایش</span>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>20</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>ساده به سخت</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
-                                       aria-label="Username"
-                                       aria-describedby="basic-addon1">
-                                <span class="ti-search"></span>
-                            </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span>ساده به سخت</span>
+                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
-                        <div class="questions">
-                            <div class="row questions-content">
-                                {% for question in questions.list %}
-                                    <div class="card w-100" id="{{ question.pk }}">
-                                        <div class="card-body">
-                                            <div class="question-type">
-                                                    <span>
-                                                        <span>پایه دهم</span>
-                                                        <span>
-                                                            <svg class="bi bi-chevron-left" width="1em" height="1em"
-                                                                 viewBox="0 0 16 16"
-                                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                                                          clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span>بانک سوال</span>
-                                                        <span>
-                                                        <svg class="bi bi-chevron-left" width="1em" height="1em"
-                                                             viewBox="0 0 16 16"
-                                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                  d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                                                  clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        </span>
-                                                        <span>همه ی سوالات</span>
-                                                    </span>
-                                            </div>
-                                            <div class="question-info">
-                                                <div class="question-info-data">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
+                               aria-label="Username"
+                               aria-describedby="basic-addon1">
+                        <span class="ti-search"></span>
+                    </div>
+                </div>
+                <div class="questions">
+                    <div class="row questions-content">
+                        {% for question in questions.list %}
+                            <div class="card w-100" id="{{ question.pk }}">
+                                <div class="card-body">
+                                    <div class="question-type">
+                                        <span>
+                                            <span>پایه دهم</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <span>بانک سوال</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <span>همه ی سوالات</span>
+                                        </span>
+                                    </div>
+                                    <div class="question-info">
+                                        <div class="question-info-data">
                                                     <span class="question-level">
                                                         <svg class="bi bi-dot bi-dot-simple" width="1em" height="1em"
                                                              viewBox="0 0 16 16" fill="currentColor"
@@ -312,7 +315,7 @@
                                                         </svg>
                                                         <span>ساده</span>
                                                     </span>
-                                                    <span data-toggle="modal" data-target="#questionInfo">
+                                            <span data-toggle="modal" data-target="#questionInfo">
                                                     <svg class="bi bi-pie-chart" width="1em" height="1em"
                                                          viewBox="0 0 16 16" fill="currentColor"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -324,277 +327,140 @@
                                                               clip-rule="evenodd"></path>
                                                     </svg>
                                                         </span>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                                id="dropdownMenuButton" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                            <svg class="bi bi-three-dots" width="1em" height="1em"
-                                                                 viewBox="0 0 16 16" fill="currentColor"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                      d="M3 9.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
-                                                                      clip-rule="evenodd"/>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="question-info-img">
-                                                    <img src="{% static 'main/img/'|add:question.source|add:'.png' %}" alt="question source">
-                                                    <p>98-99</p>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                    <svg class="bi bi-three-dots" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                              d="M3 9.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                                                              clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 </div>
                                             </div>
-                                            <div class="form-group form-check">
-                                                <label class="form-check-label customBox"
-                                                       for="exampleCheck-{{ forloop.counter0 }}">
-                                                    <input type="checkbox" class="form-check-input"
-                                                           id="exampleCheck-{{ forloop.counter0 }}"
-                                                           name="remember_me">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="question-text">
+                                        </div>
+                                        <div class="question-info-img">
+                                            <img src="{% static 'main/img/'|add:question.source|add:'.png' %}"
+                                                 alt="question source">
+                                            <p>98-99</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label customBox"
+                                               for="Check-{{ forloop.counter0 }}">
+                                            <input type="checkbox" class="form-check-input"
+                                                   id="Check-{{ forloop.counter0 }}" {% if question.pk in selected_question %}checked{% endif %}>
+                                            <span class="checkmark {% if question.pk in selected_question %}clicked{% endif %}"></span>
+                                        </label>
+                                    </div>
+                                    <div class="question-text">
                                                 <pre>
                                                     {{ question.body }}
                                                 </pre>
-                                            </div>
-                                            <div class="question-inline-choices">
-                                                <span>1) {{ question.choice_1 }}</span>
-                                                <span class="selected-correct-choice"><span
-                                                        class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
-                                                <span>3) {{ question.choice_3 }}</span>
-                                                <span>4) {{ question.choice_4 }}</span>
-                                            </div>
-                                            <span>پاسخ تشریحی</span>
-                                        </div>
-                                        <div class="verbose-ans">
-                                            <h3>پاسخ تشریحی</h3>
-                                            <pre>لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است.</pre>
-                                            <button type="button" class="close">
-                                                <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
-                                                     fill="currentColor"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                          d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                                          clip-rule="evenodd"></path>
-                                                    <path fill-rule="evenodd"
-                                                          d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                                          clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
                                     </div>
-                                {% endfor %}
+                                    <div class="question-inline-choices">
+                                        <span>1) {{ question.choice_1 }}</span>
+                                        <span class="selected-correct-choice"><span
+                                                class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
+                                        <span>3) {{ question.choice_3 }}</span>
+                                        <span>4) {{ question.choice_4 }}</span>
+                                    </div>
+                                    <span>پاسخ تشریحی</span>
+                                </div>
+                                <div class="verbose-ans">
+                                    <h3>پاسخ تشریحی</h3>
+                                    <pre>لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است.</pre>
+                                    <button type="button" class="close">
+                                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                                  clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-                                {#                    <div class="card w-100" id="2">#}
-                                {#                        <div class="card-body">#}
-                                {#                            <div class="form-group form-check">#}
-                                {#                                <label class="form-check-label customBox" for="exampleCheck2">#}
-                                {#                                    <input type="checkbox" class="form-check-input" id="exampleCheck2"#}
-                                {#                                           name="remember_me">#}
-                                {#                                    <span class="checkmark"></span>#}
-                                {#                                </label>#}
-                                {#                            </div>#}
-                                {#                            <div class="question-text">#}
-                                {#                                <p>در کدام گزینه غلط املایی دیده می شود#}
-                                {#                                    ؟</p>#}
-                                {#                                <span class="type">#}
-                                {#                                    <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"#}
-                                {#                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
-                                {#                                            <path fill-rule="evenodd"#}
-                                {#                                                  d="M9.5 13a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"#}
-                                {#                                                  clip-rule="evenodd"/>#}
-                                {#                                    </svg>#}
-                                {#                                    <span>سراسری</span>#}
-                                {#                                </span>#}
-                                {#                            </div>#}
-                                {#                            <div class="question-block-choices">#}
-                                {#                                <div><span>1)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
-                                {#                                </div>#}
-                                {#                                <div><span>2)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
-                                {#                                </div>#}
-                                {#                                <div><span>3)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
-                                {#                                </div>#}
-                                {#                                <div class="selected-correct-choice"><span>4)</span><span#}
-                                {#                                        class="block-selected-correct-choice-tick"></span><span class="question-texts "> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
-                                {#                                </div>#}
-                                {#                            </div>#}
-                                {#                            <div class="question-level">#}
-                                {#                            </div>#}
-                                {#                        </div>#}
-                                {#                    </div>#}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row w-100 pagination">
-                        <div>
-                            نمایش
-                            <span class="start-question-number">1</span>
-                            تا
-                            <span class="end-question-number">20</span>
-                            از
-                            <span class="all-questions"> {{ questions.count }}</span>
-                            سوال
-                        </div>
-                        <nav aria-label="Page navigation example" data-url="{% url 'teacher:filter_page' %}">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <i class="fas fa-angle-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#"><span>1</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#"><span>2</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#"><span>3</span></a></li>
-                                <li class="page-item disabled"><a class="page-link" href="#"><span>...</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#"><span>5</span></a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <i class="fas fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="next-question-page-body">
-                        <h1><span>همه ی سوالات</span> <span>()</span></h1>
-                        <div class="row w-100">
-                            <div class="path">
-                        <span>
-                        <a href="{% url 'teacher:index' %}">
-                            <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
-                                      clip-rule="evenodd"></path>
-                                <path fill-rule="evenodd"
-                                      d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                        <span>
-                            <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                        <a href="{% url 'teacher:questions' %}">بانک سوال</a>
-                        <span>
-                            <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                        <a href="#">ویرایش سوالات</a>
-                        </span>
-                            </div>
-                            <div class="trash-and-drag">
-                                <div>
-                                    <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M11 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
-                                        <path fill-rule="evenodd"
-                                              d="M10.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L11 3.707 8.354 6.354a.5.5 0 1 1-.708-.708l3-3zm-9 7a.5.5 0 0 1 .708 0L5 12.293l2.646-2.647a.5.5 0 1 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
-                                        <path fill-rule="evenodd"
-                                              d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                        <path fill-rule="evenodd"
-                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row header">
-                            <span>نمایش</span>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>از آسان به سخت</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>تالیف</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>سطح</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <span>درس</span>
-                                    <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
-                                       aria-label="Username"
-                                       aria-describedby="basic-addon1">
-                                <span class="ti-search"></span>
-                            </div>
-                            <div class="plus-question">
-                                <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
-                                    <path fill-rule="evenodd"
-                                          d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
-                                </svg>
-                            </div>
-                        </div>
+                        {#                    <div class="card w-100" id="2">#}
+                        {#                        <div class="card-body">#}
+                        {#                            <div class="form-group form-check">#}
+                        {#                                <label class="form-check-label customBox" for="exampleCheck2">#}
+                        {#                                    <input type="checkbox" class="form-check-input" id="exampleCheck2"#}
+                        {#                                           name="remember_me">#}
+                        {#                                    <span class="checkmark"></span>#}
+                        {#                                </label>#}
+                        {#                            </div>#}
+                        {#                            <div class="question-text">#}
+                        {#                                <p>در کدام گزینه غلط املایی دیده می شود#}
+                        {#                                    ؟</p>#}
+                        {#                                <span class="type">#}
+                        {#                                    <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"#}
+                        {#                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+                        {#                                            <path fill-rule="evenodd"#}
+                        {#                                                  d="M9.5 13a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm0-5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"#}
+                        {#                                                  clip-rule="evenodd"/>#}
+                        {#                                    </svg>#}
+                        {#                                    <span>سراسری</span>#}
+                        {#                                </span>#}
+                        {#                            </div>#}
+                        {#                            <div class="question-block-choices">#}
+                        {#                                <div><span>1)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                        {#                                </div>#}
+                        {#                                <div><span>2)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                        {#                                </div>#}
+                        {#                                <div><span>3)</span><span class="question-texts"> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                        {#                                </div>#}
+                        {#                                <div class="selected-correct-choice"><span>4)</span><span#}
+                        {#                                        class="block-selected-correct-choice-tick"></span><span class="question-texts "> سکندر آینه ، جمشید جاه و فرخ روز &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; فلک صریر و ملک خلق و آفتاب احسان</span>#}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                            <div class="question-level">#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                    </div>#}
                     </div>
                 </div>
             </div>
-{#            <input type="submit" class="btn btn-blue" value="تایید سوالات">#}
+            <div class="row w-100 pagination">
+                <div>
+                    نمایش
+                    <span class="start-question-number">1</span>
+                    تا
+                    <span class="end-question-number">20</span>
+                    از
+                    <span class="all-questions"> {{ questions.count }}</span>
+                    سوال
+                </div>
+                <nav aria-label="Page navigation example" data-url="{% url 'teacher:filter_page' %}">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <i class="fas fa-angle-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#"><span>1</span></a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span>2</span></a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span>3</span></a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#"><span>...</span></a></li>
+                        <li class="page-item"><a class="page-link" href="#"><span>5</span></a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <i class="fas fa-angle-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            {#            <input type="submit" class="btn btn-blue" value="تایید سوالات">#}
         </div>
     </div>
 {% endblock %}
