@@ -38,10 +38,6 @@ def questions(request):
         'count': Question.objects.all().count(),
         'list': Question.objects.all()[:2],
     }
-    paginator = Paginator(questions_data.list, 2)
-    page_number = request.GET.get("page")
-    page_object = paginator.get_page(page_number)
-
     if QuestionPack.objects.all().count() == 0:
         pack_pk = 1
     else:
