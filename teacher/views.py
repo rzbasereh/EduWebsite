@@ -41,7 +41,7 @@ def questions(request):
     paginator = Paginator(questions_data.list, 2)
     page_number = request.GET.get("page")
     page_object = paginator.get_page(page_number)
-    questions_data.
+
     if QuestionPack.objects.all().count() == 0:
         pack_pk = 1
     else:
