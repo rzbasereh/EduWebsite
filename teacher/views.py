@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import TeacherForm, Question, QuestionPack
 from manager.models import TeacherAccess
 from main.models import Message, Notification
-from django.core import serializers
+from django.core import serializers, Paginator
 
 
 # Create your views here.
@@ -36,8 +36,12 @@ def questions(request):
     user = commonData(request)
     questions_data = {
         'count': Question.objects.all().count(),
-        'list': Question.objects.all(),
+        'list': Question.objects.all()[:2],
     }
+    paginator = Paginator(questions_data.list, 2)
+    page_number = request.GET.get("page")
+    page_object = paginator.get_page(page_number)
+    questions_data.
     if QuestionPack.objects.all().count() == 0:
         pack_pk = 1
     else:
@@ -158,6 +162,19 @@ def selectedQuestion(request):
             return JsonResponse({"value": "success", "questions": selected_questions})
         else:
             return JsonResponse({"value": "forbidden access"})
+
+
+def filter_page(request):
+    if request.method == "POST":
+        if request.POST.get("requestType") == "pagination":
+            unit = int(request.POST.get('unit'))
+            page = int(request.POST.get('page'))
+            start = (page - 1) * unit
+            end = unit * page
+            new_questions = serializers.serialize("json", Question.objects.all()[start:end])
+            return JsonResponse({"value": "success", "questions": new_questions})
+    else:
+        return JsonResponse({"value": "forbidden access"})
 
 
 def classRoom(request):

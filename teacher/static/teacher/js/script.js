@@ -639,13 +639,57 @@ $(document).ready(function () {
             }
         });
     });
-
     $(".questions .card-body > span").closest(".card").find(".verbose-ans").hide();
     $(".questions .card-body > span").click(function () {
         $(this).closest(".card").find(".verbose-ans").show();
     });
     $(".verbose-ans .close").click(function () {
         $(this).closest(".card").find(".verbose-ans").hide();
+    });
+
+    $("ul.pagination li.page-item").click(function () {
+        let thisElement = $(this);
+        if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
+            //Todo: Start Loading page
+            let data = {};
+            data.unit = 2;
+            let unit = data.unit;
+            data.requestType = "pagination";
+            let page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
+            if ($(this).find("a[aria-label='Next']").length) {
+                page++;
+            } else if (thisElement.find("a[aria-label='Previous']").length) {
+                page--;
+            } else {
+                page = parseInt(thisElement.find("a").text(), 10);
+            }
+            data.page = page;
+            $.ajax({
+                method: "POST",
+                url: thisElement.closest("nav").attr("data-url"),
+                data: data,
+                success: function (data) {
+                    thisElement.closest("nav").find("a[aria-label='Next']").closest("li").removeClass("disabled");
+                    thisElement.closest("nav").find("a[aria-label='Previous']").closest("li").removeClass("disabled");
+                    if (page === 1) {
+                        thisElement.closest("nav").find("a[aria-label='Previous']").closest("li").addClass("disabled");
+                    } else if (page === parseInt(thisElement.closest("nav").find("li:nth-last-child(2) a").text())) {
+                        thisElement.closest("nav").find("a[aria-label='Next']").closest("li").addClass("disabled");
+                    }
+                    thisElement.closest("nav").find("li.page-item.active").removeClass("active");
+                    thisElement.closest("nav").find("a.page-link span:contains(" + page + ")").closest("li.page-item").addClass("active");
+                    thisElement.closest("div.pagination").find(".start-question-number").text((page - 1) * unit + 1);
+                    thisElement.closest("div.pagination").find(".end-question-number").text(unit * page);
+                    //Todo: Put new cards in page and stop loading and after that scroll page to first question
+                    // new data are in "data > questions" json response
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    //Todo: stop loading and show iziToast for error occurred
+                }
+            });
+        }
     });
 
     function getCookie(name) {

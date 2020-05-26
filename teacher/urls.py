@@ -6,6 +6,7 @@ app_name = 'teacher'
 urlpatterns = [
     path('', views.index, name="index"),
     path('questions', views.questions, name="questions"),
+    path('questions/get_page', views.filter_page, name="filter_page"),
     path('questions/add_new/save_grades', views.saveGrades, name="saveGrades"),
     path('questions/add_new', views.newQuestion, name="newQuestion"),
     path('questions/add_new/save', views.addQuestion, name='saveNewQuestion'),

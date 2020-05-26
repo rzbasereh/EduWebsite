@@ -51,14 +51,15 @@ class Question(models.Model):
     SOURCE = (
         ('Author', 'تالیفی'),
         ('Entrance', 'کنکور سراسری'),
-        ('Kanoon', 'قلم چی')
+        ('Sanjesh', 'سنجش'),
+        ('Kanoon', 'قلم چی'),
+        ('Gozine2', 'گزینه دو'),
     )
-    source = models.CharField(choices=SOURCE, max_length=10, blank=True, null=True)
+    source = models.CharField(choices=SOURCE, max_length=10, default='Author')
     LEVEL = (
         ('1', 'ساده'),
         ('2', 'متوسط'),
         ('3', 'دشوار'),
-        ('4', 'دشوارتر'),
     )
     level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
     is_publish = models.BooleanField(default=False)
