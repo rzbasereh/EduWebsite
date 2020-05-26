@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import TeacherForm, Question, QuestionPack
 from manager.models import TeacherAccess
 from main.models import Message, Notification
-from django.core import serializers, Paginator
+from django.core import serializers
 
 
 # Create your views here.
@@ -36,7 +36,7 @@ def questions(request):
     user = commonData(request)
     questions_data = {
         'count': Question.objects.all().count(),
-        'list': Question.objects.all()[:2],
+        'list': Question.objects.all().order_by('-pk')[:2],
     }
     if QuestionPack.objects.all().count() == 0:
         pack_pk = 1
@@ -167,7 +167,7 @@ def filter_page(request):
             page = int(request.POST.get('page'))
             start = (page - 1) * unit
             end = unit * page
-            new_questions = serializers.serialize("json", Question.objects.all()[start:end])
+            new_questions = serializers.serialize("json", Question.objects.all().order_by('-pk')[start:end])
             return JsonResponse({"value": "success", "questions": new_questions})
     else:
         return JsonResponse({"value": "forbidden access"})
