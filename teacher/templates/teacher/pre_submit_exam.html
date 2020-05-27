@@ -1,5 +1,6 @@
 {% extends 'teacher/layouts/base_layout.html' %}
 {% load static %}
+{% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
 {% block title %}ویرایش سوالات{% endblock %}
 {% block content %}
     <div class="modal fade" id="questionInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
@@ -59,7 +60,7 @@
     <div class="row w-100">
         <div class="col-12">
             <div class="next-question-page-body">
-                <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
+                <h1><span>ویرایش سوالات</span> <span>({{ questions.count }})</span></h1>
                 <div class="row w-100">
                     <div class="path">
                         <span>
