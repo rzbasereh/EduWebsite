@@ -67,60 +67,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="questionInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">اطلاعات آزمون</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                  clip-rule="evenodd"></path>
-                            <path fill-rule="evenodd"
-                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="input-group mb-3">
-                            <label for="examSubject">عنوان سوال</label>
-                            <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                        <div class="suggested-time">
-                            <h4>زمان پیشنهادی</h4>
-                            <div>
-                                <input type="number" id="second" min="0" max="59" placeholder="ثانیه">
-                                <span> : </span>
-                                <input type="number" id="minute" min="0" max="59" placeholder="دقیقه">
-                                <span> : </span>
-                                <input type="number" id="hour" min="0" max="4" placeholder="ساعت">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="examExplanation">توضیحات آزمون</label>
-                            <textarea id="examExplanation" rows="5"></textarea>
-                        </div>
-                        <div class="row toggle-switch">
-                            <span>گزینه ی تصادفی</span>
-                            <label class="switch">
-                                <input type="checkbox" name="is_publish">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <input type="submit" class="btn btn-blue" value="ثبت نهایی">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row w-100">
         <div class="col-3 question-sidebar">
             <a href="#" class="btn btn-blue" data-toggle="modal" data-target="#selectGrade">
@@ -172,7 +118,8 @@
                 <span>سوالات شما</span>
             </a>
             <a href="{% url 'teacher:new_exam' %}" class="sidebar-bottom-box">
-                <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}" data-url="{% url 'teacher:selectedQuestion' %}">
+                <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
+                     data-url="{% url 'teacher:selectedQuestion' %}">
                     <h2>
                         <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">
@@ -315,7 +262,7 @@
                                                         </svg>
                                                         <span>ساده</span>
                                                     </span>
-                                            <span data-toggle="modal" data-target="#questionInfo">
+                                            <span>
                                                     <svg class="bi bi-pie-chart" width="1em" height="1em"
                                                          viewBox="0 0 16 16" fill="currentColor"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -353,7 +300,8 @@
                                         <label class="form-check-label customBox"
                                                for="Check-{{ forloop.counter0 }}">
                                             <input type="checkbox" class="form-check-input"
-                                                   id="Check-{{ forloop.counter0 }}" {% if question.pk in selected_question %}checked{% endif %}>
+                                                   id="Check-{{ forloop.counter0 }}"
+                                                   {% if question.pk in selected_question %}checked{% endif %}>
                                             <span class="checkmark {% if question.pk in selected_question %}clicked{% endif %}"></span>
                                         </label>
                                     </div>
@@ -460,8 +408,10 @@
                     </ul>
                 </nav>
             </div>
-            {#            <input type="submit" class="btn btn-blue" value="تایید سوالات">#}
         </div>
+                <div class="linear-activity">
+                <div class="indeterminate"></div>
+            </div>
     </div>
 {% endblock %}
 {% block questions-alert %}

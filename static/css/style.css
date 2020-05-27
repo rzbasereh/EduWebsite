@@ -2862,47 +2862,47 @@ ul.pagination {
     color: #8697A8;
 }
 
-#questionInfo .modal-dialog {
+#examInfo .modal-dialog {
     max-width: 500px;
 }
 
-#questionInfo .modal-content {
+#examInfo .modal-content {
     padding: 0 20px;
 }
 
-#questionInfo .modal-header {
+#examInfo .modal-header {
     padding: 20px 0;
 }
 
-#questionInfo .modal-body {
+#examInfo .modal-body {
     padding: 0 !important;
 }
 
-#questionInfo .modal-footer {
+#examInfo .modal-footer {
     padding-bottom: 0;
 }
 
-#questionInfo input[type='submit'] {
+#examInfo input[type='submit'] {
     box-shadow: unset;
 }
 
-#questionInfo .input-group {
+#examInfo .input-group {
     display: block;
 }
 
-#questionInfo input[type='text'] {
+#examInfo input[type='text'] {
     background-color: #F8FAFB;
     box-shadow: unset;
     padding: .375rem .75rem;
 }
 
-#questionInfo label[for='examSubject'],
-#questionInfo label[for='examExplanation'] {
+#examInfo label[for='examSubject'],
+#examInfo label[for='examExplanation'] {
     display: flex;
     font-size: 14px;
 }
 
-#questionInfo h4 {
+#examInfo h4 {
     font-size: 14px;
     display: flex;
     color: #8697A8;
@@ -2915,7 +2915,7 @@ ul.pagination {
     width: fit-content;
 }
 
-#questionInfo input[type='number'] {
+#examInfo input[type='number'] {
     background-color: #F8FAFB;
     border: none;
     border-radius: 5px;
@@ -2932,12 +2932,12 @@ ul.pagination {
     margin: 0 10px;
 }
 
-#questionInfo form > div:nth-child(3) {
+#examInfo form > div:nth-child(3) {
     position: relative;
     top: 20px;
 }
 
-#questionInfo #examExplanation {
+#examInfo #examExplanation {
     width: 100%;
     border: unset;
     background-color: #F8FAFB;
@@ -2949,12 +2949,12 @@ ul.pagination {
     text-align: justify;
 }
 
-#questionInfo input:focus,
-#questionInfo #examExplanation:focus {
+#examInfo input:focus,
+#examInfo #examExplanation:focus {
     outline: unset;
 }
 
-#questionInfo .toggle-switch > span {
+#examInfo .toggle-switch > span {
     font-weight: unset;
     margin-top: 2px;
 }
@@ -2966,7 +2966,21 @@ ul.pagination {
     position: relative;
     bottom: 15px;
 }
-
+.trash-and-drag a div:hover {
+    background-color: #F8FAFB;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
+    transition: .3s;
+}
+.trash-and-drag a svg {
+    color: #343A40;
+}
+.trash-and-drag a div:hover svg {
+    color: #FF3D57;
+    font-size: 24px;
+    left: 8px;
+    top: 8px;
+    transition: .3s;
+}
 .trash-and-drag div {
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -2976,8 +2990,19 @@ ul.pagination {
     background-color: #EAEDF0;
     margin-right: 15px;
     cursor: pointer;
+    transition: .3s;
 }
-
+.trash-and-drag > div:hover {
+    background-color: #F8FAFB;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
+}
+.trash-and-drag > div:hover svg {
+    color: #0081FF;
+    font-size: 25px;
+    left: 8px;
+    top: 8px;
+    transition: .3s;
+}
 .trash-and-drag svg {
     font-size: 20px;
     position: relative;
@@ -2996,6 +3021,7 @@ ul.pagination {
     cursor: pointer;
     position: relative;
     bottom: 3px;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
 }
 
 .plus-question svg {
@@ -3009,10 +3035,90 @@ ul.pagination {
 .next-question-page-body .header .input-group {
     width: 22%;
     margin-right: auto;
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
 
-/*.question-body .btn-blue {*/
-/*        position: fixed;*/
-/*    top: 90%;*/
-/*    margin-left: 15px;*/
-/*}*/
+.col-12 {
+    padding: 0;
+}
+input[type='تایید سوالات'] {
+    margin-left: 15px;
+}
+.linear-activity {
+    overflow: hidden;
+    width: 100%;
+    height: 4px;
+    background-color: #B3E5FC;
+    margin: 20px auto;
+    position: absolute;
+    top: -20px;
+    display: none;
+    opacity: 100%!important;
+}
+.linear-activity.active {
+    display: block;
+}
+.determinate {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    -webkit-transition: width 500ms ease-out 1s;
+       -moz-transition: width 500ms ease-out 1s;
+         -o-transition: width 500ms ease-out 1s;
+            transition: width 500ms ease-out 1s;
+    background-color: #03A9F4;
+}
+
+.indeterminate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.indeterminate:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #03A9F4;
+    animation: indeterminate_first 1.5s infinite ease-out;
+}
+
+.indeterminate:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #4FC3F7;
+    animation: indeterminate_second 1.5s infinite ease-in;
+}
+
+@keyframes indeterminate_first {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+@keyframes indeterminate_second {
+    0% {
+        left: -150%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+.loading-background {
+    opacity: .5;
+}
+.tool {
+    color: #ffffff;
+    font-family: IRANSans;
+    font-size: 12px;
+    position: relative;
+    top:8px;
+}

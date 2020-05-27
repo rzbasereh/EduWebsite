@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
     // add question Page
+    $('[data-toggle="tooltip"]').tooltip({
+        html : true
+    });
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
@@ -17,6 +20,7 @@ $(document).ready(function () {
             dots: false,
             autoHeight: true,
         });
+
         function collectData(element, mute) {
             mute = !mute;
             if (element === "QuestionSubject") {
@@ -469,18 +473,18 @@ $(document).ready(function () {
             let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
         }
     });
-    $(".question-sidebar a:nth-child(2)").click(function () {
-        if ($(".question-body .owl-item:last-child").hasClass("active")) {
-            $('.owl-carousel').trigger('prev.owl.carousel');
-            $(this).addClass("active");
-            $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            $(".next-question-page-body").html("");
-            $("span.clicked").removeClass("clicked");
-            $(".customBox input:checked").prop("checked", false);
-            $(".question-counter").removeClass("question-counter-active");
-            $(".question-counter h2 > span").addClass("counter-parent");
-        }
-    });
+    // $(".question-sidebar a:nth-child(2)").click(function () {
+    //     if ($(".question-body .owl-item:last-child").hasClass("active")) {
+    //         $('.owl-carousel').trigger('prev.owl.carousel');
+    //         $(this).addClass("active");
+    //         $(".owl-carousel .owl-stage").css('transition', '0.8s');
+    //         $(".next-question-page-body").html("");
+    //         $("span.clicked").removeClass("clicked");
+    //         $(".customBox input:checked").prop("checked", false);
+    //         $(".question-counter").removeClass("question-counter-active");
+    //         $(".question-counter h2 > span").addClass("counter-parent");
+    //     }
+    // });
 
     $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
     $(window).resize(function () {
@@ -549,9 +553,10 @@ $(document).ready(function () {
     $("ul.pagination li.page-item").click(function () {
         let thisElement = $(this);
         if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
-            //Todo: Start Loading page
+            $(".question-sidebar, .question-body").addClass("loading-background");
+            $(".linear-activity").addClass("active");
             let data = {};
-            data.unit = 2;
+            data.unit = 10;
             let unit = data.unit;
             data.requestType = "pagination";
             let page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
@@ -579,13 +584,155 @@ $(document).ready(function () {
                     thisElement.closest("nav").find("a.page-link span:contains(" + page + ")").closest("li.page-item").addClass("active");
                     thisElement.closest("div.pagination").find(".start-question-number").text((page - 1) * unit + 1);
                     thisElement.closest("div.pagination").find(".end-question-number").text(unit * page);
-                    //Todo: Put new cards in page and stop loading and after that scroll page to first question
-                    // new data are in "data > questions" json response
+                    $(".questions-content").html("");
+                    let questions = JSON.parse(data["questions"]);
+                    for (let i in questions) {
+                        $(".questions-content").append(`<div class="card w-100" id="${questions[i]["pk"]}">
+                                <div class="card-body">
+                                    <div class="question-type">
+                                        <span>
+                                            <span>پایه دهم</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                            <span>بانک سوال</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                            <span>همه ی سوالات</span>
+                                        </span>
+                                    </div>
+                                    <div class="question-info">
+                                        <div class="question-info-data">
+                                                    <span class="question-level">
+                                                        <svg class="bi bi-dot bi-dot-simple" width="1em" height="1em"
+                                                             viewBox="0 0 16 16" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                                                                  clip-rule="evenodd">
+                                                            </path>
+                                                        </svg>
+                                                        <span>ساده</span>
+                                                    </span>
+                                            <span>
+                                                    <svg class="bi bi-pie-chart" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                              d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z"
+                                                              clip-rule="evenodd">
+                                                        </path>
+                                                        <path fill-rule="evenodd"
+                                                              d="M7.5 7.793V1h1v6.5H15v1H8.207l-4.853 4.854-.708-.708L7.5 7.793z"
+                                                              clip-rule="evenodd">
+                                                        </path>
+                                                    </svg>
+                                                        </span>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                    <svg class="bi bi-three-dots" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                              d="M3 9.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"
+                                                              clip-rule="evenodd">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="question-info-img">
+                                            <img src=""
+                                                    alt="question source">
+                                            <p>98-99</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label customBox"
+                                               for="Check">
+                                            <input type="checkbox" class="form-check-input"
+                                                   id="Check">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="question-text">
+                                                <pre>
+                                                    ${questions[i]["fields"]["body"]}
+                                                </pre>
+                                    </div>
+                                    <div class="question-inline-choices">
+                                        <span>1) ${questions[i]["fields"]["choice_1"]}</span>
+                                        <span class="selected-correct-choice"><span
+                                                class="inline-selected-correct-choice-tick"></span>2) ${questions[i]["fields"]["choice_2"]}</span>
+                                        <span>3) ${questions[i]["fields"]["choice_3"]}</span>
+                                        <span>4) ${questions[i]["fields"]["choice_4"]}</span>
+                                    </div>
+                                    <span>پاسخ تشریحی</span>
+                                </div>
+                                <div class="verbose-ans">
+                                    <h3>پاسخ تشریحی</h3>
+                                    <pre>لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است.</pre>
+                                    <button type="button" class="close">
+                                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                                  clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>`)
+                    }
+                    $(".question-sidebar, .question-body").removeClass("loading-background");
+                    $(".linear-activity").removeClass("active");
                     console.log(data);
                 },
                 error: function (data) {
                     console.log(data);
-                    //Todo: stop loading and show iziToast for error occurred
+                    $(".question-sidebar, .question-body").removeClass("loading-background");
+                    $(".linear-activity").removeClass("active");
+                    iziToast.warning({
+                        class: 'customized-warning-izi-toast',
+                        title: 'هشدار',
+                        message: 'دریافت اطلاعات با موفقیت انجام نشد !',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                            $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
+                                "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+                                "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                "                    </svg>\n" +
+                                "                </div>");
+                            $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>");
+                        }
+                    });
                 }
             });
         }

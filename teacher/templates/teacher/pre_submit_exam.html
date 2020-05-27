@@ -3,7 +3,7 @@
 {% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
 {% block title %}ویرایش سوالات{% endblock %}
 {% block content %}
-    <div class="modal fade" id="questionInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="examInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -96,7 +96,7 @@
                         </span>
                     </div>
                     <div class="trash-and-drag">
-                        <div>
+                        <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>">
                             <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -107,8 +107,9 @@
                                       d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"></path>
                             </svg>
                         </div>
-                        <a href="{% url 'teacher:delete_exam' pack_pk %}">
-                            <div>
+
+                        <a data-toggle="modal" data-target="#exampleModalCenter" >
+                            <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف تمام سوالات</p>">
                                 <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
@@ -117,6 +118,8 @@
                                 </svg>
                             </div>
                         </a>
+{#                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}#}
+                        {% include 'teacher/layouts/alert-modals.html'%}
                     </div>
                 </div>
                 <div class="row header">
@@ -237,7 +240,7 @@
                                 </svg>
                                 <span>ساده</span>
                             </span>
-                                            <span data-toggle="modal" data-target="#questionInfo">
+                                            <span>
                                 <svg class="bi bi-pie-chart" width="1em" height="1em"
                                      viewBox="0 0 16 16" fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -315,6 +318,8 @@
                         {% endfor %}
                     </div>
                 </div>
+                <input type="submit" class="btn btn-blue" value="تایید سوال" data-toggle="modal"
+                       data-target="#examInfo">
             </div>
         </div>
     </div>
