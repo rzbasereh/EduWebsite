@@ -2966,22 +2966,23 @@ ul.pagination {
     position: relative;
     bottom: 15px;
 }
-.trash-and-drag a div:hover {
+.trash div:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
     transition: .3s;
 }
-.trash-and-drag a svg {
+.trash svg {
     color: #343A40;
 }
-.trash-and-drag a div:hover svg {
+.trash div:hover svg {
     color: #FF3D57;
     font-size: 24px;
     left: 8px;
     top: 8px;
     transition: .3s;
 }
-.trash-and-drag div {
+.trash div,
+.arrow-down-up {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -2992,18 +2993,19 @@ ul.pagination {
     cursor: pointer;
     transition: .3s;
 }
-.trash-and-drag > div:hover {
+.arrow-down-up:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
-.trash-and-drag > div:hover svg {
+.arrow-down-up:hover svg {
     color: #0081FF;
     font-size: 25px;
     left: 8px;
     top: 8px;
     transition: .3s;
 }
-.trash-and-drag svg {
+.trash svg,
+.arrow-down-up svg {
     font-size: 20px;
     position: relative;
     top: 10px;
@@ -3121,4 +3123,7 @@ input[type='تایید سوالات'] {
     font-size: 12px;
     position: relative;
     top:8px;
+}
+#exampleModalCenter .modal-dialog {
+    max-width: 300px;
 }

@@ -737,7 +737,8 @@ $(document).ready(function () {
             });
         }
     });
-
+    $(".next-question-page-body #exampleModalCenter button").click(function () {
+    });
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

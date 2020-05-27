@@ -96,7 +96,7 @@
                         </span>
                     </div>
                     <div class="trash-and-drag">
-                        <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>">
+                        <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>" class="arrow-down-up">
                             <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -108,7 +108,7 @@
                             </svg>
                         </div>
 
-                        <a data-toggle="modal" data-target="#exampleModalCenter" >
+                        <a data-toggle="modal" data-target="#exampleModalCenter" class="trash">
                             <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف تمام سوالات</p>">
                                 <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +119,7 @@
                             </div>
                         </a>
 {#                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}#}
-                        {% include 'teacher/layouts/alert-modals.html'%}
+                        {% include 'teacher/layouts/alert-modals.html'  %}
                     </div>
                 </div>
                 <div class="row header">
