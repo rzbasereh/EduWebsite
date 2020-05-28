@@ -118,8 +118,8 @@
                                 </svg>
                             </div>
                         </a>
-{#                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}#}
-                        {% include 'teacher/layouts/alert-modals.html'  %}
+                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}
+                        {% include 'teacher/layouts/alert-modals.html' with href=DeleteAllQuestions  %}
                     </div>
                 </div>
                 <div class="row header">

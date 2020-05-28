@@ -2126,12 +2126,18 @@ pre {
     float: none;
     position: relative;
     direction: rtl;
-    left: 10%;
+    left: -10%;
     font-size: 15px;
 }
-
+.iziToast > .iziToast-body .iziToast-texts > p {
+    direction: rtl;
+    position: relative;
+    text-align: right;
+    line-height: 20px;
+    margin-bottom: 0;
+}
 .customized-izi-text-small {
-    top: 2px;
+    left: 10% !important;
 }
 
 .iziToast > .iziToast-close {
@@ -2339,7 +2345,7 @@ pre {
 }
 
 .counter-parent {
-    display: none;
+    display: none !important;
 }
 
 .second-toolbar {
@@ -2541,7 +2547,8 @@ span.fancytree-checkbox:hover {
 }
 
 .question-info-img {
-    width: fit-content;
+    width: 75px;
+    height: 100px;
     position: relative;
     margin-right: auto;
     background-color: #F8FAFB;
@@ -2550,14 +2557,17 @@ span.fancytree-checkbox:hover {
 }
 
 .question-info-img img {
-    width: 55px !important;
+    width: 55px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.question-info-img p {
-    position: absolute;
-    margin-top: 15px;
-    font-size: 13px;
-    transform: translateX(-40%);
+.question-info > span:last-child {
+    position: relative;
+    font-size: 12px;
+    left: 20px;
 }
 
 .question-info-data span, .bi-pie-chart {
@@ -2976,9 +2986,6 @@ ul.pagination {
 }
 .trash div:hover svg {
     color: #FF3D57;
-    font-size: 24px;
-    left: 8px;
-    top: 8px;
     transition: .3s;
 }
 .trash div,

@@ -428,16 +428,31 @@ $(document).ready(function () {
             }
         });
     });
-
+    if ($("span.clicked").length !== 0) {
+        $(".question-counter > span").removeClass("counter-parent");
+    }
     $(".question-counter").click(function () {
+        console.log($("span.clicked").length === 0);
         if ($("span.clicked").length === 0) {
+
+            let preventClick = false;
+            $('.sidebar-bottom-box').click(function (e) {
+                if (!preventClick) {
+                    $(this).html($(this).html());
+                }
+                preventClick = true;
+                return false;
+            });
+
             iziToast.warning({
                 class: 'customized-warning-izi-toast-small',
                 title: 'هشدار',
                 message: 'سوالی انتخاب نشده است !',
                 position: 'bottomLeft',
                 onOpening: function () {
+                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                         "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                         "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -451,40 +466,9 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // $('.owl-carousel').trigger('next.owl.carousel');
-            // $('.question-sidebar a.active').removeClass("active");
-            // $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            // $(".question-sidebar").hide();
-            // $(".sidebar").removeClass("showSlideBar");
-            // $(".sidebar li span").removeClass("removeText");
-            // $(".topDrive").removeClass("changeTopDrive");
-            // $(".Page-Body").removeClass("max-width");
-            // $(".question-body").css("max-width", "unset");
-            // $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            // $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // $(window).resize(function () {
-            //     $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            //     $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // });
-            // $(".slider-control").click(function () {
-            //     $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            //     $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // });
             let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
         }
     });
-    // $(".question-sidebar a:nth-child(2)").click(function () {
-    //     if ($(".question-body .owl-item:last-child").hasClass("active")) {
-    //         $('.owl-carousel').trigger('prev.owl.carousel');
-    //         $(this).addClass("active");
-    //         $(".owl-carousel .owl-stage").css('transition', '0.8s');
-    //         $(".next-question-page-body").html("");
-    //         $("span.clicked").removeClass("clicked");
-    //         $(".customBox input:checked").prop("checked", false);
-    //         $(".question-counter").removeClass("question-counter-active");
-    //         $(".question-counter h2 > span").addClass("counter-parent");
-    //     }
-    // });
 
     $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
     $(window).resize(function () {
@@ -553,7 +537,6 @@ $(document).ready(function () {
     $("ul.pagination li.page-item").click(function () {
         let thisElement = $(this);
         if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
-            // $(".question-sidebar, .question-body").addClass("loading-background");
             $(".Page-Body").append(`<div class="loading-background"></div>`);
             $(".linear-activity").addClass("active");
             let data = {};
@@ -664,8 +647,8 @@ $(document).ready(function () {
                                         <div class="question-info-img">
                                             <img src=""
                                                     alt="question source">
-                                            <p>98-99</p>
                                         </div>
+                                        <span>98-99</span>
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label customBox"
@@ -713,8 +696,8 @@ $(document).ready(function () {
                 },
                 error: function (data) {
                     console.log(data);
-                    $(".question-sidebar, .question-body").removeClass("loading-background");
                     $(".linear-activity").removeClass("active");
+                    $(".loading-background").remove();
                     iziToast.warning({
                         class: 'customized-warning-izi-toast',
                         title: 'هشدار',
@@ -738,7 +721,9 @@ $(document).ready(function () {
             });
         }
     });
-    $(".next-question-page-body #exampleModalCenter button").click(function () {
+
+    $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
+
     });
 
     function getCookie(name) {
