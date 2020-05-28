@@ -335,6 +335,15 @@ $(document).ready(function () {
         $(".path a:last-child").text($(this).text());
         $(".question-page-body h1 > span:first-child").text($(this).text());
     });
+
+    if ($("span.clicked").length === 0) {
+        $(".question-counter h2 > span").css("display", "none");
+    }
+
+    if ($("span.clicked").length !== 0) {
+        $(".question-counter h2 > span").css("display", "inline-block");
+    }
+
     $(".questions-content .checkmark").click(function () {
         let this_element = $(this);
         let state = "add";
@@ -351,12 +360,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.value === "success") {
                     $(".question-counter").addClass("question-counter-active");
-                    $(".question-counter h2 > span").removeClass("counter-parent");
+                    $(".question-counter h2 > span").css("display", "inline-block");
                     this_element.toggleClass("clicked");
                     $(".counter").html($(".clicked").length);
                     if ($("span.clicked").length === 0) {
                         $(".question-counter").removeClass("question-counter-active");
-                        $(".question-counter h2 > span").addClass("counter-parent");
+                        $(".question-counter h2 > span").css("display", "none");
                     }
                     if (data.type === "add") {
                         iziToast.success({
@@ -428,9 +437,6 @@ $(document).ready(function () {
             }
         });
     });
-    if ($("span.clicked").length !== 0) {
-        $(".question-counter > span").removeClass("counter-parent");
-    }
     $(".question-counter").click(function () {
         console.log($("span.clicked").length === 0);
         if ($("span.clicked").length === 0) {
@@ -723,37 +729,46 @@ $(document).ready(function () {
     });
 
     $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
-
+        $(".next-question-page-body .questions-content").remove();
     });
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            let cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+    $(".next-question-page-body button.close").click(function () {
+        $(this).closest(".card").remove();
+    });
+
+    $(".arrow-down-up").click(function () {
+        $(".next-question-page-body .card").toggleClass("get-ready-to-shake shake-slow shake-constant");
+        $(".next-question-page-body .card").toggleClass("drag drop");
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
-    }
 
-    function csrfSafeMethod(method) {
+        function csrfSafeMethod(method) {
 // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    let csrf_token = getCookie('csrftoken');
-    $.ajaxSetup({
-        crossDomain: false, // obviates need for sameOrigin test
-        beforeSend: function (xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrf_token);
-            }
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
+
+        let csrf_token = getCookie('csrftoken');
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
     });
-});

@@ -1095,6 +1095,7 @@ h1 {
 .next-question-page-body {
     padding: 0 !important;
     height: 100%;
+    direction: rtl;
 }
 
 .question-page-body h1 span,
@@ -1147,21 +1148,29 @@ a:hover {
     color: #343A40 !important;
 }
 
-
-.question-body::-webkit-scrollbar {
+.next-question-body {
+    height: 100%;
+    overflow-y: auto;
+    direction: ltr;
+}
+.question-body::-webkit-scrollbar,
+.next-question-body::-webkit-scrollbar {
     width: 5px;
     border-radius: 3px;
 }
 
-.question-body::-webkit-scrollbar-track {
+.question-body::-webkit-scrollbar-track,
+.next-question-body::-webkit-scrollbar-track {
     border-radius: 3px;
 }
 
-.question-body::-webkit-scrollbar-thumb {
+.question-body::-webkit-scrollbar-thumb,
+.next-question-body::-webkit-scrollbar-thumb {
     background: transparent;
 }
 
-.question-body:hover::-webkit-scrollbar-thumb {
+.question-body:hover::-webkit-scrollbar-thumb,
+.next-question-body:hover::-webkit-scrollbar-thumb {
     background: #0081FF;
     border-radius: 3px;
 }
@@ -1975,6 +1984,12 @@ input:checked + .slider:before {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     margin-top: 20px;
+    transition: 1s;
+}
+
+.get-ready-to-shake {
+    margin-top: 35px !important;
+    transition: .5s;
 }
 
 .questions-content .card-body {
@@ -2342,10 +2357,6 @@ pre {
 
 .question-counter h2 svg {
     font-size: 18px;
-}
-
-.counter-parent {
-    display: none !important;
 }
 
 .second-toolbar {
@@ -3139,4 +3150,7 @@ input[type='تایید سوالات'] {
 }
 #exampleModalCenter .modal-dialog {
     max-width: 300px;
+}
+.shake-slow.shake-constant {
+    animation-duration: 9s;
 }

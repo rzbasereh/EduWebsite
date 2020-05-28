@@ -118,7 +118,7 @@
                 <span>سوالات شما</span>
             </a>
             <a href="{% url 'teacher:new_exam' %}" class="sidebar-bottom-box">
-                <div class="question-counter {% if selected_question|length %}question-counter-active {% endif %}"
+                <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="{% url 'teacher:selectedQuestion' %}">
                     <h2>
                         <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -132,7 +132,7 @@
                         </svg>
                         سوالات انتخاب شده
                         <span class="counter-parent"
-                              style="{% if selected_question|length %}display:inline-block{% endif %}">
+                              style="{% if selected_question|length %}display:inline-block {% endif %}">
                             (<span class="counter">{{ selected_question|length }}</span>)
                         </span>
                     </h2>
