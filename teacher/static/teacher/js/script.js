@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // add question Page
     $('[data-toggle="tooltip"]').tooltip({
-        html : true
+        html: true
     });
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
@@ -553,7 +553,8 @@ $(document).ready(function () {
     $("ul.pagination li.page-item").click(function () {
         let thisElement = $(this);
         if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
-            $(".question-sidebar, .question-body").addClass("loading-background");
+            // $(".question-sidebar, .question-body").addClass("loading-background");
+            $(".Page-Body").append(`<div class="loading-background"></div>`);
             $(".linear-activity").addClass("active");
             let data = {};
             data.unit = 10;
@@ -706,8 +707,8 @@ $(document).ready(function () {
                                 </div>
                             </div>`)
                     }
-                    $(".question-sidebar, .question-body").removeClass("loading-background");
                     $(".linear-activity").removeClass("active");
+                    $(".loading-background").remove();
                     console.log(data);
                 },
                 error: function (data) {
@@ -739,6 +740,7 @@ $(document).ready(function () {
     });
     $(".next-question-page-body #exampleModalCenter button").click(function () {
     });
+
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
