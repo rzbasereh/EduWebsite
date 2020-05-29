@@ -2346,26 +2346,46 @@ pre {
     display: none;
 }
 
-.fr-box.fr-basic.fr-top .fr-wrapper {
+/*.fr-box.fr-basic.fr-top .fr-wrapper {*/
+/*    border: none;*/
+/*    background-color: transparent;*/
+/*}*/
+
+/*.editor-toolbar.fr-box.fr-basic.fr-top .fr-wrapper {*/
+/*    display: none;*/
+/*}*/
+.fr-toolbar__fixed .fr-toolbar.fr-top {
+    position: fixed;
+    top: 0 !important;
+    left: 15px;
+    z-index: -1 !important;
     border: none;
-    background-color: transparent;
+    transition: 0.3s top;
 }
 
-.editor-toolbar.fr-box.fr-basic.fr-top .fr-wrapper {
-    display: none;
+.fr-toolbar__fixed.show .fr-toolbar.fr-top {
+    top: 66px !important;
+    z-index: 10 !important;
 }
 
-.fr-toolbar.fr-top {
-    position: absolute;
-    top: 75px !important;
-    left: -720px;
-    padding-right: 50px;
-    -webkit-border-radius: 0 0.5em 0.5em 0;
-    -moz-border-radius: 0 0.5em 0.5em 0;
-    border-radius: 0 0.5em 0.5em 0;
-    border: 1px solid #CCCCCC;
-    box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2) !important;
-    z-index: 999;
+.fr-toolbar__fixed .fr-toolbar .fr-newline {
+    background: transparent;
+}
+
+.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {
+    background: transparent;
+    border: none;
+}
+
+.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper p {
+    margin-bottom: 5px;
+}
+
+.fr-toolbar__fixed.fr-box.fr-basic .fr-element {
+    padding: 15px;
+}
+.fr-toolbar__fixed .fr-quick-insert {
+    display: none!important;
 }
 
 .fancy-tree-container {
@@ -2456,11 +2476,29 @@ span.vr-hr:after {
 
 .scrolled-header {
     position: fixed;
+    left: 0;
     background-color: #ffffff;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #8697A8;
     transform: translateY(-68px);
     z-index: -1;
     transition: 0.3s;
+}
+
+.sub-scrolled-header {
+    position: fixed;
+    left: 0;
+    height: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #8697A8;
+    transform: translateY(-100px);
+    z-index: -1;
+    padding: 15px;
+    transition: 0.3s transform;
+}
+
+.sub-scrolled-header.show {
+    transform: translateY(-20px);
+    z-index: 10;
 }
 
 .scrolled-header-show {
@@ -2654,6 +2692,7 @@ span.fancytree-checkbox:hover {
     opacity: 0;
     transition: .5s;
 }
+
 .card-body:hover .close {
     visibility: visible;
     opacity: 1;
@@ -2966,14 +3005,17 @@ ul.pagination {
     position: relative;
     bottom: 15px;
 }
+
 .trash div:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
     transition: .3s;
 }
+
 .trash svg {
     color: #343A40;
 }
+
 .trash div:hover svg {
     color: #FF3D57;
     font-size: 24px;
@@ -2981,6 +3023,7 @@ ul.pagination {
     top: 8px;
     transition: .3s;
 }
+
 .trash div,
 .arrow-down-up {
     border-radius: 50%;
@@ -2993,10 +3036,12 @@ ul.pagination {
     cursor: pointer;
     transition: .3s;
 }
+
 .arrow-down-up:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
+
 .arrow-down-up:hover svg {
     color: #0081FF;
     font-size: 25px;
@@ -3004,6 +3049,7 @@ ul.pagination {
     top: 8px;
     transition: .3s;
 }
+
 .trash svg,
 .arrow-down-up svg {
     font-size: 20px;
@@ -3043,9 +3089,11 @@ ul.pagination {
 .col-12 {
     padding: 0;
 }
+
 input[type='تایید سوالات'] {
     margin-left: 15px;
 }
+
 .linear-activity {
     overflow: hidden;
     width: 100%;
@@ -3055,20 +3103,22 @@ input[type='تایید سوالات'] {
     position: absolute;
     top: -20px;
     display: none;
-    opacity: 100%!important;
+    opacity: 100% !important;
     z-index: 10000;
 }
+
 .linear-activity.active {
     display: block;
 }
+
 .determinate {
     position: relative;
     max-width: 100%;
     height: 100%;
     -webkit-transition: width 500ms ease-out 1s;
-       -moz-transition: width 500ms ease-out 1s;
-         -o-transition: width 500ms ease-out 1s;
-            transition: width 500ms ease-out 1s;
+    -moz-transition: width 500ms ease-out 1s;
+    -o-transition: width 500ms ease-out 1s;
+    transition: width 500ms ease-out 1s;
     background-color: #03A9F4;
 }
 
@@ -3115,6 +3165,7 @@ input[type='تایید سوالات'] {
         width: 10%;
     }
 }
+
 .loading-background {
     width: 100%;
     height: 100%;
@@ -3123,13 +3174,15 @@ input[type='تایید سوالات'] {
     opacity: .5;
     z-index: 100;
 }
+
 .tool {
     color: #ffffff;
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
     font-size: 12px;
     position: relative;
-    top:8px;
+    top: 8px;
 }
+
 #exampleModalCenter .modal-dialog {
     max-width: 300px;
 }

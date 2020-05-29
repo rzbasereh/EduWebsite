@@ -140,14 +140,14 @@
             </a>
         </div>
         <div class="col-9 question-body">
-            <div class="row scrolled-header">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
-                           aria-label="Username"
-                           aria-describedby="basic-addon1">
-                    <span class="ti-search"></span>
-                </div>
-            </div>
+{#            <div class="row scrolled-header">#}
+{#                <div class="input-group mb-3">#}
+{#                    <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"#}
+{#                           aria-label="Username"#}
+{#                           aria-describedby="basic-addon1">#}
+{#                    <span class="ti-search"></span>#}
+{#                </div>#}
+{#            </div>#}
             <div class="question-page-body">
                 <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
                 <div class="path">
@@ -306,9 +306,8 @@
                                         </label>
                                     </div>
                                     <div class="question-text">
-                                                <pre>
-                                                    {{ question.body }}
-                                                </pre>
+
+                                                    {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
                                         <span>1) {{ question.choice_1 }}</span>

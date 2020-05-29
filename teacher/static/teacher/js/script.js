@@ -1,11 +1,69 @@
 $(document).ready(function () {
-
     // add question Page
     $('[data-toggle="tooltip"]').tooltip({
         html: true
     });
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
+        function pasteHtmlAtCaret(html) {
+                    var sel, range;
+                    if (window.getSelection) {
+                        // IE9 and non-IE
+                        sel = window.getSelection();
+                        if (sel.getRangeAt && sel.rangeCount) {
+                            range = sel.getRangeAt(0);
+                            range.deleteContents();
+
+                            // Range.createContextualFragment() would be useful here but is
+                            // non-standard and not supported in all browsers (IE9, for one)
+                            var el = document.createElement("div");
+                            el.innerHTML = html;
+                            var frag = document.createDocumentFragment(), node, lastNode;
+                            while ((node = el.firstChild)) {
+                                lastNode = frag.appendChild(node);
+                            }
+                            range.insertNode(frag);
+
+                            // Preserve the selection
+                            if (lastNode) {
+                                range = range.cloneRange();
+                                range.setStartAfter(lastNode);
+                                range.collapse(true);
+                                sel.removeAllRanges();
+                                sel.addRange(range);
+                            }
+                        }
+                    } else if (document.selection && document.selection.type !== "Control") {
+                        // IE < 9
+                        document.selection.createRange().pasteHTML(html);
+                    }
+                }
+        $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+        $(window).resize(function () {
+            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+        });
+        $(".slider-control").click(function () {
+            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+        });
+        let math_keyboard = `<button type="button" role="button" title="Math Formula" class="fr-command fr-btn" 
+                                data-cmd="add-math" data-popup="false">
+                                <svg class="bi bi-laptop" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
+                                    <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
+                                </svg>
+                            </button>`;
+        $(".fr-toolbar__fixed .fr-toolbar.fr-top button[data-cmd='specialCharacters']").after(math_keyboard);
+        $(".fr-toolbar__fixed.fr-box.fr-basic .fr-element").on('focus', function () {
+            $(".sub-scrolled-header").addClass("show");
+            $(this).closest(".fr-toolbar__fixed").addClass("show");
+        }).on('focusout', function () {
+            $(".sub-scrolled-header").removeClass("show");
+            $(this).closest(".fr-toolbar__fixed").removeClass("show");
+        });
+        $(".fr-toolbar__fixed").find(".fr-toolbar.fr-top button[data-cmd='add-math']").click(function () {
+                // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
+                // init_MathLive('ML_editor');
+            });
         $("input.tag-input").tagsInput({
             defaultText: '',
         });
@@ -24,7 +82,7 @@ $(document).ready(function () {
         function collectData(element, mute) {
             mute = !mute;
             if (element === "QuestionSubject") {
-                let QuestionSubjectData = $("div.question-textarea").text();
+                let QuestionSubjectData = $("div.question-textarea .fr-element.fr-view").html();
                 if (QuestionSubjectData.trim().length === 0) {
                     if (mute) {
                         $(".question-textarea-label").append("<span class='warning'><span>*</span> لطفا صورت سوال را کامل کنید</span>");
@@ -324,7 +382,7 @@ $(document).ready(function () {
             })
         }
 
-        setInterval(intervalSave, 60000);
+        setInterval(intervalSave, 5000);
     }
 
     // editor($('.question-textarea'));
@@ -441,7 +499,7 @@ $(document).ready(function () {
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                         "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                         "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                        "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                        "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"/>\n" +
                         "                    </svg>\n" +
                         "                </div>");
                     $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -527,7 +585,7 @@ $(document).ready(function () {
                             $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                                 "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                                 "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"/>\n" +
                                 "                    </svg>\n" +
                                 "                </div>");
                             $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -662,8 +720,7 @@ $(document).ready(function () {
                                             </div>
                                         </div>
                                         <div class="question-info-img">
-                                            <img src=""
-                                                    alt="question source">
+                                            <img src="/static/main/img/${questions[i]["fields"]["source"]}.png" alt="question source">
                                             <p>98-99</p>
                                         </div>
                                     </div>
@@ -682,8 +739,10 @@ $(document).ready(function () {
                                     </div>
                                     <div class="question-inline-choices">
                                         <span>1) ${questions[i]["fields"]["choice_1"]}</span>
-                                        <span class="selected-correct-choice"><span
-                                                class="inline-selected-correct-choice-tick"></span>2) ${questions[i]["fields"]["choice_2"]}</span>
+                                        <span class="selected-correct-choice">
+                                        <span class="inline-selected-correct-choice-tick"></span>
+                                        2) ${questions[i]["fields"]["choice_2"]}
+                                        </span>
                                         <span>3) ${questions[i]["fields"]["choice_3"]}</span>
                                         <span>4) ${questions[i]["fields"]["choice_4"]}</span>
                                     </div>
@@ -698,10 +757,10 @@ $(document).ready(function () {
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                   d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                                  clip-rule="evenodd"></path>
+                                                  clip-rule="evenodd"/>
                                             <path fill-rule="evenodd"
                                                   d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                                  clip-rule="evenodd"></path>
+                                                  clip-rule="evenodd"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -725,7 +784,7 @@ $(document).ready(function () {
                             $(".customized-warning-izi-toast>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                                 "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                                 "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"/>\n" +
                                 "                    </svg>\n" +
                                 "                </div>");
                             $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +

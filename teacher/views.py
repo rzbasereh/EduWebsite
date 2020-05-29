@@ -49,6 +49,9 @@ def questions(request):
 
 
 def newQuestion(request):
+    user = commonData(request)
+    return render(request, 'teacher/new_question.html', {'user': user, 'pk': 375})
+    # ---------------------------------------------------------------------------------------- #
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
