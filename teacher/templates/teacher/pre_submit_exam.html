@@ -2,6 +2,17 @@
 {% load static %}
 {% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
 {% block title %}ویرایش سوالات{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.3/csshake.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+{% endblock %}
 {% block content %}
     <div class="modal fade" id="examInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
@@ -13,10 +24,12 @@
                              xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                   d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                  clip-rule="evenodd"></path>
+                                  clip-rule="evenodd">
+                            </path>
                             <path fill-rule="evenodd"
                                   d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                  clip-rule="evenodd"></path>
+                                  clip-rule="evenodd">
+                            </path>
                         </svg>
                     </button>
                 </div>
@@ -57,11 +70,11 @@
         </div>
     </div>
 
-    <div class="row w-100">
+    <div class="row w-100 next-question-body">
         <div class="col-12">
             <div class="next-question-page-body">
                 <h1><span>ویرایش سوالات</span> <span>({{ questions.count }})</span></h1>
-                <div class="row w-100">
+                <div class="row w-100 ">
                     <div class="path">
                         <span>
                         <a href="{% url 'teacher:index' %}">
@@ -96,7 +109,8 @@
                         </span>
                     </div>
                     <div class="trash-and-drag">
-                        <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>" class="arrow-down-up">
+                        <div data-toggle="tooltip" data-placement="top"
+                              class="arrow-down-up"  title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>" >
                             <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -118,8 +132,8 @@
                                 </svg>
                             </div>
                         </a>
-{#                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}#}
-                        {% include 'teacher/layouts/alert-modals.html'  %}
+                        {% url 'teacher:delete_exam' pack_pk as DeleteAllQuestions %}
+                        {% include 'teacher/layouts/alert-modals.html' with href=DeleteAllQuestions %}
                     </div>
                 </div>
                 <div class="row header">
@@ -201,7 +215,7 @@
                 <div class="questions">
                     <div class="row questions-content">
                         {% for question in questions %}
-                            <div class="card w-100" id="{{ question.pk }}">
+                            <div class="card w-100 " id="{{ question.pk }}">
                                 <div class="card-body">
                                     <div class="question-type">
                         <span>
@@ -271,8 +285,8 @@
                                         <div class="question-info-img">
                                             <img src="{% static 'main/img/'|add:question.source|add:'.png' %}"
                                                  alt="question source">
-                                            <p>98-99</p>
                                         </div>
+                                        <span>98-99</span>
                                     </div>
                                     <button type="button" class="close">
                                         <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"

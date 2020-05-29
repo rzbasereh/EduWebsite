@@ -3,6 +3,8 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         html: true
     });
+    $(".arrow-down-up").attr("data-toggle", "tooltip");
+
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         function pasteHtmlAtCaret(html) {
@@ -67,17 +69,17 @@ $(document).ready(function () {
         $("input.tag-input").tagsInput({
             defaultText: '',
         });
-        $('.owl-carousel').owlCarousel({
-            mouseDrag: false,
-            rtl: true,
-            touchDrag: false,
-            loop: false,
-            margin: 10,
-            nav: false,
-            items: 1,
-            dots: false,
-            autoHeight: true,
-        });
+        // $('.owl-carousel').owlCarousel({
+        //     mouseDrag: false,
+        //     rtl: true,
+        //     touchDrag: false,
+        //     loop: false,
+        //     margin: 10,
+        //     nav: false,
+        //     items: 1,
+        //     dots: false,
+        //     autoHeight: true,
+        // });
 
         function collectData(element, mute) {
             mute = !mute;
@@ -134,7 +136,7 @@ $(document).ready(function () {
                 }
                 return false;
             } else if (element === "ChoiceVal1") {
-                let ChoiceVal1 = $(".first-choice-text").text();
+                let ChoiceVal1 = $(".first-choice-text .fr-element.fr-view").html();
                 if (ChoiceVal1.length === 0) {
                     if (mute) {
                         $(".first-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
@@ -150,7 +152,7 @@ $(document).ready(function () {
                 }
                 return false;
             } else if (element === "ChoiceVal2") {
-                let ChoiceVal2 = $(".second-choice-text").text();
+                let ChoiceVal2 = $(".second-choice-text .fr-element.fr-view").html();
                 if (ChoiceVal2.length === 0) {
                     if (mute) {
                         $(".second-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
@@ -166,7 +168,7 @@ $(document).ready(function () {
                 }
                 return false;
             } else if (element === "ChoiceVal3") {
-                let ChoiceVal3 = $(".third-choice-text").text();
+                let ChoiceVal3 = $(".third-choice-text .fr-element.fr-view").html();
                 if (ChoiceVal3.length === 0) {
                     if (mute) {
                         $(".third-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
@@ -182,7 +184,7 @@ $(document).ready(function () {
                 }
                 return false;
             } else if (element === "ChoiceVal4") {
-                let ChoiceVal4 = $(".fourth-choice-text").text();
+                let ChoiceVal4 = $(".fourth-choice-text .fr-element.fr-view").html();
                 if (ChoiceVal4.length === 0) {
                     if (mute) {
                         $(".fourth-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
@@ -393,6 +395,15 @@ $(document).ready(function () {
         $(".path a:last-child").text($(this).text());
         $(".question-page-body h1 > span:first-child").text($(this).text());
     });
+
+    if ($("span.clicked").length === 0) {
+        $(".question-counter h2 > span").css("display", "none");
+    }
+
+    if ($("span.clicked").length !== 0) {
+        $(".question-counter h2 > span").css("display", "inline-block");
+    }
+
     $(".questions-content .checkmark").click(function () {
         let this_element = $(this);
         let state = "add";
@@ -409,12 +420,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.value === "success") {
                     $(".question-counter").addClass("question-counter-active");
-                    $(".question-counter h2 > span").removeClass("counter-parent");
+                    $(".question-counter h2 > span").css("display", "inline-block");
                     this_element.toggleClass("clicked");
                     $(".counter").html($(".clicked").length);
                     if ($("span.clicked").length === 0) {
                         $(".question-counter").removeClass("question-counter-active");
-                        $(".question-counter h2 > span").addClass("counter-parent");
+                        $(".question-counter h2 > span").css("display", "none");
                     }
                     if (data.type === "add") {
                         iziToast.success({
@@ -486,16 +497,28 @@ $(document).ready(function () {
             }
         });
     });
-
     $(".question-counter").click(function () {
+        console.log($("span.clicked").length === 0);
         if ($("span.clicked").length === 0) {
+
+            let preventClick = false;
+            $('.sidebar-bottom-box').click(function (e) {
+                if (!preventClick) {
+                    $(this).html($(this).html());
+                }
+                preventClick = true;
+                return false;
+            });
+
             iziToast.warning({
                 class: 'customized-warning-izi-toast-small',
                 title: 'هشدار',
                 message: 'سوالی انتخاب نشده است !',
                 position: 'bottomLeft',
                 onOpening: function () {
+                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
                     $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
                         "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
                         "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -509,40 +532,9 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // $('.owl-carousel').trigger('next.owl.carousel');
-            // $('.question-sidebar a.active').removeClass("active");
-            // $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            // $(".question-sidebar").hide();
-            // $(".sidebar").removeClass("showSlideBar");
-            // $(".sidebar li span").removeClass("removeText");
-            // $(".topDrive").removeClass("changeTopDrive");
-            // $(".Page-Body").removeClass("max-width");
-            // $(".question-body").css("max-width", "unset");
-            // $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            // $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // $(window).resize(function () {
-            //     $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            //     $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // });
-            // $(".slider-control").click(function () {
-            //     $(".scrolled-header").width($("body").width() - ($(".sidebar").width()) - 1);
-            //     $(".Page-Body").width($("body").width() - ($(".sidebar").width()) - 1);
-            // });
             let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
         }
     });
-    // $(".question-sidebar a:nth-child(2)").click(function () {
-    //     if ($(".question-body .owl-item:last-child").hasClass("active")) {
-    //         $('.owl-carousel').trigger('prev.owl.carousel');
-    //         $(this).addClass("active");
-    //         $(".owl-carousel .owl-stage").css('transition', '0.8s');
-    //         $(".next-question-page-body").html("");
-    //         $("span.clicked").removeClass("clicked");
-    //         $(".customBox input:checked").prop("checked", false);
-    //         $(".question-counter").removeClass("question-counter-active");
-    //         $(".question-counter h2 > span").addClass("counter-parent");
-    //     }
-    // });
 
     $(".scrolled-header").width($("body").width() - ($(".sidebar").width() + $(".question-sidebar").width()) - 2);
     $(window).resize(function () {
@@ -611,7 +603,6 @@ $(document).ready(function () {
     $("ul.pagination li.page-item").click(function () {
         let thisElement = $(this);
         if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
-            // $(".question-sidebar, .question-body").addClass("loading-background");
             $(".Page-Body").append(`<div class="loading-background"></div>`);
             $(".linear-activity").addClass("active");
             let data = {};
@@ -723,6 +714,7 @@ $(document).ready(function () {
                                             <img src="/static/main/img/${questions[i]["fields"]["source"]}.png" alt="question source">
                                             <p>98-99</p>
                                         </div>
+                                        <span>98-99</span>
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label customBox"
@@ -772,8 +764,8 @@ $(document).ready(function () {
                 },
                 error: function (data) {
                     console.log(data);
-                    $(".question-sidebar, .question-body").removeClass("loading-background");
                     $(".linear-activity").removeClass("active");
+                    $(".loading-background").remove();
                     iziToast.warning({
                         class: 'customized-warning-izi-toast',
                         title: 'هشدار',
@@ -797,7 +789,21 @@ $(document).ready(function () {
             });
         }
     });
-    $(".next-question-page-body #exampleModalCenter button").click(function () {
+
+    $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
+        $(".next-question-page-body .questions-content").remove();
+    });
+
+    $(".next-question-page-body button.close").click(function () {
+        $(this).closest(".card").remove();
+    });
+
+    $(".arrow-down-up").click(function () {
+        $(".next-question-page-body .questions-content ").sortable({
+            axis: 'y'
+        });
+        $(".next-question-page-body .questions-content ").disableSelection();
+        $(".next-question-page-body .card").toggleClass("get-ready-to-shake shake shake-constant");
     });
 
     function getCookie(name) {

@@ -9,7 +9,7 @@
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript">
-        let editor = new FroalaEditor('#question-textarea, #complete-ans', {
+        let editor = new FroalaEditor('#question-textarea, #complete-ans, #first-choice-text, #second-choice-text, #third-choice-text, #fourth-choice-text', {
             toolbarButtons: {
                 'moreText': {
                     'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
@@ -155,52 +155,57 @@
                         </button>
                     </div>
                     <div class="row w-100">
-                        <div class="owl-carousel owl-theme">
-                            <div class="item">
-                                <div class="row w-100 choices">
-                                    <div class="col-lg-6 choice">
-                                        <label for="1th-choice" class="custom-input">
-                                            <span>گزینه اول</span>
-                                            <input type="radio" id="1th-choice" name="choice"
-                                                   value="first-choice">
-                                            <span class="tick"></span>
-                                        </label>
-                                        <div id="first-choice-text" class="first-choice-text"></div>
-                                    </div>
-                                    <div class="col-lg-6 choice">
-                                        <label for="2th-choice" class="custom-input">
-                                            <span class="left-choices-label">گزینه دوم</span>
-                                            <input type="radio" id="2th-choice" name="choice"
-                                                   value="first-choice">
-                                            <span class="tick left-choices-tick"></span>
-                                        </label>
-                                        <div class="second-choice-text"></div>
-                                    </div>
-                                    <div class="col-lg-6 choice">
-                                        <label for="3th-choice" class="custom-input">
-                                            <span>گزینه سوم</span>
-                                            <input type="radio" id="3th-choice" name="choice"
-                                                   value="first-choice">
-                                            <span class="tick"></span>
-                                        </label>
-                                        <div class="third-choice-text"></div>
-                                    </div>
-                                    <div class="col-lg-6 choice">
-                                        <label for="4th-choice" class="custom-input">
-                                            <span class="left-choices-label">گزینه چهارم</span>
-                                            <input type="radio" id="4th-choice" name="choice"
-                                                   value="first-choice">
-                                            <span class="tick left-choices-tick"></span>
-                                        </label>
-                                        <div class="fourth-choice-text"></div>
-                                    </div>
-                                </div>
+                        {#                        <div class="owl-carousel owl-theme">#}
+                        {#                            <div class="item">#}
+                        <div class="row w-100 choices">
+                            <div class="col-lg-6 choice">
+                                <label for="1th-choice" class="custom-input">
+                                    <span>گزینه اول</span>
+                                    <input type="radio" id="1th-choice" name="choice"
+                                           value="first-choice">
+                                    <span class="tick"></span>
+                                </label>
+                                <div id="first-choice-text"
+                                     class="first-choice-text fr-toolbar__fixed fr__single-line"></div>
                             </div>
-                            <div class="item"><label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
-                                <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed">
-                                </div>
+                            <div class="col-lg-6 choice">
+                                <label for="2th-choice" class="custom-input">
+                                    <span class="left-choices-label">گزینه دوم</span>
+                                    <input type="radio" id="2th-choice" name="choice"
+                                           value="first-choice">
+                                    <span class="tick left-choices-tick"></span>
+                                </label>
+                                <div id="second-choice-text"
+                                     class="second-choice-text fr-toolbar__fixed fr__single-line"></div>
+                            </div>
+                            <div class="col-lg-6 choice">
+                                <label for="3th-choice" class="custom-input">
+                                    <span>گزینه سوم</span>
+                                    <input type="radio" id="3th-choice" name="choice"
+                                           value="first-choice">
+                                    <span class="tick"></span>
+                                </label>
+                                <div id="third-choice-text"
+                                     class="third-choice-text fr-toolbar__fixed fr__single-line"></div>
+                            </div>
+                            <div class="col-lg-6 choice">
+                                <label for="4th-choice" class="custom-input">
+                                    <span class="left-choices-label">گزینه چهارم</span>
+                                    <input type="radio" id="4th-choice" name="choice"
+                                           value="first-choice">
+                                    <span class="tick left-choices-tick"></span>
+                                </label>
+                                <div id="fourth-choice-text"
+                                     class="fourth-choice-text fr-toolbar__fixed fr__single-line"></div>
                             </div>
                         </div>
+                        {#                            </div>#}
+                        {#                            <div class="item">#}
+                        <label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
+                        <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed">
+                        </div>
+                        {#                            </div>#}
+                        {#                        </div>#}
                     </div>
                     <div class="row w-100 state">
                         <div class="form-group col-lg-4">
