@@ -4,8 +4,8 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         html: true
     });
-    $(".arrow-down-up").attr("data-toggle", "tooltip");
 
+    $(".arrow-down-up").attr("data-toggle", "tooltip");
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
@@ -346,7 +346,7 @@ $(document).ready(function () {
         $(".question-counter h2 > span").css("display", "inline-block");
     }
 
-    $(".questions-content .checkmark").click(function () {
+    function questionSelection() {
         let this_element = $(this);
         let state = "add";
         if (this_element.hasClass("clicked")) {
@@ -438,7 +438,9 @@ $(document).ready(function () {
 
             }
         });
-    });
+    }
+
+    $(".questions-content .checkmark").click(questionSelection);
     $(".question-counter").click(function () {
         console.log($("span.clicked").length === 0);
         if ($("span.clicked").length === 0) {
@@ -578,6 +580,7 @@ $(document).ready(function () {
                     thisElement.closest("div.pagination").find(".end-question-number").text(unit * page);
                     $(".questions-content").html("");
                     let questions = JSON.parse(data["questions"]);
+                    let m = 0;
                     for (let i in questions) {
                         $(".questions-content").append(`<div class="card w-100" id="${questions[i]["pk"]}">
                                 <div class="card-body">
@@ -660,9 +663,9 @@ $(document).ready(function () {
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label customBox"
-                                               for="Check">
+                                               for="Check-${m}">
                                             <input type="checkbox" class="form-check-input"
-                                                   id="Check">
+                                                   id="Check-${m}">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -696,8 +699,48 @@ $(document).ready(function () {
                                         </svg>
                                     </button>
                                 </div>
-                            </div>`)
+                            </div>`);
+                        m++;
                     }
+                    $(".questions-content .checkmark").click(questionSelection);
+                    $(".question-counter").click(function () {
+                        console.log($("span.clicked").length === 0);
+                        if ($("span.clicked").length === 0) {
+
+                            let preventClick = false;
+                            $('.sidebar-bottom-box').click(function (e) {
+                                if (!preventClick) {
+                                    $(this).html($(this).html());
+                                }
+                                preventClick = true;
+                                return false;
+                            });
+
+                            iziToast.warning({
+                                class: 'customized-warning-izi-toast-small',
+                                title: 'هشدار',
+                                message: 'سوالی انتخاب نشده است !',
+                                position: 'bottomLeft',
+                                onOpening: function () {
+                                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
+                                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-warning");
+                                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
+                                    $(".customized-warning-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"warning-alert-circle\">\n" +
+                                        "                    <svg class=\"bi bi-exclamation\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\"\n" +
+                                        "                         xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                        "                        <path d=\"M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z\"></path>\n" +
+                                        "                    </svg>\n" +
+                                        "                </div>");
+                                    $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                        "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                        "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                        "</svg>");
+                                }
+                            });
+                        } else {
+                            let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
+                        }
+                    });
                     $(".linear-activity").removeClass("active");
                     $(".loading-background").remove();
                     console.log(data);
@@ -739,9 +782,19 @@ $(document).ready(function () {
     });
 
     $(".arrow-down-up").click(function () {
-        $(".next-question-page-body .questions-content ").sortable();
-        $(".next-question-page-body .questions-content ").disableSelection();
-        $(".next-question-page-body .card").toggleClass("get-ready-to-shake shake shake-constant");
+        $(this).toggleClass("active");
+        if ($(this).hasClass("active")) {
+            $(".next-question-page-body .questions-content").sortable({
+                axis: 'y'
+            });
+            $(".next-question-page-body .questions-content").disableSelection();
+            $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
+            $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
+        } else {
+            $(".next-question-page-body .questions-content").sortable("cancel");
+            $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
+            $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
+        }
     });
 
     function getCookie(name) {
