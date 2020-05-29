@@ -1986,7 +1986,6 @@ input:checked + .slider:before {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     margin-top: 20px;
-    transition: 1s;
 }
 
 .get-ready-to-shake {
@@ -3103,8 +3102,12 @@ ul.pagination {
     position: relative;
     bottom: 3px;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+transition: .5s;
 }
-
+.plus-question:hover,
+.plus-question:focus {
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}
 .plus-question svg {
     font-size: 30px;
     position: relative;
@@ -3222,4 +3225,10 @@ input[type='تایید سوالات'] {
 
 .shake.shake-constant {
     animation-duration: 3s;
+}
+.diactivation-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
 }
