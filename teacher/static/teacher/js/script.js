@@ -8,38 +8,39 @@ $(document).ready(function () {
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         function pasteHtmlAtCaret(html) {
-                    var sel, range;
-                    if (window.getSelection) {
-                        // IE9 and non-IE
-                        sel = window.getSelection();
-                        if (sel.getRangeAt && sel.rangeCount) {
-                            range = sel.getRangeAt(0);
-                            range.deleteContents();
+            var sel, range;
+            if (window.getSelection) {
+                // IE9 and non-IE
+                sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                    range = sel.getRangeAt(0);
+                    range.deleteContents();
 
-                            // Range.createContextualFragment() would be useful here but is
-                            // non-standard and not supported in all browsers (IE9, for one)
-                            var el = document.createElement("div");
-                            el.innerHTML = html;
-                            var frag = document.createDocumentFragment(), node, lastNode;
-                            while ((node = el.firstChild)) {
-                                lastNode = frag.appendChild(node);
-                            }
-                            range.insertNode(frag);
+                    // Range.createContextualFragment() would be useful here but is
+                    // non-standard and not supported in all browsers (IE9, for one)
+                    var el = document.createElement("div");
+                    el.innerHTML = html;
+                    var frag = document.createDocumentFragment(), node, lastNode;
+                    while ((node = el.firstChild)) {
+                        lastNode = frag.appendChild(node);
+                    }
+                    range.insertNode(frag);
 
-                            // Preserve the selection
-                            if (lastNode) {
-                                range = range.cloneRange();
-                                range.setStartAfter(lastNode);
-                                range.collapse(true);
-                                sel.removeAllRanges();
-                                sel.addRange(range);
-                            }
-                        }
-                    } else if (document.selection && document.selection.type !== "Control") {
-                        // IE < 9
-                        document.selection.createRange().pasteHTML(html);
+                    // Preserve the selection
+                    if (lastNode) {
+                        range = range.cloneRange();
+                        range.setStartAfter(lastNode);
+                        range.collapse(true);
+                        sel.removeAllRanges();
+                        sel.addRange(range);
                     }
                 }
+            } else if (document.selection && document.selection.type !== "Control") {
+                // IE < 9
+                document.selection.createRange().pasteHTML(html);
+            }
+        }
+
         $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
         $(window).resize(function () {
             $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
@@ -63,9 +64,9 @@ $(document).ready(function () {
             $(this).closest(".fr-toolbar__fixed").removeClass("show");
         });
         $(".fr-toolbar__fixed").find(".fr-toolbar.fr-top button[data-cmd='add-math']").click(function () {
-                // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
-                // init_MathLive('ML_editor');
-            });
+            // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
+            // init_MathLive('ML_editor');
+        });
         $("input.tag-input").tagsInput({
             defaultText: '',
         });
@@ -836,10 +837,44 @@ $(document).ready(function () {
     $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
         $(".next-question-page-body .questions-content").remove();
     });
-
     $(".next-question-page-body button.close").click(function () {
-        $(this).closest(".card").remove();
+        let thisElement = $(this);
+    $.ajax({
+        method: "POST",
+        url: $(".next-question-page-body button.close").attr("data-url"),
+        data: {
+            "pk": $(".next-question-page-body button.close").closest(".card").attr("id"),
+            "state": "remove",
+        },
+        success: function (data) {
+            console.log(data);
+            if (data.value === "success") {
+                    thisElement.closest(".card").remove();
+                if (data.type === "remove") {
+                    iziToast.success({
+                        class: 'customized-success-izi-toast-small',
+                        message: 'سوال با موفقیت حذف شد !',
+                        position: 'bottomLeft',
+                        onOpening: function () {
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
+                            $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
+                                "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>\n" +
+                                "</div>");
+                            $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                "</svg>");
+                        }
+                    });
+                }
+            }
+        }
     });
+});
 
     $(".arrow-down-up").click(function () {
         $(this).toggleClass("active");
@@ -848,11 +883,11 @@ $(document).ready(function () {
                 axis: 'y'
             });
             $(".next-question-page-body .questions-content").disableSelection();
-            $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
+            // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
             $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
         } else {
-            $(".next-question-page-body .questions-content").sortable("cancel");
-            $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
+            $(".next-question-page-body .questions-content").sortable("disable");
+            // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
             $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
         }
     });

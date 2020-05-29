@@ -10,13 +10,7 @@
 {% block remove-text3 %}removeText{% endblock %}
 {% block remove-text4 %}removeText{% endblock %}
 {% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
-{% block owl-js %}
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
-{% endblock %}
 {% block style %}
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     <link rel="stylesheet" type="text/css"
@@ -306,8 +300,9 @@
                                         </label>
                                     </div>
                                     <div class="question-text">
-
+                                        <pre>
                                                     {{ question.body|safe }}
+                                            </pre>
                                     </div>
                                     <div class="question-inline-choices">
                                         <span>1) {{ question.choice_1|safe }}</span>
