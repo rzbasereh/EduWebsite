@@ -848,7 +848,7 @@ $(document).ready(function () {
                 axis: 'y'
             });
             $(".next-question-page-body .questions-content").disableSelection();
-            $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
+            // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
             $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
         } else {
             $(".next-question-page-body .questions-content").sortable("cancel");

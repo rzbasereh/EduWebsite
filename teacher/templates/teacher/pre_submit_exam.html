@@ -34,25 +34,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="{% url 'teacher:save_new_exam' %}">
+                        {% csrf_token %}
                         <div class="input-group mb-3">
                             <label for="examSubject">عنوان سوال</label>
                             <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                                   aria-describedby="basic-addon1" name="name">
                         </div>
                         <div class="suggested-time">
                             <h4>زمان پیشنهادی</h4>
                             <div>
-                                <input type="number" id="second" min="0" max="59" placeholder="ثانیه">
+                                <input type="number" id="second" min="0" max="59" placeholder="ثانیه" name="second">
                                 <span> : </span>
-                                <input type="number" id="minute" min="0" max="59" placeholder="دقیقه">
+                                <input type="number" id="minute" min="0" max="59" placeholder="دقیقه" name="minute">
                                 <span> : </span>
-                                <input type="number" id="hour" min="0" max="4" placeholder="ساعت">
+                                <input type="number" id="hour" min="0" max="4" placeholder="ساعت" name="hour">
                             </div>
                         </div>
                         <div>
                             <label for="examExplanation">توضیحات آزمون</label>
-                            <textarea id="examExplanation" rows="5"></textarea>
+                            <textarea id="examExplanation" rows="5" name="more_info"></textarea>
                         </div>
                         <div class="row toggle-switch">
                             <span>گزینه ی تصادفی</span>

@@ -49,9 +49,6 @@ def questions(request):
 
 
 def newQuestion(request):
-    user = commonData(request)
-    return render(request, 'teacher/new_question.html', {'user': user, 'pk': 375})
-    # ---------------------------------------------------------------------------------------- #
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
@@ -179,7 +176,7 @@ def filter_page(request):
         return JsonResponse({"value": "forbidden access"})
 
 
-def new_exam(request):
+def edit_question(request):
     user = commonData(request)
     if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0:
         messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
@@ -195,6 +192,23 @@ def new_exam(request):
                           {"user": user, "questions": selected_questions, "pack_pk": pack_pk})
 
 
+def save_edit_question(request):
+    name = request.POST.get('name')
+    second = request.POST.get('second')
+    minute = request.POST.get('minute')
+    hour = request.POST.get('hour')
+    more_info = request.POST.get('more_info')
+    question_pack = QuestionPack.objects.get(submit=False)
+    question_pack.name = name
+    question_pack.second = second
+    question_pack.minute = minute
+    question_pack.hour = hour
+    question_pack.info = more_info
+    question_pack.submit = True
+    question_pack.save()
+    return HttpResponseRedirect(reverse('teacher:examManagement'))
+
+
 def delete_exam(request, pack_pk):
     QuestionPack.objects.get(id=pack_pk).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -207,5 +221,5 @@ def classRoom(request):
 
 def examManagement(request):
     user = commonData(request)
-    question_packs = QuestionPack.objects.all()
+    question_packs = QuestionPack.objects.filter(submit=True).all()
     return render(request, 'teacher/manage_exam.html', {'user': user, 'packs': question_packs})
