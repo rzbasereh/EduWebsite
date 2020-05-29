@@ -1289,35 +1289,49 @@ a:hover {
     font-size: 13px;
 }
 
-/*.choices {*/
-/*    margin-top: 20px;*/
-/*    margin-right: 0px !important;*/
-/*    margin-left: 0px !important;*/
-/*    direction: rtl !important;*/
-/*}*/
+.choices {
+    /*margin-top: 20px;*/
+    /*    margin-right: 0px !important;*/
+    /*    margin-left: 0px !important;*/
+    /*    direction: rtl !important;*/
+}
 
-/*.choice {*/
-/*    padding: 0;*/
-/*    width: 95%;*/
-/*    margin-bottom: 15px;*/
-/*}*/
+.choice {
+    /*padding: 0;*/
+    /*width: 95%;*/
+    margin-bottom: 15px;
+}
 
-/*.choice div {*/
-/*    width: calc(100% - 0px);*/
-/*    min-height: 40px;*/
-/*    border-radius: 5px;*/
-/*    -webkit-border-radius: 5px;*/
-/*    -moz-border-radius: 5px;*/
-/*    margin-top: 5px;*/
-/*    background-color: #F8FAFB;*/
+.choice div {
+    /*width: calc(100% - 0px);*/
+    /*min-height: 40px;*/
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    margin-top: 5px;
+    /*background-color: #F8FAFB;*/
 
-/*}*/
+}
 
-/*@media (max-width: 992px) {*/
-/*    .choice div {*/
-/*        width: 100%;*/
-/*    }*/
-/*}*/
+.first-choice-text, .third-choice-text {
+    margin-right: -15px;
+}
+
+.second-choice-text, .fourth-choice-text {
+    margin-left: -15px;
+}
+
+@media (max-width: 992px) {
+    .first-choice-text, .third-choice-text {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .second-choice-text, .fourth-choice-text {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
 
 .custom-input {
     display: block;
@@ -1341,7 +1355,7 @@ a:hover {
 .tick {
     position: absolute;
     top: 2px;
-    right: 80px;
+    right: 70px;
     height: 17px;
     width: 17px;
     background-color: #F8FAFB;
@@ -1351,12 +1365,12 @@ a:hover {
 }
 
 .left-choices-tick {
-    right: 125px;
+    right: 85px;
 }
 
 @media (max-width: 992px) {
     .left-choices-tick {
-        right: 80px;
+        right: 70px;
     }
 }
 
@@ -1376,7 +1390,7 @@ a:hover {
 
 .custom-input .tick:after {
     left: 6px;
-    top: 0px;
+    top: 0;
     width: 6px;
     height: 13px;
     border: solid white;
@@ -1388,8 +1402,8 @@ a:hover {
 }
 
 .state {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     margin-top: 30px;
 }
 
@@ -1440,7 +1454,7 @@ div.tagsinput div {
 }
 
 div.tagsinput div input {
-    font-family: IRANSans !important;
+    font-family: IRANSans, serif !important;
 
 }
 
@@ -1456,7 +1470,7 @@ div.tagsinput span.tag {
     color: #343A40;
     margin-right: 5px;
     margin-bottom: 5px;
-    font-family: IRANSans !important;
+    font-family: IRANSans, serif !important;
     font-size: 13px;
 }
 
@@ -1849,13 +1863,17 @@ input:checked + .slider:before {
 /*}*/
 
 .left-choices-label {
-    margin-right: 35px;
+    /*margin-right: 35px;*/
 }
 
 @media (max-width: 992px) {
     .left-choices-label {
-        margin-right: 0;
+        margin-right: -15px;
     }
+}
+
+.m--15-right {
+    margin-right: -15px !important;
 }
 
 .card {
@@ -2388,12 +2406,16 @@ pre {
     z-index: 10 !important;
 }
 
+.fr__single-line.fr-toolbar__fixed.show .fr-toolbar.fr-top {
+    margin-top: 0 !important;
+}
+
 .fr-toolbar__fixed .fr-toolbar .fr-newline {
     background: transparent;
 }
 
 .fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {
-    background: transparent;
+    background: #F8FAFB;
     border: none;
 }
 
@@ -2402,7 +2424,7 @@ pre {
 }
 
 .fr__single-line.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {
-    margin-left:0;
+    margin-left: 0;
 }
 
 .fr-toolbar__fixed.fr-box.fr-basic .fr-element {
@@ -3102,12 +3124,14 @@ ul.pagination {
     position: relative;
     bottom: 3px;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
-transition: .5s;
+    transition: .5s;
 }
+
 .plus-question:hover,
 .plus-question:focus {
     box-shadow: 0 2px 8px 0 #007BFF90;
 }
+
 .plus-question svg {
     font-size: 30px;
     position: relative;
@@ -3226,6 +3250,7 @@ input[type='تایید سوالات'] {
 .shake.shake-constant {
     animation-duration: 3s;
 }
+
 .diactivation-card {
     position: absolute;
     width: 100%;
