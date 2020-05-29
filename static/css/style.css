@@ -1151,8 +1151,10 @@ a:hover {
 .next-question-body {
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden!important;
     direction: ltr;
 }
+
 .question-body::-webkit-scrollbar,
 .next-question-body::-webkit-scrollbar {
     width: 5px;
@@ -2144,6 +2146,7 @@ pre {
     left: -10%;
     font-size: 15px;
 }
+
 .iziToast > .iziToast-body .iziToast-texts > p {
     direction: rtl;
     position: relative;
@@ -2151,6 +2154,7 @@ pre {
     line-height: 20px;
     margin-bottom: 0;
 }
+
 .customized-izi-text-small {
     left: 10% !important;
 }
@@ -2675,6 +2679,7 @@ span.fancytree-checkbox:hover {
     opacity: 0;
     transition: .5s;
 }
+
 .card-body:hover .close {
     visibility: visible;
     opacity: 1;
@@ -2987,18 +2992,22 @@ ul.pagination {
     position: relative;
     bottom: 15px;
 }
+
 .trash div:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
     transition: .3s;
 }
+
 .trash svg {
     color: #343A40;
 }
+
 .trash div:hover svg {
     color: #FF3D57;
     transition: .3s;
 }
+
 .trash div,
 .arrow-down-up {
     border-radius: 50%;
@@ -3011,10 +3020,12 @@ ul.pagination {
     cursor: pointer;
     transition: .3s;
 }
+
 .arrow-down-up:hover {
     background-color: #F8FAFB;
     box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);
 }
+
 .arrow-down-up:hover svg {
     color: #0081FF;
     font-size: 25px;
@@ -3022,6 +3033,7 @@ ul.pagination {
     top: 8px;
     transition: .3s;
 }
+
 .trash svg,
 .arrow-down-up svg {
     font-size: 20px;
@@ -3061,9 +3073,11 @@ ul.pagination {
 .col-12 {
     padding: 0;
 }
+
 input[type='تایید سوالات'] {
     margin-left: 15px;
 }
+
 .linear-activity {
     overflow: hidden;
     width: 100%;
@@ -3073,20 +3087,22 @@ input[type='تایید سوالات'] {
     position: absolute;
     top: -20px;
     display: none;
-    opacity: 100%!important;
+    opacity: 100% !important;
     z-index: 10000;
 }
+
 .linear-activity.active {
     display: block;
 }
+
 .determinate {
     position: relative;
     max-width: 100%;
     height: 100%;
     -webkit-transition: width 500ms ease-out 1s;
-       -moz-transition: width 500ms ease-out 1s;
-         -o-transition: width 500ms ease-out 1s;
-            transition: width 500ms ease-out 1s;
+    -moz-transition: width 500ms ease-out 1s;
+    -o-transition: width 500ms ease-out 1s;
+    transition: width 500ms ease-out 1s;
     background-color: #03A9F4;
 }
 
@@ -3133,6 +3149,7 @@ input[type='تایید سوالات'] {
         width: 10%;
     }
 }
+
 .loading-background {
     width: 100%;
     height: 100%;
@@ -3141,16 +3158,19 @@ input[type='تایید سوالات'] {
     opacity: .5;
     z-index: 100;
 }
+
 .tool {
     color: #ffffff;
     font-family: IRANSans;
     font-size: 12px;
     position: relative;
-    top:8px;
+    top: 8px;
 }
+
 #exampleModalCenter .modal-dialog {
     max-width: 300px;
 }
-.shake-slow.shake-constant {
-    animation-duration: 9s;
+
+.shake.shake-constant {
+    animation-duration: 3s;
 }

@@ -4,6 +4,8 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         html: true
     });
+    $(".arrow-down-up").attr("data-toggle", "tooltip");
+
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $("input.tag-input").tagsInput({
@@ -737,38 +739,39 @@ $(document).ready(function () {
     });
 
     $(".arrow-down-up").click(function () {
-        $(".next-question-page-body .card").toggleClass("get-ready-to-shake shake-slow shake-constant");
-        $(".next-question-page-body .card").toggleClass("drag drop");
-        });
-
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                let cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    let cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-
-        function csrfSafeMethod(method) {
-// these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-
-        let csrf_token = getCookie('csrftoken');
-        $.ajaxSetup({
-            crossDomain: false, // obviates need for sameOrigin test
-            beforeSend: function (xhr, settings) {
-                if (!csrfSafeMethod(settings.type)) {
-                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
-                }
-            }
-        });
+        $(".next-question-page-body .questions-content ").sortable();
+        $(".next-question-page-body .questions-content ").disableSelection();
+        $(".next-question-page-body .card").toggleClass("get-ready-to-shake shake shake-constant");
     });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    let csrf_token = getCookie('csrftoken');
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+});
