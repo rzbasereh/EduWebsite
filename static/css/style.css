@@ -3028,11 +3028,6 @@ ul.pagination {
     margin: 0 10px;
 }
 
-#examInfo form > div:nth-child(3) {
-    position: relative;
-    top: 20px;
-}
-
 #examInfo #examExplanation {
     width: 100%;
     border: unset;
@@ -3251,7 +3246,7 @@ input[type='تایید سوالات'] {
     animation-duration: 3s;
 }
 
-.diactivation-card {
+.diactivasion-card {
     position: absolute;
     width: 100%;
     height: 100%;
