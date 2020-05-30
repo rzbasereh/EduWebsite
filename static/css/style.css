@@ -2012,6 +2012,7 @@ input:checked + .slider:before {
 }
 
 .questions-content .card-body {
+    min-height:170px;
     padding: 45px 12px 50px 100px;
     border-radius: 5px !important;
     -webkit-border-radius: 5px !important;
@@ -2020,7 +2021,7 @@ input:checked + .slider:before {
 }
 
 .questions-content .form-check {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem 10px;
 }
 
 .questions-content .checkmark {
@@ -2078,6 +2079,12 @@ pre {
     font-size: 14px;
 }
 
+.question-inline-choices > span > p:first-child {
+    display: inline-block;
+}
+.question-inline-choices .selected-correct-choice {
+    display: flex;
+}
 .question-inline-choices span:first-child {
     margin-left: auto;
 }
