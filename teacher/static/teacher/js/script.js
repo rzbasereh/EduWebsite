@@ -102,7 +102,7 @@ $(document).ready(function () {
                 }
                 return false;
             } else if (element === "CompleteAns") {
-                let CompleteAnsData = $("div.complete-ans").text();
+                let CompleteAnsData = $("div.complete-ans  .fr-element.fr-view").html();
                 if (CompleteAnsData.trim().length === 0) {
                     if (mute) {
                         $(".complete-ans-label").append("<span class='warning'><span>*</span> لطفا پاسخ تشریحی را وارد کنید</span>");
@@ -424,6 +424,7 @@ $(document).ready(function () {
                     $(".question-counter h2 > span").css("display", "inline-block");
                     this_element.toggleClass("clicked");
                     $(".counter").html($(".clicked").length);
+
                     if ($("span.clicked").length === 0) {
                         $(".question-counter").removeClass("question-counter-active");
                         $(".question-counter h2 > span").css("display", "none");
@@ -716,7 +717,6 @@ $(document).ready(function () {
                                         </div>
                                         <div class="question-info-img">
                                             <img src="/static/main/img/${questions[i]["fields"]["source"]}.png" alt="question source">
-                                            <p>98-99</p>
                                         </div>
                                         <span>98-99</span>
                                     </div>
@@ -729,24 +729,34 @@ $(document).ready(function () {
                                         </label>
                                     </div>
                                     <div class="question-text">
-                                                <pre>
-                                                    ${questions[i]["fields"]["body"]}
-                                                </pre>
+                                        ${questions[i]["fields"]["body"]}           
                                     </div>
                                     <div class="question-inline-choices">
-                                        <span>1) ${questions[i]["fields"]["choice_1"]}</span>
-                                        <span class="selected-correct-choice">
-                                        <span class="inline-selected-correct-choice-tick"></span>
+                                        <span ${questions[i]["fields"]["correct_ans"] === "1" ? `class="selected-correct-choice"` : ""}>
+                                        ${questions[i]["fields"]["correct_ans"] === "1" ? `<span class="inline-selected-correct-choice-tick"></span>` : ""}
+                                        1) ${questions[i]["fields"]["choice_1"]}
+                                        </span>
+                                        <span ${questions[i]["fields"]["correct_ans"] === "2" ? `class="selected-correct-choice"` : ""}>
+                                        ${questions[i]["fields"]["correct_ans"] === "2" ? `<span class="inline-selected-correct-choice-tick"></span>` : ""}
                                         2) ${questions[i]["fields"]["choice_2"]}
                                         </span>
-                                        <span>3) ${questions[i]["fields"]["choice_3"]}</span>
-                                        <span>4) ${questions[i]["fields"]["choice_4"]}</span>
+                                        <span ${questions[i]["fields"]["correct_ans"] === "3" ? `class="selected-correct-choice"` : ""}>
+                                        ${questions[i]["fields"]["correct_ans"] === "3" ? `<span class="inline-selected-correct-choice-tick"></span>` : ""}
+                                        3) ${questions[i]["fields"]["choice_3"]}
+                                        </span>
+                                        <span ${questions[i]["fields"]["correct_ans"] === "4" ? `class="selected-correct-choice"` : ""}>
+                                        ${questions[i]["fields"]["correct_ans"] === "4" ? `<span class="inline-selected-correct-choice-tick"></span>` : ""}
+                                        4) ${questions[i]["fields"]["choice_4"]}
+                                        </span>
                                     </div>
-                                    <span>پاسخ تشریحی</span>
+                                    ${questions[i]["fields"]["verbose_ans"] !== "" ? '<span>پاسخ تشریحی</span>' : ""}
                                 </div>
+                                ${questions[i]["fields"]["verbose_ans"] !== "" ? `
                                 <div class="verbose-ans">
                                     <h3>پاسخ تشریحی</h3>
-                                    <pre>لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است.</pre>
+                                    <pre>
+                                        ${questions[i]["fields"]["verbose_ans"]}
+                                    </pre>
                                     <button type="button" class="close">
                                         <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
                                              fill="currentColor"
@@ -760,6 +770,7 @@ $(document).ready(function () {
                                         </svg>
                                     </button>
                                 </div>
+                                ` : ""}
                             </div>`);
                         m++;
                     }
@@ -804,6 +815,9 @@ $(document).ready(function () {
                     });
                     $(".linear-activity").removeClass("active");
                     $(".loading-background").remove();
+                    $(".question-body").animate({
+                        scrollTop: $(".row.questions-content .card:first-child").offset().top
+                    }, 1000);
                     console.log(data);
                 },
                 error: function (data) {

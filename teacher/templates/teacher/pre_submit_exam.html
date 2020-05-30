@@ -36,6 +36,7 @@
                 <div class="modal-body">
                     <form method="post" action="{% url 'teacher:save_new_exam' %}">
                         {% csrf_token %}
+                        <input name="pack_pk" value="{{ pack_pk }}" hidden>
                         <div class="input-group mb-3">
                             <label for="examSubject">عنوان سوال</label>
                             <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
@@ -303,33 +304,58 @@
                                         </svg>
                                     </button>
                                     <div class="question-text" >
-                                        <pre>{{ question.body }}</pre>
+                                        {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
-                                        <span>1) {{ question.choice_1 }}</span>
-                                        <span class="selected-correct-choice"><span
-                                                class="inline-selected-correct-choice-tick"></span>2) {{ question.choice_2 }}</span>
-                                        <span>3) {{ question.choice_3 }}</span>
-                                        <span>4) {{ question.choice_4 }}</span>
+                                        <span {% if question.correct_ans == "1" %}class="selected-correct-choice"{% endif %}>
+                                            {% if question.correct_ans == "1" %}
+                                                <span class="inline-selected-correct-choice-tick"></span>
+                                            {% endif %}
+                                            1) {{ question.choice_1|safe }}
+                                        </span>
+                                        <span {% if question.correct_ans == "2" %}class="selected-correct-choice"{% endif %}>
+                                            {% if question.correct_ans == "2" %}
+                                                <span class="inline-selected-correct-choice-tick"></span>
+                                            {% endif %}
+                                            2) {{ question.choice_2|safe }}
+                                        </span>
+                                        <span {% if question.correct_ans == "3" %}class="selected-correct-choice"{% endif %}>
+                                            {% if question.correct_ans == "3" %}
+                                                <span class="inline-selected-correct-choice-tick"></span>
+                                            {% endif %}
+                                            3) {{ question.choice_3|safe }}
+                                        </span>
+                                        <span {% if question.correct_ans == "4" %}class="selected-correct-choice"{% endif %}>
+                                            {% if question.correct_ans == "4" %}
+                                                <span class="inline-selected-correct-choice-tick"></span>
+                                            {% endif %}
+                                            4) {{ question.choice_4|safe }}
+                                        </span>
                                     </div>
-                                    <span>پاسخ تشریحی</span>
+                                    {% if question.verbose_ans %}
+                                        <span>پاسخ تشریحی</span>
+                                    {% endif %}
                                 </div>
-                                <div class="verbose-ans">
-                                    <h3>پاسخ تشریحی</h3>
-                                    <pre></pre>
-                                    <button type="button" class="close">
-                                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
-                                             fill="currentColor"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                                  clip-rule="evenodd"></path>
-                                            <path fill-rule="evenodd"
-                                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                                  clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
+                                {% if question.verbose_ans %}
+                                    <div class="verbose-ans">
+                                        <h3>پاسخ تشریحی</h3>
+                                        <pre>
+                                            {{ question.verbose_ans|safe }}
+                                        </pre>
+                                        <button type="button" class="close">
+                                            <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
+                                                 fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                                      clip-rule="evenodd"></path>
+                                                <path fill-rule="evenodd"
+                                                      d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>

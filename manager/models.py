@@ -19,3 +19,9 @@ class TeacherAccess(models.Model):
     def __str__(self):
         return self.teacher.get_full_name()
 
+
+class Grade(models.Model):
+    source = models.CharField(max_length=1000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)

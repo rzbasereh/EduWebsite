@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
 from .models import TeacherForm, Question, QuestionPack
-from manager.models import TeacherAccess
+from manager.models import TeacherAccess, Grade
 from main.models import Message, Notification
 from django.core import serializers
 from django.db.models import Q
@@ -39,16 +39,21 @@ def questions(request):
         'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
         'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
     }
+    grade = Grade.objects.last().source
+    pack_pk = -1
     selected_question = []
     if QuestionPack.objects.filter(teacher=request.user.teacher).count() > 0:
         if not QuestionPack.objects.filter(teacher=request.user.teacher).last().submit:
             pack_pk = QuestionPack.objects.last().id
             selected_question = list(QuestionPack.objects.get(id=pack_pk).questions.all().values_list('id', flat=True))
     return render(request, 'teacher/questions.html',
-                  {'user': user, 'questions': questions_data, 'selected_question': selected_question})
+                  {'user': user, 'questions': questions_data, 'selected_question': selected_question,
+                   "pack_pk": pack_pk, 'grade': grade})
 
 
 def newQuestion(request):
+    user = commonData(request)
+    return render(request, 'teacher/new_question.html', {'user': user, 'pk': 209})
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
@@ -136,22 +141,24 @@ def selectedQuestion(request):
         state = request.POST.get('state')
         teacher = request.user.teacher
         if state == "add":
-
             if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0 or QuestionPack.objects.filter(
                     teacher=request.user.teacher).last().submit:
                 question_pack = QuestionPack(teacher=teacher)
                 question_pack.save()
                 question_pack.questions.add(Question.objects.get(id=pk))
-                return JsonResponse({"value": "success", "type": "add"})
+                pack_pk = question_pack.id
+                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk})
             else:
                 question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
                 question_pack.questions.add(Question.objects.get(id=pk))
-                return JsonResponse({"value": "success", "type": "add"})
+                pack_pk = question_pack.id
+                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk})
         elif state == "remove":
             if QuestionPack.objects.filter(teacher=request.user.teacher, submit=False).exists():
                 question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
                 question_pack.questions.remove(Question.objects.get(id=pk))
-                return JsonResponse({"value": "success", "type": "remove"})
+                pack_pk = question_pack.id
+                return JsonResponse({"value": "success", "type": "remove", "pack_pk": pack_pk})
         return JsonResponse({"value": "error"})
     # elif request.method == "GET":
     #     pack_pk = request.GET.get('pack_pk')
@@ -170,7 +177,11 @@ def filter_page(request):
             page = int(request.POST.get('page'))
             start = (page - 1) * unit
             end = unit * page
-            new_questions = serializers.serialize("json", Question.objects.all().order_by('-pk')[start:end])
+            q = Question.objects.all()
+            for question in q:
+                question["checked"] = "1"
+                print(question)
+            new_questions = serializers.serialize("json", q.order_by('-pk')[start:end])
             return JsonResponse({"value": "success", "questions": new_questions})
     else:
         return JsonResponse({"value": "forbidden access"})
@@ -198,7 +209,8 @@ def save_edit_question(request):
     minute = request.POST.get('minute')
     hour = request.POST.get('hour')
     more_info = request.POST.get('more_info')
-    question_pack = QuestionPack.objects.get(submit=False)
+    pack_pk = request.POST.get('pack_pk')
+    question_pack = QuestionPack.objects.get(submit=False, id=pack_pk)
     question_pack.name = name
     question_pack.second = second
     question_pack.minute = minute
