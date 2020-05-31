@@ -1,5 +1,6 @@
 {% extends 'teacher/layouts/base_layout.html' %}
 {% load static %}
+{% load math_filter %}
 {% block title %}بانک سوالات{% endblock %}
 {% block change-sidebar %}showSlideBar{% endblock %}
 {% block change-top-drive %}changeTopDrive{% endblock %}
@@ -111,12 +112,12 @@
                 </i>
                 <span>سوال های من </span>
             </a>
-            <a href="#">
-                <span>فیلتر ها</span>
-            </a>
-            <a href="#">
-                <span>سوالات شما</span>
-            </a>
+{#            <a href="#">#}
+{#                <span>فیلتر ها</span>#}
+{#            </a>#}
+{#            <a href="#">#}
+{#                <span>سوالات شما</span>#}
+{#            </a>#}
             <a href="{% url 'teacher:new_exam' %}" class="sidebar-bottom-box">
                 <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="{% url 'teacher:selectedQuestion' %}">
@@ -189,7 +190,7 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                            <span>20</span>
+                            <span>10</span>
                             <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -197,6 +198,7 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                         </div>
                     </div>
                     <div class="dropdown">
@@ -253,14 +255,23 @@
                                     <div class="question-info">
                                         <div class="question-info-data">
                                                     <span class="question-level">
-                                                        <svg class="bi bi-dot bi-dot-simple" width="1em" height="1em"
+                                                        <svg class="bi bi-dot {% if question.level == "1" %}bi-dot-simple{% elif question.level == "2" %}bi-dot-middle{% elif question.level == "3" %}bi-dot-hard{% endif %}"
+                                                             width="1em" height="1em"
                                                              viewBox="0 0 16 16" fill="currentColor"
                                                              xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd"
                                                                   d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
                                                                   clip-rule="evenodd"></path>
                                                         </svg>
-                                                        <span>ساده</span>
+                                                        <span>
+                                                            {% if question.level == "1" %}
+                                                                ساده
+                                                            {% elif question.level == "2" %}
+                                                                متوسط
+                                                            {% elif question.level == "3" %}
+                                                                دشوار
+                                                            {% endif %}
+                                                        </span>
                                                     </span>
                                             <span>
                                                     <svg class="bi bi-pie-chart" width="1em" height="1em"
@@ -402,36 +413,48 @@
                     </div>
                 </div>
             </div>
-            <div class="row w-100 pagination">
-                <div>
-                    نمایش
-                    <span class="start-question-number">1</span>
-                    تا
-                    <span class="end-question-number">20</span>
-                    از
-                    <span class="all-questions"> {{ questions.count }}</span>
-                    سوال
+            {% if questions.count|divide:10|length > 1 %}
+                <div class="row w-100 pagination">
+                    <div>
+                        نمایش
+                        <span class="start-question-number">1</span>
+                        تا
+                        <span class="end-question-number">10</span>
+                        از
+                        <span class="all-questions"> {{ questions.count }}</span>
+                        سوال
+                    </div>
+                    <nav aria-label="Page navigation example" data-url="{% url 'teacher:filter_page' %}">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <i class="fas fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            {% for count in  questions.count|divide:10 %}
+                                {% if forloop.counter < 4 or forloop.last %}
+                                    <li class="page-item {% if forloop.first %}active{% endif %}">
+                                        <a class="page-link" href="#">
+                                            <span>{{ count|add:1 }}</span>
+                                        </a>
+                                    </li>
+                                {% elif forloop.counter == 4 %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">
+                                            <span>...</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <i class="fas fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <nav aria-label="Page navigation example" data-url="{% url 'teacher:filter_page' %}">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fas fa-angle-left" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#"><span>1</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span>2</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span>3</span></a></li>
-                        <li class="page-item disabled"><a class="page-link" href="#"><span>...</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#"><span>5</span></a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <i class="fas fa-angle-right" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            {% endif %}
         </div>
         <div class="linear-activity">
             <div class="indeterminate"></div>

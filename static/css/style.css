@@ -1036,10 +1036,6 @@ h1 {
     font-weight: bold;
 }
 
-.question-sidebar a:nth-child(4) {
-    padding-right: 15px !important;
-}
-
 .question-sidebar a.active:before {
     content: '';
     position: absolute;

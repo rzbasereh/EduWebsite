@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
 {% endblock %}
 {% block script %}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
     <div class="modal fade" id="examInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
@@ -112,7 +114,7 @@
                     </div>
                     <div class="trash-and-drag">
                         <div data-toggle="tooltip" data-placement="top"
-                              class="arrow-down-up"  title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>" >
+                             class="arrow-down-up" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>">
                             <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -154,48 +156,48 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
-{#                    <div class="dropdown">#}
-{#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
-{#                                id="dropdownMenuButton" data-toggle="dropdown"#}
-{#                                aria-haspopup="true" aria-expanded="false">#}
-{#                            <span>تالیف</span>#}
-{#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
-{#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
-{#                                <path fill-rule="evenodd"#}
-{#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
-{#                            </svg>#}
-{#                        </button>#}
-{#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="dropdown">#}
-{#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
-{#                                id="dropdownMenuButton" data-toggle="dropdown"#}
-{#                                aria-haspopup="true" aria-expanded="false">#}
-{#                            <span>سطح</span>#}
-{#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
-{#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
-{#                                <path fill-rule="evenodd"#}
-{#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
-{#                            </svg>#}
-{#                        </button>#}
-{#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="dropdown">#}
-{#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
-{#                                id="dropdownMenuButton" data-toggle="dropdown"#}
-{#                                aria-haspopup="true" aria-expanded="false">#}
-{#                            <span>درس</span>#}
-{#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
-{#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
-{#                                <path fill-rule="evenodd"#}
-{#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
-{#                            </svg>#}
-{#                        </button>#}
-{#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="dropdown">#}
+                    {#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
+                    {#                                id="dropdownMenuButton" data-toggle="dropdown"#}
+                    {#                                aria-haspopup="true" aria-expanded="false">#}
+                    {#                            <span>تالیف</span>#}
+                    {#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
+                    {#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+                    {#                                <path fill-rule="evenodd"#}
+                    {#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
+                    {#                            </svg>#}
+                    {#                        </button>#}
+                    {#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    {#                    <div class="dropdown">#}
+                    {#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
+                    {#                                id="dropdownMenuButton" data-toggle="dropdown"#}
+                    {#                                aria-haspopup="true" aria-expanded="false">#}
+                    {#                            <span>سطح</span>#}
+                    {#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
+                    {#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+                    {#                                <path fill-rule="evenodd"#}
+                    {#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
+                    {#                            </svg>#}
+                    {#                        </button>#}
+                    {#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    {#                    <div class="dropdown">#}
+                    {#                        <button class="btn btn-secondary dropdown-toggle" type="button"#}
+                    {#                                id="dropdownMenuButton" data-toggle="dropdown"#}
+                    {#                                aria-haspopup="true" aria-expanded="false">#}
+                    {#                            <span>درس</span>#}
+                    {#                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"#}
+                    {#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+                    {#                                <path fill-rule="evenodd"#}
+                    {#                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>#}
+                    {#                            </svg>#}
+                    {#                        </button>#}
+                    {#                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                     <div class="input-group mb-3">
                         <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
                                aria-label="Username"
@@ -218,7 +220,7 @@
                     <div class="row questions-content">
                         {% for question in questions %}
                             <div class="card w-100 " id="{{ question.pk }}">
-                            <div></div>
+                                <div></div>
                                 <div class="card-body">
                                     <div class="question-type">
                         <span>
@@ -248,15 +250,24 @@
                                     <div class="question-info">
                                         <div class="question-info-data">
                             <span class="question-level">
-                                <svg class="bi bi-dot bi-dot-simple" width="1em" height="1em"
-                                     viewBox="0 0 16 16" fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                                <span>ساده</span>
-                            </span>
+                                                        <svg class="bi bi-dot {% if question.level == "1" %}bi-dot-simple{% elif question.level == "2" %}bi-dot-middle{% elif question.level == "3" %}bi-dot-hard{% endif %}"
+                                                             width="1em" height="1em"
+                                                             viewBox="0 0 16 16" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                                                                  clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span>
+                                                            {% if question.level == "1" %}
+                                                                ساده
+                                                            {% elif question.level == "2" %}
+                                                                متوسط
+                                                            {% elif question.level == "3" %}
+                                                                دشوار
+                                                            {% endif %}
+                                                        </span>
+                                                    </span>
                                             <span>
                                 <svg class="bi bi-pie-chart" width="1em" height="1em"
                                      viewBox="0 0 16 16" fill="currentColor"

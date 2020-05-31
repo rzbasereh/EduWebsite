@@ -52,8 +52,6 @@ def questions(request):
 
 
 def newQuestion(request):
-    user = commonData(request)
-    return render(request, 'teacher/new_question.html', {'user': user, 'pk': 209})
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
@@ -177,12 +175,20 @@ def filter_page(request):
             page = int(request.POST.get('page'))
             start = (page - 1) * unit
             end = unit * page
-            q = Question.objects.all()
-            for question in q:
-                question["checked"] = "1"
-                print(question)
-            new_questions = serializers.serialize("json", q.order_by('-pk')[start:end])
-            return JsonResponse({"value": "success", "questions": new_questions})
+            new_questions = serializers.serialize("json", Question.objects.filter(
+                Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[start:end])
+            checked = 1
+            return JsonResponse({"value": "success", "questions": new_questions, "checked": checked})
+        elif request.POST.get("requestType") == "my_questions":
+            unit = int(request.POST.get('unit'))
+            page = 1
+            start = (page - 1) * unit
+            end = unit * page
+            new_questions = serializers.serialize("json",
+                                                  Question.objects.filter(author=request.user.teacher)
+                                                  .order_by('-pk')[start:end])
+            checked = 1
+            return JsonResponse({"value": "success", "questions": new_questions, "checked": checked})
     else:
         return JsonResponse({"value": "forbidden access"})
 
