@@ -145,18 +145,21 @@ def selectedQuestion(request):
                 question_pack.save()
                 question_pack.questions.add(Question.objects.get(id=pk))
                 pack_pk = question_pack.id
-                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk})
+                count = question_pack.questions.count()
+                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
             else:
                 question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
                 question_pack.questions.add(Question.objects.get(id=pk))
                 pack_pk = question_pack.id
-                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk})
+                count = question_pack.questions.count()
+                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
         elif state == "remove":
             if QuestionPack.objects.filter(teacher=request.user.teacher, submit=False).exists():
                 question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
                 question_pack.questions.remove(Question.objects.get(id=pk))
                 pack_pk = question_pack.id
-                return JsonResponse({"value": "success", "type": "remove", "pack_pk": pack_pk})
+                count = question_pack.questions.count()
+                return JsonResponse({"value": "success", "type": "remove", "pack_pk": pack_pk, "count": count})
         return JsonResponse({"value": "error"})
     # elif request.method == "GET":
     #     pack_pk = request.GET.get('pack_pk')
@@ -177,8 +180,8 @@ def filter_page(request):
             end = unit * page
             new_questions = serializers.serialize("json", Question.objects.filter(
                 Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[start:end])
-            checked = 1
-            return JsonResponse({"value": "success", "questions": new_questions, "checked": checked})
+            # checked = list(QuestionPack.objects.get(submit=False).questions.all().values_list("id", flat=True))
+            return JsonResponse({"value": "success", "questions": new_questions})
         elif request.POST.get("requestType") == "my_questions":
             unit = int(request.POST.get('unit'))
             page = 1

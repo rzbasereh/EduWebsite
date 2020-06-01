@@ -6,6 +6,9 @@ from django.shortcuts import render
 from main.models import Message, Notification, Student, Teacher, Adviser, Manager
 from .models import ManagerForm
 from django.contrib.auth.models import User
+from teacher.models import Report, ReportAttach
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 # Create your views here.
@@ -66,3 +69,34 @@ def addUser(request):
 def classes(request):
     user = commonData(request)
     return render(request, 'manager/classes.html', {'user': user})
+
+
+def reports(request):
+    user = commonData(request)
+    reports_list = Report.objects.filter(teacher__manager=request.user.manager).all().order_by("-date_time")
+    attachment = ReportAttach.objects.all()
+    return render(request, 'manager/reports.html', {'user': user, 'reports': reports_list, "attachment": attachment})
+
+
+def display_report(request):
+    if request.method == "GET":
+        pk = request.GET.get("id")
+        report = Report.objects.get(id=pk)
+        attachment = ReportAttach.objects.filter(report=report).all()
+        return JsonResponse({'report': report, 'attachment': attachment})
+
+
+def reply_report(request):
+    pk = request.POST.get('pk')
+    text = request.POST.get('text')
+    file = request.POST.get('attachment')
+    teacher = Report.objects.get(id=pk).teacher.user
+    message = Message(sender=request.user, user=teacher, title="پاسخ گزارش", text=text, is_seen=False)
+    message.save()
+    print(teacher)
+    return HttpResponseRedirect(reverse('manager:reports'))
+
+
+def chats(request):
+    user = commonData(request)
+    return render(request, 'manager/chat.html', {"user": user})

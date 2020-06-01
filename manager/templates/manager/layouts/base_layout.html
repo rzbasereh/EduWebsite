@@ -82,6 +82,13 @@
         {% endif %}">
             <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کاربران</span></li>
         </a>
+        {% url 'manager:reports' as reports_url %}
+        <a href="{% url 'manager:reports' %}" class="{% if request.path == reports_url %}
+         active
+        {% endif %}">
+            <li><i class="ti-file"></i><span class="{% block remove-text1000 %}{% endblock %}">گزارش ها</span>
+            </li>
+        </a>
         {% url 'manager:classes' as exam %}
         <a href="{% url 'manager:classes' %}" class="{% if request.path == exam %}
          active
@@ -89,12 +96,11 @@
             <li><i class="ti-blackboard"></i><span class="{% block remove-text2 %}{% endblock %}">کلاس ها</span>
             </li>
         </a>
-        <a href="#">
+        {% url 'manager:chats' as chats_url %}
+        <a href="{% url 'manager:chats' %}" class="{% if request.path == chats_url %}
+         active
+        {% endif %}">
             <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
-        </a>
-        <a href="#">
-            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span>
-            </li>
         </a>
     </ul>
     {% block loader-in-sidebar %}{% endblock %}

@@ -1,8 +1,10 @@
 import jdatetime
+import datetime
 from django.contrib.auth.models import User
-from main.models import Teacher, Student
+from main.models import Teacher, Student, Manager
 from django.db import models
 from django.utils.timezone import now, timedelta
+from django.utils.timezone import utc
 
 
 # Create your models here.
@@ -103,21 +105,72 @@ class QuestionPack(models.Model):
     def __str__(self):
         return str(self.id)
 
-# class Report(models.Model):
-#     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-#     className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
-#     text = models.TextField()
-#     date = models.DateTimeField(default=now())
-#
-#     def __str__(self):
-#         jdatetime.set_locale("fa_IR")
-#         date = jdatetime.datetime.fromgregorian(
-#             second=self.date.second,
-#             minute=self.date.minute,
-#             hour=self.date.hour,
-#             day=self.date.day,
-#             month=self.date.month,
-#             year=self.date.year
-#         )
-#         output = self.teacher + date.strftime("%s:%m:%h - %d %B %y")
-#         return output
+
+class Report(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    # className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
+    text = models.TextField()
+    date_time = models.DateTimeField(default=now())
+
+    def __str__(self):
+        jdatetime.set_locale("fa_IR")
+        date = jdatetime.datetime.fromgregorian(
+            second=self.date_time.second,
+            minute=self.date_time.minute,
+            hour=self.date_time.hour,
+            day=self.date_time.day,
+            month=self.date_time.month,
+            year=self.date_time.year
+        )
+        output = self.teacher.user.get_full_name() + " - " + date.strftime("%d %B %y")
+        return output
+
+    def get_teacher_avatar(self):
+        avatar = TeacherForm.objects.get(user=self.teacher).avatar
+        return avatar.url
+
+    def get_time_diff(self):
+        now_time = datetime.datetime.utcnow().replace(tzinfo=utc)
+        time_diff = (now_time - self.date_time).total_seconds()
+        SECOND = 1
+        MINUTE = 60 * SECOND
+        HOUR = 60 * MINUTE
+        DAY = 24 * HOUR
+        MONTH = 30 * DAY
+
+        if time_diff < MINUTE:
+            return "لحظاتی قبل"
+        elif time_diff < 2 * MINUTE:
+            return "یک دقیقه قبل"
+        elif time_diff < 60 * MINUTE:
+            minute = int(time_diff / 60)
+            return str(minute) + " دقیقه قبل"
+        elif time_diff < 120 * MINUTE:
+            return "یک ساعت قبل"
+        elif time_diff < 24 * HOUR:
+            hour = int(time_diff / 3600)
+            return str(hour) + " ساعت قبل"
+        elif time_diff < 48 * HOUR:
+            return "دیروز"
+        elif time_diff < 30 * DAY:
+            day = int(time_diff / 86400)
+            return str(day) + " روز قبل"
+        elif time_diff < 12 * MONTH:
+            month = int(time_diff / 2592000)
+            if month == 1:
+                return "یک ماه قبل"
+            return str(month) + " ماه قبل"
+        else:
+            year = int(time_diff / (MONTH * 12))
+            if year == 1:
+                return "پارسال"
+            return str(year) + " سال قبل"
+
+
+class ReportAttach(models.Model):
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True, null=True)
+    file = models.FileField(upload_to='reports/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.name

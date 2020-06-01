@@ -68,7 +68,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'math_filter': 'main.templatetags.math_filter'
+                'math_filter': 'main.templatetags.math_filter',
+                'custom_filter': 'main.templatetags.custom_filter'
             }
         },
     },

@@ -50,10 +50,9 @@ div.radio-group {
     font-size: small;
     width: 70px;
     text-align: center;
-    padding: 5px 0px;
+    padding: 5px 0;
     -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     -moz-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    -ms-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     -o-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
@@ -235,7 +234,7 @@ input[type="password"]:hover {
 
 .checkmark {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 70px;
     height: 15px;
     width: 15px;
@@ -354,12 +353,21 @@ input[type="password"]:hover {
     -moz-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    padding: 40px 0px 40px 55px;
+    padding: 40px 0 40px 55px;
     direction: rtl;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
     font-size: 11px;
-    width: fit-content;
+    min-width: 768px;
     height: fit-content;
+}
+
+@media (max-width: 768px) {
+    .card1 {
+        min-width: auto;
+        width: 95%;
+        max-width: 350px;
+        padding: 15px;
+    }
 }
 
 .card-header {
@@ -403,6 +411,12 @@ input[type="password"]:hover {
     padding-right: 80px;
 }
 
+@media (max-width: 768px) {
+    .loginCloL {
+        padding-right: 15px;
+    }
+}
+
 h1 {
     font-size: x-large;
     font-weight: bold;
@@ -413,7 +427,13 @@ h1 {
 }
 
 .loginImg {
-    height: 100% !important;
+    width: 115% !important;
+}
+
+@media (max-width: 768px) {
+    .loginImg {
+        display: none;
+    }
 }
 
 .recoverAnchor {
@@ -480,15 +500,15 @@ h1 {
 
 #recoverIcon {
     top: 253px;
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .topDrive {
-    border-bottom: 1px solid #8697A8;
+    border-bottom: 1px solid #EAEDF0;
     background-color: #ffffff;
     height: 60px;
     position: absolute;
-    top: 0px;
+    top: 0;
     width: calc(100% - 200px);
     color: #8697A8;
     direction: rtl;
@@ -496,11 +516,11 @@ h1 {
 }
 
 .sidebar {
-    border-left: 1px solid #8697A8;
+    border-left: 1px solid #EAEDF0;
     width: 200px;
     background-color: #ffffff;
     position: absolute;
-    right: 0px;
+    right: 0;
     height: 100%;
     direction: rtl;
 }
@@ -508,7 +528,7 @@ h1 {
 .sidebar ul {
     list-style: none;
     margin-top: 60px;
-    padding-right: 0px !important;
+    padding-right: 0 !important;
     width: 100%;
     font-size: 14px;
     color: #8697A8;
@@ -545,7 +565,7 @@ h1 {
 }
 
 .showSlideBar [class^="ti-"] {
-    padding-left: 0px !important;
+    padding-left: 0 !important;
 }
 
 .sidebar i {
@@ -554,7 +574,7 @@ h1 {
 }
 
 .showSlideBar i {
-    padding-left: 0px !important;
+    padding-left: 0 !important;
 }
 
 .sidebar li {
@@ -585,7 +605,7 @@ h1 {
     padding-right: 35px !important;
     font-size: 11px !important;
     height: 30px !important;
-    margin-left: 0px !important;
+    margin-left: 0 !important;
 }
 
 [class^="ti-search"] {
@@ -713,7 +733,7 @@ h1 {
 .spanBorder:after {
     content: '';
     position: absolute;
-    margin: 8px 87px 0px 0px;
+    margin: 8px 87px 0 0;
     width: 1px;
     height: 70%;
     background-color: #B0BBC630;
@@ -734,7 +754,7 @@ h1 {
     direction: ltr;
     text-align: right;
     font-size: 12px;
-    padding: 0px 10px 0px 5px;
+    padding: 0 10px 0 5px;
 }
 
 .sidebar > ul > a {
@@ -752,7 +772,7 @@ h1 {
 }
 
 .showSlideBar a {
-    padding-right: 0px !important;
+    padding-right: 0 !important;
 
 }
 
@@ -824,13 +844,13 @@ h1 {
 .top-row {
     border-bottom: 1px solid #8697A8;
     height: 70%;
-    margin-right: 0px !important;
-    margin-left: 0px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
 }
 
 .bottom-row {
-    margin-right: 0px !important;
-    margin-left: 0px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
     margin-top: 20px;
     height: 100%;
 }
@@ -866,11 +886,11 @@ h1 {
 }
 
 .bottom-row .col-5 {
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .bottom-row .col-7 {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 .bottom-row .card {
@@ -882,13 +902,13 @@ h1 {
 .bottom-row .card-body {
     background-color: #FFFFFF !important;
     border-radius: 10px !important;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .bottom-row h1 {
     font-size: 20px !important;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 10px;
     padding-right: 10px;
 }
@@ -966,10 +986,10 @@ h1 {
     position: absolute;
     left: 50%;
     top: 0;
-    width: 0px;
+    width: 0;
     height: 14px;
     border: solid #FF3D57;
-    border-width: 0px 1px 1px 0px;
+    border-width: 0 1px 1px 0;
     transform-origin: center;
     -webkit-transform: rotate(53deg);
     -ms-transform: rotate(53deg);
@@ -982,10 +1002,10 @@ h1 {
     position: absolute;
     left: 50%;
     top: 0;
-    width: 0px;
+    width: 0;
     height: 14px;
     border: solid #FF3D57;
-    border-width: 0px 1px 1px 0px;
+    border-width: 0 1px 1px 0;
     transform-origin: center;
     -webkit-transform: rotate(-53deg);
     -ms-transform: rotate(-53deg);
@@ -998,7 +1018,7 @@ h1 {
 }
 
 .no-padding-Page-Body {
-    padding: 0px;
+    padding: 0;
     overflow: hidden;
 }
 
@@ -1007,10 +1027,10 @@ h1 {
     width: 200px;
     background-color: #ffffff;
     position: absolute;
-    right: 0px;
+    right: 0;
     height: 100%;
     direction: rtl;
-    padding: 0px !important;
+    padding: 0 !important;
 }
 
 .question-sidebar .btn-blue {
@@ -1174,7 +1194,7 @@ a:hover {
 }
 
 .make-exam-top h1 {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
     margin-top: 10px !important;
     font-size: 23px !important;
 }
@@ -1197,12 +1217,12 @@ a:hover {
 }
 
 .make-exam-top .path {
-    margin-right: 0px !important;
+    margin-right: 0 !important;
 }
 
 .make-exam-bottom-row {
-    margin-right: 0px !important;
-    margin-left: 0px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
     margin-top: 30px;
     height: 100%;
 }
@@ -1287,8 +1307,8 @@ a:hover {
 
 .choices {
     /*margin-top: 20px;*/
-    /*    margin-right: 0px !important;*/
-    /*    margin-left: 0px !important;*/
+    /*    margin-right: 0 !important;*/
+    /*    margin-left: 0 !important;*/
     /*    direction: rtl !important;*/
 }
 
@@ -1299,7 +1319,7 @@ a:hover {
 }
 
 .choice div {
-    /*width: calc(100% - 0px);*/
+    /*width: calc(100% - 0);*/
     /*min-height: 40px;*/
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -1606,7 +1626,7 @@ input:checked + .slider:before {
 }
 
 .izi-font {
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
 }
 
 .dispensing {
@@ -1629,10 +1649,8 @@ input:checked + .slider:before {
 }
 
 .loader {
-    border: 3px solid #F8FAFB;
-    border-top: 3px solid #1BBDFE;
-    border-right: 3px solid #1BBDFE;
-    border-bottom: 3px solid #1BBDFE;
+    border: 3px solid #1BBDFE;
+    border-left-color: #F8FAFB;
     border-radius: 50%;
     width: 25px;
     height: 25px;
@@ -1770,32 +1788,32 @@ input:checked + .slider:before {
 }
 
 #toolbar-container .ql-font span[data-label="نازنین"]::before {
-    font-family: "B Nazanin";
+    font-family: "B Nazanin", serif;
 }
 
 #toolbar-container .ql-font span[data-label="یکان"]::before {
-    font-family: "B Yekan";
+    font-family: "B Yekan", serif;
 }
 
 #toolbar-container .ql-font span[data-label="میترا"]::before {
-    font-family: "B Mitra";
+    font-family: "B Mitra", serif;
 }
 
 /* Set content font-families */
 .ql-font-iran-sans {
-    font-family: 'IRANSans';
+    font-family: 'IRANSans', serif;
 }
 
 .ql-font-yakan {
-    font-family: "B Yekan";
+    font-family: "B Yekan", serif;
 }
 
 .ql-font-mitra {
-    font-family: "B Mitra";
+    font-family: "B Mitra", serif;
 }
 
 #editor-container {
-    font-family: "B Nazanin";
+    font-family: "B Nazanin", serif;
     font-size: 14px;
 }
 
@@ -1820,7 +1838,7 @@ input:checked + .slider:before {
 }
 
 .ql-toolbar.ql-snow {
-    font-family: "B Nazanin" !important;
+    font-family: "B Nazanin", serif !important;
     border: none;
     border-bottom: 1px solid #8697A820 !important;
     text-align: right;
@@ -1847,7 +1865,7 @@ input:checked + .slider:before {
 }
 
 .ML__cmr, .ML__mathbf {
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
 }
 
 .ML__keyboard div .rows > ul > li {
@@ -2008,8 +2026,8 @@ input:checked + .slider:before {
 }
 
 .questions-content .card-body {
-    min-height:170px;
-    padding: 45px 12px 50px 100px;
+    min-height: 170px;
+    padding: 45px 12px 20px 100px;
     border-radius: 5px !important;
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
@@ -2045,7 +2063,7 @@ pre {
     width: calc(100% - 40px);
     white-space: pre-line;
     overflow: unset;
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
     line-height: 2rem;
     position: relative;
     top: -7px;
@@ -2078,9 +2096,11 @@ pre {
 .question-inline-choices > span > p:first-child {
     display: inline-block;
 }
+
 .question-inline-choices .selected-correct-choice {
     display: flex;
 }
+
 .question-inline-choices span:first-child {
     margin-left: auto;
 }
@@ -2180,7 +2200,6 @@ pre {
 }
 
 .iziToast > .iziToast-close {
-    background: none;
     top: 7%;
     left: 1%;
     right: unset;
@@ -2189,7 +2208,7 @@ pre {
     border-radius: 50%;
     border: 1px;
     color: #44566C;
-    background-color: #E9ECEF;
+    background: #E9ECEF none;
     opacity: 1;
 }
 
@@ -2245,7 +2264,7 @@ pre {
 .customized-success-izi-toast,
 .customized-info-izi-toast {
     background-color: #FFFFFF !important;
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
     border: none;
     width: 360px;
     border-radius: 5px;
@@ -2257,7 +2276,7 @@ pre {
 .customized-success-izi-toast-small,
 .customized-info-izi-toast-small {
     background-color: #FFFFFF !important;
-    font-family: IRANSans;
+    font-family: IRANSans, serif;
     border: none;
     width: 300px;
     border-radius: 5px;

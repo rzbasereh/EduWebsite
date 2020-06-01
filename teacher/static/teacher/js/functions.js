@@ -295,9 +295,9 @@ function questionSelection() {
                 $(".question-counter").addClass("question-counter-active");
                 $(".question-counter h2 > span").css("display", "inline-block");
                 this_element.toggleClass("clicked");
-                $(".counter").html($(".clicked").length);
+                $(".counter").html(data["count"]);
 
-                if ($("span.clicked").length === 0) {
+                if (data["count"] === 0) {
                     $(".question-counter").removeClass("question-counter-active");
                     $(".question-counter h2 > span").css("display", "none");
                 }
@@ -410,6 +410,10 @@ function getPage(event) {
                 thisElement.closest("div.pagination").find(".start-question-number").text((page - 1) * unit + 1);
                 thisElement.closest("div.pagination").find(".end-question-number").text((page - 1) * unit + questions.length);
                 for (let i in questions) {
+                    let checked_pk = -1;
+                    if( $.inArray(questions[i]["pk"], data["checked"]) !== -1 ) {
+                        checked_pk = questions[i]["pk"];
+                    }
                     $(".questions-content").append(`<div class="card w-100" id="${questions[i]["pk"]}">
                                 <div class="card-body">
                                     <div class="question-type">
@@ -500,8 +504,8 @@ function getPage(event) {
                                         <label class="form-check-label customBox"
                                                for="Check-${m}">
                                             <input type="checkbox" class="form-check-input"
-                                                   id="Check-${m}">
-                                            <span class="checkmark"></span>
+                                                   id="Check-${m}" ${ checked_pk === -1 ? "": "checked" }>
+                                            <span class="checkmark ${ checked_pk === -1 ? "": "clicked" }"></span>
                                         </label>
                                     </div>
                                     <div class="question-text">
@@ -600,7 +604,6 @@ function getPage(event) {
                 $(".verbose-ans .close").click(function () {
                     $(this).closest(".card").find(".verbose-ans").hide();
                 });
-                console.log(data);
             },
             error: function (data) {
                 console.log(data);
