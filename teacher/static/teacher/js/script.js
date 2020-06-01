@@ -235,9 +235,43 @@ $(document).ready(function () {
     $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
         $(".next-question-page-body .questions-content").remove();
     });
-
     $(".next-question-page-body button.close").click(function () {
-        $(this).closest(".card").remove();
+        let thisElement = $(this);
+        $.ajax({
+            method: "POST",
+            url: $(".next-question-page-body button.close").attr("data-url"),
+            data: {
+                "pk": $(".next-question-page-body button.close").closest(".card").attr("id"),
+                "state": "remove",
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.value === "success") {
+                    thisElement.closest(".card").remove();
+                    if (data.type === "remove") {
+                        iziToast.success({
+                            class: 'customized-success-izi-toast-small',
+                            message: 'سوال با موفقیت حذف شد !',
+                            position: 'bottomLeft',
+                            onOpening: function () {
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").removeClass("ico-success");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").addClass("customized-izi-icon-small");
+                                $(".customized-success-izi-toast-small>.iziToast-body .iziToast-icon").html("<div class=\"success-alert-circle\">\n" +
+                                    "    <svg class=\"bi bi-check\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "</svg>\n" +
+                                    "</div>");
+                                $(".iziToast>.iziToast-close").html("<svg class=\"bi bi-x\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z\" clip-rule=\"evenodd\"/>\n" +
+                                    "</svg>");
+                            }
+                        });
+                    }
+                }
+            }
+        });
     });
 
     $(".arrow-down-up").click(function () {
@@ -250,9 +284,31 @@ $(document).ready(function () {
             // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
             $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
         } else {
-            $(".next-question-page-body .questions-content").sortable("cancel");
-            $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
+            $(".next-question-page-body .questions-content").sortable("disable");
+            // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
             $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
+        }
+    });
+
+    $(window).on('load', function () {
+        $(" div.loading-background").removeClass("loading-background");
+        $(" div.linear-activity").remove();
+    });
+
+    $(".manage-buttons span").click(function () {
+        console.log($("svg", this).hasClass("bi-play-fill"));
+        if ($("svg", this).hasClass("bi-play-fill")) {
+            $(this).attr("data-original-title", "<p class='tool'>متوقف کردن آزمون</p>");
+            $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+                          </svg>`);
+
+        } else {
+            $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                          </svg>`);
+            $(this).attr("data-original-title", "<p class='tool'>اجرای ازمون</p>");
+
         }
     });
 

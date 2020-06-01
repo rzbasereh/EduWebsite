@@ -298,11 +298,11 @@
                                         </div>
                                         <div class="question-info-img">
                                             <img src="{% static 'main/img/'|add:question.source|add:'.png' %}"
-                                                 alt="question source">
+                                                 alt="question source" >
                                         </div>
                                         <span>98-99</span>
                                     </div>
-                                    <button type="button" class="close">
+                                    <button type="button" data-url="{% url 'teacher:selectedQuestion' %}" class="close" >
                                         <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -314,8 +314,7 @@
                                                   clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
-                                    <div class="question-text">
-
+                                    <div class="question-text" >
                                         {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
