@@ -12,7 +12,6 @@ if hasattr(settings, "EXEMPT_URLS"):
 class AuthRequiredMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        print(request.path)
         path = request.path
         if not request.user.is_authenticated:
             if any(url.match(path) for url in EXEMPT_URLS):

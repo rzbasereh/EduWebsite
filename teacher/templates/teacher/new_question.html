@@ -32,10 +32,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://unpkg.com/mathlive"></script>
 {% endblock %}
-{% block owl-js %}
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
-{% endblock %}
+{% block linear-activity-changes %}display:block{% endblock %}
 {% block style %}
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
@@ -55,6 +52,12 @@
 {% block animate.css %}
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+{% endblock %}
+{% block page-loading %}
+    <div class="loading-background"></div>
+    <div class="linear-activity active">
+        <div class="indeterminate"></div>
+    </div>
 {% endblock %}
 {% block loader-in-sidebar %}
     <div class="dispensing w-100">

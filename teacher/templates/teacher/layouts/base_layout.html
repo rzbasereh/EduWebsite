@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+{% block page-loading %}{% endblock %}
 <div class="topDrive {% block change-top-drive %}{% endblock %}">
     <div class="dropdown firstDropdown">
         <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
