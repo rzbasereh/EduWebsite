@@ -513,8 +513,10 @@ h1 {
     color: #8697A8;
     direction: rtl;
     z-index: 999;
+    transition: .5s;
 }
 
+/*sidebar classes*/
 .sidebar {
     border-left: 1px solid #EAEDF0;
     width: 200px;
@@ -523,74 +525,105 @@ h1 {
     right: 0;
     height: 100%;
     direction: rtl;
+    transition: .5s;
 }
 
-.sidebar ul {
+.sidebar > div {
     list-style: none;
     margin-top: 60px;
     padding-right: 0 !important;
     width: 100%;
     font-size: 14px;
-    color: #8697A8;
+    display: block;
+}
+
+.close-sidebar {
+    width: 80px !important;
+    transition: .5s;
 }
 
 .sidebar a {
-    display: flex;
-    padding-right: 30px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    position: relative;
+    color: #8697A8;
+    margin-bottom: 8px;
+    display: block;
+    height: 45px;
+    text-align: right;
+    padding-right: 25px;
 }
 
-.sidebar a:first-child svg {
-    font-size: 17px;
+.sidebar a.active {
+    color: #343A40;
+        background-color: #F8FAFB;
+}
+
+.sidebar a.active:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    height: 45px;
+    border-radius: 4px 0 0 4px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-collapse: collapse;
+    border-right: 5px solid #0081FF;
+
+}
+
+.sidebar.close-sidebar a.active:after {
+    display: none;
+}
+.sidebar a svg {
+    font-size: 19px;
+    position: relative;
+    top: 13px;
     margin-left: 10px;
 }
-
-.sidebar span {
-    z-index: 1;
-    padding-right: 10px;
+.sidebar.close-sidebar a svg {
+    font-size: 19px;
+    position: relative;
+    top: 13px;
+    left: 15px;
+    margin-left: unset;
 }
-
 .sidebar a:hover {
-    background-color: #F8FAFB;
-    cursor: pointer;
+    text-decoration: none;
     color: #343A40;
+    background-color: #F8FAFB;
 }
 
-.sidebar [class^="ti-"] {
-    font-size: 16px;
-    padding-left: 10px;
-    font-weight: 600;
+.sidebar a:focus {
+    color: #343A40 !important;
 }
 
-.showSlideBar [class^="ti-"] {
-    padding-left: 0 !important;
+.close-sidebar a {
+    padding-right: 0 !important;
+
 }
 
-.sidebar i {
-    font-size: 17px;
-    padding-left: 10px;
-}
-
-.showSlideBar i {
-    padding-left: 0 !important;
-}
-
-.sidebar li {
-    display: flex;
-}
-
-.showSlideBar li {
-    margin-left: auto;
+.close-sidebar a {
     margin-right: auto;
+    margin-left: auto;
 }
-
-.showSlideBar a:hover {
+.sidebar a span {
+font-weight: bold;
+    position: absolute;
+    margin-top: 13px;
+    width: 85px;
+    transition: .5s;
+}
+.sidebar.close-sidebar a span {
+    transition: unset !important;
+}
+.sidebar.close-sidebar a {
     border-radius: 10px;
     margin-left: 15px;
     margin-right: 15px;
-    background-color: #F8FAFB;
+    text-align: unset;
+    padding: unset;
+}
+
+.sidebar.close-sidebar a.active:before {
+    display: none;
 }
 
 .topDrive > .input-group {
@@ -620,16 +653,14 @@ h1 {
     padding-right: 20px;
 }
 
-.showSlideBar {
-    width: 80px !important;
-}
 
 .removeText {
-    display: none !important;
+    opacity: 0 !important;
 }
 
 .changeTopDrive {
     width: calc(100% - 80px);
+    transition: .5s;
 }
 
 .fa-envelope {
@@ -640,7 +671,6 @@ h1 {
 .fa-envelope:hover {
     cursor: pointer;
 }
-
 
 .new1:after {
     content: '';
@@ -687,35 +717,6 @@ h1 {
     -o-transform: translate(33px, 3px);
 }
 
-.sidebar .active:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 6px;
-    height: 100%;
-    -webkit-border-bottom-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-    -webkit-border-top-left-radius: 3px;
-    background-color: #0081FF;
-    z-index: 1;
-}
-
-.sidebar .active {
-    background-color: #F8FAFB;
-}
-
-.sidebar.showSlideBar a.active {
-    border-radius: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.sidebar.showSlideBar a.active:before {
-    display: none;
-}
-
 .userImg {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -758,29 +759,6 @@ h1 {
     padding: 0 10px 0 5px;
 }
 
-.sidebar > ul > a {
-    color: #343A40;
-    margin-bottom: 5px;
-}
-
-.sidebar > ul > a:hover {
-    text-decoration: none;
-    color: #343A40 !important;
-}
-
-.sidebar > ul > a:focus {
-    color: #343A40 !important;
-}
-
-.showSlideBar a {
-    padding-right: 0 !important;
-
-}
-
-.showSlideBar li {
-    margin-right: auto;
-    margin-left: auto;
-}
 
 .topDrive > .firstDropdown > .dropdown-menu > ul > li > a {
     color: #343A40;
@@ -1021,6 +999,7 @@ h1 {
 .no-padding-Page-Body {
     padding: 0;
     overflow: hidden;
+    transition: .5s;
 }
 
 .question-sidebar {

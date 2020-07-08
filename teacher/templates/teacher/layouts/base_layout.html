@@ -64,44 +64,117 @@
     </span>
 </div>
 <div class="sidebar {% block change-sidebar %}{% endblock %}">
-    <ul>
+    <div>
         {% url 'teacher:index' as index %}
-        <a href="{% url 'teacher:index' %}" class="{% if request.path == index %}
-         active
-        {% endif %}">
-            <li>
-                <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                          d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
-                          clip-rule="evenodd"></path>
-                </svg>
-                <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
-            </li>
+        <a
+                href="{% url 'teacher:index' %}"
+                class="{% if request.path == index %}
+                    active
+                {% endif %}"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>داشبورد</p>"
+        >
+            <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
+                      clip-rule="evenodd"></path>
+            </svg>
+            <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
         </a>
+
         {% url 'teacher:class' as index %}
-        <a href="{% url 'teacher:class' %}" class="{% if request.path == index %}
-         active
-        {% endif %}">
-            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>
+        <a
+                href="{% url 'teacher:class' %}"
+                class="{% if request.path == index %}
+                    active
+                {% endif %}"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>کلاس ها</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-easel" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"/>
+                <path fill-rule="evenodd"
+                      d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+            </svg>
+            <span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span>
         </a>
+
+        <a
+                href="#"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>برنامه درسی</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd"
+                      d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+            <span class="{% block remove-text2 %}{% endblock %}"> برنامه درسی</span>
+        </a>
+
         {% url 'teacher:examManagement' as exam %}
-        <a href="{% url 'teacher:examManagement' %}" class="{% if request.path == exam %}
-         active
-        {% endif %}">
-            <li><i class="ti-blackboard"></i><span class="">مدیریت آزمون</span></li>
+        <a
+                href="{% url 'teacher:examManagement' %}"
+                class="{% if request.path == exam %}
+                    active
+                {% endif %}"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>مدیریت آزمون</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-wide-connected" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 0 0-9.995 4.998 4.998 0 0 0 0 9.996z"/>
+                <path fill-rule="evenodd"
+                      d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z"/>
+            </svg>
+            <span class="{% block remove-text3 %}{% endblock %}">مدیریت آزمون</span>
         </a>
+
         {% url 'teacher:questions' as question_bank %}
-        <a href="{% url 'teacher:questions' %}" class="{% if request.path == question_bank %}
-         active
-        {% endif %}">
-            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">بانک سوال</span>
-            </li>
+        <a
+                href="{% url 'teacher:questions' %}"
+                class="{% if request.path == question_bank %}
+                    active
+                {% endif %}"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>بانک سوال</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-square" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd"
+                      d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+            </svg>
+            <span class="{% block remove-text4 %}{% endblock %}">بانک سوال</span>
         </a>
-        <a href="#">
-            <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
+
+        <a
+                href="#"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="<p class='tool'>گفتگو</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-text" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M14 1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.5a2 2 0 0 1 1.6.8L8 14.333 9.9 11.8a2 2 0 0 1 1.6-.8H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd"
+                      d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <span class="{% block remove-text5 %}{% endblock %}">گفتگو </span>
         </a>
-    </ul>
+    </div>
     {% block loader-in-sidebar %}{% endblock %}
 </div>
 <div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"

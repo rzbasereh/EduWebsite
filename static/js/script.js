@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".slider-control").click(function () {
-        $(".sidebar").toggleClass('showSlideBar');
-        $(".sidebar > ul > a > li > span:last-child").toggleClass('removeText');
+        $(".sidebar").toggleClass('close-sidebar');
+        $(".sidebar > div > a > span").toggleClass('removeText');
         $(".topDrive").toggleClass('changeTopDrive');
         $(".Page-Body").toggleClass('max-width');
     });
