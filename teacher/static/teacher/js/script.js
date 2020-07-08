@@ -6,6 +6,35 @@ $(document).ready(function () {
 
     $(".arrow-down-up").attr("data-toggle", "tooltip");
 
+
+    // sidebar tooltip
+    if (!$("div.sidebar").hasClass('close-sidebar')) {
+        $('.sidebar a:first-child').attr('data-original-title', null);
+        $('.sidebar a:nth-child(2)').attr('data-original-title', null);
+        $('.sidebar a:nth-child(3)').attr('data-original-title', null);
+        $('.sidebar a:nth-child(4)').attr('data-original-title', null);
+        $('.sidebar a:nth-child(5)').attr('data-original-title', null);
+        $('.sidebar a:last-child').attr('data-original-title', null);
+    }
+    $(".slider-control").click(function () {
+        if (!$("div.sidebar").hasClass('close-sidebar')) {
+            $('.sidebar a:first-child').attr('data-original-title', null);
+            $('.sidebar a:nth-child(2)').attr('data-original-title', null);
+            $('.sidebar a:nth-child(3)').attr('data-original-title', null);
+            $('.sidebar a:nth-child(4)').attr('data-original-title', null);
+            $('.sidebar a:nth-child(5)').attr('data-original-title', null);
+            $('.sidebar a:last-child').attr('data-original-title', null);
+        } else {
+            $('.sidebar a:first-child').attr('data-original-title', "<p class=\'tool\'>داشبورد</p>");
+            $('.sidebar a:nth-child(2)').attr('data-original-title', "<p class=\'tool\'>کلاس ها</p>");
+            $('.sidebar a:nth-child(3)').attr('data-original-title', "<p class=\'tool\'>برنامه درسی</p>");
+            $('.sidebar a:nth-child(4)').attr('data-original-title', "<p class=\'tool\'>مدیریت آزمون</p>");
+            $('.sidebar a:nth-child(5)').attr('data-original-title', "<p class=\'tool\'>بانک سوال</p>");
+            $('.sidebar a:last-child').attr('data-original-title', "<p class=\'tool\'>گفتگو</p>");
+        }
+    });
+
+
     if (window.location.href.indexOf("questions/add_new") !== -1) {
         $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
         $(window).resize(function () {
@@ -311,6 +340,7 @@ $(document).ready(function () {
 
         }
     });
+
 
     let csrf_token = getCookie('csrftoken');
     $.ajaxSetup({
