@@ -641,6 +641,7 @@ h1 {
     cursor: pointer;
 }
 
+
 .new1:after {
     content: '';
     position: absolute;
