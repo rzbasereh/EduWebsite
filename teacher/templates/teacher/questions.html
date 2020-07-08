@@ -500,7 +500,10 @@
                     $("#tags_tagsinput .tag a").html(close_svg);
                     $("#grade-fancy-tree").find(".fancytree-selected").each(function () {
                         if ($(this).find(".fancytree-title").text() === data) {
-
+                            let parent = $(this).closest("li[role='treeitem']");
+                            parent.attr("aria-selected", "false");
+                            parent.find(".fancytree-node").removeClass("fancytree-partsel").removeClass("fancytree-selected");
+                            console.log(parent.find(".fancytree-node").attr("class"));
                         }
                     });
                 },
