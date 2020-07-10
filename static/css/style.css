@@ -603,6 +603,8 @@ h1 {
 .close-sidebar a {
     margin-right: auto;
     margin-left: auto;
+    width: 50px;
+    transition: .5s;
 }
 .sidebar a span {
 font-weight: bold;
@@ -1003,7 +1005,7 @@ font-weight: bold;
 }
 
 .question-sidebar {
-    border-left: 1px solid #8697A8;
+    border-left: 1px solid #EAEDF0;
     width: 200px;
     background-color: #ffffff;
     position: absolute;

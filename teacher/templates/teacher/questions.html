@@ -181,21 +181,11 @@
                 </div>
                 <div class="row header">
                     <span>نمایش</span>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            <span>10</span>
-                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                        </div>
-                    </div>
+                    <select class="t" data-url="{% url 'teacher:filter_page' %}">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown"
@@ -428,13 +418,13 @@
                             </li>
                             {% for count in  questions.count|divide:10 %}
                                 {% if forloop.counter < 4 or forloop.last %}
-                                    <li class="page-item {% if forloop.first %}active{% endif %}">
+                                    <li class="page-item {% if forloop.first %}active{% endif %} pagination-item">
                                         <a class="page-link" href="#">
                                             <span>{{ count|add:1 }}</span>
                                         </a>
                                     </li>
                                 {% elif forloop.counter == 4 %}
-                                    <li class="page-item disabled">
+                                    <li class="page-item disabled pagination-item">
                                         <a class="page-link" href="#">
                                             <span>...</span>
                                         </a>

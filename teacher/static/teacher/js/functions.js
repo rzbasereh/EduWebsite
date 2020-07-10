@@ -372,27 +372,49 @@ function questionSelection() {
     });
 }
 
+function updatePagination(count) {
+    let unit = parseInt($('.t').val());
+    $("ul.pagination li.page-item").off();
+    $("ul.pagination li.page-item").click({Page: true}, getPage);
+    if (count%unit === 0) {
+        let page = parseInt(count / unit);
+    } else {
+        page = parseInt(count / unit) + 1;
+    }
+    console.log($('ul.pagination li.pagination-item:last-child > a ').html());
+}
+
 function getPage(event) {
     let thisElement = $(this);
     if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
         $(".Page-Body").append(`<div class="loading-background"></div>`);
         $(".linear-activity").addClass("active");
         let data = {};
-        let unit = event.data.unit;
+        let unit = parseInt($('.t').val());
         data.unit = unit;
         data.requestType = "pagination";
-        let page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
-        if ($(this).find("a[aria-label='Next']").length) {
-            page++;
-        } else if (thisElement.find("a[aria-label='Previous']").length) {
-            page--;
+        let url;
+        if (event.data.Page === true) {
+            var page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
+            if ($(this).find("a[aria-label='Next']").length) {
+                page++;
+            } else if (thisElement.find("a[aria-label='Previous']").length) {
+                page--;
+            } else {
+                page = parseInt(thisElement.find("a").text(), 10);
+            }
+            data.page = page;
+            url = thisElement.closest("nav").attr("data-url");
+            console.log(data.page);
         } else {
-            page = parseInt(thisElement.find("a").text(), 10);
+            data.page = 1;
+            var orderedNum = parseInt(thisElement.val());
+            data.unit = orderedNum;
+            url = thisElement.attr("data-url");
         }
-        data.page = page;
         $.ajax({
             method: "POST",
-            url: thisElement.closest("nav").attr("data-url"),
+            url: url,
             data: data,
             success: function (data) {
                 thisElement.closest("nav").find("a[aria-label='Next']").closest("li").removeClass("disabled");
@@ -411,7 +433,7 @@ function getPage(event) {
                 thisElement.closest("div.pagination").find(".end-question-number").text((page - 1) * unit + questions.length);
                 for (let i in questions) {
                     let checked_pk = -1;
-                    if( $.inArray(questions[i]["pk"], data["checked"]) !== -1 ) {
+                    if ($.inArray(questions[i]["pk"], data["checked"]) !== -1) {
                         checked_pk = questions[i]["pk"];
                     }
                     $(".questions-content").append(`<div class="card w-100" id="${questions[i]["pk"]}">
@@ -504,8 +526,8 @@ function getPage(event) {
                                         <label class="form-check-label customBox"
                                                for="Check-${m}">
                                             <input type="checkbox" class="form-check-input"
-                                                   id="Check-${m}" ${ checked_pk === -1 ? "": "checked" }>
-                                            <span class="checkmark ${ checked_pk === -1 ? "": "clicked" }"></span>
+                                                   id="Check-${m}" ${checked_pk === -1 ? "" : "checked"}>
+                                            <span class="checkmark ${checked_pk === -1 ? "" : "clicked"}"></span>
                                         </label>
                                     </div>
                                     <div class="question-text">
@@ -554,11 +576,11 @@ function getPage(event) {
                             </div>`);
                     m++;
                 }
+                console.log(data.count);
                 $(".questions-content .checkmark").click(questionSelection);
                 $(".question-counter").click(function () {
                     console.log($("span.clicked").length === 0);
                     if ($("span.clicked").length === 0) {
-
                         let preventClick = false;
                         $('.sidebar-bottom-box').click(function (e) {
                             if (!preventClick) {
@@ -593,11 +615,15 @@ function getPage(event) {
                         let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
                     }
                 });
+                console.log(orderedNum);
+                updatePagination(data.count, event.data.unit);
                 $(".linear-activity").removeClass("active");
                 $(".loading-background").remove();
-                $(".question-body").animate({
-                    scrollTop: $(".row.questions-content .card:first-child").offset().top
-                }, 1000);
+                if (event.data.Page === true) {
+                    $(".question-body").animate({
+                        scrollTop: $(".row.questions-content .card:first-child").offset().top
+                    }, 1000);
+                }
                 $(".questions .card-body > span").click(function () {
                     $(this).closest(".card").find(".verbose-ans").show();
                 });
