@@ -34,7 +34,10 @@
     <div class="dropdown bellEnvelope">
         <span class=" dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-                        <i class='far fa-bell {% if  user.has_message %}new{% endif %} '></i></span>
+            {% if  user.has_notification %}
+                <span class="event"></span>
+            {% endif %}
+                        <i class='far fa-bell'></i></span>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         </div>
     </div>
@@ -42,7 +45,7 @@
     <div class="dropdown bellEnvelope">
         <span class="dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-                        <i class='far fa-envelope {% if  user.has_message %}new1{% endif %} '></i></span>
+                        <i class='far fa-envelope {% if  user.has_message %}new{% endif %} '></i></span>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         </div>
     </div>
