@@ -603,6 +603,8 @@ h1 {
 .close-sidebar a {
     margin-right: auto;
     margin-left: auto;
+    width: 50px;
+    transition: .5s;
 }
 .sidebar a span {
 font-weight: bold;
@@ -672,24 +674,6 @@ font-weight: bold;
     cursor: pointer;
 }
 
-.new1:after {
-    content: '';
-    position: absolute;
-    top: 35%;
-    width: 8px;
-    height: 8px;
-    background-color: #FF3D57;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border: 1px solid white;
-    left: 115%;
-    transform: translate(-12px, 3px);
-    -webkit-transform: translate(-12px, 3px);
-    -moz-transform: translate(-12px, 3px);
-    -o-transform: translate(-12px, 3px);
-}
-
 .fa-bell {
     font-size: 20px;
     color: #8697A8 !important;
@@ -698,23 +682,31 @@ font-weight: bold;
 .fa-bell:hover {
     cursor: pointer;
 }
-
-.new:after {
-    content: '';
-    position: absolute;
-    top: 35%;
-    width: 8px;
-    height: 8px;
-    background-color: #FF3D57;
+.event {
+    position: relative;
+    background-color: #1890ff;
+    top: -1px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    vertical-align: middle;
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border: 1px solid white;
-    left: 15%;
-    transform: translate(33px, 3px);
-    -webkit-transform: translate(33px, 3px);
-    -moz-transform: translate(33px, 3px);
-    -o-transform: translate(33px, 3px);
+}
+@keyframes event-move {
+    from {}
+    to {}
+}
+.event:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #1890ff;
+    border-radius: 50%;
+    -webkit-animation: event-move 1.2s infinite ease-in-out;
+    animation: event-move 1.2s infinite ease-in-out;
+    content: '';
 }
 
 .userImg {
@@ -1003,7 +995,7 @@ font-weight: bold;
 }
 
 .question-sidebar {
-    border-left: 1px solid #8697A8;
+    border-left: 1px solid #EAEDF0;
     width: 200px;
     background-color: #ffffff;
     position: absolute;

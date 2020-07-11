@@ -181,7 +181,8 @@ def filter_page(request):
             new_questions = serializers.serialize("json", Question.objects.filter(
                 Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[start:end])
             # checked = list(QuestionPack.objects.get(submit=False).questions.all().values_list("id", flat=True))
-            return JsonResponse({"value": "success", "questions": new_questions})
+            count = Question.objects.filter(author=request.user.teacher).count()
+            return JsonResponse({"value": "success", "questions": new_questions, "count": count})
         elif request.POST.get("requestType") == "my_questions":
             unit = int(request.POST.get('unit'))
             page = 1
@@ -191,7 +192,8 @@ def filter_page(request):
                                                   Question.objects.filter(author=request.user.teacher)
                                                   .order_by('-pk')[start:end])
             checked = 1
-            return JsonResponse({"value": "success", "questions": new_questions, "checked": checked})
+            count = Question.objects.filter(author=request.user.teacher).count()
+            return JsonResponse({"value": "success", "questions": new_questions, "checked": checked, "count": count})
     else:
         return JsonResponse({"value": "forbidden access"})
 

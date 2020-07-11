@@ -141,7 +141,7 @@ $(document).ready(function () {
     // editor($('.question-textarea'));
 
     $(".question-sidebar  a:nth-child(2), .question-sidebar  a:nth-child(3)").click(function () {
-        $("a.active").removeClass('active');
+        $(".question-sidebar a.active").removeClass('active');
         $(this).addClass('active');
         $(".path a:last-child").text($(this).text());
         $(".question-page-body h1 > span:first-child").text($(this).text());
@@ -259,7 +259,9 @@ $(document).ready(function () {
         $(this).closest(".card").find(".verbose-ans").hide();
     });
 
-    $("ul.pagination li.page-item").click({unit: 10}, getPage);
+    $("ul.pagination li.page-item").click({Page: true}, getPage);
+    $('.t').on('change' , getPage);
+
 
     $(".next-question-page-body #exampleModalCenter .modal-footer a").click(function () {
         $(".next-question-page-body .questions-content").remove();
