@@ -4,6 +4,9 @@ from finglish import f2p
 from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import Message, Notification, Student, Teacher, Adviser, Manager
+from teacher.models import ClassRoom, TeacherForm
+from student.models import StudentForm
+from manager.models import ManagerForm
 from .models import ManagerForm
 from django.contrib.auth.models import User
 from teacher.models import Report, ReportAttach
@@ -37,7 +40,24 @@ def index(request):
 
 def users(request):
     user = commonData(request)
-    return render(request, 'manager/users.html', {'user': user})
+    all_users = []
+    for user in User.objects.all():
+        data = {}
+        if Student.objects.filter(user= user).exists():
+            data["type"] = "student"
+            data["avatar"] = StudentForm.objects.get(user= user.student).avatar.url
+        elif Teacher.objects.filter(user= user).exists():
+            data["type"] = "teacher"
+            data["avatar"] = TeacherForm.objects.get(user= user.teacher).avatar.url
+        elif Manager.objects.filter(user= user).exists():
+            data["type"] = "manager"
+            data["avatar"] = ManagerForm.objects.get(user= user.manager).avatar.url
+        else:
+            data["type"] = "none"
+        if data["type"] != "none":
+            data["full_name"] = user.get_full_name
+            all_users.append(data)
+    return render(request, 'manager/users.html', {'user': user, 'users': all_users})
 
 
 def addUser(request):
@@ -68,7 +88,9 @@ def addUser(request):
 
 def classes(request):
     user = commonData(request)
-    return render(request, 'manager/classes.html', {'user': user})
+    teachers = [teacher.get_full_name for teacher in Teacher.objects.all()]
+    class_rooms = ClassRoom.objects.all()
+    return render(request, 'manager/classes.html', {'user': user, 'teachers': teachers, 'classes': class_rooms})
 
 
 def reports(request):

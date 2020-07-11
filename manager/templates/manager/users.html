@@ -7,6 +7,23 @@
         add user
     </button>
 
+    <hr/>
+
+    <div class="row">
+        {% for user in users %}
+            <div class="col-4">
+                <div class="card w-100">
+                    <img src="{{ user.avatar }}" class="card-img-top" alt="profile">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.full_name }}</h5>
+                        <p class="card-text"></p>
+                        <a href="#" class="btn btn-primary">.</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
