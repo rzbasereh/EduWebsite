@@ -17,4 +17,5 @@ urlpatterns = [
     path('questions/selected', views.selectedQuestion, name="selectedQuestion"),
     path('class', views.classRoom, name="class"),
     path('exam', views.examManagement, name="examManagement"),
+    path('report', views.report, name="report"),
 ]

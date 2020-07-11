@@ -2,7 +2,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
-from .models import TeacherForm, Question, QuestionPack
+from .models import TeacherForm, Question, QuestionPack, Report, ReportAttach
 from manager.models import TeacherAccess, Grade
 from main.models import Message, Notification
 from django.core import serializers
@@ -244,3 +244,10 @@ def examManagement(request):
     user = commonData(request)
     question_packs = QuestionPack.objects.filter(submit=True).all()
     return render(request, 'teacher/manage_exam.html', {'user': user, 'packs': question_packs})
+
+
+def report(request):
+    user = commonData(request)
+    reports_list = Report.objects.filter(teacher=request.user.teacher).all().order_by("-date_time")
+    attachment = ReportAttach.objects.all()
+    return render(request, 'teacher/report.html', {'user': user ,'reports': reports_list})
