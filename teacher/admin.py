@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Exam, Question, TeacherForm, ClassRoom, QuestionPack, Report, ReportAttach
+from .models import *
 
 # Register your models here.
 admin.site.register(TeacherForm)
@@ -9,3 +9,6 @@ admin.site.register(ClassRoom)
 admin.site.register(QuestionPack)
 admin.site.register(Report)
 admin.site.register(ReportAttach)
+admin.site.register(ExamQuestion)
+admin.site.register(ERun)
+admin.site.register(ExamERun)

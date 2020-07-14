@@ -291,6 +291,7 @@ function questionSelection() {
             "state": state,
         },
         success: function (data) {
+            console.log(data);
             if (data.value === "success") {
                 $(".question-counter").addClass("question-counter-active");
                 $(".question-counter h2 > span").css("display", "inline-block");
@@ -372,30 +373,68 @@ function questionSelection() {
     });
 }
 
-function updatePagination(count) {
-    let unit = parseInt($('.t').val());
-    $("ul.pagination li.page-item").off();
-    $("ul.pagination li.page-item").click({Page: true}, getPage);
-    if (count%unit === 0) {
-        let page = parseInt(count / unit);
+function updatePagination(count, unit) {
+    let pages;
+    if (count % unit === 0) {
+        pages = parseInt(count / unit);
     } else {
-        page = parseInt(count / unit) + 1;
+        pages = parseInt(count / unit) + 1;
     }
-    console.log($('ul.pagination li.pagination-item:last-child > a ').html());
+    let last_pages = parseInt($("ul.pagination li.page-item").closest("nav").find("li:nth-last-child(2) a").text());
+    console.log("last page ", last_pages);
+    console.log("page ", pages);
+
+    if (pages !== last_pages) {
+        $("ul.pagination li.page-item:not(:last-child):not(:first-child)").remove();
+        for (let i = 1; i <= pages; i++) {
+            if (i < 4 || i === pages) {
+                $(`<li class="page-item pagination-item">
+                    <a class="page-link" href="#">
+                        <span>${i}</span>
+                    </a>
+                </li>`).insertBefore("ul.pagination li.page-item:last-child");
+            } else if (i === 4) {
+                $(`<li class="page-item disabled pagination-item">
+                    <a class="page-link" href="#">
+                        <span>...</span>
+                    </a>
+                </li>`).insertBefore("ul.pagination li.page-item:last-child");
+            }
+        }
+    }
+    $("ul.pagination li.page-item").off();
+    $("ul.pagination li.page-item").click({type: "pagination"}, getPage);
 }
+
+$.expr[':'].textEquals = $.expr.createPseudo(function (arg) {
+    return function (elem) {
+        return $(elem).text().match("^" + arg + "$");
+    };
+});
 
 function getPage(event) {
     let thisElement = $(this);
-    if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
-        $(".Page-Body").append(`<div class="loading-background"></div>`);
-        $(".linear-activity").addClass("active");
-        let data = {};
-        let unit = parseInt($('.t').val());
-        data.unit = unit;
-        data.requestType = "pagination";
-        let url;
-        if (event.data.Page === true) {
-            var page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
+    let flag = 0;
+    let data = {};
+    let unit = parseInt($('.t').val());
+    let url = $(".question-body").attr("data-url");
+    let page = 1;
+    let filters = {
+        my_questions: $("#my_questions").hasClass("active"),
+        level: 0
+    };
+    data.unit = unit;
+    data.requestType = "filter";
+    let pagination = $("ul.pagination li.page-item").closest("nav");
+    if (event.data.type === "my_questions") {
+        flag = 1;
+        filters.my_questions = true;
+    } else if (event.data.type === "all_questions") {
+        flag = 2;
+        filters.my_questions = false;
+    } else if (event.data.type === "pagination") {
+        if (!thisElement.hasClass("active") && !thisElement.hasClass("disabled")) {
+            page = parseInt(thisElement.closest("ul").find(".page-item.active a").text(), 10);
             if ($(this).find("a[aria-label='Next']").length) {
                 page++;
             } else if (thisElement.find("a[aria-label='Previous']").length) {
@@ -403,34 +442,58 @@ function getPage(event) {
             } else {
                 page = parseInt(thisElement.find("a").text(), 10);
             }
-            data.page = page;
-            url = thisElement.closest("nav").attr("data-url");
-            console.log(data.page);
-        } else {
-            data.page = 1;
-            var orderedNum = parseInt(thisElement.val());
-            data.unit = orderedNum;
-            url = thisElement.attr("data-url");
+            flag = 3;
+            data.requestType = "pagination";
+            filters.level = $(".dropdown-menu[aria-labelledby='filterDropdown']").find("input[name='level']:checked").val();
+            console.log("pagination ", filters.level);
         }
+    } else if (event.data.type === "update_unit") {
+        flag = 4;
+        filters.level = $(".dropdown-menu[aria-labelledby='filterDropdown']").find("input[name='level']:checked").val();
+        console.log("pagination ", filters.level);
+    } else if (event.data.type === "filter") {
+        flag = 5;
+        filters.level = $(".dropdown-menu[aria-labelledby='filterDropdown']").find("input[name='level']:checked").val();
+        $(".dropdown-menu[aria-labelledby='filterDropdown']").find("li button").dropdown('hide');
+    }
+    if (flag) {
+        data.filters = JSON.stringify(filters);
+        data.page = page;
+        $(".Page-Body").append(`<div class="loading-background"></div>`);
+        $(".linear-activity").addClass("active");
+        console.log(data);
         $.ajax({
             method: "POST",
             url: url,
             data: data,
             success: function (data) {
-                thisElement.closest("nav").find("a[aria-label='Next']").closest("li").removeClass("disabled");
-                thisElement.closest("nav").find("a[aria-label='Previous']").closest("li").removeClass("disabled");
-                if (page === 1) {
-                    thisElement.closest("nav").find("a[aria-label='Previous']").closest("li").addClass("disabled");
-                } else if (page === parseInt(thisElement.closest("nav").find("li:nth-last-child(2) a").text())) {
-                    thisElement.closest("nav").find("a[aria-label='Next']").closest("li").addClass("disabled");
+                if (flag !== 3) {
+                    updatePagination(data.count, unit);
                 }
-                thisElement.closest("nav").find("li.page-item.active").removeClass("active");
-                thisElement.closest("nav").find("a.page-link span:contains(" + page + ")").closest("li.page-item").addClass("active");
+                pagination.find("a[aria-label='Next']").closest("li").removeClass("disabled");
+                pagination.find("a[aria-label='Previous']").closest("li").removeClass("disabled");
+                if (page === 1) {
+                    pagination.find("a[aria-label='Previous']").closest("li").addClass("disabled");
+                } else if (page === parseInt(pagination.find("li:nth-last-child(2) a").text())) {
+                    pagination.find("a[aria-label='Next']").closest("li").addClass("disabled");
+                }
+                pagination.find("li.page-item.active").removeClass("active");
+                pagination.find("a.page-link span:textEquals(" + page + ")").closest("li.page-item").addClass("active");
+                if (pagination.find("li.page-item.active").prev().find("a.page-link span").text() === "...") {
+                    $(`<li class="page-item pagination-item">
+                    <a class="page-link" href="#">
+                        <span>${page - 1}</span>
+                    </a>
+                </li>`).insertBefore(pagination.find("li.page-item.active"));
+                    console.log("prev");
+                } else if (pagination.find("a.page-link span:textEquals(" + page + ")").closest("li.page-item").next().find("a.page-link span").text() === "...") {
+                    console.log("next");
+                }
                 $(".questions-content").html("");
                 let questions = JSON.parse(data["questions"]);
                 let m = 0;
-                thisElement.closest("div.pagination").find(".start-question-number").text((page - 1) * unit + 1);
-                thisElement.closest("div.pagination").find(".end-question-number").text((page - 1) * unit + questions.length);
+                pagination.closest("div.pagination").find(".start-question-number").text((page - 1) * unit + 1);
+                pagination.closest("div.pagination").find(".end-question-number").text((page - 1) * unit + questions.length);
                 for (let i in questions) {
                     let checked_pk = -1;
                     if ($.inArray(questions[i]["pk"], data["checked"]) !== -1) {
@@ -615,21 +678,25 @@ function getPage(event) {
                         let pack_pk = parseInt($(".question-counter").attr("id").replace("pack-", ""), 10);
                     }
                 });
-                console.log(orderedNum);
-                updatePagination(data.count, event.data.unit);
                 $(".linear-activity").removeClass("active");
                 $(".loading-background").remove();
-                if (event.data.Page === true) {
-                    $(".question-body").animate({
-                        scrollTop: $(".row.questions-content .card:first-child").offset().top
-                    }, 1000);
-                }
+                $(".question-body").animate({
+                    scrollTop: $("body").offset().top
+                }, 1000);
                 $(".questions .card-body > span").click(function () {
                     $(this).closest(".card").find(".verbose-ans").show();
                 });
                 $(".verbose-ans .close").click(function () {
                     $(this).closest(".card").find(".verbose-ans").hide();
                 });
+                if (flag === 1 || flag === 2) {
+                    $(".question-sidebar a.active").removeClass('active');
+                    thisElement.addClass('active');
+                    $(".path a:last-child").text(thisElement.text());
+                    $(".question-page-body h1 > span:first-child").text(thisElement.text());
+                }
+                $(".question-page-body h1 > span:last-child").text("(" + data.count + ")");
+                $("div.pagination > div > span.all-questions").text(data.count);
             },
             error: function (data) {
                 console.log(data);
