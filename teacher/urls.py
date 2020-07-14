@@ -8,6 +8,7 @@ urlpatterns = [
     path('questions', views.questions, name="questions"),
     path('questions/get_page', views.filter_page, name="filter_page"),
     path('questions/edit', views.edit_question, name="new_exam"),
+    path('questions/edit/<int:pk>', views.edit_submit_question, name="edit_exam"),
     path('questions/edit/save', views.save_edit_question, name="save_new_exam"),
     path('questions/delete_exam/<int:pack_pk>', views.delete_exam, name="delete_exam"),
     path('questions/add_new/save_grades', views.saveGrades, name="saveGrades"),

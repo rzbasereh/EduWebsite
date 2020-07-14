@@ -71,14 +71,21 @@ class Question(models.Model):
 
 
 class Exam(models.Model):
-    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=1000, blank=True, null=True)
+    info = models.TextField(blank=True, null=True)
     className = models.ManyToManyField(ClassRoom, blank=True)
     initial_date = models.DateTimeField(default=now, blank=True, null=True)
     hold_from = models.DateTimeField(blank=True, null=True)
     hold_to = models.DateTimeField(blank=True, null=True)
     preview = models.BooleanField(default=False)
     code = models.CharField(max_length=100, blank=True, null=True)
-    is_online = models.BooleanField(default=False)
+    suggested_time = models.TimeField(null=True, blank=True)
+    is_online = models.BooleanField(default=True)
+    is_submit = models.BooleanField(default=False)
+    is_edit = models.BooleanField(default=False)
+    is_add = models.BooleanField(default=False)
+    is_publish = models.BooleanField(default=False)
     examKey = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
     keyMapper = models.CharField(max_length=1000, blank=True, null=True)  # answers: 0,1,2,3,4,5,-
 
@@ -104,6 +111,44 @@ class QuestionPack(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class ExamQuestion(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    position = models.IntegerField(max_length=1000, default=0)
+
+    def __str__(self):
+        return str(self.exam) + " - " + str(self.position)
+
+
+class ERun(models.Model):
+    name = models.CharField(max_length=1000, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    class_name = models.ManyToManyField(ClassRoom)
+    add_on_user = models.ManyToManyField(Student)
+    TYPE = (
+        ('float', 'شناور'),
+        ('fix', 'ایستا')
+    )
+    type = models.CharField(choices=TYPE, max_length=5, default="float")
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    reject = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
+class ExamERun(models.Model):
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    e_run = models.ForeignKey(ERun, on_delete=models.CASCADE)
+    time = models.TimeField()
+    random_question = models.BooleanField(default=False)
+    random_choice = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.exam + self.e_run)
 
 
 class Report(models.Model):

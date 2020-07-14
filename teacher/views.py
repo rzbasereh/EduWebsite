@@ -2,11 +2,12 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
-from .models import TeacherForm, Question, QuestionPack, Report, ReportAttach
+from .models import *
 from manager.models import TeacherAccess, Grade
 from main.models import Message, Notification
 from django.core import serializers
 from django.db.models import Q
+import json
 
 
 # Create your views here.
@@ -34,21 +35,32 @@ def index(request):
 
 
 def questions(request):
-    user = commonData(request)
-    questions_data = {
-        'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
-        'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
-    }
-    grade = Grade.objects.last().source
-    pack_pk = -1
-    selected_question = []
-    if QuestionPack.objects.filter(teacher=request.user.teacher).count() > 0:
-        if not QuestionPack.objects.filter(teacher=request.user.teacher).last().submit:
-            pack_pk = QuestionPack.objects.last().id
-            selected_question = list(QuestionPack.objects.get(id=pack_pk).questions.all().values_list('id', flat=True))
-    return render(request, 'teacher/questions.html',
-                  {'user': user, 'questions': questions_data, 'selected_question': selected_question,
-                   "pack_pk": pack_pk, 'grade': grade})
+    if Exam.objects.filter(creator=request.user, is_submit=True, is_edit=True, is_add=False).exists():
+        messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
+        exam_pk = Exam.objects.get(creator=request.user, is_submit=True, is_edit=True, is_add=False).id
+        return HttpResponseRedirect(reverse("teacher:edit_exam", kwargs={"pk": exam_pk}))
+    else:
+        user = commonData(request)
+        questions_data = {
+            'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
+            'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
+        }
+        grade = Grade.objects.last().source
+        selected_question = []
+        if Exam.objects.filter(creator=request.user).exists():
+            if Exam.objects.filter(creator=request.user, is_add=True).exists():
+                exam = Exam.objects.filter(creator=request.user, is_add=True).first()
+                exam_questions = ExamQuestion.objects.filter(exam=exam).all()
+                for q in exam_questions:
+                    selected_question.append(q.question.id)
+            elif Exam.objects.filter(creator=request.user, is_submit=False).exists():
+                exam = Exam.objects.get(creator=request.user, is_submit=False)
+                exam_questions = ExamQuestion.objects.filter(exam=exam).all()
+                for q in exam_questions:
+                    selected_question.append(q.question.id)
+        return render(request, 'teacher/questions.html',
+                      {'user': user, 'questions': questions_data, 'selected_question': selected_question,
+                       'grade': grade})
 
 
 def newQuestion(request):
@@ -137,62 +149,86 @@ def selectedQuestion(request):
     if request.method == "POST":
         pk = request.POST.get('pk')
         state = request.POST.get('state')
-        teacher = request.user.teacher
+        count = 0
         if state == "add":
-            if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0 or QuestionPack.objects.filter(
-                    teacher=request.user.teacher).last().submit:
-                question_pack = QuestionPack(teacher=teacher)
-                question_pack.save()
-                question_pack.questions.add(Question.objects.get(id=pk))
-                pack_pk = question_pack.id
-                count = question_pack.questions.count()
-                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
-            else:
-                question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
-                question_pack.questions.add(Question.objects.get(id=pk))
-                pack_pk = question_pack.id
-                count = question_pack.questions.count()
-                return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
+            if not Exam.objects.filter(creator=request.user).exists():
+                exam = Exam(creator=request.user)
+                exam.save()
+                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam)
+                exam_question.save()
+                count = 1
+            elif Exam.objects.filter(is_submit=False).exists():
+                exam = Exam.objects.get(is_submit=False)
+                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam)
+                exam_question.save()
+                count = ExamQuestion.objects.filter(exam=exam).count()
+            return JsonResponse({"value": "success", "type": "add", "count": count})
+        # if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0 or QuestionPack.objects.filter(
+        #         teacher=request.user.teacher).last().submit:
+        #     question_pack = QuestionPack(teacher=teacher)
+        #     question_pack.save()
+        #     question_pack.questions.add(Question.objects.get(id=pk))
+        #     pack_pk = question_pack.id
+        #     count = question_pack.questions.count()
+        # return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
+        # else:
+        #     question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
+        #     question_pack.questions.add(Question.objects.get(id=pk))
+        #     pack_pk = question_pack.id
+        #     count = question_pack.questions.count()
+        #     return JsonResponse({"value": "success", "type": "add", "pack_pk": pack_pk, "count": count})
         elif state == "remove":
-            if QuestionPack.objects.filter(teacher=request.user.teacher, submit=False).exists():
-                question_pack = QuestionPack.objects.get(teacher=request.user.teacher, submit=False)
-                question_pack.questions.remove(Question.objects.get(id=pk))
-                pack_pk = question_pack.id
-                count = question_pack.questions.count()
-                return JsonResponse({"value": "success", "type": "remove", "pack_pk": pack_pk, "count": count})
-        return JsonResponse({"value": "error"})
-    # elif request.method == "GET":
-    #     pack_pk = request.GET.get('pack_pk')
-    #     if QuestionPack.objects.filter(id=pack_pk).exists():
-    #         question_pack = QuestionPack.objects.get(id=pack_pk)
-    #         selected_questions = serializers.serialize("json", question_pack.questions.all())
-    #         return JsonResponse({"value": "success", "questions": selected_questions})
-    #     else:
-    #         return JsonResponse({"value": "forbidden access"})
+            if Exam.objects.filter(creator=request.user, is_submit=False).exists():
+                exam = Exam.objects.get(creator=request.user, is_submit=False)
+                ExamQuestion.objects.get(question_id=pk, exam=exam).delete()
+                count = ExamQuestion.objects.filter(exam=exam).count()
+                return JsonResponse({"value": "success", "type": "remove", "count": count})
+
+    return JsonResponse({"value": "error"})
+
+
+# elif request.method == "GET":
+#     pack_pk = request.GET.get('pack_pk')
+#     if QuestionPack.objects.filter(id=pack_pk).exists():
+#         question_pack = QuestionPack.objects.get(id=pack_pk)
+#         selected_questions = serializers.serialize("json", question_pack.questions.all())
+#         return JsonResponse({"value": "success", "questions": selected_questions})
+#     else:
+#         return JsonResponse({"value": "forbidden access"})
 
 
 def filter_page(request):
     if request.method == "POST":
+        filters = json.loads(request.POST.get("filters"))
+        my_questions = filters.get("my_questions")
+        level = filters.get("level")
         if request.POST.get("requestType") == "pagination":
             unit = int(request.POST.get('unit'))
             page = int(request.POST.get('page'))
             start = (page - 1) * unit
             end = unit * page
-            new_questions = serializers.serialize("json", Question.objects.filter(
-                Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[start:end])
+            new_questions = Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True))
+            if my_questions:
+                new_questions = new_questions.filter(author=request.user.teacher)
+            if level:
+                new_questions = new_questions.filter(level=level)
+            new_questions = serializers.serialize("json", new_questions.order_by('-pk')[start:end])
             # checked = list(QuestionPack.objects.get(submit=False).questions.all().values_list("id", flat=True))
             count = Question.objects.filter(author=request.user.teacher).count()
             return JsonResponse({"value": "success", "questions": new_questions, "count": count})
-        elif request.POST.get("requestType") == "my_questions":
+        elif request.POST.get("requestType") == "filter":
             unit = int(request.POST.get('unit'))
             page = 1
             start = (page - 1) * unit
             end = unit * page
-            new_questions = serializers.serialize("json",
-                                                  Question.objects.filter(author=request.user.teacher)
-                                                  .order_by('-pk')[start:end])
+            new_questions = Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True))
+            if my_questions:
+                new_questions = new_questions.filter(author=request.user.teacher)
+            if level:
+                new_questions = new_questions.filter(level=level)
             checked = 1
-            count = Question.objects.filter(author=request.user.teacher).count()
+            count = new_questions.count()
+            new_questions = serializers.serialize("json", new_questions.order_by('-pk')[start:end])
             return JsonResponse({"value": "success", "questions": new_questions, "checked": checked, "count": count})
     else:
         return JsonResponse({"value": "forbidden access"})
@@ -200,35 +236,49 @@ def filter_page(request):
 
 def edit_question(request):
     user = commonData(request)
-    if QuestionPack.objects.filter(teacher=request.user.teacher).count() == 0:
+    if not Exam.objects.filter(creator=request.user, is_submit=False).exists():
         messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
         return HttpResponseRedirect(reverse("teacher:questions"))
     else:
-        if QuestionPack.objects.filter(teacher=request.user.teacher).last().submit:
-            messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
-            return HttpResponseRedirect(reverse("teacher:questions"))
-        else:
-            selected_questions = QuestionPack.objects.filter(teacher=request.user.teacher).last().questions.all()
-            pack_pk = QuestionPack.objects.filter(teacher=request.user.teacher).last().id
-            return render(request, 'teacher/pre_submit_exam.html',
-                          {"user": user, "questions": selected_questions, "pack_pk": pack_pk})
+        exam = Exam.objects.get(creator=request.user, is_submit=False)
+        exam.is_edit = True
+        exam.save()
+        exam_questions = ExamQuestion.objects.filter(exam=exam).all().order_by("position")
+        selected_questions = list(q.question for q in exam_questions)
+        return render(request, 'teacher/pre_submit_exam.html',
+                      {"user": user, "questions": selected_questions, "exam_info": ""})
+
+
+def edit_submit_question(request, pk):
+    user = commonData(request)
+    exam = Exam.objects.get(creator=request.user, is_submit=True, id=pk)
+    exam.is_edit = True
+    exam.save()
+    exam_questions = ExamQuestion.objects.filter(exam=exam).all().order_by("position")
+    selected_questions = list(q.question for q in exam_questions)
+    exam_info = {
+        'name': exam.name,
+        'suggested_time': exam.suggested_time,
+        'info': exam.info
+    }
+    return render(request, 'teacher/pre_submit_exam.html',
+                  {"user": user, "questions": selected_questions, "exam_info": exam_info})
 
 
 def save_edit_question(request):
     name = request.POST.get('name')
-    second = request.POST.get('second')
-    minute = request.POST.get('minute')
-    hour = request.POST.get('hour')
+    second = int(request.POST.get('second'))
+    minute = int(request.POST.get('minute'))
+    hour = int(request.POST.get('hour'))
+    seconds = second + 60 * minute + 3600 * hour
     more_info = request.POST.get('more_info')
-    pack_pk = request.POST.get('pack_pk')
-    question_pack = QuestionPack.objects.get(submit=False, id=pack_pk)
-    question_pack.name = name
-    question_pack.second = second
-    question_pack.minute = minute
-    question_pack.hour = hour
-    question_pack.info = more_info
-    question_pack.submit = True
-    question_pack.save()
+    exam = Exam.objects.get(is_edit=True, creator=request.user)
+    exam.name = name
+    exam.suggested_time = str(datetime.timedelta(seconds=seconds))
+    exam.info = more_info
+    exam.is_submit = True
+    exam.is_edit = False
+    exam.save()
     return HttpResponseRedirect(reverse('teacher:examManagement'))
 
 
@@ -243,13 +293,18 @@ def classRoom(request):
 
 
 def examManagement(request):
-    user = commonData(request)
-    question_packs = QuestionPack.objects.filter(submit=True).all()
-    return render(request, 'teacher/manage_exam.html', {'user': user, 'packs': question_packs})
+    if Exam.objects.filter(creator=request.user, is_edit=True).exists():
+        messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
+        exam_pk = Exam.objects.get(creator=request.user, is_edit=True).id
+        return HttpResponseRedirect(reverse("teacher:edit_exam", kwargs={'pk': exam_pk}))
+    else:
+        user = commonData(request)
+        exams = Exam.objects.filter(is_submit=True).all()
+        return render(request, 'teacher/manage_exam.html', {'user': user, 'exams': exams})
 
 
 def report(request):
     user = commonData(request)
     reports_list = Report.objects.filter(teacher=request.user.teacher).all().order_by("-date_time")
     attachment = ReportAttach.objects.all()
-    return render(request, 'teacher/report.html', {'user': user ,'reports': reports_list})
+    return render(request, 'teacher/report.html', {'user': user, 'reports': reports_list})
