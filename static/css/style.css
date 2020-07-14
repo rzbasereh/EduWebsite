@@ -684,7 +684,7 @@ font-weight: bold;
 }
 .event {
     position: relative;
-    background-color: #1890ff;
+    background-color: #FF3D57;
     top: -1px;
     display: inline-block;
     width: 6px;
@@ -693,20 +693,18 @@ font-weight: bold;
     border-radius: 50%;
 }
 @keyframes event-move {
-    from {}
-    to {}
+    from {width: 6px;height: 6px;}
+    to {width: 15px;height: 15px;}
 }
 .event:after {
     position: absolute;
+    border-radius: 50%;
+    -webkit-animation: event-move 2s infinite ease-in-out;
+    animation: event-move 2s infinite ease-in-out;
+    content: '';
+background-color: #FF3D5770;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #1890ff;
-    border-radius: 50%;
-    -webkit-animation: event-move 1.2s infinite ease-in-out;
-    animation: event-move 1.2s infinite ease-in-out;
-    content: '';
 }
 
 .userImg {
