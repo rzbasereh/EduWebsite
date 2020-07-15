@@ -40,30 +40,33 @@
                         {% csrf_token %}
                         <input name="pack_pk" value="{{ pack_pk }}" hidden>
                         <div class="input-group mb-3">
-                            <label for="examSubject">عنوان سوال</label>
+                            <label for="examSubject">عنوان آزمون</label>
                             <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
                                    aria-describedby="basic-addon1" name="name" value="{{ exam_info.name }}">
                         </div>
                         <div class="suggested-time">
                             <h4>زمان پیشنهادی</h4>
                             <div>
-                                <input type="number" id="second" min="0" max="59" placeholder="ثانیه" name="second" value="{{ exam_info.suggested_time.second }}">
+                                <input type="number" id="second" min="0" max="59" placeholder="ثانیه" name="second"
+                                       value="{{ exam_info.suggested_time.second }}">
                                 <span> : </span>
-                                <input type="number" id="minute" min="0" max="59" placeholder="دقیقه" name="minute" value="{{ exam_info.suggested_time.minute }}">
+                                <input type="number" id="minute" min="0" max="59" placeholder="دقیقه" name="minute"
+                                       value="{{ exam_info.suggested_time.minute }}">
                                 <span> : </span>
-                                <input type="number" id="hour" min="0" max="4" placeholder="ساعت" name="hour" value="{{ exam_info.suggested_time.hour }}">
+                                <input type="number" id="hour" min="0" max="4" placeholder="ساعت" name="hour"
+                                       value="{{ exam_info.suggested_time.hour }}">
                             </div>
                         </div>
                         <div>
                             <label for="examExplanation">توضیحات آزمون</label>
                             <textarea id="examExplanation" rows="5" name="more_info">{{ exam_info.info }}</textarea>
                         </div>
-                        <div class="row toggle-switch">
-                            <span>گزینه ی تصادفی</span>
-                            <label class="switch">
-                                <input type="checkbox" name="is_publish">
-                                <span class="slider round"></span>
-                            </label>
+                        <div class="row">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="publishSwitch"
+                                       name="is_publish" value="on" {% if exam_info.is_publish %}checked{% endif %}>
+                                <label class="custom-control-label" for="publishSwitch">انتشار همگانی</label>
+                            </div>
                         </div>
                         <input type="submit" class="btn btn-blue" value="ثبت نهایی">
                     </form>
@@ -204,7 +207,9 @@
                                aria-describedby="basic-addon1">
                         <span class="ti-search"></span>
                     </div>
-                    <a href="{% url 'teacher:questions' %}">
+                    <a href="
+
+                            {% if exam_info.state == "submitted" %}{% url 'teacher:add_to_edit' exam_info.pk %}{% else %}{% url 'teacher:questions' %}{% endif %}">
                         <div class="plus-question">
                             <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -298,11 +303,11 @@
                                         </div>
                                         <div class="question-info-img">
                                             <img src="{% static 'main/img/'|add:question.source|add:'.png' %}"
-                                                 alt="question source" >
+                                                 alt="question source">
                                         </div>
                                         <span>98-99</span>
                                     </div>
-                                    <button type="button" data-url="{% url 'teacher:selectedQuestion' %}" class="close" >
+                                    <button type="button" data-url="{% url 'teacher:selectedQuestion_edit' exam_info.pk %}" class="close">
                                         <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -314,7 +319,7 @@
                                                   clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
-                                    <div class="question-text" >
+                                    <div class="question-text">
                                         {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
@@ -373,7 +378,7 @@
                 </div>
                 <input type="submit" class="btn btn-blue" value="تایید سوال" data-toggle="modal"
                        data-target="#examInfo">
-            <input type="button" class="btn btn-blue" value="لغو ویرایش">
+                <input type="button" class="btn btn-blue" value="لغو ویرایش">
             </div>
         </div>
     </div>

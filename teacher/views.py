@@ -18,6 +18,10 @@ def commonData(request):
     message = Message.objects.filter(user=request.user)
     has_notification = Notification.objects.filter(user=request.user, is_seen=False).exists()
     notification = Notification.objects.filter(user=request.user, is_seen=False)
+    is_add_to_edit = Exam.objects.filter(creator=request.user, is_submit=True, is_edit=True, is_add=True).exists()
+    edited_pk = -1
+    if is_add_to_edit:
+        edited_pk = Exam.objects.get(creator=request.user, is_submit=True, is_edit=True, is_add=True)
     user = {
         'full_name': full_name,
         'avatar': avatar,
@@ -25,6 +29,8 @@ def commonData(request):
         'message': message,
         'has_notification': has_notification,
         'notification': notification,
+        'is_add_to_edit': is_add_to_edit,
+        'edited_pk': edited_pk
     }
     return user
 
@@ -47,13 +53,8 @@ def questions(request):
         }
         grade = Grade.objects.last().source
         selected_question = []
-        if Exam.objects.filter(creator=request.user).exists():
-            if Exam.objects.filter(creator=request.user, is_add=True).exists():
-                exam = Exam.objects.filter(creator=request.user, is_add=True).first()
-                exam_questions = ExamQuestion.objects.filter(exam=exam).all()
-                for q in exam_questions:
-                    selected_question.append(q.question.id)
-            elif Exam.objects.filter(creator=request.user, is_submit=False).exists():
+        if Exam.objects.filter(creator=request.user, is_publish=True).exists():
+            if Exam.objects.filter(creator=request.user, is_publish=True, is_submit=False).exists():
                 exam = Exam.objects.get(creator=request.user, is_submit=False)
                 exam_questions = ExamQuestion.objects.filter(exam=exam).all()
                 for q in exam_questions:
@@ -154,12 +155,12 @@ def selectedQuestion(request):
             if not Exam.objects.filter(creator=request.user).exists():
                 exam = Exam(creator=request.user)
                 exam.save()
-                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam)
+                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam, stat="submit")
                 exam_question.save()
                 count = 1
             elif Exam.objects.filter(is_submit=False).exists():
                 exam = Exam.objects.get(is_submit=False)
-                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam)
+                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam, state="submit")
                 exam_question.save()
                 count = ExamQuestion.objects.filter(exam=exam).count()
             return JsonResponse({"value": "success", "type": "add", "count": count})
@@ -195,6 +196,27 @@ def selectedQuestion(request):
 #         return JsonResponse({"value": "success", "questions": selected_questions})
 #     else:
 #         return JsonResponse({"value": "forbidden access"})
+def edit_selected_question(request, pk):
+    if request.method == "POST":
+        q_pk = request.POST.get('pk')
+        state = request.POST.get('state')
+        count = 0
+        if state == "add":
+            if Exam.objects.filter(creator=request.user, is_edit=True, is_add=True, is_submit=True, id=pk).exists():
+                exam = Exam.objects.get(creator=request.user, is_edit=True, is_add=True, is_submit=True, id=pk)
+                exam_question = ExamQuestion(question=Question.objects.get(id=q_pk), exam=exam, state="add")
+                exam_question.save()
+                count = ExamQuestion.objects.filter(exam=exam).filter(Q(state="add") | Q(state="submit")).count()
+            return JsonResponse({"value": "success", "type": "add", "count": count})
+        elif state == "remove":
+            if Exam.objects.filter(creator=request.user, is_edit=True, is_submit=True, id=pk).exists():
+                exam = Exam.objects.get(creator=request.user, is_edit=True, is_submit=True, id=pk)
+                exam_question = ExamQuestion.objects.get(question_id=q_pk, exam=exam)
+                exam_question.state = "del"
+                exam_question.save()
+                count = ExamQuestion.objects.filter(exam=exam).filter(Q(state="add") | Q(state="submit")).count()
+                return JsonResponse({"value": "success", "type": "remove", "count": count})
+    return JsonResponse({"value": "error"})
 
 
 def filter_page(request):
@@ -253,16 +275,44 @@ def edit_submit_question(request, pk):
     user = commonData(request)
     exam = Exam.objects.get(creator=request.user, is_submit=True, id=pk)
     exam.is_edit = True
+    exam.is_add = False
     exam.save()
-    exam_questions = ExamQuestion.objects.filter(exam=exam).all().order_by("position")
+    exam_questions = ExamQuestion.objects.filter(exam=exam).filter(Q(state="add") | Q(state="submit")).all(). \
+        order_by("position")
     selected_questions = list(q.question for q in exam_questions)
     exam_info = {
+        'state': "submitted",
+        'pk': exam.id,
         'name': exam.name,
         'suggested_time': exam.suggested_time,
-        'info': exam.info
+        'info': exam.info,
+        'is_publish': exam.is_publish
     }
     return render(request, 'teacher/pre_submit_exam.html',
                   {"user": user, "questions": selected_questions, "exam_info": exam_info})
+
+
+def add_to_edit(request, pk):
+    user = commonData(request)
+    exam = Exam.objects.get(creator=request.user, is_submit=True, is_edit=True, id=pk)
+    exam.is_add = True
+    exam.save()
+    questions_data = {
+        'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
+        'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
+    }
+    grade = Grade.objects.last().source
+    selected_question = []
+    exam_questions = ExamQuestion.objects.filter(exam=exam).all()
+    for q in exam_questions:
+        selected_question.append(q.question.id)
+    exam_info = {
+        'state': "submitted",
+        'pk': exam.id
+    }
+    return render(request, 'teacher/questions.html',
+                  {'user': user, 'questions': questions_data, 'selected_question': selected_question,
+                   'grade': grade, 'exam_info': exam_info})
 
 
 def save_edit_question(request):
@@ -272,13 +322,31 @@ def save_edit_question(request):
     hour = int(request.POST.get('hour'))
     seconds = second + 60 * minute + 3600 * hour
     more_info = request.POST.get('more_info')
+    is_publish = request.POST.get('is_publish') == "on"
     exam = Exam.objects.get(is_edit=True, creator=request.user)
     exam.name = name
     exam.suggested_time = str(datetime.timedelta(seconds=seconds))
     exam.info = more_info
     exam.is_submit = True
     exam.is_edit = False
+    exam.is_publish = is_publish
     exam.save()
+    added_questions = ExamQuestion.objects.filter(exam=exam, state="add").all()
+    for add_q in added_questions:
+        add_q.state = "submit"
+        add_q.save()
+    deleted_questions = ExamQuestion.objects.filter(exam=exam, state="del").all()
+    for del_q in deleted_questions:
+        del_q.delete()
+    return HttpResponseRedirect(reverse('teacher:examManagement'))
+
+
+def cancel_edit_question(request):
+    exam.is_edit = False
+    exam.save()
+    changed_questions = ExamQuestion.objects.filter(exam=exam).filter(Q(state="add") | Q(state="del")).all()
+    for chng_q in changed_questions:
+        chng_q.delete()
     return HttpResponseRedirect(reverse('teacher:examManagement'))
 
 
@@ -289,13 +357,17 @@ def delete_exam(request, pack_pk):
 
 def classRoom(request):
     user = commonData(request)
-    return render(request, 'teacher/class_room.html', {'user': user})
+    class_rooms = ClassRoom.objects.filter(teacher=request.user.teacher).all()
+    return render(request, 'teacher/class_room.html', {'user': user, "classes": class_rooms})
 
 
 def examManagement(request):
-    if Exam.objects.filter(creator=request.user, is_edit=True).exists():
+    if Exam.objects.filter(creator=request.user, is_edit=True, is_submit=True).exists():
         messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
-        exam_pk = Exam.objects.get(creator=request.user, is_edit=True).id
+        exam = Exam.objects.get(creator=request.user, is_edit=True, is_submit=True)
+        exam.is_add = False
+        exam.save()
+        exam_pk = exam.id
         return HttpResponseRedirect(reverse("teacher:edit_exam", kwargs={'pk': exam_pk}))
     else:
         user = commonData(request)
