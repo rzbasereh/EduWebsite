@@ -1,0 +1,280 @@
+@font-face {
+    font-family: IRANSans;
+    src: url("../../../../static/fonts/IRANSans(FaNum).ttf") format("truetype");
+}
+
+body, html {
+    background-color: #F8FAFB;
+    font-family: IRANSans, serif !important;
+}
+
+/* Buttons*/
+.btn {
+    font-size: 14px;
+    min-width: 85px;
+    padding: 7px 22px 8px;
+}
+
+.btn.white-bg {
+    box-shadow: none !important;
+}
+
+.btn.white-bg:hover {
+    box-shadow: none !important;
+}
+
+.btn-primary {
+    color: #FFFFFF;
+    background-color: #007BFF;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+
+.btn-primary:hover {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}
+
+.btn-primary:focus {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}
+
+.btn-success {
+    color: #FFFFFF;
+    background-color: #28A745;
+    box-shadow: 0 5px 10px #28A74516, 0 15px 40px #28A74516;
+}
+
+.btn-success:hover {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #28A74590;
+}
+
+.btn-success:focus {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #28A74590;
+}
+
+.btn-danger {
+    color: #FFFFFF;
+    background-color: #DC3545;
+    box-shadow: 0 5px 10px #DC354516, 0 15px 40px #DC354516;
+}
+
+.btn-danger:hover {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #DC354590;
+}
+
+.btn-danger:focus {
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 #DC354590;
+}
+
+.btn-warning {
+    color: #272529;
+    background-color: #FFC107;
+    box-shadow: 0 5px 10px #FFC10716, 0 15px 40px #FFC10716;
+}
+
+.btn-warning:hover {
+    color: #272529;
+    box-shadow: 0 2px 8px 0 #FFC10790;
+}
+
+.btn-warning:focus {
+    color: #272529;
+    box-shadow: 0 2px 8px 0 #FFC10790;
+}
+
+.btn-link {
+    color: #007BFF;
+}
+
+.btn-link:hover {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.btn-link:focus {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+/* End Buttons */
+
+
+/* Inputs */
+
+.input-group {
+    direction: rtl;
+}
+
+input[type="text"].form-control,
+select.custom-select,
+select.form-control {
+    display: block;
+    height: 41px;
+    padding: 8px 15px;
+    font-size: 14px;
+    line-height: 2;
+    font-weight: 500;
+    color: #44566C;
+    background-color: #F8FAFB;
+    background-clip: padding-box;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    direction: rtl;
+}
+
+.input-group input[type="text"].form-control,
+.input-group select.custom-select,
+.input-group select.form-control {
+    padding-right: 0;
+}
+
+.input-group.white-bg input[type="text"].form-control,
+.input-group.white-bg select.custom-select,
+.input-group.white-bg select.form-control {
+    background-color: #ffffff;
+}
+
+.input-group.white-bg,
+select.white-bg {
+    background-color: #ffffff;
+    box-shadow: 0 5px 25px rgba(94, 100, 114, .13);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.form-control:focus,
+.custom-select:focus {
+    color: inherit;
+    background-color: inherit;
+    border-color: transparent;
+    outline: 0;
+    /*box-shadow: 0 0 10px 0 rgba(183, 192, 206, .2);*/
+    box-shadow: none;
+}
+
+.input-group input[type="text"].form-control.prepend-input,
+.input-group select.custom-select.prepend-select {
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group-prepend {
+    margin-right: 0;
+    margin-left: -1px;
+}
+
+.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .input-group-text:not(:last-child),
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text {
+    border-radius: 0 5px 5px 0;
+
+}
+
+.input-group-text {
+    color: #44566C;
+    background-color: #F8FAFB;
+    border: none;
+    padding: .2rem 15px 0.2rem 0.5rem;
+}
+
+.input-group.white-bg .input-group-text {
+    background-color: #ffffff;
+}
+
+label {
+    color: #B3C0CE;
+}
+
+.form-group.white-bg label,
+.input-group.white-bg label {
+    color: #8697A8;
+}
+
+.custom-select {
+    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat left .75rem center/8px 10px;
+}
+
+/* End Input */
+
+/* Button Group */
+.radio-group.inline .form-check > input[type="radio"] {
+    display: none;
+}
+
+.radio-group.inline {
+    direction: rtl;
+    background-color: #ffffff;
+    box-shadow: 0 5px 25px rgba(94, 100, 114, .13);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.radio-group.inline.white-bg {
+    background-color: #F8FAFB;
+    box-shadow: none;
+}
+
+.radio-group.inline .form-check {
+    padding-left: 0;
+    display: inline-flex;
+    margin: 5px;
+}
+
+.radio-group.inline .form-check > input[type="radio"] + label {
+    color: #343A40;
+    font-size: 14px;
+    min-width: 60px;
+    text-align: center;
+    padding: 5px 0;
+    -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -moz-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -o-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.radio-group.inline .form-check > input[type="radio"] + label:hover {
+    cursor: pointer;
+}
+
+.radio-group.inline .form-check > input[type="radio"]:checked + label {
+    background-color: #007BFF;
+    color: #fff;
+    -webkit-border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    border-radius: 0.25em;
+    text-align: center;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+
+.radio-group.inline .form-check > input[type="radio"] + label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 1px;
+    height: 100%;
+    background-color: #B0BBC630;
+}
+
+.radio-group.inline .form-check:last-child > input[type="radio"] + label:after {
+    display: none;
+}
+
+/* End Button Group */
