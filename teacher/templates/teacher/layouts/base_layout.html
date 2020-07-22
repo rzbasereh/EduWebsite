@@ -78,7 +78,7 @@
         <span class=" dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
             {% if  user.has_notification %}
-                <span class="event"></span>
+                <span class="ripple" style="animation-delay: 0s"></span>
             {% endif %}
             <i class='far fa-bell'></i></span>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -149,22 +149,6 @@
             <span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span>
         </a>
 
-        {#        <a#}
-        {#                href="#"#}
-        {#                data-toggle="tooltip"#}
-        {#                data-placement="left"#}
-        {#                title="<p class='tool'>برنامه درسی</p>"#}
-        {#        >#}
-        {#            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar" fill="currentColor"#}
-        {#                 xmlns="http://www.w3.org/2000/svg">#}
-        {#                <path fill-rule="evenodd"#}
-        {#                      d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"></path>#}
-        {#                <path fill-rule="evenodd"#}
-        {#                      d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"></path>#}
-        {#            </svg>#}
-        {#            <span class="{% block remove-text2 %}{% endblock %}"> برنامه درسی</span>#}
-        {#        </a>#}
-
         {% url 'teacher:examManagement' as exam %}
         <a
                 href="{% url 'teacher:examManagement' %}"
@@ -182,7 +166,7 @@
                 <path fill-rule="evenodd"
                       d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z"></path>
             </svg>
-            <span class="{% block remove-text3 %}{% endblock %}">مدیریت آزمون</span>
+            <span class="{% block remove-text2 %}{% endblock %}">مدیریت آزمون</span>
         </a>
 
         {% url 'teacher:questions' as question_bank %}
@@ -202,7 +186,7 @@
                 <path fill-rule="evenodd"
                       d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"></path>
             </svg>
-            <span class="{% block remove-text4 %}{% endblock %}">بانک سوال</span>
+            <span class="{% block remove-text3 %}{% endblock %}">بانک سوال</span>
         </a>
         {% url 'teacher:report' as report %}
         <a
@@ -220,7 +204,7 @@
                       d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v6.086a1.5 1.5 0 0 1-.44 1.06l-4.914 4.915a1.5 1.5 0 0 1-1.06.439H2.5A1.5 1.5 0 0 1 1 13.5v-11zM2.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h6.086a.5.5 0 0 0 .353-.146l4.915-4.915A.5.5 0 0 0 14 8.586V2.5a.5.5 0 0 0-.5-.5h-11z"></path>
                 <path fill-rule="evenodd" d="M9.5 9a.5.5 0 0 0-.5.5v5H8v-5A1.5 1.5 0 0 1 9.5 8h5v1h-5z"></path>
             </svg>
-            <span class="{% block remove-text6 %}{% endblock %}">گزارش </span>
+            <span class="{% block remove-text4 %}{% endblock %}">گزارش </span>
         </a>
         <a
                 href="#"

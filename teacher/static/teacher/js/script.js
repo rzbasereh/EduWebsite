@@ -7,6 +7,8 @@ $(document).ready(function () {
     $(".arrow-down-up").attr("data-toggle", "tooltip");
 
 
+    $('.collapse').collapse();
+
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
@@ -335,7 +337,6 @@ $(document).ready(function () {
     });
 
     $(".manage-buttons span").click(function () {
-        console.log($("svg", this).hasClass("bi-play-fill"));
         if ($("svg", this).hasClass("bi-play-fill")) {
             $(this).attr("data-original-title", "<p class='tool'>متوقف کردن آزمون</p>");
             $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -343,14 +344,27 @@ $(document).ready(function () {
                           </svg>`);
 
         } else {
-            $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" 
+                                        xmlns="http://www.w3.org/2000/svg" data-toggle="modal" 
+                                        data-target="#exampleModal">
                                  <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                           </svg>`);
             $(this).attr("data-original-title", "<p class='tool'>اجرای ازمون</p>");
-
         }
     });
 
+
+    $('.manage-exam #yes').click(function () {
+        $(this).closest('#manage-examInfo').css('display', 'none');
+    });
+
+    $('.manage-exam-info > .btn').click(function () {
+        if ($(this).hasClass('collapsed')) {
+            $(this).css('transform','rotate(-90deg)');
+        } else if (!$(this).hasClass('collapsed')) {
+            $(this).css('transform','rotate(0deg)');
+        }
+    });
 
     let csrf_token = getCookie('csrftoken');
     $.ajaxSetup({

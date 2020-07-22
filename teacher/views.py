@@ -35,6 +35,9 @@ def index(request):
 
 
 def questions(request):
+    # for i in range(50):
+    #     m = Question(author=request.user.teacher, body=i)
+    #     m.save()
     if Exam.objects.filter(creator=request.user, is_submit=True, is_edit=True, is_add=False).exists():
         messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
         exam_pk = Exam.objects.get(creator=request.user, is_submit=True, is_edit=True, is_add=False).id
