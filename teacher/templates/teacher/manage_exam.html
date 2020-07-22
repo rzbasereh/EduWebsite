@@ -41,6 +41,27 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="selectDestination" tabindex="-1" role="dialog" aria-labelledby="selectDestinationLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selectDestinationLabel">ارسال برای </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-primary" id="sentToManager">ارسال برای مدیر</button>
+                    <button type="button" class="btn btn-secondary" id="startExam">برگزاری</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="manage-exam">
         <h1>مدیریت آزمون</h1>
         <div class="path">
@@ -121,7 +142,7 @@
                                         fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg"
                                         data-toggle="modal"
-                                        data-target="#exampleModal"
+                                        data-target="#selectDestination"
                                 >
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>
                                 </svg>
@@ -153,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ،
@@ -169,27 +190,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% include 'teacher/layouts/alert-modals.html'%}
+{#                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"#}
+{#                         aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#                        <div class="modal-dialog modal-dialog-centered">#}
+{#                            <div class="modal-content">#}
+{#                                <div class="modal-header">#}
+{#                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
+{#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                                        <span aria-hidden="true">&times;</span>#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                                <div class="modal-body">#}
+{#                                    ...#}
+{#                                </div>#}
+{#                                <div class="modal-footer">#}
+{#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#                                    <button type="button" class="btn btn-primary">Save changes</button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
                 {% endfor %}
             </div>
         </div>
