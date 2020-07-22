@@ -2995,11 +2995,11 @@ ul.pagination {
     box-shadow: unset;
 }
 
-#examInfo .input-group {
+.modal .input-group {
     display: block;
 }
 
-#examInfo input[type='text'] {
+.modal input[type='text'] {
     background-color: #F8FAFB;
     box-shadow: unset;
     padding: .375rem .75rem;

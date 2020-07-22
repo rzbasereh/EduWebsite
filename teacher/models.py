@@ -47,6 +47,12 @@ class Question(models.Model):
     choice_3 = models.CharField(max_length=1000, blank=True, null=True)
     choice_4 = models.CharField(max_length=1000, blank=True, null=True)
     choice_5 = models.CharField(max_length=1000, blank=True, null=True)
+    LAYOUT = (
+        ('horizontal', "افقی"),
+        ('vertical', "عمودی"),
+        ('2in2', "دو در دو")
+    )
+    choice_layout = models.CharField(choices=LAYOUT, max_length=10, default="horizontal")
     correct_ans = models.CharField(max_length=1, blank=True, null=True)
     verbose_ans = models.TextField(null=True, blank=True)
     grades = models.CharField(max_length=1000, blank=True, null=True)
@@ -116,6 +122,12 @@ class QuestionPack(models.Model):
 class ExamQuestion(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    STATE = (
+        ('del', "حذف شده"),
+        ('add', 'اضافه شده'),
+        ('submit', "ثبت شده")
+    )
+    state = models.CharField(choices=STATE, max_length=6, default="add")
     position = models.IntegerField(max_length=1000, default=0)
 
     def __str__(self):
