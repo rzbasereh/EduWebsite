@@ -7,8 +7,6 @@ $(document).ready(function () {
     $(".arrow-down-up").attr("data-toggle", "tooltip");
 
 
-    $('.collapse').collapse();
-
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
@@ -29,9 +27,9 @@ $(document).ready(function () {
         } else {
             $('.sidebar a:first-child').attr('data-original-title', "<p class=\'tool\'>داشبورد</p>");
             $('.sidebar a:nth-child(2)').attr('data-original-title', "<p class=\'tool\'>کلاس ها</p>");
-            $('.sidebar a:nth-child(3)').attr('data-original-title', "<p class=\'tool\'>برنامه درسی</p>");
-            $('.sidebar a:nth-child(4)').attr('data-original-title', "<p class=\'tool\'>مدیریت آزمون</p>");
-            $('.sidebar a:nth-child(5)').attr('data-original-title', "<p class=\'tool\'>بانک سوال</p>");
+            $('.sidebar a:nth-child(3)').attr('data-original-title', "<p class=\'tool\'>مدیریت آزمون</p>");
+            $('.sidebar a:nth-child(4)').attr('data-original-title', "<p class=\'tool\'>بانک سوال</p>");
+            $('.sidebar a:nth-child(5)').attr('data-original-title', "<p class=\'tool\'>گزارش</p>");
             $('.sidebar a:last-child').attr('data-original-title', "<p class=\'tool\'>گفتگو</p>");
         }
     });
@@ -342,6 +340,7 @@ $(document).ready(function () {
             $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                           </svg>`);
+            $('#ExamRun').tooltip('hide');
             // $("#executeExam").modal();
 
         } else {
@@ -361,10 +360,35 @@ $(document).ready(function () {
 
     $('.manage-exam-info > .btn').click(function () {
         if ($(this).hasClass('collapsed')) {
-            $(this).css('transform','rotate(-90deg)');
+            $(this).css('transform', 'rotate(-90deg)');
         } else if (!$(this).hasClass('collapsed')) {
-            $(this).css('transform','rotate(0deg)');
+            $(this).css('transform', 'rotate(0deg)');
         }
+    });
+
+    $("button[data-target='#selectDestination']").click(function () {
+        let EID = $(this).attr("id");
+        console.log(EID);
+        $('#ERun').find("input[name='EID']").attr('value', EID);
+    });
+    $("#startExam").click(function () {
+        $('#selectDestination').modal('hide');
+        $('#ERun').modal('show');
+    });
+
+    $('#ERunTimeSelection').bootstrapMaterialDatePicker({date: false});
+    $('#ERunStartTimeShowed').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY HH:mm',
+        weekStart: 1,
+        nowButton: true,
+        minDate: new Date()
+    });
+    $('#ERunEndExam').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', weekStart: 0});
+    $('#ERunStartTime').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY HH:mm',
+        weekStart: 0
+    }).on('change', function (e, date) {
+        $('#ERunEndExam').bootstrapMaterialDatePicker('setMinDate', date);
     });
 
     let csrf_token = getCookie('csrftoken');
