@@ -1,67 +1,148 @@
 {% extends 'teacher/layouts/base_layout.html' %}
+{% load static %}
 {% block title %}مدیریت آزمون{% endblock %}
 {% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script type="text/javascript"
+            src="https://unpkg.com/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js.map"></script>
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
 {% block content %}
-    <div class="modal fade" id="executeExam" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal fade" id="ERun" tabindex="-1" role="dialog" aria-labelledby="ERunLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">جزییات برگزاری آزمون</h5>
+                    <h5 class="modal-title" id="ERunLabel">جزییات برگزاری</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
-                                  clip-rule="evenodd"></path>
-                            <path fill-rule="evenodd"
-                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
+                        <span aria-hidden="true">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                            </svg>
+                        </span>
                     </button>
                 </div>
-                <form method="post" action="" id="">
-                    <div class="modal-body text-right">
-                        <div class="input-group mb-3">
-                            <label for="examSubject">عنوان آزمون</label>
-                            <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
-                                   aria-describedby="basic-addon1" name="name">
+                <form id="start_exam_form_ajax" method="post">
+                    {% csrf_token %}
+                    <label>
+                        <input type="text" name="EID" hidden>
+                    </label>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="ERunSubject">عنوان</label>
+                            <input type="text" class="form-control" id="ERunSubject" name="name">
                         </div>
-                        <div class="input-group mb-3">
-                            <label for="examSubject">نحوه برگزاری</label>
-                            <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
-                                   aria-describedby="basic-addon1" name="name">
+                        <div class="form-group">
+                            <label for="ERunClassSelection">انتخاب کلاس</label>
+                            <input type="text" class="form-control" id="ERunClassSelection" name="class_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ERunUserSelection">انتخاب کاربر مازاد</label>
+                            <input type="text" class="form-control" id="ERunUserSelection" name="add_on">
+                        </div>
+                        <div class="form-group">
+                            <label for="ERunTimeSelection">مدت آزمون</label>
+                            <input type="text" class="form-control" id="ERunTimeSelection" name="time">
+                        </div>
+                        <div class="custom-control custom-switch E-run-float-exam-switch">
+                            <input type="checkbox" class="custom-control-input" id="ERunFloatExamSwitch"
+                                   data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false"
+                                   aria-controls="ERunMultiCollapse ERunMultiCollapseShowed" name="is_float">
+                            <label class="custom-control-label" for="ERunFloatExamSwitch">آزمون شناور</label>
+                        </div>
+                        <div class="collapse multi-collapse" id="ERunMultiCollapse">
+                            <div class="form-group">
+                                <label for="ERunStartTime">زمان شروع</label>
+                                <input type="text" class="form-control" id="ERunStartTime" name="float_start">
+                            </div>
+                            <div class="form-group">
+                                <label for="#ERunEndExam">زمان اتمام</label>
+                                <input type="text" class="form-control" id="#ERunEndExam" name="float_end">
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse show" id="ERunMultiCollapseShowed">
+                            <div class="form-group">
+                                <label for="ERunStartTimeShowed">زمان شروع</label>
+                                <input type="text" class="form-control" id="ERunStartTimeShowed" name="start">
+                            </div>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalQuestion"
+                                   name="random_questions">
+                            <label class="custom-control-label" for="ERunAccidentalQuestion">ترتیب تصادفی سوالات</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice" name="random_choice">
+                            <label class="custom-control-label" for="ERunAccidentalChoice">ترتیب تصادفی گزینه ها</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators" name="publish">
+                            <label class="custom-control-label" for="ERunShowToParticipators">نمایش برای شرکت کنندگان</label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-blue" data-url="{% url 'teacher:saveGrades' %}">
-                            شروع آزمون
-                        </button>
+                        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="selectDestination" tabindex="-1" role="dialog" aria-labelledby="selectDestinationLabel"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="selectDestinationLabel">ارسال برای </h5>
+                    <h5 class="modal-title" id="selectDestinationLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                            </svg>
+                        </span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button type="button" class="btn btn-primary" id="sentToManager">ارسال برای مدیر</button>
-                    <button type="button" class="btn btn-secondary" id="startExam">برگزاری</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="card" id="sentToManager">
+                        <i class="far fa-paper-plane"></i>
+                        <div class="card-body">
+                            <p class="card-text">
+                                ارسال برای مدیر
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card" id="startExam">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <div class="card-body">
+                            <p class="card-text">
+                                برگزاری
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {% include 'teacher/layouts/alert-modals.html' %}
     <div class="manage-exam">
         <h1>مدیریت آزمون</h1>
         <div class="path">
@@ -107,7 +188,7 @@
             <div class="manage-exam-info-cards w-100 row accordion" id="accordionExample">
                 {% for exam in exams %}
                     <div class="card w-100 row" id="manage-examInfo">
-                        <div class="card-header row" id="headingThree">
+                        <div class="card-header row not-run" id="headingThree">
                             <div class="manage-exam-info col-10">
                                 <button class="btn btn-link btn-block text-left collapsed" type="button"
                                         data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
@@ -121,16 +202,12 @@
                                 <span class="col-4 text-right">{{ exam.name }}</span>
                                 <span class="col-3">{{ exam.questions.count }}</span>
                                 <span class="col-3">
-                                    <svg class="bi bi-dot done" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                                    </svg>
-                                    <span>برگزار شده</span>
+                                    <span>برگزار نشده</span>
                                 </span>
                             </div>
                             <div class="manage-buttons col-2">
                             <span
+                                    id="ExamRun"
                                     data-toggle="tooltip"
                                     data-placement="top"
                                     title="<p class='tool'>اجرای آزمون</p>"
@@ -190,26 +267,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {#                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"#}
+                    {#                         aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+                    {#                        <div class="modal-dialog modal-dialog-centered">#}
+                    {#                            <div class="modal-content">#}
+                    {#                                <div class="modal-header">#}
+                    {#                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
+                    {#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+                    {#                                        <span aria-hidden="true">&times;</span>#}
+                    {#                                    </button>#}
+                    {#                                </div>#}
+                    {#                                <div class="modal-body">#}
+                    {#                                    ...#}
+                    {#                                </div>#}
+                    {#                                <div class="modal-footer">#}
+                    {#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+                    {#                                    <button type="button" class="btn btn-primary">Save changes</button>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                 {% endfor %}
             </div>
         </div>
