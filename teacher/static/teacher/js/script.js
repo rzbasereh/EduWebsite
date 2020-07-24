@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(".arrow-down-up").attr("data-toggle", "tooltip");
 
 
-    $('.collapse').collapse();
+    // $('.collapse').collapse();
 
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
