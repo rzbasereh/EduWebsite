@@ -2,9 +2,11 @@ import jdatetime
 import datetime
 from django.contrib.auth.models import User
 from main.models import Teacher, Student, Manager
+from manager.models import ManagerForm
 from django.db import models
 from django.utils.timezone import now, timedelta
 from django.utils.timezone import utc
+from finglish import f2p
 
 
 # Create your models here.
@@ -166,6 +168,7 @@ class ExamERun(models.Model):
 class Report(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     # className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
+    title = models.CharField(max_length=1000, null=True, blank=True)
     text = models.TextField()
     date_time = models.DateTimeField(default=now())
 
@@ -179,12 +182,77 @@ class Report(models.Model):
             month=self.date_time.month,
             year=self.date_time.year
         )
-        output = self.teacher.user.get_full_name() + " - " + date.strftime("%d %B %y")
+        output = self.teacher.user.get_full_name() + " - " + f2p(date.strftime("%d %B %y"))
         return output
 
     def get_teacher_avatar(self):
         avatar = TeacherForm.objects.get(user=self.teacher).avatar
         return avatar.url
+    
+    def get_time_diff(self):
+        now_time = datetime.datetime.utcnow().replace(tzinfo=utc)
+        time_diff = (now_time - self.date_time).total_seconds()
+        SECOND = 1
+        MINUTE = 60 * SECOND
+        HOUR = 60 * MINUTE
+        DAY = 24 * HOUR
+        MONTH = 30 * DAY
+
+        if time_diff < MINUTE:
+            return "لحظاتی قبل"
+        elif time_diff < 2 * MINUTE:
+            return "یک دقیقه قبل"
+        elif time_diff < 60 * MINUTE:
+            minute = int(time_diff / 60)
+            return str(minute) + " دقیقه قبل"
+        elif time_diff < 120 * MINUTE:
+            return "یک ساعت قبل"
+        elif time_diff < 24 * HOUR:
+            hour = int(time_diff / 3600)
+            return str(hour) + " ساعت قبل"
+        elif time_diff < 48 * HOUR:
+            return "دیروز"
+        elif time_diff < 30 * DAY:
+            day = int(time_diff / 86400)
+            return str(day) + " روز قبل"
+        elif time_diff < 12 * MONTH:
+            month = int(time_diff / 2592000)
+            if month == 1:
+                return "یک ماه قبل"
+            return str(month) + " ماه قبل"
+        else:
+            year = int(time_diff / (MONTH * 12))
+            if year == 1:
+                return "پارسال"
+            return str(year) + " سال قبل"
+
+
+class ReportReply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True, null=True)
+    text = models.TextField()
+    date_time = models.DateTimeField(default=now())
+
+    def __str__(self):
+        jdatetime.set_locale("fa_IR")
+        date = jdatetime.datetime.fromgregorian(
+            second=self.date_time.second,
+            minute=self.date_time.minute,
+            hour=self.date_time.hour,
+            day=self.date_time.day,
+            month=self.date_time.month,
+            year=self.date_time.year
+        )
+        output = self.user.get_full_name() + " - " + f2p(date.strftime("%d %B %y"))
+        return output
+
+    def get_sender_avatar(self):
+        try:
+            avatar = TeacherForm.objects.get(user=self.user.teacher).avatar
+            return avatar.url
+        except:
+            avatar = ManagerForm.objects.get(user=self.user.manager).avatar
+            return avatar.url
 
     def get_time_diff(self):
         now_time = datetime.datetime.utcnow().replace(tzinfo=utc)
@@ -225,9 +293,26 @@ class Report(models.Model):
 
 
 class ReportAttach(models.Model):
+    TYPE = (
+        ("report", "گزارش"),
+        ("report_replay", "پاسخ گزارش")
+    )
+    type = models.CharField(choices=TYPE ,max_length=20, default="report")
     report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True, null=True)
+    report_replay = models.ForeignKey(ReportReply, on_delete=models.CASCADE, blank=True, null=True)
     file = models.FileField(upload_to='reports/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.file.name
+
+    def get_file_size(self):
+        file_size = self.file.size
+        if file_size < 1000:
+            file_size = str(file_size) + " B"
+        elif 1000 < file_size < 1000000:
+            file_size = str(int(file_size/1000)) + " KB"
+        else:
+            file_size = str(int(file_size/1000000)) + " MB"
+        return file_size
+
