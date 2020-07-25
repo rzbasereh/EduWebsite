@@ -4,7 +4,7 @@ from finglish import f2p
 from django.http import JsonResponse
 from django.shortcuts import render
 from main.models import Message, Notification, Student, Teacher, Adviser, Manager
-from teacher.models import ClassRoom, TeacherForm
+from teacher.models import *
 from student.models import StudentForm
 from manager.models import ManagerForm
 from .models import ManagerForm
@@ -96,27 +96,88 @@ def classes(request):
 def reports(request):
     user = commonData(request)
     reports_list = Report.objects.filter(teacher__manager=request.user.manager).all().order_by("-date_time")
-    attachment = ReportAttach.objects.all()
-    return render(request, 'manager/reports.html', {'user': user, 'reports': reports_list, "attachment": attachment})
+    attached_reports = list()
+    for report in reports_list:
+        if ReportAttach.objects.filter(type="report", report=report).exists():
+            attached_reports.append(report)
+    return render(request, 'manager/reports.html', {'user': user, 'reports': reports_list, "attached_reports": attached_reports})
 
 
 def display_report(request):
     if request.method == "GET":
         pk = request.GET.get("id")
-        report = Report.objects.get(id=pk)
-        attachment = ReportAttach.objects.filter(report=report).all()
-        return JsonResponse({'report': report, 'attachment': attachment})
+        report = Report.objects.get(id=pk, teacher__manager=request.user.manager)
+        report_attaches = list() 
+        for attach in ReportAttach.objects.filter(type="report", report=report).all():
+            report_attaches.append({
+                "name":attach.file.name,
+                "size":attach.get_file_size(),
+                "href":attach.file.url,  
+            })
+        report = {
+            "avatar": TeacherForm.objects.get(user=report.teacher).avatar.url,
+            "full_name": report.teacher.user.get_full_name(),
+            "created_time": report.get_time_diff(),
+            "title": report.title,
+            "text": report.text,
+            "all_reports": Report.objects.filter(teacher__manager=request.user.manager).count(),
+            "num": list(
+                Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True)).index(
+                int(pk)) + 1,
+        }
+        if report.get("num") == 1:
+            report["next_pk"] = list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[1]
+        elif report.get("num") == report.get("all_reports"):
+            report["prev_pk"] = list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[-2]
+        else:
+            report["prev_pk"] = list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[report.get("num") - 2]
+            report["next_pk"] = list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[report.get("num")]
+
+        report_replays = list()
+        for replay in ReportReply.objects.filter(
+                report=Report.objects.get(id=pk, teacher__manager=request.user.manager)).all().order_by("-id"):
+            if replay.user == request.user:
+                report_replays.append({
+                    "me": True,
+                    "text": replay.text,
+                    "data_created": replay.get_time_diff()
+                })
+            else:
+                report_replays.append({
+                    "me": False,
+                    "avatar": replay.get_sender_avatar(),
+                    "full_name": replay.user.get_full_name(),
+                    "text": replay.text,
+                    "data_created": replay.get_time_diff()
+                })
+        return JsonResponse({'report': report, 'report_attaches': report_attaches, "report_replays": report_replays})
 
 
 def reply_report(request):
     pk = request.POST.get('pk')
     text = request.POST.get('text')
-    file = request.POST.get('attachment')
-    teacher = Report.objects.get(id=pk).teacher.user
-    message = Message(sender=request.user, user=teacher, title="پاسخ گزارش", text=text, is_seen=False)
-    message.save()
-    print(teacher)
-    return HttpResponseRedirect(reverse('manager:reports'))
+    report_replay = ReportReply(user=request.user,
+                                report=Report.objects.get(id=pk, teacher__manager=request.user.manager),
+                                text=text)
+    report_replay.save()
+    report_replays = list()
+    for replay in ReportReply.objects.filter(
+            report=Report.objects.get(id=pk, teacher__manager=request.user.manager)).all():
+        if replay.user == request.user:
+            report_replays.append({
+                "me": True,
+                "text": replay.text,
+                "data_created": replay.get_time_diff()
+            })
+        else:
+            report_replays.append({
+                "me": False,
+                "avatar": replay.get_sender_avatar(),
+                "full_name": replay.user.get_full_name(),
+                "text": replay.text,
+                "data_created": replay.get_time_diff()
+            })
+    return JsonResponse({'status': "success", "report_replays": report_replays})
 
 
 def chats(request):
