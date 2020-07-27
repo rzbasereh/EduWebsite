@@ -13,6 +13,7 @@ from finglish import f2p
 class TeacherForm(models.Model):
     user = models.OneToOneField(Teacher, on_delete=models.CASCADE, null=True, blank=True)
     avatar = models.ImageField(upload_to='uploads/teacher', default="defaults/avatar/default.jpg")
+    phone_number = models.CharField(max_length=11, null=True, blank=True)
 
     def __str__(self):
         return self.user.get_full_name()

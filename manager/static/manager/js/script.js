@@ -54,8 +54,96 @@ $(document).ready(function () {
         });
     });
 
+    // Users Page
+    if (url.indexOf('http://' + host + '/manager/users') != -1) {
+        function get_user_info(id) {
+            $.ajax({
+                method: "GET",
+                url: $("#userInfo").attr("data-url"),
+                data: {"id": id},
+                success: function(data) {
+                    console.log(data);
+                    $("#userInfo #firstName").attr("value", data.user_info.first_name);
+                    $("#userInfo #lastName").attr("value", data.user_info.last_name);
+                    $("#userInfo #emailAddress").attr("value", data.user_info.email);
+                    $("#userInfo #phoneNum").attr("value", data.user_info.phone_number);
+                    $("#userInfo #userStatus option[value='" + data.user_info.status + "']").attr("selected", "selected");
+                    $("#userInfo #usageType option[value='" + data.user_info.type + "']").attr("selected", "selected");
+                    // let ctx = $('#chart').getContext('2d');
+                    // let chart = new Chart(ctx, {
+                    //            data: {
+                    //                datasets: [
+                    //                    {fill: 'origin'},      // 0: fill to 'origin'
+                    //                    {fill: '+2'},          // 1: fill to dataset 3
+                    //                    {fill: 1},             // 2: fill to dataset 1
+                    //                    {fill: false},         // 3: no fill
+                    //                    {fill: '-2'}           // 4: fill to dataset 2
+                    //                ]
+                    //            }
+                    //        });
+
+                }, 
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        $("button[data-target='#userInfo']").click(function() {
+            let id = $(this).val();
+            $("#edit_user_info_ajax_form").find("input[name='pk']").attr("value", id);
+            get_user_info(id);
+        });
+
+        $("#edit_user_info_ajax_form").submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                method: "POST",
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                success: function(data) {
+                    console.log(data);
+
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Successfully inserted record!',
+                    });
+                }, 
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $("#navSearch").on("keyup", function(event) {
+            const thisElement = $(this);
+            if (thisElement.val().length > 1) {
+                thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").addClass("d-none");
+                thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").removeClass("d-none");
+                $.ajax({
+                    method: "POST",
+                    url: thisElement.attr("data-url"),
+                    data: {"q": thisElement.val()},
+                    success: function(data) {
+                        console.log(data);
+                        thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").removeClass("d-none");
+                        thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").addClass("d-none");
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").removeClass("d-none");
+                        thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").addClass("d-none");
+                    }
+                });
+            } else {
+                thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").removeClass("d-none");
+                thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").addClass("d-none");
+            }
+            console.log("tick");
+        });
+    }
     // Report Page
-    if (url.indexOf('http://' + host + '/manager/reports') != -1) {
+    else if (url.indexOf('http://' + host + '/manager/reports') != -1) {
 
         console.log("report page");
         $('textarea').autogrow();
