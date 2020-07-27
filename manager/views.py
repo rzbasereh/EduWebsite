@@ -70,6 +70,38 @@ def users(request):
     return render(request, 'manager/users.html', {'user': user, 'users': all_users})
 
 
+def user_detail(request, user_name):
+    if User.objects.filter(username=user_name).exists():
+        user = User.objects.get(username=user_name)
+        data = {}
+        if Student.objects.filter(user=user).exists():
+            data["type"] = "student"
+            data["status"] = Student.objects.get(user=user).status
+            data["avatar"] = StudentForm.objects.get(user=user.student).avatar.url
+            data["phone_number"] = StudentForm.objects.get(user=user.student).phone_number
+        elif Teacher.objects.filter(user=user).exists():
+            data["type"] = "teacher"
+            data["status"] = Teacher.objects.get(user=user).status
+            data["avatar"] = TeacherForm.objects.get(user=user.teacher).avatar.url
+            data["phone_number"] = TeacherForm.objects.get(user=user.teacher).phone_number
+        elif Manager.objects.filter(user=user).exists():
+            data["type"] = "manager"
+            data["status"] = Manager.objects.get(user=user).status
+            data["avatar"] = ManagerForm.objects.get(user=user.manager).avatar.url
+            data["phone_number"] = ManagerForm.objects.get(user=user.manager).phone_number
+        else:
+            data["type"] = "none"
+            return render(request, 'main/404.html', {})
+        if data["type"] != "none":
+            data["full_name"] = user.get_full_name
+            data["pk"] = user.id
+            data["user_name"] = user.username
+            data["email"] = user.email
+        return render(request, 'manager/user_details.html', {"data": data})
+    else:
+        return render(request, 'main/404.html', {})
+
+
 def RepresentsInt(s):
     try:
         int(s)
@@ -282,17 +314,17 @@ def display_report(request):
         }
         if report.get("num") == 1:
             report["next_pk"] = \
-            list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[1]
+                list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[1]
         elif report.get("num") == report.get("all_reports"):
             report["prev_pk"] = \
-            list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[-2]
+                list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[-2]
         else:
             report["prev_pk"] = \
-            list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[
-                report.get("num") - 2]
+                list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[
+                    report.get("num") - 2]
             report["next_pk"] = \
-            list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[
-                report.get("num")]
+                list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[
+                    report.get("num")]
 
         report_replays = list()
         for replay in ReportReply.objects.filter(

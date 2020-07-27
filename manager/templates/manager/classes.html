@@ -1,129 +1,233 @@
 {% extends 'manager/layouts/base_layout.html' %}
 {% block title %}کلاس ها{% endblock %}
 
-
-{% block content %}
-    <div class="row">
-        <div class="col-12">
-            <h1>Add new class</h1>
-            <form action="" method="post" id="add-new-class">
-                <div class="form-group">
-                    <label for="classTitle">عنوان کلاس</label>
-                    <input type="text" class="form-control" id="classTitle" name="title">
+{% block side_nav %}
+    <div class="side-nav" id="addClass">
+        <div class="side-nav__dialog">
+            <div class="side-nav__content">
+                <div class="side-nav__header" dir="rtl">
+                    <h4 class="side-nav__title " id="userInfoLabel">کاربر جدید</h4>
                 </div>
-                <div class="form-group">
-                    <label for="classTeacher">دبیر</label>
-                    <select id="classTeacher" class="form-control" name="teacher">
-                        <option selected>Choose...</option>
-                        {% for teacher in teachers %}
-                            <option>{{ teacher }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="classLink">آدرس کلاس آنلاین</label>
-                    <input type="text" class="form-control" id="classLink" name="link">
-                </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="isOpen" name="is_open">
-                    <label class="custom-control-label" for="isOpen">امکان ثبت نام</label>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="signUpFrom">ثبت نام از</label>
-                        <input type="text" class="form-control" id="signUpFrom" name="sign_up_from">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="signUpUntil">ثبت نام تا</label>
-                        <input type="text" class="form-control" id="signUpUntil" name="sign_up_until">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="startClass">شروع کلاس</label>
-                        <input type="text" class="form-control" id="startClass" name="start_class">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="endClass">پایان کلاس</label>
-                        <input type="text" class="form-control" id="endClass" name="end_class">
-                    </div>
-                </div>
-                <div class="form-group">
+                <div class="side-nav__body text-right">
                     <div class="form-group">
-                        <label for="timeTable">برنامه کلاس</label>
-                        <input type="text" class="form-control" id="timeTable" name="time_table">
+                        <label for="classTitle">عنوان کلاس</label>
+                        <input type="text" class="form-control" id="classTitle" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="classTeacher">دبیر</label>
+                        <select id="classTeacher" class="form-control" name="teacher">
+                            <option selected>Choose...</option>
+                            {% for teacher in teachers %}
+                                <option>{{ teacher }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classLink">آدرس کلاس آنلاین</label>
+                        <input type="text" class="form-control" id="classLink" name="link">
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="isOpen" name="is_open">
+                        <label class="custom-control-label" for="isOpen">امکان ثبت نام</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="signUpFrom">ثبت نام از</label>
+                            <input type="text" class="form-control" id="signUpFrom" name="sign_up_from">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="signUpUntil">ثبت نام تا</label>
+                            <input type="text" class="form-control" id="signUpUntil" name="sign_up_until">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="startClass">شروع کلاس</label>
+                            <input type="text" class="form-control" id="startClass" name="start_class">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="endClass">پایان کلاس</label>
+                            <input type="text" class="form-control" id="endClass" name="end_class">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="timeTable">برنامه کلاس</label>
+                            <input type="text" class="form-control" id="timeTable" name="time_table">
+                        </div>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="examAccess" name="exam_access">
+                        <label class="custom-control-label" for="examAccess">آزمون آنلاین</label>
                     </div>
                 </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="examAccess" name="exam_access">
-                    <label class="custom-control-label" for="examAccess">آزمون آنلاین</label>
+                <div class="side-nav__footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="side-nav">بستن</button>
+                    <button type="submit" class="btn btn-blue">افزودن</button>
                 </div>
-                <button type="submit" class="btn btn-primary">ثبت کلاس</button>
-            </form>
+            </div>
         </div>
     </div>
-    <hr/>
+{% endblock %}
+
+{% block content %}
+    <h1>کلاس ها</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'manager:index' %}">
+                    <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                              d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">کلاس ها</li>
+        </ol>
+    </nav>
+    <div class="clearfix w-100 mb-4">
+                <span class="float-right">
+                    <span>نمایش</span>
+                    <select class="num-questions-showed">
+                        <option value="10">10</option>
+                        <option value="5">5</option>
+                        <option value="1">1</option>
+                    </select>
+                </span>
+        <span class="float-left">
+                    <div class="plus-question" data-toggle="side-nav" data-target="#addClass">
+                        <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"></path>
+                        </svg>
+                    </div>
+                </span>
+        <span class="float-left">
+                    <div class="input-group white-bg mb-3">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                            </svg>
+                            <div class="spinner-border d-none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </span>
+                        </div>
+                        <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                               aria-label="جستجو"
+                               aria-describedby="basic-addon1" id="navSearch"
+                               data-url="{% url 'manager:user_search' %}">
+                    </div>
+                </span>
+    </div>
+
     <div class="row">
         <div class="col-12">
-            {% for class in classes %}
-                <div class="col-md-4">
-                    <div class="card w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ class.name }}</h5>
-                        <p class="card-text">{{ class.teacher.get_full_name }}</p>
-                    </div>
-                    <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                ثبت نام
-                                </button>
-                            </h2>
+            <div class="row">
+                {% for class in classes %}
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ class.name }}</h5>
+                                <p class="card-text">{{ class.teacher.get_full_name }}</p>
                             </div>
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseOne"
+                                                    aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                ثبت نام
+                                            </button>
+                                        </h2>
+                                    </div>
 
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body">
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseTwo"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseTwo">
+                                                مدت برگزاری
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                            dolor
+                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                            tempor,
+                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                                            nesciunt
+                                            you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                زمان برگزاری
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                         data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                            dolor
+                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                            tempor,
+                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+                                            nesciunt
+                                            you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                مدت برگزاری
-                                </button>
-                            </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                             <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                               زمان برگزاری
-                                </button>
-                            </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            </div>
+                                <a href="#" class="card-link">دانش آموزان</a>
+                                <a href="#" class="card-link"></a>
                             </div>
                         </div>
-                        </div>
-                    <div class="card-body">
-                        <a href="#" class="card-link">دانش آموزان</a>
-                        <a href="#" class="card-link"></a>
                     </div>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

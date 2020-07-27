@@ -61,7 +61,7 @@ $(document).ready(function () {
                 method: "GET",
                 url: $("#userInfo").attr("data-url"),
                 data: {"id": id},
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                     $("#userInfo #firstName").attr("value", data.user_info.first_name);
                     $("#userInfo #lastName").attr("value", data.user_info.last_name);
@@ -82,40 +82,40 @@ $(document).ready(function () {
                     //            }
                     //        });
 
-                }, 
-                error: function(data) {
+                },
+                error: function (data) {
                     console.log(data);
                 }
             });
         }
 
-        $("button[data-target='#userInfo']").click(function() {
+        $("button[data-target='#userInfo']").click(function () {
             let id = $(this).val();
             $("#edit_user_info_ajax_form").find("input[name='pk']").attr("value", id);
             get_user_info(id);
         });
 
-        $("#edit_user_info_ajax_form").submit(function(event){
+        $("#edit_user_info_ajax_form").submit(function (event) {
             event.preventDefault();
             $.ajax({
                 method: "POST",
                 url: $(this).attr("action"),
                 data: $(this).serialize(),
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
 
                     iziToast.success({
                         title: 'OK',
                         message: 'Successfully inserted record!',
                     });
-                }, 
-                error: function(data) {
+                },
+                error: function (data) {
                     console.log(data);
                 }
             });
         });
 
-        $("#navSearch").on("keyup", function(event) {
+        $("#navSearch").on("keyup", function (event) {
             const thisElement = $(this);
             if (thisElement.val().length > 1) {
                 thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").addClass("d-none");
@@ -124,12 +124,12 @@ $(document).ready(function () {
                     method: "POST",
                     url: thisElement.attr("data-url"),
                     data: {"q": thisElement.val()},
-                    success: function(data) {
+                    success: function (data) {
                         console.log(data);
                         thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").removeClass("d-none");
                         thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").addClass("d-none");
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data);
                         thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .bi.bi-search").removeClass("d-none");
                         thisElement.closest(".input-group").find(".input-group-prepend .input-group-text .spinner-border").addClass("d-none");
@@ -141,6 +141,28 @@ $(document).ready(function () {
             }
             console.log("tick");
         });
+
+        let ctx = document.getElementById('userProgressChart').getContext('2d');
+        let chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line', // also try bar or other graph types
+
+            // The data for our dataset
+            data: {
+                labels: ["Jan 2017", "Feb 2017", "Mar 2017", "Apr 2017", "May 2017"],
+                // Information about the dataset
+                datasets: [{
+                    backgroundColor: 'lightblue',
+                    borderColor: 'royalblue',
+                    data: [69.8, 57.8, 76, 110.8, 142.6],
+                }]
+            },
+
+            // Configuration options
+            options: {
+            }
+        });
+
     }
     // Report Page
     else if (url.indexOf('http://' + host + '/manager/reports') != -1) {
@@ -169,10 +191,10 @@ $(document).ready(function () {
                     if (data.report.num === 1) {
                         $("#nextReport").attr("value", data.report.next_pk);
                     } else if (data.report.num === data.report.all_reports) {
-                         $("#prevReport").attr("value", data.report.prev_pk);
+                        $("#prevReport").attr("value", data.report.prev_pk);
                     } else {
-                         $("#nextReport").attr("value", data.report.next_pk);
-                         $("#prevReport").attr("value", data.report.prev_pk);
+                        $("#nextReport").attr("value", data.report.next_pk);
+                        $("#prevReport").attr("value", data.report.prev_pk);
                     }
                     $("#replyList").html("");
                     for (let i = 0; i < data.report_replays.length; i++) {
@@ -187,23 +209,23 @@ $(document).ready(function () {
                                             <pre>${data.report_replays[i].text}</pre>
                                         </div>
                                         ${data.report_replays[i].me ?
-                                            ''
-                                            :
-                                            `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
+                            ''
+                            :
+                            `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
                                                 ${avatar}
                                             </div>`
-                                        }
+                            }
                                         ${data.report_replays[i].me ?
-                                            `<div class="chat-custom-item__options">
+                            `<div class="chat-custom-item__options">
                                                 <div class="chat-custom-item__options__toggler">
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                                     </svg>
                                                 </div>
                                             </div>`
-                                            :
-                                            ''
-                                        }
+                            :
+                            ''
+                            }
                                         <div class="chat-custom-item__modify-date">${data.report_replays[i].data_created}</div>
                                     </div>`;
                         $("#replyList").append(item);

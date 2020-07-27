@@ -6,6 +6,7 @@ app_name = 'manager'
 urlpatterns = [
     path('', views.index, name="index"),
     path('users', views.users, name="users"),
+    path('users/<str:user_name>', views.user_detail, name="user_detail"),
     path('users/search', views.user_search, name="user_search"),
     path('users/add', views.addUser, name="add_user"),
     path('users/info', views.user_info, name="user_info"),

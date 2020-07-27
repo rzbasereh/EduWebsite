@@ -360,6 +360,14 @@ input[type="password"]:hover {
     height: fit-content;
 }
 
+.card.white-bg {
+    border: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    direction: rtl;
+}
+
 @media (max-width: 768px) {
     .card1 {
         min-width: auto;
@@ -377,6 +385,14 @@ input[type="password"]:hover {
     border-bottom: none;
 }
 
+.card.white-bg .card-header {
+    margin-left: unset;
+    margin-right: unset;
+    padding: 1.5rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .card-body {
     background-color: #F8FAFB;
     padding-right: 55px;
@@ -385,6 +401,11 @@ input[type="password"]:hover {
     border-bottom-right-radius: 10px !important;
     -webkit-border-bottom-right-radius: 10px !important;
     -webkit-border-bottom-left-radius: 10px !important;
+}
+
+.card.white-bg .card-body {
+    background-color: #ffffff;
+    padding: 0 1.5rem;
 }
 
 #cb-bottom {
