@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from main.models import Teacher, Student, Manager
 from manager.models import ManagerForm
 from django.db import models
+from django.utils import timezone
 from django.utils.timezone import now, timedelta
 from django.utils.timezone import utc
 from finglish import f2p
@@ -22,21 +23,26 @@ class TeacherForm(models.Model):
 class ClassRoom(models.Model):
     name = models.CharField(max_length=1000)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-    GRADE = (
-        ('12', 'کنکوری'),
-        ('11', 'پایه یازدهم'),
-        ('10', 'پایه دهم'),
-    )
-    grade = models.CharField(choices=GRADE, max_length=2, blank=True, null=True)
-    FIELD = (
-        ('1', 'علوم تجربی'),
-        ('2', 'ریاضی و فیزیک'),
-        ('3', 'انسانی'),
-    )
-    field = models.CharField(choices=FIELD, max_length=2, blank=True, null=True)
+    # GRADE = (
+    #    ('12', 'کنکوری'),
+    #    ('11', 'پایه یازدهم'),
+    #    ('10', 'پایه دهم'),
+    # )
+    # grade = models.CharField(choices=GRADE, max_length=2, blank=True, null=True)
+    # FIELD = (
+    #    ('1', 'علوم تجربی'),
+    #    ('2', 'ریاضی و فیزیک'),
+    #    ('3', 'انسانی'),
+    # )
+    # field = models.CharField(choices=FIELD, max_length=2, blank=True, null=True)
     students = models.ManyToManyField(Student, blank=True)
-    initial_date = models.DateField(default=now)
-    validate_date = models.DateField(default=now() + timedelta(days=30))
+    initial_date = models.DateTimeField(default=now)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    class_link = models.CharField(max_length=1000, blank=True, null=True)
+    class_cap = models.IntegerField()
+    is_active = models.BooleanField(default=False)
+    open_signup = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -131,7 +137,7 @@ class ExamQuestion(models.Model):
         ('submit', "ثبت شده")
     )
     state = models.CharField(choices=STATE, max_length=6, default="add")
-    position = models.IntegerField(max_length=1000, default=0)
+    position = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.exam) + " - " + str(self.position)
@@ -171,7 +177,7 @@ class Report(models.Model):
     # className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=1000, null=True, blank=True)
     text = models.TextField()
-    date_time = models.DateTimeField(default=now())
+    date_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         jdatetime.set_locale("fa_IR")
@@ -232,7 +238,7 @@ class ReportReply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True, null=True)
     text = models.TextField()
-    date_time = models.DateTimeField(default=now())
+    date_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         jdatetime.set_locale("fa_IR")

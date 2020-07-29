@@ -279,6 +279,18 @@ def classes(request):
     return render(request, 'manager/classes.html', {'user': user, 'teachers': teachers, 'classes': class_rooms})
 
 
+def class_students(request, pk):
+    if Manager.objects.filter(user=request.user).exists():
+        class_room = ClassRoom.objects.get(id=pk)
+        students = list()
+        for student in class_room.students.all():
+            data = dict()
+            data["full_name"] = student.get_full_name()
+            data["avatar"] = StudentForm.objects.get(user=student).avatar.url
+            students.append(data)
+        return JsonResponse({"students": students, "class_name": class_room.name})
+
+
 def reports(request):
     user = commonData(request)
     reports_list = Report.objects.filter(teacher__manager=request.user.manager).all().order_by("-date_time")
@@ -376,3 +388,8 @@ def reply_report(request):
 def chats(request):
     user = commonData(request)
     return render(request, 'manager/chat.html', {"user": user})
+
+
+def news(request):
+    user = commonData(request)
+    return render(request, 'manager/news.html', {"user": user})

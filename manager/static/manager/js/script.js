@@ -2,6 +2,8 @@ $(document).ready(function () {
     const url = window.location.href;
     const host = window.location.host;
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     let add_user_form = $("#add-new-user");
     add_user_form.submit(function (event) {
         event.preventDefault();
@@ -55,7 +57,7 @@ $(document).ready(function () {
     });
 
     // Users Page
-    if (url.indexOf('http://' + host + '/manager/users') != -1) {
+    if (url.indexOf('http://' + host + '/manager/users') !== -1) {
         function get_user_info(id) {
             $.ajax({
                 method: "GET",
@@ -159,13 +161,65 @@ $(document).ready(function () {
             },
 
             // Configuration options
-            options: {
-            }
+            options: {}
         });
 
     }
+
+
+    // Class Page
+    else if (url.indexOf('http://' + host + '/manager/classes') !== -1) {
+        $("button[data-target='#allStudent']").click(function () {
+            $("#allStudent").find(".list-group #noResult").addClass("d-none");
+            $.ajax({
+                method: "POST",
+                url: $(this).attr("data-url"),
+                success: function (data) {
+                    $("#allStudent").find("#allStudentLabel span").text(data.class_name);
+                    $("#allStudent").find(".list-group").find("button:not(#noResult)").remove();
+                    for (let i = 0; i < data.students.length; i++) {
+                        $("#allStudent").find(".list-group").append(`
+                            <button type="button" class="list-group-item list-group-item-action text-right border-0"
+                                dir="rtl">
+                                <img src="${data.students[i].avatar}" alt="${data.students[i].full_name}" width="50px"
+                                    height="50px" class="rounded-circle">
+                                <span class="mr-2">${data.students[i].full_name}</span> 
+                            </button>
+                        `);
+                    }
+                    $("#allStudent").find(".list-group button.list-group-item").click(function () {
+                        $("#allStudent").modal("hide");
+                        $("#studentPreview").modal("show");
+                    });
+                    $("#allStudent").find("input[aria-describedby='searchStudent']").on("keyup", function () {
+                        let text = $(this).val();
+                        let flag = true;
+                        $("#allStudent").find(".list-group button#noResult").addClass("d-none");
+                        $("#allStudent").find(".list-group button.list-group-item:not(#noResult)").each(function () {
+                            if ($(this).find("span").text().indexOf(text) === -1) {
+                                $(this).addClass("d-none");
+                            } else {
+                                flag = false;
+                                $(this).removeClass("d-none");
+                            }
+                        });
+
+                        if (flag) {
+                            $("#allStudent").find(".list-group #noResult").removeClass("d-none");
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            })
+        });
+    }
+    // End Class Page
+
+
     // Report Page
-    else if (url.indexOf('http://' + host + '/manager/reports') != -1) {
+    else if (url.indexOf('http://' + host + '/manager/reports') !== -1) {
 
         console.log("report page");
         $('textarea').autogrow();

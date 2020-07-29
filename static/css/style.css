@@ -403,6 +403,12 @@ input[type="password"]:hover {
     -webkit-border-bottom-left-radius: 10px !important;
 }
 
+.card-body.full-radius {
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+}
+
 .card.white-bg .card-body {
     background-color: #ffffff;
     padding: 0 1.5rem;
@@ -1766,7 +1772,7 @@ input:checked + .slider:before {
 }
 
 .modal-body {
-    padding-bottom: 10px !important;
+    padding-bottom: 10px;
 
 }
 
@@ -2540,6 +2546,10 @@ ul.fancytree-container {
 
 .min-h-300 {
     min-height: 300px !important;
+}
+
+.min-h-400 {
+    min-height: 400px !important;
 }
 
 span.vr-hr {
@@ -3489,17 +3499,24 @@ input[type='تایید سوالات'] {
     color: #0081FF;
 }
 
+@media (min-width: 992px) {
+    .modal-rlg {
+        max-width: 700px;
+    }
+}
+
 .sidebar-modal.modal-body {
     display: flex;
     direction: rtl;
+    padding: 0;
 }
 
 .sidebar-modal.modal-body .modal-side-bar {
     min-width: 200px;
+    max-width: 200px;
     background-color: #F8FAFB;
     min-height: 100%;
     position: relative;
-    margin: -80px -20px -10px 0;
 }
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile {
@@ -3509,7 +3526,7 @@ input[type='تایید سوالات'] {
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile label {
     position: relative;
-    margin-top: 100px;
+    margin-top: 1.5rem;
 }
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile label img {
@@ -3938,6 +3955,8 @@ input[type='تایید سوالات'] {
 }
 
 input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="number"].form-control,
 select.custom-select,
 select.form-control,
 textarea.form-control {
@@ -4318,3 +4337,53 @@ label {
 }
 
 /* End Side Nav*/
+
+/* Table */
+
+table.table {
+
+}
+
+table.table thead {
+
+}
+
+.table td, .table th {
+    border-top: 0;
+    padding: 15px 0 0 0;
+}
+
+.table th {
+    padding: 15px 0;
+}
+
+.btn.btn-list {
+    min-width: unset;
+    padding: 0;
+    margin-right: -10px;
+    border: 3px solid #fff;
+    transition: 0.3s;
+}
+
+.btn.btn-list.btn-more {
+    min-width: 37px;
+    background: #f0f2f5;
+    min-height: 37px;
+}
+
+.btn.btn-list:hover {
+    z-index: 1;
+    /*margin: 0 10px;*/
+    /*border-color: transparent;*/
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+}
+
+table.table tbody {
+
+}
+
+table.table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #EAEDF0;
+}
+
+/* End Table */

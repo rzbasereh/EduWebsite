@@ -1,12 +1,103 @@
 {% extends 'manager/layouts/base_layout.html' %}
+{% load custom_tag %}
 {% block title %}کلاس ها{% endblock %}
+
+{% block modal %}
+    <div class="modal fade" id="studentPreview" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+         aria-labelledby="studentPreviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" dir="rtl">
+                    <h5 class="modal-title" id="studentPreviewLabel">مشخصات دانش آموز</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer" dir="rtl">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">بستن</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="allStudent" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+         aria-labelledby="allStudentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header" dir="rtl">
+                    <h5 class="modal-title" id="allStudentLabel">کلاس <span></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-group d-flex pl-3 pr-3 pb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="searchStudent">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                            </svg>
+                            <span class="spinner-border d-none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                           aria-label="جستجو"
+                           aria-describedby="searchStudent" id="navSearch">
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action text-right border-0 d-none"
+                                dir="rtl" id="noResult">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-frown"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
+                                <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                            </svg>
+                            <span class="mr-2">نتیجه ای یافت نشد!</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer" dir="rtl"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block side_nav %}
     <div class="side-nav" id="addClass">
-        <div class="side-nav__dialog">
+        <div class="side-nav__dialog overflow-auto">
             <div class="side-nav__content">
                 <div class="side-nav__header" dir="rtl">
-                    <h4 class="side-nav__title " id="userInfoLabel">کاربر جدید</h4>
+                    <h4 class="side-nav__title " id="userInfoLabel">کلاس جدید</h4>
                 </div>
                 <div class="side-nav__body text-right">
                     <div class="form-group">
@@ -131,103 +222,193 @@
                                aria-describedby="basic-addon1" id="navSearch"
                                data-url="{% url 'manager:user_search' %}">
                     </div>
-                </span>
+        </span>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <div class="row">
-                {% for class in classes %}
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                        <div class="card w-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ class.name }}</h5>
-                                <p class="card-text">{{ class.teacher.get_full_name }}</p>
-                            </div>
-                            <div class="accordion" id="accordionExample">
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                                    data-toggle="collapse" data-target="#collapseOne"
-                                                    aria-expanded="true"
-                                                    aria-controls="collapseOne">
-                                                ثبت نام
-                                            </button>
-                                        </h2>
-                                    </div>
+            <div class="card white-bg h-100">
+                <div class="card-body full-radius p-0">
+                    <table class="table text-center m-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">نام</th>
+                            <th scope="col">دبیر</th>
+                            <th scope="col">دانش آموزان</th>
+                            <th scope="col">وضعیت</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for class in classes %}
+                            <tr>
+                                <td>{{ class.name }}</td>
+                                <td>{{ class.teacher.get_full_name }}</td>
+                                <td class="d-flex" style="justify-content: center">
+                                    {% for student in class.students.all|slice:"0:3" %}
+                                        <button class="btn btn-list rounded-circle" data-toggle="modal"
+                                                data-target="#studentPreview">
+                                            <img class="rounded-circle" src="{% get_avatar student %}"
+                                                 alt="{{ student.get_full_name }}" width="31px" height="31px"
+                                                 data-toggle="tooltip" data-placement="bottom"
+                                                 title="{{ student.get_full_name }}">
+                                        </button>
+                                    {% endfor %}
+                                    {% if class.students.all.count == 4 %}
+                                        <button class="btn btn-list rounded-circle btn-more"
+                                                data-url="{% url 'manager:class_students' pk=class.id %}"
+                                                data-toggle="modal" data-target="#allStudent">
+                                            +{{ class.students.all.count|add:"-3" }}
+                                        </button>
+                                    {% endif %}
+                                </td>
+                                <td>
 
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                         data-parent="#accordionExample">
-                                        <div class="card-body">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" id="headingTwo">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                                    data-toggle="collapse" data-target="#collapseTwo"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseTwo">
-                                                مدت برگزاری
+                                </td>
+                                <td>
+                                    <div class="dropdown card-options">
+                                        <button class="dropdown-toggle border-0 btn-circle" type="button"
+                                                id="classOption{{ class.id }}"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu text-right"
+                                             aria-labelledby="classOption{{ class.id }}">
+                                            <button class="dropdown-item" type="button" data-toggle="modal"
+                                                    data-target="#" value="{{ class.id }}">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"></path>
+                                                    <path fill-rule="evenodd"
+                                                          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"></path>
+                                                </svg>
+                                                ویرایش
                                             </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                         data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                            dolor
-                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                                            tempor,
-                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                                            nesciunt
-                                            you probably haven't heard of them accusamus labore sustainable VHS.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" id="headingThree">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                                    data-toggle="collapse" data-target="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree">
-                                                زمان برگزاری
+                                            <a href="#" class="dropdown-item">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                     class="bi bi-three-dots"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                                                </svg>
+                                                بیشتر
+                                            </a>
+                                            <button class="dropdown-item" type="button">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                    <path fill-rule="evenodd"
+                                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                </svg>
+                                                حذف
                                             </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                         data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                            dolor
-                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                                            tempor,
-                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                                            nesciunt
-                                            you probably haven't heard of them accusamus labore sustainable VHS.
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="card-link">دانش آموزان</a>
-                                <a href="#" class="card-link"></a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+            {#            <div class="row">#}
+            {#                {% for class in classes %}#}
+            {#                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">#}
+            {#                        <div class="card w-100">#}
+            {#                            <div class="card-body">#}
+            {#                                <h5 class="card-title">{{ class.name }}</h5>#}
+            {#                                <p class="card-text">{{ class.teacher.get_full_name }}</p>#}
+            {#                            </div>#}
+            {#                            <div class="accordion" id="accordionExample">#}
+            {#                                <div class="card">#}
+            {#                                    <div class="card-header" id="headingOne">#}
+            {#                                        <h2 class="mb-0">#}
+            {#                                            <button class="btn btn-link btn-block text-left collapsed" type="button"#}
+            {#                                                    data-toggle="collapse" data-target="#collapseOne"#}
+            {#                                                    aria-expanded="true"#}
+            {#                                                    aria-controls="collapseOne">#}
+            {#                                                ثبت نام#}
+            {#                                            </button>#}
+            {#                                        </h2>#}
+            {#                                    </div>#}
+            {##}
+            {#                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"#}
+            {#                                         data-parent="#accordionExample">#}
+            {#                                        <div class="card-body">#}
+            {##}
+            {#                                        </div>#}
+            {#                                    </div>#}
+            {#                                </div>#}
+            {#                                <div class="card">#}
+            {#                                    <div class="card-header" id="headingTwo">#}
+            {#                                        <h2 class="mb-0">#}
+            {#                                            <button class="btn btn-link btn-block text-left collapsed" type="button"#}
+            {#                                                    data-toggle="collapse" data-target="#collapseTwo"#}
+            {#                                                    aria-expanded="false"#}
+            {#                                                    aria-controls="collapseTwo">#}
+            {#                                                مدت برگزاری#}
+            {#                                            </button>#}
+            {#                                        </h2>#}
+            {#                                    </div>#}
+            {#                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"#}
+            {#                                         data-parent="#accordionExample">#}
+            {#                                        <div class="card-body">#}
+            {#                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry#}
+            {#                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard#}
+            {#                                            dolor#}
+            {#                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon#}
+            {#                                            tempor,#}
+            {#                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda#}
+            {#                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson#}
+            {#                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.#}
+            {#                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth#}
+            {#                                            nesciunt#}
+            {#                                            you probably haven't heard of them accusamus labore sustainable VHS.#}
+            {#                                        </div>#}
+            {#                                    </div>#}
+            {#                                </div>#}
+            {#                                <div class="card">#}
+            {#                                    <div class="card-header" id="headingThree">#}
+            {#                                        <h2 class="mb-0">#}
+            {#                                            <button class="btn btn-link btn-block text-left collapsed" type="button"#}
+            {#                                                    data-toggle="collapse" data-target="#collapseThree"#}
+            {#                                                    aria-expanded="false" aria-controls="collapseThree">#}
+            {#                                                زمان برگزاری#}
+            {#                                            </button>#}
+            {#                                        </h2>#}
+            {#                                    </div>#}
+            {#                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"#}
+            {#                                         data-parent="#accordionExample">#}
+            {#                                        <div class="card-body">#}
+            {#                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry#}
+            {#                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard#}
+            {#                                            dolor#}
+            {#                                            brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon#}
+            {#                                            tempor,#}
+            {#                                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda#}
+            {#                                            shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson#}
+            {#                                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.#}
+            {#                                            Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth#}
+            {#                                            nesciunt#}
+            {#                                            you probably haven't heard of them accusamus labore sustainable VHS.#}
+            {#                                        </div>#}
+            {#                                    </div>#}
+            {#                                </div>#}
+            {#                            </div>#}
+            {#                            <div class="card-body">#}
+            {#                                <a href="#" class="card-link">دانش آموزان</a>#}
+            {#                                <a href="#" class="card-link"></a>#}
+            {#                            </div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                {% endfor %}#}
+            {#            </div>#}
         </div>
     </div>
 {% endblock %}

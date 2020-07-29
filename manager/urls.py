@@ -12,9 +12,11 @@ urlpatterns = [
     path('users/info', views.user_info, name="user_info"),
     path('users/info/edit', views.edit_user_info, name="edit_user_info"),
     path('classes', views.classes, name="classes"),
+    path('classes/students/<int:pk>', views.class_students, name="class_students"),
     path('reports', views.reports, name="reports"),
     path('reports/display_report', views.display_report, name="display_report"),
     path('reports/send_reply', views.reply_report, name="reply_report"),
     path('reports/send_reply', views.reply_report, name="reply_report"),
     path('chats', views.chats, name="chats"),
+    path('news', views.news, name="news"),
 ]
