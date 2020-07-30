@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from main.models import Teacher, Student, Manager
 from django.db import models
 from django.utils.timezone import now, timedelta
+from django.utils import timezone
 from django.utils.timezone import utc
 
 
@@ -40,13 +41,13 @@ class ClassRoom(models.Model):
 
 
 class Question(models.Model):
-    author = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     body = models.TextField()
-    choice_1 = models.CharField(max_length=1000, blank=True, null=True)
-    choice_2 = models.CharField(max_length=1000, blank=True, null=True)
-    choice_3 = models.CharField(max_length=1000, blank=True, null=True)
-    choice_4 = models.CharField(max_length=1000, blank=True, null=True)
-    choice_5 = models.CharField(max_length=1000, blank=True, null=True)
+    TYPE = (
+        ('1', 'تستی'),
+        ('2', 'تشریحی')
+    )
+    type = models.CharField(choices=TYPE, max_length=1, blank=True, null=True)
     LAYOUT = (
         ('horizontal', "افقی"),
         ('vertical', "عمودی"),
@@ -71,9 +72,20 @@ class Question(models.Model):
     )
     level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
     is_publish = models.BooleanField(default=False)
+    on_write = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.id)
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    position = models.IntegerField()
+    text = models.TextField()
+
+    def __str__(self):
+        return str(self.question) + " - " + str(self.position)
 
 
 class Exam(models.Model):

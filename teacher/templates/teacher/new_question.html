@@ -1,6 +1,10 @@
 {% extends 'teacher/layouts/base_layout.html' %}
 {% load static %}
+
+
 {% block title %}بانک سوالات | افزودن سوال{% endblock %}
+
+
 {% block script %}
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
@@ -32,7 +36,11 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://unpkg.com/mathlive"></script>
 {% endblock %}
+
+
 {% block linear-activity-changes %}display:block{% endblock %}
+
+
 {% block style %}
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
@@ -49,20 +57,26 @@
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
           type="text/css"/>
 {% endblock %}
+
+
 {% block animate.css %}
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 {% endblock %}
+
+
 {% block page-loading %}
     <div class="loading-background"></div>
     <div class="linear-activity active">
         <div class="indeterminate"></div>
     </div>
 {% endblock %}
+
+
 {% block loader-in-sidebar %}
-    <div class="dispensing w-100">
+    <div class="dispensing">
         <div class="updating">
-            <span>در حال به روز رسانی ...</span>
+            <span>به روز رسانی ...</span>
             <div class="loader"></div>
         </div>
         <div class="saved">
@@ -74,10 +88,12 @@
                           clip-rule="evenodd"></path>
                     </svg>
             </span>
-            <span>ثبت اخیر<span> لحظات</span> قبل</span>
+            <span><span> لحظات</span> قبل</span>
         </div>
     </div>
 {% endblock %}
+
+
 {% block content %}
     <div class="editor-toolbar" id="editor-toolbar"></div>
     <div class="row sub-scrolled-header"></div>
@@ -130,107 +146,177 @@
                     </span>
         </div>
     </div>
+
+
+
+
     <div class="row make-exam-bottom-row w-100">
         <div class="card w-100" id="{{ pk }}">
             <div class="card-body">
                 <form id="add-question-form" method="post" action="{% url 'teacher:saveNewQuestion' %}">
                     {% csrf_token %}
+
+
                     <label for="question-textarea" class="question-textarea-label">صورت سوال</label>
-                    <div id="question-textarea" class="w-100 question-textarea fr-toolbar__fixed">
-                        <p>Hello World!</p>
+                    <div id="question-textarea" class="w-100 question-textarea fr-toolbar__fixed"></div>
+
+
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">سوال تشریحی</label>
                     </div>
-                    <div class="change-btns">
-                        <button type="button" class="btn btn-blue">
-                            <svg class="bi bi-grid" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zM2.5 2a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm6.5.5A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zM1 10.5A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm6.5.5A1.5 1.5 0 0110.5 9h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 019 13.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="btn">
-                            <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="row w-100">
-                        {#                        <div class="owl-carousel owl-theme">#}
-                        {#                            <div class="item">#}
-                        <div class="row w-100 choices">
-                            <div class="col-lg-6 choice">
-                                <label for="1th-choice" class="custom-input">
-                                    <span class="m--15-right">گزینه اول</span>
-                                    <input type="radio" id="1th-choice" name="choice"
-                                           value="first-choice">
-                                    <span class="tick"></span>
-                                </label>
-                                <div id="first-choice-text"
-                                     class="first-choice-text fr-toolbar__fixed fr__single-line"></div>
-                            </div>
-                            <div class="col-lg-6 choice">
-                                <label for="2th-choice" class="custom-input">
-                                    <span class="left-choices-label">گزینه دوم</span>
-                                    <input type="radio" id="2th-choice" name="choice"
-                                           value="first-choice">
-                                    <span class="tick left-choices-tick"></span>
-                                </label>
-                                <div id="second-choice-text"
-                                     class="second-choice-text fr-toolbar__fixed fr__single-line"></div>
-                            </div>
-                            <div class="col-lg-6 choice">
-                                <label for="3th-choice" class="custom-input">
-                                    <span class="m--15-right">گزینه سوم</span>
-                                    <input type="radio" id="3th-choice" name="choice"
-                                           value="first-choice">
-                                    <span class="tick"></span>
-                                </label>
-                                <div id="third-choice-text"
-                                     class="third-choice-text fr-toolbar__fixed fr__single-line"></div>
-                            </div>
-                            <div class="col-lg-6 choice">
-                                <label for="4th-choice" class="custom-input">
-                                    <span class="left-choices-label">گزینه چهارم</span>
-                                    <input type="radio" id="4th-choice" name="choice"
-                                           value="first-choice">
-                                    <span class="tick left-choices-tick"></span>
-                                </label>
-                                <div id="fourth-choice-text"
-                                     class="fourth-choice-text fr-toolbar__fixed fr__single-line"></div>
-                            </div>
-                        </div>
-                        {#                            </div>#}
-                        {#                            <div class="item">#}
-                        <label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
-                        <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed">
-                        </div>
-                        {#                            </div>#}
-                        {#                        </div>#}
-                    </div>
-                    <div class="row w-100 state">
-                        <div class="form-group col-lg-4">
-                            <label for="grade-select">منبع</label>
-                            <select id="grade-select" class="form-control">
-                                <option selected>انتخاب کنید</option>
-                                {% for grade in grades %}
-                                    <option class="no-select">{{ grade.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <span class="ti-angle-down"></span>
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="lesson-select">سطح</label>
-                            <select id="lesson-select" class="form-control">
-                                <option selected>انتخاب کنید</option>
-                                <option class="no-select">s</option>
-                                <option class="no-select">sl;jl</option>
-                            </select>
-                            <span class="ti-angle-down"></span>
-                        </div>
-                        <div class="form-group col-lg-4">
+
+
+{#                    <div id="carouselQuestionControls" class="carousel slide" data-ride="carousel">#}
+{#                        <div class="change-btns">#}
+{#                            <button type="button" class="btn btn-blue carousel-control-prev"#}
+{#                                    href="#carouselQuestionControls" role="button"#}
+{#                                    data-slide="prev">#}
+{#                                <svg class="bi bi-grid" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"#}
+{#                                     xmlns="http://www.w3.org/2000/svg">#}
+{#                                    <path fill-rule="evenodd"#}
+{#                                          d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zM2.5 2a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm6.5.5A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zM1 10.5A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3zm6.5.5A1.5 1.5 0 0110.5 9h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 019 13.5v-3zm1.5-.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5h-3z"#}
+{#                                          clip-rule="evenodd"></path>#}
+{#                                </svg>#}
+{#                            </button>#}
+{#                            <button type="button" class="btn carousel-control-next" href="#carouselQuestionControls"#}
+{#                                    role="button"#}
+{#                                    data-slide="next">#}
+{#                                <svg class="bi bi-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"#}
+{#                                     xmlns="http://www.w3.org/2000/svg">#}
+{#                                    <path fill-rule="evenodd"#}
+{#                                          d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"#}
+{#                                          clip-rule="evenodd"></path>#}
+{#                                </svg>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="carousel-inner">#}
+{#                            <div class="carousel-item active">#}
+{#                                <div class="row w-100 choices">#}
+{#                                    <div class="col-lg-6 choice">#}
+{#                                        <label for="1th-choice" class="custom-input">#}
+{#                                            <span class="m--15-right">گزینه اول</span>#}
+{#                                            <input type="radio" id="1th-choice" name="choice"#}
+{#                                                   value="first-choice">#}
+{#                                            <span class="tick"></span>#}
+{#                                        </label>#}
+{#                                        <div id="first-choice-text"#}
+{#                                             class="first-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+{#                                    </div>#}
+{#                                    <div class="col-lg-6 choice">#}
+{#                                        <label for="2th-choice" class="custom-input">#}
+{#                                            <span class="left-choices-label">گزینه دوم</span>#}
+{#                                            <input type="radio" id="2th-choice" name="choice"#}
+{#                                                   value="first-choice">#}
+{#                                            <span class="tick left-choices-tick"></span>#}
+{#                                        </label>#}
+{#                                        <div id="second-choice-text"#}
+{#                                             class="second-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+{#                                    </div>#}
+{#                                    <div class="col-lg-6 choice">#}
+{#                                        <label for="3th-choice" class="custom-input">#}
+{#                                            <span class="m--15-right">گزینه سوم</span>#}
+{#                                            <input type="radio" id="3th-choice" name="choice"#}
+{#                                                   value="first-choice">#}
+{#                                            <span class="tick"></span>#}
+{#                                        </label>#}
+{#                                        <div id="third-choice-text"#}
+{#                                             class="third-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+{#                                    </div>#}
+{#                                    <div class="col-lg-6 choice">#}
+{#                                        <label for="4th-choice" class="custom-input">#}
+{#                                            <span class="left-choices-label">گزینه چهارم</span>#}
+{#                                            <input type="radio" id="4th-choice" name="choice"#}
+{#                                                   value="first-choice">#}
+{#                                            <span class="tick left-choices-tick"></span>#}
+{#                                        </label>#}
+{#                                        <div id="fourth-choice-text"#}
+{#                                             class="fourth-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="carousel-item">#}
+{#                                <label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>#}
+{#                                <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed"></div>#}
+{#                            </div>#}
+{#                        </div>#}
+                        {#                        <a class="carousel-control-prev" href="#carouselQuestionControls" role="button"#}
+                        {#                           data-slide="prev">#}
+                        {#                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+                        {#                            <span class="sr-only">Previous</span>#}
+                        {#                        </a>#}
+                        {#                        <a class="carousel-control-next" href="#carouselQuestionControls" role="button"#}
+                        {#                           data-slide="next">#}
+                        {#                            <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+                        {#                            <span class="sr-only">Next</span>#}
+                        {#                        </a>#}
+{#                    </div>#}
+
+
+                    {#                    <div class="row w-100">#}
+                    {#                        <div class="owl-carousel owl-theme">#}
+                    {#                            <div class="item">#}
+                    {#                        <div class="row w-100 choices">#}
+                    {#                            <div class="col-lg-6 choice">#}
+                    {#                                <label for="1th-choice" class="custom-input">#}
+                    {#                                    <span class="m--15-right">گزینه اول</span>#}
+                    {#                                    <input type="radio" id="1th-choice" name="choice"#}
+                    {#                                           value="first-choice">#}
+                    {#                                    <span class="tick"></span>#}
+                    {#                                </label>#}
+                    {#                                <div id="first-choice-text"#}
+                    {#                                     class="first-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+                    {#                            </div>#}
+                    {#                            <div class="col-lg-6 choice">#}
+                    {#                                <label for="2th-choice" class="custom-input">#}
+                    {#                                    <span class="left-choices-label">گزینه دوم</span>#}
+                    {#                                    <input type="radio" id="2th-choice" name="choice"#}
+                    {#                                           value="first-choice">#}
+                    {#                                    <span class="tick left-choices-tick"></span>#}
+                    {#                                </label>#}
+                    {#                                <div id="second-choice-text"#}
+                    {#                                     class="second-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+                    {#                            </div>#}
+                    {#                            <div class="col-lg-6 choice">#}
+                    {#                                <label for="3th-choice" class="custom-input">#}
+                    {#                                    <span class="m--15-right">گزینه سوم</span>#}
+                    {#                                    <input type="radio" id="3th-choice" name="choice"#}
+                    {#                                           value="first-choice">#}
+                    {#                                    <span class="tick"></span>#}
+                    {#                                </label>#}
+                    {#                                <div id="third-choice-text"#}
+                    {#                                     class="third-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+                    {#                            </div>#}
+                    {#                            <div class="col-lg-6 choice">#}
+                    {#                                <label for="4th-choice" class="custom-input">#}
+                    {#                                    <span class="left-choices-label">گزینه چهارم</span>#}
+                    {#                                    <input type="radio" id="4th-choice" name="choice"#}
+                    {#                                           value="first-choice">#}
+                    {#                                    <span class="tick left-choices-tick"></span>#}
+                    {#                                </label>#}
+                    {#                                <div id="fourth-choice-text"#}
+                    {#                                     class="fourth-choice-text fr-toolbar__fixed fr__single-line"></div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                            </div>#}
+                    {#                            <div class="item">#}
+                    {#                        <label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>#}
+                    {#                        <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed">#}
+                    {#                        </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+{#                    <div class="row w-100 state">#}
+{#                        <div class="form-group col-lg-4">#}
+{#                            <label for="lesson-select">سطح</label>#}
+{#                            <select id="lesson-select" class="form-control">#}
+{#                                <option selected>انتخاب کنید</option>#}
+{#                                <option class="no-select">s</option>#}
+{#                                <option class="no-select">sl;jl</option>#}
+{#                            </select>#}
+{#                            <span class="ti-angle-down"></span>#}
+{#                        </div>#}
+{#                        <div class="form-group col-lg-4">#}
                             {#                            <label for="chapter-select">فصل</label>#}
                             {#                            <select id="chapter-select" class="form-control">#}
                             {#                                <option selected>انتخاب کنید</option>#}
@@ -238,19 +324,19 @@
                             {#                                <option class="no-select">انتب کنیkjgkjjد</option>#}
                             {#                            </select>#}
                             {#                            <span class="ti-angle-down"></span>#}
-                        </div>
-                    </div>
-                    <div class="row w-100 tg-input">
-                        <label for="tag-input">کلید واژه</label>
-                        <input id="tag-input" class="tag-input">
-                    </div>
-                    <div class="row toggle-switch">
-                        <span>انتشار</span>
-                        <label class="switch">
-                            <input type="checkbox" name="is_publish">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
+{#                        </div>#}
+{#                    </div>#}
+                    {#                    <div class="row w-100 tg-input">#}
+                    {#                        <label for="tag-input">کلید واژه</label>#}
+                    {#                        <input id="tag-input" class="tag-input">#}
+                    {#                    </div>#}
+{#                    <div class="row toggle-switch">#}
+{#                        <span>انتشار</span>#}
+{#                        <label class="switch">#}
+{#                            <input type="checkbox" name="is_publish">#}
+{#                            <span class="slider round"></span>#}
+{#                        </label>#}
+{#                    </div>#}
                     <div class="me-btns">
                         <input type="reset" class="btn dispensing-btn" value="انصراف" data-toggle="modal"
                                data-target="#exampleModalCenter">

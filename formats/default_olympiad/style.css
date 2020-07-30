@@ -1,0 +1,74 @@
+@font-face {
+    font-family: "B Nazanin";
+    src: url("bnazanin.ttf");
+}
+
+@font-face {
+    font-family: "IranNastaliq";
+    src: url("IranNastaliq.ttf");
+}
+
+@font-face {
+    font-family: "Koodak";
+    src: url("KoodakB.ttf");
+}
+
+.nazanin-font {
+    font-family: "B Nazanin", serif !important;
+}
+
+.nastaliq-font {
+    font-family: "IranNastaliq", serif !important;
+    font-size: 1.8rem;
+}
+
+.koodak-font {
+    font-family: "Koodak", serif !important;
+}
+
+body {
+    background-color: #F8FAFB;
+}
+
+.cover-background {
+    background-image: url(Untitled-1.svg);
+    background-size: 16px;
+    padding: 2rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.cover-page {
+    background-color: white;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #000000;
+    font-size: 1.2rem;
+}
+
+.carousel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    background-color: black;
+    width: 5%;
+}
+
+.carousel-inner {
+    text-align: center;
+    width: calc(100vw - 30%);
+    margin: 3rem auto;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.carousel-item {
+    padding: 2rem;
+}
