@@ -554,6 +554,45 @@ h1 {
     transition: .5s;
 }
 
+@media (max-width: 992px) {
+    .sidebar {
+        width: 0;
+        z-index: 10000;
+    }
+    .sidebar a {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .topDrive {
+        width: 100% !important;
+    }
+    .Page-Body {
+        width: 100% !important;
+    }
+}
+.responsive-body-show {
+    z-index: 100000 !important;
+    background-color: #F8FAFB80;
+    transition: .5s;
+}
+.responsive-body {
+    width: calc(100% - 200px);
+    z-index: -1;
+    height: 100%;
+    position: absolute;
+    transition: .5s;
+}
+.responsive-sidebar {
+    width: 200px;
+}
+.responsive-sidebar-a {
+    visibility: visible;
+    opacity: 1 !important;
+    pointer-events: visible !important;
+}
+
 .sidebar > div {
     list-style: none;
     margin-top: 60px;
@@ -564,7 +603,7 @@ h1 {
 }
 
 .close-sidebar {
-    width: 80px !important;
+    width: 80px;
     transition: .5s;
 }
 
@@ -575,6 +614,7 @@ h1 {
     height: 45px;
     text-align: right;
     padding-right: 25px;
+    visibility: visible;
 }
 
 .sidebar a.active {
@@ -1794,8 +1834,8 @@ input:checked + .slider:before {
     height: 50px;
 }
 
-.alert-modal .modal-footer button {
-    color: #8697A8;
+.alert-modal .modal-footer button:last-child {
+    color: #343A40;
     border-bottom-left-radius: 15px !important;
     -webkit-border-bottom-left-radius: 15px !important;
 }
@@ -2547,6 +2587,7 @@ ul.fancytree-container {
 .min-h-300 {
     min-height: 300px !important;
 }
+
 
 .min-h-400 {
     min-height: 400px !important;
@@ -3368,7 +3409,7 @@ input[type='تایید سوالات'] {
 }
 
 
-#manage-examInfo > #headingThree {
+.manage-examInfo > #headingThree {
     padding: 17px 25px 17px 15px;
 }
 
@@ -3633,7 +3674,7 @@ input[type='تایید سوالات'] {
     transition: .3s;
 }
 
-#manage-examInfo #collapseThree .card-body {
+.manage-examInfo #collapseThree .card-body {
     padding: 15px 20px;
     background-color: #F8FAFB;
     direction: rtl;
@@ -3763,8 +3804,8 @@ input[type='تایید سوالات'] {
 }
 
 #start_exam_form_ajax .modal-body > .custom-switch {
-    display: flex;
-    direction: rtl;
+    width: fit-content;
+    margin-left: auto;
 }
 
 .E-run-float-exam-switch {
@@ -3787,7 +3828,7 @@ input[type='تایید سوالات'] {
     font-size: 14px;
 }
 
-#manage-examInfo > #headingThree:after {
+.manage-examInfo > #headingThree:after {
     content: '';
     position: absolute;
     right: 0;
@@ -3796,15 +3837,15 @@ input[type='تایید سوالات'] {
     height: 65px;
 }
 
-#manage-examInfo > #headingThree.ran:after {
+.manage-examInfo > #headingThree.ran:after {
     border-color: #2BDE3F;
 }
 
-#manage-examInfo > #headingThree.running:after {
+.manage-examInfo > #headingThree.running:after {
     border-color: #DC3545;
 }
 
-#manage-examInfo > #headingThree.not-run:after {
+.manage-examInfo > #headingThree.not-run:after {
     border-color: #FFC007;
 }
 
@@ -4387,3 +4428,5 @@ table.table tbody tr:not(:last-child) {
 }
 
 /* End Table */
+/*box-shadow: 0 2px 17px 0 rgba(0, 0, 0, .09);*/
+/*    transition: box-shadow 0.5s ease-in-out;*/

@@ -485,14 +485,12 @@ $(document).ready(function () {
     });
 
     $(".manage-buttons span").click(function () {
+        $(this).tooltip('hide');
         if ($("svg", this).hasClass("bi-play-fill")) {
             $(this).attr("data-original-title", "<p class='tool'>متوقف کردن آزمون</p>");
             $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                           </svg>`);
-            $('#ExamRun').tooltip('hide');
-            // $("#executeExam").modal();
-
         } else {
             $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" 
                                         xmlns="http://www.w3.org/2000/svg" data-toggle="modal" 
@@ -501,11 +499,6 @@ $(document).ready(function () {
                           </svg>`);
             $(this).attr("data-original-title", "<p class='tool'>اجرای ازمون</p>");
         }
-    });
-
-
-    $('.manage-exam #yes').click(function () {
-        $(this).closest('#manage-examInfo').css('display', 'none');
     });
 
     $('.manage-exam-info > .btn').click(function () {
@@ -540,6 +533,34 @@ $(document).ready(function () {
     }).on('change', function (e, date) {
         $('#ERunEndExam').bootstrapMaterialDatePicker('setMinDate', date);
     });
+
+    // chaining alert modal
+    if (window.location.pathname === '/teacher/exam') {
+        $('#anchorYes').remove();
+    } else {
+        $('#buttonYes').remove();
+    }
+
+    // delete exam in manage page
+    $('.manage-buttons div').click(function () {
+        let examId = $(this).closest('.manage-examInfo').attr('id');
+        $('.alert-modal .modal-footer button:first-child').attr('id', examId);
+        $("div[id*= " + examId + "]").addClass('selected-exam');
+        // Id of deleted exam
+        console.log(examId)
+    });
+    $('.alert-modal .modal-body').click(function (event) {
+        event.stopPropagation();
+    });
+    $('.alert-modal .modal-footer button:last-child, #exampleModalCenter').click(function () {
+        if (window.location.pathname === '/teacher/exam') {
+            $('.selected-exam').removeClass('selected-exam');
+        }
+    });
+    $('.alert-modal .modal-footer button:first-child').click(function () {
+        $('.selected-exam').remove();
+    });
+
 
     let csrf_token = getCookie('csrftoken');
     $.ajaxSetup({
