@@ -5,8 +5,7 @@ $(document).ready(function () {
     });
 
     $(".arrow-down-up").attr("data-toggle", "tooltip");
-
-
+    
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
