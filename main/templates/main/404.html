@@ -3,20 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Page</title>
+    <title>خطا 404</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style rel="stylesheet">
+        body {
+            background-color: #FCFEFF;
+        }
+
+        .circle-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+            max-width: 75vh;
+            z-index: 5;
+        }
+
+        h1 {
+            font-size: 10rem;
+            color: #0081FF;
+            margin: 0 auto;
+            width: fit-content;
+            font-weight: 800;
+        }
+
+        .circle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            width: 80vh;
+            height: 80vh;
+            background-color: #0081FF;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .circle:after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            width: 120vh;
+            height: 120vh;
+            background-color: #0081FF;
+            opacity: 0.3;
+            z-index: 2;
+        }
+
+        .circle:before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            width: 170vh;
+            height: 170vh;
+            background-color: #0081FF;
+            opacity: 0.3;
+            z-index: 3;
+        }
+    </style>
 </head>
 <body>
-<div class="outer-circle404">
-    <div class="middle-circle404">
-        <div class="inner-circle404">
-            <h1>
-                404
-            </h1>
-        </div>
-    </div>
+<div class="circle-content">
+    <h1>404</h1>
+    <h2>به نظر میاد گم شدید</h2>
+    <p>صفحه ای که به دنبال آن می گردید یافت نشد، شاید این صفحه منتقل شده باشد</p>
+    <a href="{% url 'index' %}" class="btn btn-blue">بازگشت به خانه</a>
 </div>
+<div class="circle"></div>
 </body>
 </html>

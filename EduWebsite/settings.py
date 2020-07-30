@@ -69,7 +69,8 @@ TEMPLATES = [
             ],
             'libraries': {
                 'math_filter': 'main.templatetags.math_filter',
-                'custom_filter': 'main.templatetags.custom_filter'
+                'custom_filter': 'main.templatetags.custom_filter',
+                'custom_tag': 'main.templatetags.custom_tag'
             }
         },
     },

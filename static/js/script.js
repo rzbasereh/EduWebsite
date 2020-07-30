@@ -40,6 +40,19 @@ $(document).ready(function () {
         $(this).removeClass('responsive-body-show')
     });
 
+    // Side Nav
+    $("[data-toggle='side-nav']").click(function () {
+        const dataTarget = $(this).attr("data-target");
+        $(".side-nav" + dataTarget).addClass("show");
+        $("body").append(`<div class="side-nav-backdrop fade show"></div>`);
+
+    });
+
+    $("[data-dismiss='side-nav']").click(function () {
+        $(".side-nav").removeClass("show");
+        $("body").find(".side-nav-backdrop.fade.show").remove();
+    });
+    // End Side Nav
 
     $('[data-toggle="tooltip"]').tooltip({
         html: true
@@ -67,7 +80,6 @@ $(document).ready(function () {
             $('.sidebar a:last-child').attr('data-original-title', "<p class=\'tool\'>گفتگو</p>");
         }
     });
-
 
     function getCookie(name) {
         let cookieValue = null;

@@ -227,7 +227,7 @@
     </div>
     {% block loader-in-sidebar %}{% endblock %}
 </div>
-<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"
+<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %} {% block pageBody-add__on-class %}{% endblock %}"
      id="content">
     {% block content %}{% endblock %}
 </div>
@@ -243,6 +243,7 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ns-autogrow/1.1.6/jquery.ns-autogrow.min.js"></script>
 {% block script %}{% endblock %}
 {% block owl-js %}{% endblock %}
 {% block questions-alert %}{% endblock %}
