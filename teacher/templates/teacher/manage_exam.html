@@ -84,15 +84,15 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="ERunAccidentalQuestion"
                                    name="random_questions">
-                            <label class="custom-control-label" for="ERunAccidentalQuestion">ترتیب تصادفی سوالات</label>
+                            <label class="custom-control-label " for="ERunAccidentalQuestion">ترتیب تصادفی سوالات</label>
                         </div>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice" name="random_choice">
-                            <label class="custom-control-label" for="ERunAccidentalChoice">ترتیب تصادفی گزینه ها</label>
+                            <label class="custom-control-label " for="ERunAccidentalChoice">ترتیب تصادفی گزینه ها</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators" name="publish">
-                            <label class="custom-control-label" for="ERunShowToParticipators">نمایش برای شرکت کنندگان</label>
+                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators" name="publish" >
+                            <label class="custom-control-label " for="ERunShowToParticipators">نمایش برای شرکت کنندگان</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -187,7 +187,7 @@
             </div>
             <div class="manage-exam-info-cards w-100 row accordion" id="accordionExample">
                 {% for exam in exams %}
-                    <div class="card w-100 row" id="manage-examInfo">
+                    <div class="card w-100 row manage-examInfo"  id="{{ exam.id }}">
                         <div class="card-header row not-run" id="headingThree">
                             <div class="manage-exam-info col-10">
                                 <button class="btn btn-link btn-block text-left collapsed" type="button"
@@ -234,7 +234,7 @@
                                               d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
                                     </svg>
                                 </a>
-                                <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف آزمون</p>">
+                                <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف آزمون</p>" >
                                     <svg
                                             class="bi bi-trash"
                                             width="1em" height="1em"

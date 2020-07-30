@@ -2,7 +2,7 @@
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered alert-modal" role="document">
-        <div class="modal-content">
+        <div class="modal-content" data-main>
             <div class="modal-body">
                 <div class="yellow-circle">
                     <svg class="bi bi-exclamation" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -13,7 +13,8 @@
                 <h1>آیا مطمئن هستید ؟</h1>
             </div>
             <div class="modal-footer">
-                <a href="{{ href }}" class="btn" id="yes">بله</a>
+                <a href="{{ href }}" class="btn" id="anchorYes">بله</a>
+                <button type="button" class="btn" data-dismiss="modal" id="buttonYes">بله</button>
                 <button type="button" class="btn" data-dismiss="modal">خیر</button>
             </div>
         </div>

@@ -60,56 +60,96 @@
         </svg>
     </span>
 </div>
-<div class="sidebar {% block change-sidebar %}{% endblock %}">
-    <ul>
+<div class="sidebar {% block change-sidebar %}{% endblock %} ">
+    <div>
         {% url 'manager:index' as index %}
         <a href="{% url 'manager:index' %}" class="{% if request.path == index %}
          active
-        {% endif %}">
-            <li>
-                <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                          d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
-                          clip-rule="evenodd"></path>
-                </svg>
-                <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
-            </li>
+        {% endif %}"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="<p class='tool'>داشبورد</p>"
+        >
+            <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
+                      clip-rule="evenodd"></path>
+            </svg>
+            <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
         </a>
         {% url 'manager:users' as index %}
         <a href="{% url 'manager:users' %}" class="{% if request.path == index %}
          active
-        {% endif %}">
-            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کاربران</span></li>
+        {% endif %}"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="<p class='tool'>کاربران</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002.002zM7.022 13h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zm7.973.056v-.002.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+            </svg>
+            <span class="{% block remove-text1 %}{% endblock %}">کاربران</span>
         </a>
         {% url 'manager:reports' as reports_url %}
         <a href="{% url 'manager:reports' %}" class="{% if request.path == reports_url %}
          active
-        {% endif %}">
-            <li><i class="ti-file"></i><span class="{% block remove-text1000 %}{% endblock %}">گزارش ها</span>
-            </li>
+        {% endif %}"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="<p class='tool'>گزارش ها</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sticky" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v6.086a1.5 1.5 0 0 1-.44 1.06l-4.914 4.915a1.5 1.5 0 0 1-1.06.439H2.5A1.5 1.5 0 0 1 1 13.5v-11zM2.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h6.086a.5.5 0 0 0 .353-.146l4.915-4.915A.5.5 0 0 0 14 8.586V2.5a.5.5 0 0 0-.5-.5h-11z"></path>
+                <path fill-rule="evenodd" d="M9.5 9a.5.5 0 0 0-.5.5v5H8v-5A1.5 1.5 0 0 1 9.5 8h5v1h-5z"></path>
+            </svg>
+            <span class="{% block remove-text1000 %}{% endblock %}">گزارش ها</span>
         </a>
         {% url 'manager:classes' as exam %}
         <a href="{% url 'manager:classes' %}" class="{% if request.path == exam %}
          active
-        {% endif %}">
-            <li><i class="ti-blackboard"></i><span class="{% block remove-text2 %}{% endblock %}">کلاس ها</span>
-            </li>
+        {% endif %}"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="<p class='tool'>کلاس ها</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-easel" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"></path>
+                <path fill-rule="evenodd"
+                      d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"></path>
+            </svg>
+            <span class="{% block remove-text2 %}{% endblock %}">کلاس ها</span>
         </a>
         {% url 'manager:chats' as chats_url %}
         <a href="{% url 'manager:chats' %}" class="{% if request.path == chats_url %}
          active
-        {% endif %}">
-            <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
+        {% endif %}"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="<p class='tool'>گفتگو</p>"
+        >
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-text" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M14 1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.5a2 2 0 0 1 1.6.8L8 14.333 9.9 11.8a2 2 0 0 1 1.6-.8H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                <path fill-rule="evenodd"
+                      d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+            <span class="{% block remove-text3 %}{% endblock %}">گفتگو </span>
         </a>
-    </ul>
+    </div>
     {% block loader-in-sidebar %}{% endblock %}
 </div>
 <div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"
      id="content">
     {% block content %}{% endblock %}
 </div>
-
+<div class="responsive-body"></div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
