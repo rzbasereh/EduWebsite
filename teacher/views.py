@@ -48,11 +48,14 @@ def questions(request):
         messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
         exam_pk = Exam.objects.get(creator=request.user, is_submit=True, is_edit=True, is_add=False).id
         return HttpResponseRedirect(reverse("teacher:edit_exam", kwargs={"pk": exam_pk}))
+    elif Question.objects.filter(author=request.user, on_write=True).exists():
+        messages.success(request, "برای دسترسی به صفحه قبل لازم است ابتدا این ویرایش را تکمیل کنید!")
+        return HttpResponseRedirect(reverse("teacher:newQuestion"))
     else:
         user = commonData(request)
         questions_data = {
-            'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
-            'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
+            'count': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).count(),
+            'list': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).order_by('-pk')[:10],
         }
         grade = Grade.objects.last().source
         selected_question = []
@@ -71,8 +74,7 @@ def newQuestion(request):
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
             TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
         user = commonData(request)
-        pk = request.session['pk']
-        del request.session['pk']
+        pk = Question.objects.get(on_write=True, author=request.user).id
         return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
     messages.error(request, "شما مجاز به انجام این عملیات نیستید!")
     return HttpResponseRedirect(reverse('teacher:questions'))
@@ -84,11 +86,9 @@ def saveGrades(request):
         if len(grades) == 0:
             return JsonResponse({"value": "empty list"})
         else:
-            author = request.user.teacher
-            question = Question(author=author, grades=grades)
+            author = request.user
+            question = Question(author=author, grades=grades, on_write=True)
             question.save()
-            pk = question.id
-            request.session['pk'] = pk
             return JsonResponse({"value": "success", "url": reverse("teacher:newQuestion")})
     else:
         return JsonResponse({"value": "invalid Request"})
@@ -97,12 +97,12 @@ def saveGrades(request):
 def addQuestion(request):
     if request.method == "POST":
         pk = request.POST.get('pk')
-        author = request.user.teacher
+        author = request.user
         body = request.POST.get('body')
-        choice1 = request.POST.get('ChoiceVal1')
-        choice2 = request.POST.get('ChoiceVal2')
-        choice3 = request.POST.get('ChoiceVal3')
-        choice4 = request.POST.get('ChoiceVal4')
+        # choice1 = request.POST.get('ChoiceVal1')
+        # choice2 = request.POST.get('ChoiceVal2')
+        # choice3 = request.POST.get('ChoiceVal3')
+        # choice4 = request.POST.get('ChoiceVal4')
         is_redirect = request.POST.get('redirect')
         # choice5 = ""
         # print(is_redirect == "tru")
@@ -123,10 +123,6 @@ def addQuestion(request):
             question.body = body
             question.author = author
             question.verbose_ans = verbose_ans
-            question.choice_1 = choice1
-            question.choice_2 = choice2
-            question.choice_3 = choice3
-            question.choice_4 = choice4
             question.grade = grade
             question.lesson = lesson
             question.chapter = chapter
@@ -232,23 +228,23 @@ def filter_page(request):
             page = int(request.POST.get('page'))
             start = (page - 1) * unit
             end = unit * page
-            new_questions = Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True))
+            new_questions = Question.objects.filter(Q(author=request.user) | Q(is_publish=True))
             if my_questions:
-                new_questions = new_questions.filter(author=request.user.teacher)
+                new_questions = new_questions.filter(author=request.user)
             if level:
                 new_questions = new_questions.filter(level=level)
             new_questions = serializers.serialize("json", new_questions.order_by('-pk')[start:end])
             # checked = list(QuestionPack.objects.get(submit=False).questions.all().values_list("id", flat=True))
-            count = Question.objects.filter(author=request.user.teacher).count()
+            count = Question.objects.filter(author=request.user).count()
             return JsonResponse({"value": "success", "questions": new_questions, "count": count})
         elif request.POST.get("requestType") == "filter":
             unit = int(request.POST.get('unit'))
             page = 1
             start = (page - 1) * unit
             end = unit * page
-            new_questions = Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True))
+            new_questions = Question.objects.filter(Q(author=request.user) | Q(is_publish=True))
             if my_questions:
-                new_questions = new_questions.filter(author=request.user.teacher)
+                new_questions = new_questions.filter(author=request.user)
             if level:
                 new_questions = new_questions.filter(level=level)
             checked = 1
@@ -301,8 +297,8 @@ def add_to_edit(request, pk):
     exam.is_add = True
     exam.save()
     questions_data = {
-        'count': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).count(),
-        'list': Question.objects.filter(Q(author=request.user.teacher) | Q(is_publish=True)).order_by('-pk')[:10],
+        'count': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).count(),
+        'list': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).order_by('-pk')[:10],
     }
     grade = Grade.objects.last().source
     selected_question = []

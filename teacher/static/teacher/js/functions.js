@@ -1,5 +1,5 @@
 function pasteHtmlAtCaret(html) {
-    var sel, range;
+    let sel, range;
     if (window.getSelection) {
         // IE9 and non-IE
         sel = window.getSelection();
@@ -9,9 +9,9 @@ function pasteHtmlAtCaret(html) {
 
             // Range.createContextualFragment() would be useful here but is
             // non-standard and not supported in all browsers (IE9, for one)
-            var el = document.createElement("div");
+            let el = document.createElement("div");
             el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
+            let frag = document.createDocumentFragment(), node, lastNode;
             while ((node = el.firstChild)) {
                 lastNode = frag.appendChild(node);
             }
@@ -206,7 +206,7 @@ function collectData(element, mute) {
 function intervalSave() {
     $(".saved").removeClass('saved-show');
     $(".updating").addClass("updating-show ");
-
+    const addQuestionForm = $("#add-question-form");
     let data = {};
     data.pk = addQuestionForm.closest(".card").attr("id");
     if (collectData("QuestionSubject", true) !== false) {
@@ -219,26 +219,26 @@ function intervalSave() {
     } else {
         data.verbose_ans = ""
     }
-    if (collectData("ChoiceVal1", true) !== false) {
-        data.ChoiceVal1 = collectData("ChoiceVal1", true);
-    } else {
-        data.ChoiceVal1 = ""
-    }
-    if (collectData("ChoiceVal2", true) !== false) {
-        data.ChoiceVal2 = collectData("ChoiceVal2", true);
-    } else {
-        data.ChoiceVal2 = ""
-    }
-    if (collectData("ChoiceVal3", true) !== false) {
-        data.ChoiceVal3 = collectData("ChoiceVal3", true);
-    } else {
-        data.ChoiceVal3 = ""
-    }
-    if (collectData("ChoiceVal4", true) !== false) {
-        data.ChoiceVal4 = collectData("ChoiceVal4", true);
-    } else {
-        data.ChoiceVal4 = ""
-    }
+    // if (collectData("ChoiceVal1", true) !== false) {
+    //     data.ChoiceVal1 = collectData("ChoiceVal1", true);
+    // } else {
+    //     data.ChoiceVal1 = ""
+    // }
+    // if (collectData("ChoiceVal2", true) !== false) {
+    //     data.ChoiceVal2 = collectData("ChoiceVal2", true);
+    // } else {
+    //     data.ChoiceVal2 = ""
+    // }
+    // if (collectData("ChoiceVal3", true) !== false) {
+    //     data.ChoiceVal3 = collectData("ChoiceVal3", true);
+    // } else {
+    //     data.ChoiceVal3 = ""
+    // }
+    // if (collectData("ChoiceVal4", true) !== false) {
+    //     data.ChoiceVal4 = collectData("ChoiceVal4", true);
+    // } else {
+    //     data.ChoiceVal4 = ""
+    // }
     if (collectData("GradeSelect", true) !== false) {
         data.GradeSelect = collectData("GradeSelect", true);
     } else {
