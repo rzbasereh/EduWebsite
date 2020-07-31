@@ -554,45 +554,6 @@ h1 {
     transition: .5s;
 }
 
-@media (max-width: 992px) {
-    .sidebar {
-        width: 0;
-        z-index: 10000;
-    }
-    .sidebar a {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    .topDrive {
-        width: 100% !important;
-    }
-    .Page-Body {
-        width: 100% !important;
-    }
-}
-.responsive-body-show {
-    z-index: 100000 !important;
-    background-color: #F8FAFB80;
-    transition: .5s;
-}
-.responsive-body {
-    width: calc(100% - 200px);
-    z-index: -1;
-    height: 100%;
-    position: absolute;
-    transition: .5s;
-}
-.responsive-sidebar {
-    width: 200px;
-}
-.responsive-sidebar-a {
-    visibility: visible;
-    opacity: 1 !important;
-    pointer-events: visible !important;
-}
-
 .sidebar > div {
     list-style: none;
     margin-top: 60px;
@@ -603,7 +564,7 @@ h1 {
 }
 
 .close-sidebar {
-    width: 80px;
+    width: 80px !important;
     transition: .5s;
 }
 
@@ -614,7 +575,6 @@ h1 {
     height: 45px;
     text-align: right;
     padding-right: 25px;
-    visibility: visible;
 }
 
 .sidebar a.active {
@@ -883,9 +843,6 @@ h1 {
     direction: rtl;
 }
 
-.no-padding {
-    padding: 0 !important;
-}
 
 .Page-Body::-webkit-scrollbar {
     width: 0;
@@ -1848,7 +1805,7 @@ input:checked + .slider:before {
 }
 
 .modal-body {
-    padding-bottom: 10px;
+    padding-bottom: 10px !important;
 
 }
 
@@ -1870,8 +1827,8 @@ input:checked + .slider:before {
     height: 50px;
 }
 
-.alert-modal .modal-footer button:last-child {
-    color: #343A40;
+.alert-modal .modal-footer button {
+    color: #8697A8;
     border-bottom-left-radius: 15px !important;
     -webkit-border-bottom-left-radius: 15px !important;
 }
@@ -2624,11 +2581,6 @@ ul.fancytree-container {
     min-height: 300px !important;
 }
 
-
-.min-h-400 {
-    min-height: 400px !important;
-}
-
 span.vr-hr {
     position: relative;
 }
@@ -3245,6 +3197,7 @@ ul.pagination {
     margin: 0 15px;
     cursor: pointer;
     position: relative;
+    bottom: 3px;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
     transition: .5s;
 }
@@ -3445,7 +3398,7 @@ input[type='تایید سوالات'] {
 }
 
 
-.manage-examInfo > #headingThree {
+#manage-examInfo > #headingThree {
     padding: 17px 25px 17px 15px;
 }
 
@@ -3576,24 +3529,17 @@ input[type='تایید سوالات'] {
     color: #0081FF;
 }
 
-@media (min-width: 992px) {
-    .modal-rlg {
-        max-width: 700px;
-    }
-}
-
 .sidebar-modal.modal-body {
     display: flex;
     direction: rtl;
-    padding: 0;
 }
 
 .sidebar-modal.modal-body .modal-side-bar {
     min-width: 200px;
-    max-width: 200px;
     background-color: #F8FAFB;
     min-height: 100%;
     position: relative;
+    margin: -80px -20px -10px 0;
 }
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile {
@@ -3603,7 +3549,7 @@ input[type='تایید سوالات'] {
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile label {
     position: relative;
-    margin-top: 1.5rem;
+    margin-top: 100px;
 }
 
 .sidebar-modal.modal-body .modal-side-bar .side-bar-profile label img {
@@ -3710,7 +3656,7 @@ input[type='تایید سوالات'] {
     transition: .3s;
 }
 
-.manage-examInfo #collapseThree .card-body {
+#manage-examInfo #collapseThree .card-body {
     padding: 15px 20px;
     background-color: #F8FAFB;
     direction: rtl;
@@ -3840,8 +3786,8 @@ input[type='تایید سوالات'] {
 }
 
 #start_exam_form_ajax .modal-body > .custom-switch {
-    width: fit-content;
-    margin-left: auto;
+    display: flex;
+    direction: rtl;
 }
 
 .E-run-float-exam-switch {
@@ -4466,3 +4412,20 @@ table.table tbody tr:not(:last-child) {
 /* End Table */
 /*box-shadow: 0 2px 17px 0 rgba(0, 0, 0, .09);*/
 /*    transition: box-shadow 0.5s ease-in-out;*/
+
+
+.new-choice {
+    margin-top: 25px;
+}
+
+.new-choice__container {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
+}
+
+.new-choice__container span {
+    font-size: 14px;
+}
