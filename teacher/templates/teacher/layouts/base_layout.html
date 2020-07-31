@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/dark-theme.css' %}">
 </head>
 <body>
+{% block modal %}{% endblock %}
 {% block page-loading %}{% endblock %}
 <div class="modal fade" id="profile" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">

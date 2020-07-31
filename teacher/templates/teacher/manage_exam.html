@@ -13,12 +13,15 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js.map"></script>
 {% endblock %}
+
+
 {% block style %}
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
-{% block content %}
+
+{% block modal %}
     <div class="modal fade" id="ERun" tabindex="-1" role="dialog" aria-labelledby="ERunLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -30,9 +33,9 @@
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"></path>
                                 <path fill-rule="evenodd"
-                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"></path>
                             </svg>
                         </span>
                     </button>
@@ -87,12 +90,15 @@
                             <label class="custom-control-label" for="ERunAccidentalQuestion">ترتیب تصادفی سوالات</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice" name="random_choice">
+                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice"
+                                   name="random_choice">
                             <label class="custom-control-label" for="ERunAccidentalChoice">ترتیب تصادفی گزینه ها</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators" name="publish">
-                            <label class="custom-control-label" for="ERunShowToParticipators">نمایش برای شرکت کنندگان</label>
+                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators"
+                                   name="publish">
+                            <label class="custom-control-label" for="ERunShowToParticipators">نمایش برای شرکت
+                                کنندگان</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -114,9 +120,9 @@
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"></path>
                                 <path fill-rule="evenodd"
-                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"></path>
                             </svg>
                         </span>
                     </button>
@@ -143,6 +149,63 @@
         </div>
     </div>
     {% include 'teacher/layouts/alert-modals.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1>کلاس ها</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'teacher:index' %}">
+                    <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                              d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">کلاس ها</li>
+        </ol>
+    </nav>
+    <div class="clearfix w-100 mb-4">
+        <span class="float-left">
+            <div class="plus-question" data-toggle="side-nav" data-target="#addClass">
+                <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"></path>
+                    <path fill-rule="evenodd"
+                          d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"></path>
+                </svg>
+            </div>
+        </span>
+        <span class="float-left">
+            <div class="input-group white-bg mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                        </svg>
+                        <div class="spinner-border d-none" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </span>
+                </div>
+                <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                       aria-label="جستجو"
+                       aria-describedby="basic-addon1" id="navSearch"
+                       data-url="">
+            </div>
+        </span>
+    </div>
     <div class="manage-exam">
         <h1>مدیریت آزمون</h1>
         <div class="path">
@@ -196,7 +259,7 @@
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list"
                                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
-                                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
                                     </svg>
                                 </button>
                                 <span class="col-4 text-right">{{ exam.name }}</span>
