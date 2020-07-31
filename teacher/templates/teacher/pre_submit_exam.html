@@ -8,12 +8,8 @@
 {% endblock %}
 {% block script %}
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 {% endblock %}
 {% block content %}
     <div class="modal fade" id="examInfo" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
@@ -36,25 +32,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{% url 'teacher:save_new_exam' %}">
+                    <form method="post" action="{% url 'teacher:save_new_exam' %}" id="save_edited_changes_ajax">
                         {% csrf_token %}
-                        <input name="pack_pk" value="{{ pack_pk }}" hidden>
+                        <label>
+                            <input name="pack_pk" value="{{ pack_pk }}" hidden>
+                        </label>
+                        <label>
+                            <input name="sort" value="" hidden>
+                        </label>
                         <div class="input-group mb-3">
                             <label for="examSubject">عنوان آزمون</label>
                             <input type="text" id="examSubject" class="form-control fc1" aria-label="Username"
-                                   aria-describedby="basic-addon1" name="name" value="{{ exam_info.name }}">
+                                   aria-describedby="basic-addon1" name="name" value="{{ exam_info.name }}" required>
                         </div>
                         <div class="suggested-time">
                             <h4>زمان پیشنهادی</h4>
                             <div>
                                 <input type="number" id="second" min="0" max="59" placeholder="ثانیه" name="second"
-                                       value="{{ exam_info.suggested_time.second }}">
+                                       value="{{ exam_info.suggested_time.second }}" required>
                                 <span> : </span>
                                 <input type="number" id="minute" min="0" max="59" placeholder="دقیقه" name="minute"
-                                       value="{{ exam_info.suggested_time.minute }}">
+                                       value="{{ exam_info.suggested_time.minute }}" required>
                                 <span> : </span>
                                 <input type="number" id="hour" min="0" max="4" placeholder="ساعت" name="hour"
-                                       value="{{ exam_info.suggested_time.hour }}">
+                                       value="{{ exam_info.suggested_time.hour }}" required>
                             </div>
                         </div>
                         <div>
@@ -116,18 +117,18 @@
                         </span>
                     </div>
                     <div class="trash-and-drag">
-                        <div data-toggle="tooltip" data-placement="top"
-                             class="arrow-down-up" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>">
-                            <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M11 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"></path>
-                                <path fill-rule="evenodd"
-                                      d="M10.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L11 3.707 8.354 6.354a.5.5 0 1 1-.708-.708l3-3zm-9 7a.5.5 0 0 1 .708 0L5 12.293l2.646-2.647a.5.5 0 1 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"></path>
-                                <path fill-rule="evenodd"
-                                      d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"></path>
-                            </svg>
-                        </div>
+{#                        <div data-toggle="tooltip" data-placement="top"#}
+{#                             class="arrow-down-up" title="<p class='tool'>ترتیب بندی دلخواه سوالات</p>">#}
+{#                            <svg class="bi bi-arrow-down-up" width="1em" height="1em" viewBox="0 0 16 16"#}
+{#                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+{#                                <path fill-rule="evenodd"#}
+{#                                      d="M11 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"></path>#}
+{#                                <path fill-rule="evenodd"#}
+{#                                      d="M10.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L11 3.707 8.354 6.354a.5.5 0 1 1-.708-.708l3-3zm-9 7a.5.5 0 0 1 .708 0L5 12.293l2.646-2.647a.5.5 0 1 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"></path>#}
+{#                                <path fill-rule="evenodd"#}
+{#                                      d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"></path>#}
+{#                            </svg>#}
+{#                        </div>#}
 
                         <a data-toggle="modal" data-target="#exampleModalCenter" class="trash">
                             <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف تمام سوالات</p>">
@@ -209,6 +210,11 @@
                     </div>
                     <a href="
 
+
+
+
+
+
                             {% if exam_info.state == "submitted" %}{% url 'teacher:add_to_edit' exam_info.pk %}{% else %}{% url 'teacher:questions' %}{% endif %}">
                         <div class="plus-question">
                             <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -224,67 +230,67 @@
                 <div class="questions">
                     <div class="row questions-content">
                         {% for question in questions %}
-                            <div class="card w-100 " id="{{ question.pk }}">
+                            <div class="card w-100 sort_able" id="{{ question.pk }}">
                                 <div></div>
                                 <div class="card-body">
                                     <div class="question-type">
-                        <span>
-                            <span>پایه دهم</span>
-                            <span>
-                                <svg class="bi bi-chevron-left" width="1em" height="1em"
-                                     viewBox="0 0 16 16"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                            <span>بانک سوال</span>
-                            <span>
-                                <svg class="bi bi-chevron-left" width="1em" height="1em"
-                                     viewBox="0 0 16 16"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                            <span>همه ی سوالات</span>
-                        </span>
+                                        <span>
+                                            <span>پایه دهم</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <span>بانک سوال</span>
+                                            <span>
+                                                <svg class="bi bi-chevron-left" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <span>همه ی سوالات</span>
+                                        </span>
                                     </div>
                                     <div class="question-info">
                                         <div class="question-info-data">
-                            <span class="question-level">
-                                                        <svg class="bi bi-dot {% if question.level == "1" %}bi-dot-simple{% elif question.level == "2" %}bi-dot-middle{% elif question.level == "3" %}bi-dot-hard{% endif %}"
-                                                             width="1em" height="1em"
-                                                             viewBox="0 0 16 16" fill="currentColor"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                  d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
-                                                                  clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        <span>
-                                                            {% if question.level == "1" %}
-                                                                ساده
-                                                            {% elif question.level == "2" %}
-                                                                متوسط
-                                                            {% elif question.level == "3" %}
-                                                                دشوار
-                                                            {% endif %}
-                                                        </span>
-                                                    </span>
+                                            <span class="question-level">
+                                                <svg class="bi bi-dot {% if question.level == "1" %}bi-dot-simple{% elif question.level == "2" %}bi-dot-middle{% elif question.level == "3" %}bi-dot-hard{% endif %}"
+                                                     width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span>
+                                                    {% if question.level == "1" %}
+                                                        ساده
+                                                    {% elif question.level == "2" %}
+                                                        متوسط
+                                                    {% elif question.level == "3" %}
+                                                        دشوار
+                                                    {% endif %}
+                                                </span>
+                                            </span>
                                             <span>
-                                <svg class="bi bi-pie-chart" width="1em" height="1em"
-                                     viewBox="0 0 16 16" fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z"
-                                          clip-rule="evenodd"></path>
-                                    <path fill-rule="evenodd"
-                                          d="M7.5 7.793V1h1v6.5H15v1H8.207l-4.853 4.854-.708-.708L7.5 7.793z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
+                                                <svg class="bi bi-pie-chart" width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z"
+                                                          clip-rule="evenodd"></path>
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.5 7.793V1h1v6.5H15v1H8.207l-4.853 4.854-.708-.708L7.5 7.793z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-toggle="dropdown"
@@ -297,8 +303,7 @@
                                                               clip-rule="evenodd"></path>
                                                     </svg>
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                </div>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
                                             </div>
                                         </div>
                                         <div class="question-info-img">
@@ -307,7 +312,9 @@
                                         </div>
                                         <span>98-99</span>
                                     </div>
-                                    <button type="button" data-url="{% url 'teacher:selectedQuestion_edit' exam_info.pk %}" class="close">
+                                    <button type="button"
+                                            data-url="{% url 'teacher:selectedQuestion_edit' exam_info.pk %}"
+                                            class="close">
                                         <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +326,13 @@
                                                   clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
-                                    <div class="question-text">
+                                    <div class="move-item-handle">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grip-horizontal"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="question-text hover-action">
                                         {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
@@ -376,9 +389,9 @@
                         {% endfor %}
                     </div>
                 </div>
-                <input type="submit" class="btn btn-blue" value="تایید سوال" data-toggle="modal"
-                       data-target="#examInfo">
-                <input type="button" class="btn btn-blue" value="لغو ویرایش">
+                <button type="button" class="btn btn-blue" data-toggle="modal"
+                        data-target="#examInfo">تایید سوال</button>
+                <button type="button" class="btn btn-blue">لغو ویرایش</button>
             </div>
         </div>
     </div>

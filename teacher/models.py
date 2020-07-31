@@ -58,6 +58,11 @@ class Question(models.Model):
         ('2in2', "دو در دو")
     )
     choice_layout = models.CharField(choices=LAYOUT, max_length=10, default="horizontal")
+    choice_1 = models.TextField()
+    choice_2 = models.TextField()
+    choice_3 = models.TextField()
+    choice_4 = models.TextField()
+    choice_5 = models.TextField()
     correct_ans = models.CharField(max_length=1, blank=True, null=True)
     verbose_ans = models.TextField(null=True, blank=True)
     grades = models.CharField(max_length=1000, blank=True, null=True)
@@ -85,15 +90,6 @@ class Question(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    position = models.IntegerField()
-    text = models.TextField()
-
-    def __str__(self):
-        return str(self.question) + " - " + str(self.position)
 
 
 class Exam(models.Model):

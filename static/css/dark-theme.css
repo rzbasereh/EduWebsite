@@ -1,5 +1,6 @@
 body {
     background-color: #15232E;
+    color: #ffffff;
 }
 
 div.radio-group {
@@ -1882,11 +1883,6 @@ input:checked + .slider:before {
 }
 
 .questions-content .card-body {
-    min-height: 170px;
-    padding: 45px 12px 50px 100px;
-    border-radius: 5px !important;
-    -webkit-border-radius: 5px !important;
-    -moz-border-radius: 5px !important;
     background-color: transparent;
 }
 
@@ -2586,18 +2582,8 @@ span.fancytree-checkbox:hover {
 }
 
 .card-body .close {
-    position: absolute;
-    padding: 12px;
     color: #44566C;
     background-color: #E9ECEF;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    margin: -3px 10px 0 10px;
-    right: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: .5s;
 }
 
 .card-body:hover .close {
@@ -3350,7 +3336,7 @@ input[type='تایید سوالات'] {
 }
 
 .manage-exam-info > .btn {
-    color: #1F2935;
+    color: #ffffff;
 }
 
 #manage-examInfo #collapseThree .card-body {
