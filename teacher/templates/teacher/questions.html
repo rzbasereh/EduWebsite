@@ -115,7 +115,9 @@
             {#            <a href="#">#}
             {#                <span>سوالات شما</span>#}
             {#            </a>#}
-            <a href="{% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}" class="sidebar-bottom-box">
+
+            <a href="{% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}"
+               class="sidebar-bottom-box">
                 <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="{% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
                     <h2>
@@ -251,37 +253,37 @@
                                         </label>
                                     </div>
                                 </li>
-{#                                <li>#}
-{#                                    <h6>منبع</h6>#}
-{#                                    <div class="form-check">#}
-{#                                        <input class="form-check-input" type="radio" name="source"#}
-{#                                               id="exampleRadios1" value="option1" checked>#}
-{#                                        <label class="form-check-label" for="exampleRadios1">#}
-{#                                            همه#}
-{#                                        </label>#}
-{#                                    </div>#}
-{#                                    <div class="form-check">#}
-{#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-{#                                               id="exampleRadios2" value="option2">#}
-{#                                        <label class="form-check-label" for="exampleRadios2">#}
-{#                                            قلمچی#}
-{#                                        </label>#}
-{#                                    </div>#}
-{#                                    <div class="form-check">#}
-{#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-{#                                               id="exampleRadios2" value="option2">#}
-{#                                        <label class="form-check-label" for="exampleRadios2">#}
-{#                                            گزینه دو#}
-{#                                        </label>#}
-{#                                    </div>#}
-{#                                    <div class="form-check">#}
-{#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-{#                                               id="exampleRadios2" value="option2">#}
-{#                                        <label class="form-check-label" for="exampleRadios2">#}
-{#                                            سنجش#}
-{#                                        </label>#}
-{#                                    </div>#}
-{#                                </li>#}
+                                {#                                <li>#}
+                                {#                                    <h6>منبع</h6>#}
+                                {#                                    <div class="form-check">#}
+                                {#                                        <input class="form-check-input" type="radio" name="source"#}
+                                {#                                               id="exampleRadios1" value="option1" checked>#}
+                                {#                                        <label class="form-check-label" for="exampleRadios1">#}
+                                {#                                            همه#}
+                                {#                                        </label>#}
+                                {#                                    </div>#}
+                                {#                                    <div class="form-check">#}
+                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                                {#                                               id="exampleRadios2" value="option2">#}
+                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                                {#                                            قلمچی#}
+                                {#                                        </label>#}
+                                {#                                    </div>#}
+                                {#                                    <div class="form-check">#}
+                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                                {#                                               id="exampleRadios2" value="option2">#}
+                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                                {#                                            گزینه دو#}
+                                {#                                        </label>#}
+                                {#                                    </div>#}
+                                {#                                    <div class="form-check">#}
+                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                                {#                                               id="exampleRadios2" value="option2">#}
+                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                                {#                                            سنجش#}
+                                {#                                        </label>#}
+                                {#                                    </div>#}
+                                {#                                </li>#}
                                 <li>
                                     <button type="button" class="btn btn-blue w-100">اعمال فیلتر</button>
                                 </li>
@@ -388,30 +390,46 @@
                                         {{ question.body|safe }}
                                     </div>
                                     <div class="question-inline-choices">
-                                        <span {% if question.correct_ans == "1" %}class="selected-correct-choice"{% endif %}>
+                                        {% if not question.choice_1 == "empty" %}
+                                            <span {% if question.correct_ans == "1" %}class="selected-correct-choice"{% endif %}>
                                             {% if question.correct_ans == "1" %}
                                                 <span class="inline-selected-correct-choice-tick"></span>
                                             {% endif %}
-                                            1) {{ question.choice_1|safe }}
-                                        </span>
-                                        <span {% if question.correct_ans == "2" %}class="selected-correct-choice"{% endif %}>
+                                                1) {{ question.choice_1|safe }}
+                                            </span>
+                                        {% endif %}
+                                        {% if not question.choice_2 == "empty" %}
+                                            <span {% if question.correct_ans == "2" %}class="selected-correct-choice"{% endif %}>
                                             {% if question.correct_ans == "2" %}
                                                 <span class="inline-selected-correct-choice-tick"></span>
                                             {% endif %}
-                                            2) {{ question.choice_2|safe }}
+                                                2) {{ question.choice_2|safe }}
                                         </span>
-                                        <span {% if question.correct_ans == "3" %}class="selected-correct-choice"{% endif %}>
+                                        {% endif %}
+                                        {% if not question.choice_3 == "empty" %}
+                                            <span {% if question.correct_ans == "3" %}class="selected-correct-choice"{% endif %}>
                                             {% if question.correct_ans == "3" %}
                                                 <span class="inline-selected-correct-choice-tick"></span>
                                             {% endif %}
-                                            3) {{ question.choice_3|safe }}
+                                                3) {{ question.choice_3|safe }}
                                         </span>
-                                        <span {% if question.correct_ans == "4" %}class="selected-correct-choice"{% endif %}>
+                                        {% endif %}
+                                        {% if not question.choice_4 == "empty" %}
+                                            <span {% if question.correct_ans == "4" %}class="selected-correct-choice"{% endif %}>
                                             {% if question.correct_ans == "4" %}
                                                 <span class="inline-selected-correct-choice-tick"></span>
                                             {% endif %}
-                                            4) {{ question.choice_4|safe }}
+                                                4) {{ question.choice_4|safe }}
                                         </span>
+                                        {% endif %}
+                                        {% if not question.choice_5 == "empty" %}
+                                            <span {% if question.correct_ans == "5" %}class="selected-correct-choice"{% endif %}>
+                                            {% if question.correct_ans == "5" %}
+                                                <span class="inline-selected-correct-choice-tick"></span>
+                                            {% endif %}
+                                                5) {{ question.choice_5|safe }}
+                                        </span>
+                                        {% endif %}
                                     </div>
                                     {% if question.verbose_ans %}
                                         <span>پاسخ تشریحی</span>

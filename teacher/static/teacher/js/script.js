@@ -4,7 +4,7 @@ $(document).ready(function () {
         html: true
     });
 
-    $(".arrow-down-up").attr("data-toggle", "tooltip");
+    // $(".arrow-down-up").attr("data-toggle", "tooltip");
 
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
@@ -159,7 +159,24 @@ $(document).ready(function () {
 
         setInterval(intervalSave, 5000);
     }
+    if (window.location.href.indexOf("teacher/questions/edit") !== -1) {
+        $('.questions-content').sortable({
+            handle: '.move-item-handle',
+            swapThreshold: 1,
+        });
 
+        $("button[data-target='#examInfo']").click(function () {
+            let sort = [];
+            let i = 0;
+            $(".questions .card.sort_able").each(function () {
+                sort.push($(this).attr("id"));
+                i++;
+            });
+            $("#save_edited_changes_ajax input[name='sort']").attr("value", sort.join(","));
+            console.log(sort);
+        });
+
+    }
     // editor($('.question-textarea'));
 
     // $(".question-sidebar  a:nth-child(2), .question-sidebar  #my_questions").click(function () {
@@ -335,21 +352,21 @@ $(document).ready(function () {
     });
     $(".dropdown-menu[aria-labelledby='filterDropdown']").find("li button").click({type: "filter"}, getPage);
 
-    $(".arrow-down-up").click(function () {
-        $(this).toggleClass("active");
-        if ($(this).hasClass("active")) {
-            $(".next-question-page-body .questions-content").sortable({
-                axis: 'y'
-            });
-            $(".next-question-page-body .questions-content").disableSelection();
-            // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
-            $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
-        } else {
-            $(".next-question-page-body .questions-content").sortable("disable");
-            // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
-            $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
-        }
-    });
+    // $(".arrow-down-up").click(function () {
+    //     $(this).toggleClass("active");
+    //     if ($(this).hasClass("active")) {
+    //         $(".next-question-page-body .questions-content").sortable({
+    //             axis: 'y'
+    //         });
+    //         $(".next-question-page-body .questions-content").disableSelection();
+    //         // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
+    //         $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
+    //     } else {
+    //         $(".next-question-page-body .questions-content").sortable("disable");
+    //         // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
+    //         $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
+    //     }
+    // });
 
     $(window).on('load', function () {
         $(" div.loading-background").removeClass("loading-background");

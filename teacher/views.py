@@ -55,19 +55,18 @@ def questions(request):
         user = commonData(request)
         questions_data = {
             'count': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).count(),
-            'list': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).order_by('-pk')[:10],
+            'list': list(Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).order_by('-pk')[:10]),
         }
         grade = Grade.objects.last().source
         selected_question = []
-        if Exam.objects.filter(creator=request.user, is_publish=True).exists():
-            if Exam.objects.filter(creator=request.user, is_publish=True, is_submit=False).exists():
-                exam = Exam.objects.get(creator=request.user, is_submit=False)
-                exam_questions = ExamQuestion.objects.filter(exam=exam).all()
-                for q in exam_questions:
-                    selected_question.append(q.question.id)
-        return render(request, 'teacher/questions.html',
-                      {'user': user, 'questions': questions_data, 'selected_question': selected_question,
-                       'grade': grade})
+        if Exam.objects.filter(creator=request.user, is_submit=False).exists():
+            exam = Exam.objects.get(creator=request.user, is_submit=False)
+            exam_questions = ExamQuestion.objects.filter(exam=exam).all()
+            for q in exam_questions:
+                selected_question.append(q.question.id)
+    return render(request, 'teacher/questions.html',
+                  {'user': user, 'questions': questions_data, 'selected_question': selected_question,
+                   'grade': grade})
 
 
 def newQuestion(request):
@@ -124,17 +123,15 @@ def addQuestion(request):
             question.is_publish = is_publish
             question.save()
             if not is_descriptive:
-                for choice in choices:
-                    if Choice.objects.filter(question=question, position=choices.index(choice)).exists():
-                        this_choice = Choice.objects.get(question=question, position=choices.index(choice))
-                        this_choice.text = choice
-                        this_choice.save()
-                    else:
-                        new_choice = Choice(question=question, position=choices.index(choice), text=choice)
-                        new_choice.save()
-                if Choice.objects.filter(question=question).count() > len(choices):
-                    Choice.objects.filter(question=question, position__gte=len(choices)).delete()
-
+                if len(choices) < 5:
+                    for i in range(5 - len(choices)):
+                        choices.append("empty")
+                question.choice_1 = choices[0]
+                question.choice_2 = choices[1]
+                question.choice_3 = choices[2]
+                question.choice_4 = choices[3]
+                question.choice_5 = choices[4]
+                question.save()
             if not is_redirect:
                 return JsonResponse({'success': "update"})
             else:
@@ -275,8 +272,11 @@ def edit_question(request):
         exam.save()
         exam_questions = ExamQuestion.objects.filter(exam=exam).all().order_by("position")
         selected_questions = list(q.question for q in exam_questions)
+        exam_info = {
+            'pk': exam.id,
+        }
         return render(request, 'teacher/pre_submit_exam.html',
-                      {"user": user, "questions": selected_questions, "exam_info": ""})
+                      {"user": user, "questions": selected_questions, "exam_info": exam_info})
 
 
 def edit_submit_question(request, pk):
@@ -324,6 +324,7 @@ def add_to_edit(request, pk):
 
 
 def save_edit_question(request):
+    sort = request.POST.get("sort")
     name = request.POST.get('name')
     second = int(request.POST.get('second'))
     minute = int(request.POST.get('minute'))
@@ -339,6 +340,9 @@ def save_edit_question(request):
     exam.is_edit = False
     exam.is_publish = is_publish
     exam.save()
+    for eq in ExamQuestion.objects.filter(exam=exam).all():
+        eq.position = list(map(int, sort.split(","))).index(eq.question.id)
+        eq.save()
     added_questions = ExamQuestion.objects.filter(exam=exam, state="add").all()
     for add_q in added_questions:
         add_q.state = "submit"

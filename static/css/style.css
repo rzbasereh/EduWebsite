@@ -2101,6 +2101,23 @@ input:checked + .slider:before {
     height: 12px;
 }
 
+.questions-content .card.sort_able .card-body {
+    padding-right: 35px;
+}
+
+.questions-content .card.sort_able .move-item-handle {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    font-size: 25px;
+    transform: translateY(-50%);
+    padding: 15px 0;
+}
+
+.questions-content .card.sort_able .move-item-handle:hover {
+    cursor: pointer;
+}
+
 pre {
     direction: rtl;
     float: right;
@@ -2840,7 +2857,7 @@ span.fancytree-checkbox:hover {
     -moz-border-radius: 50%;
     border-radius: 50%;
     margin: -3px 10px 0 10px;
-    right: 0;
+    right: 25px;
     visibility: hidden;
     opacity: 0;
     transition: .5s;
@@ -2872,6 +2889,10 @@ span.fancytree-checkbox:hover {
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width: 18px;
+}
+
+.card-body:hover .question-text.hover-action {
+    margin-right: 30px;
 }
 
 .question-info .dropdown {
