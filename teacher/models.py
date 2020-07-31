@@ -43,11 +43,6 @@ class ClassRoom(models.Model):
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     body = models.TextField()
-    TYPE = (
-        ('1', 'تستی'),
-        ('2', 'تشریحی')
-    )
-    type = models.CharField(choices=TYPE, max_length=1, blank=True, null=True)
     LAYOUT = (
         ('horizontal', "افقی"),
         ('vertical', "عمودی"),
@@ -58,20 +53,24 @@ class Question(models.Model):
     verbose_ans = models.TextField(null=True, blank=True)
     grades = models.CharField(max_length=1000, blank=True, null=True)
     SOURCE = (
-        ('Author', 'تالیفی'),
-        ('Entrance', 'کنکور سراسری'),
-        ('Sanjesh', 'سنجش'),
-        ('Kanoon', 'قلم چی'),
-        ('Gozine2', 'گزینه دو'),
+        ('1', 'تالیفی'),
+        ('2', 'کنکور سراسری'),
+        ('3', 'المپیاد'),
+        ('4', 'سنجش'),
+        ('5', 'قلم چی'),
+        ('6', 'گزینه دو'),
+        ('7', 'سایر'),
     )
-    source = models.CharField(choices=SOURCE, max_length=10, default='Author')
+    source = models.CharField(choices=SOURCE, max_length=10, default='1')
     LEVEL = (
         ('1', 'ساده'),
         ('2', 'متوسط'),
         ('3', 'دشوار'),
+        ('4', 'پیل افکن'),
     )
     level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
     is_publish = models.BooleanField(default=False)
+    is_descriptive = models.BooleanField(default=False)
     on_write = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
 
@@ -140,7 +139,7 @@ class ExamQuestion(models.Model):
         ('submit', "ثبت شده")
     )
     state = models.CharField(choices=STATE, max_length=6, default="add")
-    position = models.IntegerField(max_length=1000, default=0)
+    position = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.exam) + " - " + str(self.position)
@@ -179,7 +178,7 @@ class Report(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     # className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
     text = models.TextField()
-    date_time = models.DateTimeField(default=now())
+    date_time = models.DateTimeField(default=now)
 
     def __str__(self):
         jdatetime.set_locale("fa_IR")

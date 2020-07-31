@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 
     $(".arrow-down-up").attr("data-toggle", "tooltip");
-    
+
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
@@ -35,32 +35,7 @@ $(document).ready(function () {
 
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
-        $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        $(window).resize(function () {
-            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        });
-        $(".slider-control").click(function () {
-            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        });
-        let math_keyboard = `<button type="button" role="button" title="Math Formula" class="fr-command fr-btn" 
-                                data-cmd="add-math" data-popup="false">
-                                <svg class="bi bi-laptop" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
-                                    <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
-                                </svg>
-                            </button>`;
-        $(".fr-toolbar__fixed .fr-toolbar.fr-top button[data-cmd='specialCharacters']").after(math_keyboard);
-        $(".fr-toolbar__fixed.fr-box.fr-basic .fr-element").on('focus', function () {
-            $(".sub-scrolled-header").addClass("show");
-            $(this).closest(".fr-toolbar__fixed").addClass("show");
-        }).on('focusout', function () {
-            $(".sub-scrolled-header").removeClass("show");
-            $(this).closest(".fr-toolbar__fixed").removeClass("show");
-        });
-        $(".fr-toolbar__fixed").find(".fr-toolbar.fr-top button[data-cmd='add-math']").click(function () {
-            // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
-            // init_MathLive('ML_editor');
-        });
+
         $("input.tag-input").tagsInput({
             defaultText: '',
         });
@@ -81,16 +56,11 @@ $(document).ready(function () {
             event.preventDefault();
             let body = collectData("QuestionSubject", false);
             let verbose_ans = collectData("CompleteAns", false);
-            let ChoiceVal1 = collectData("ChoiceVal1", false);
-            let ChoiceVal2 = collectData("ChoiceVal2", false);
-            let ChoiceVal3 = collectData("ChoiceVal3", false);
-            let ChoiceVal4 = collectData("ChoiceVal4", false);
-            let GradeSelect = collectData("GradeSelect", false);
-            let LessonSelect = collectData("LessonSelect", false);
-            let ChapterSelect = collectData("ChapterSelect", false);
+            let Choices = collectData("Choices", false);
+            let level = collectData("level", false);
+            let selectSource = collectData("selectSource", false);
             let CorrectChoice = collectData("CorrectChoice", false);
-            if (body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
-                ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false && CorrectChoice !== false) {
+            if (body !== false && verbose_ans !== false && Choices !== false && level !== false && selectSource !== false && CorrectChoice !== false) {
                 $.ajax({
                     type: "POST",
                     url: addQuestionForm.attr("action"),
@@ -98,19 +68,19 @@ $(document).ready(function () {
                         'pk': addQuestionForm.closest(".card").attr("id"),
                         'body': body,
                         'verbose_ans': verbose_ans,
-                        'is_publish': $("input[name='is_publish']").val(),
-                        'ChoiceVal1': ChoiceVal1,
-                        'ChoiceVal2': ChoiceVal2,
-                        'ChoiceVal3': ChoiceVal3,
-                        'ChoiceVal4': ChoiceVal4,
-                        'GradeSelect': GradeSelect,
-                        'LessonSelect': LessonSelect,
-                        'ChapterSelect': ChapterSelect,
+                        'is_publish': $("input[name='is_publish']").is(':checked'),
+                        'is_descriptive': $("input[name='is_descriptive']").is(':checked'),
+                        'Choices': Choices,
+                        'level': level,
+                        'selectSource': selectSource,
                         'CorrectChoice': CorrectChoice,
                         'redirect': true,
                     },
                     success: function (data) {
                         console.log(data);
+                        if (data.url) {
+                            $(location).attr("href", data.url)
+                        }
                     },
                     error: function (data) {
                         console.log(data);
@@ -118,20 +88,73 @@ $(document).ready(function () {
                 });
             }
         });
+
+
+        $('.carousel').carousel({
+            wrap: false
+        });
         $('.change-btns .btn:last-child').click(function () {
-            $('.owl-carousel').trigger('next.owl.carousel');
-            $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            $(".change-btns .btn:first-child").removeClass('btn-blue');
-            $(this).addClass('btn-blue')
+            if (!$("#isDescriptive").is(":checked")) {
+                $('.carousel').carousel('prev');
+                $('.change-btns .btn').removeClass('btn-blue');
+                $(this).addClass('btn-blue')
+            }
         });
         $('.change-btns .btn:first-child').click(function () {
-            $('.owl-carousel').trigger('prev.owl.carousel', [300]);
-            $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            $(".change-btns .btn:last-child").removeClass('btn-blue');
-            $(this).addClass('btn-blue');
+            if (!$("#isDescriptive").is(":checked")) {
+                $('.carousel').carousel('next');
+                $('.change-btns .btn').removeClass('btn-blue');
+                $(this).addClass('btn-blue');
+            }
         });
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
+        });
+
+
+        $("#isDescriptive").click(function () {
+            if ($(this).is(":checked")) {
+                $(".carousel").carousel(0);
+                $('.change-btns .btn').removeClass('btn-blue');
+                $('.change-btns .btn:last-child').addClass('btn-blue');
+            } else {
+                $(".carousel").carousel(1);
+                $('.change-btns .btn').removeClass('btn-blue');
+                $('.change-btns .btn:first-child').addClass('btn-blue');
+            }
+        });
+
+
+        initalEditor("#choice-text-1, #complete-ans, #question-textarea");
+
+        $(".new-choice").click(function () {
+            console.log($(".choices .choice").length);
+            if ($(".choices .choice").length < 5) {
+                let i = $(".choices .choice").length + 1;
+
+                let label = "گزینه دوم";
+                if (i === 3) {
+                    label = "گزینه سوم";
+                } else if (i === 4) {
+                    label = "گزینه چهارم";
+                } else if (i === 5) {
+                    label = "گزینه پنجم";
+                }
+
+                let choice = $(`<div class="col-lg-6 choice" ${i % 2 === 0 ? `style="padding: 0 30px 0 0;"` : ""}>
+                                    <label for="choice-${i}" class="custom-input">
+                                        <span ${i % 2 === 0 ? "" : `class="m--15-right"`}>${label}</span>
+                                        <input type="radio" id="choice-${i}" name="choice" value="${i}">
+                                            <span class="tick ${i % 2 === 0 ? "left-choices-tick" : ""}"> </span>
+                                    </label>
+                                    <div id="choice-text-${i}" class="choice-text fr-toolbar__fixed fr__single-line"></div>
+                                </div>`);
+                choice.insertBefore(".new-choice");
+                initalEditor('#choice-text-' + i);
+            }
+            if ($(".choices .choice").length === 5) {
+                $(this).addClass("d-none");
+            }
         });
 
         setInterval(intervalSave, 5000);

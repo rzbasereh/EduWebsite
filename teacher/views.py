@@ -72,7 +72,8 @@ def questions(request):
 
 def newQuestion(request):
     if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
-            TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
+            TeacherAccess.objects.filter(teacher=request.user.teacher)[
+                0].add_question_access and Question.objects.filter(on_write=True, author=request.user).exists():
         user = commonData(request)
         pk = Question.objects.get(on_write=True, author=request.user).id
         return render(request, 'teacher/new_question.html', {'user': user, 'pk': pk})
@@ -86,10 +87,14 @@ def saveGrades(request):
         if len(grades) == 0:
             return JsonResponse({"value": "empty list"})
         else:
-            author = request.user
-            question = Question(author=author, grades=grades, on_write=True)
-            question.save()
-            return JsonResponse({"value": "success", "url": reverse("teacher:newQuestion")})
+            if TeacherAccess.objects.filter(teacher=request.user.teacher).exists() and \
+                    TeacherAccess.objects.filter(teacher=request.user.teacher)[0].add_question_access:
+                author = request.user
+                question = Question(author=author, grades=grades, on_write=True)
+                question.save()
+                return JsonResponse({"value": "success", "url": reverse("teacher:newQuestion")})
+            messages.error(request, "شما مجاز به انجام این عملیات نیستید!")
+            return HttpResponseRedirect(reverse('teacher:questions'))
     else:
         return JsonResponse({"value": "invalid Request"})
 
@@ -99,41 +104,45 @@ def addQuestion(request):
         pk = request.POST.get('pk')
         author = request.user
         body = request.POST.get('body')
-        # choice1 = request.POST.get('ChoiceVal1')
-        # choice2 = request.POST.get('ChoiceVal2')
-        # choice3 = request.POST.get('ChoiceVal3')
-        # choice4 = request.POST.get('ChoiceVal4')
-        is_redirect = request.POST.get('redirect')
-        # choice5 = ""
-        # print(is_redirect == "tru")
-        is_redirect = False
-        # if SubGrade.objects.filter(name=request.POST.get('GradeSelect')).exists():
-        #     grade = SubGrade.objects.filter(name=request.POST.get('GradeSelect')).first()
-        # else:
-        grade = ""
-        # lesson = request.POST.get('LessonSelect')
-        # chapter = request.POST.get('ChapterSelect')
-        lesson = None
-        chapter = None
-        correct_ans = ""
+        choices = request.POST.getlist('Choices[]')
+        level = request.POST.get('level')
+        source = request.POST.get('selectSource')
+        correct_ans = request.POST.get('CorrectChoice')
+        is_publish = request.POST.get("is_publish") == "true"
+        is_descriptive = request.POST.get("is_descriptive") == "true"
         verbose_ans = request.POST.get('verbose_ans')
-        is_publish = False
+        is_redirect = request.POST.get('redirect') == "true"
         if Question.objects.filter(id=pk).exists():
             question = Question.objects.get(id=pk)
             question.body = body
             question.author = author
             question.verbose_ans = verbose_ans
-            question.grade = grade
-            question.lesson = lesson
-            question.chapter = chapter
+            question.level = level
+            question.source = source
+            question.correct_ans = correct_ans
+            question.is_descriptive = is_descriptive
             question.is_publish = is_publish
             question.save()
+            if not is_descriptive:
+                for choice in choices:
+                    if Choice.objects.filter(question=question, position=choices.index(choice)).exists():
+                        this_choice = Choice.objects.get(question=question, position=choices.index(choice))
+                        this_choice.text = choice
+                        this_choice.save()
+                    else:
+                        new_choice = Choice(question=question, position=choices.index(choice), text=choice)
+                        new_choice.save()
+                if Choice.objects.filter(question=question).count() > len(choices):
+                    Choice.objects.filter(question=question, position__gte=len(choices)).delete()
+
             if not is_redirect:
                 return JsonResponse({'success': "update"})
+            else:
+                question.on_write = False
+                question.save()
+                return JsonResponse({'url': reverse('teacher:questions')})
         else:
             return JsonResponse({'success': "Error"})
-        messages.success(request, 'successfully add')
-        return HttpResponseRedirect(reverse('teacher:questions'))
     else:
         return JsonResponse({'error': 'Invalid Request!'})
 

@@ -1324,13 +1324,14 @@ a:hover {
 
 }
 
-.first-choice-text, .third-choice-text {
+.choices .choice:nth-child(odd) .choice-text {
     margin-right: -15px;
 }
 
-.second-choice-text, .fourth-choice-text {
+.choices .choice:nth-child(even) .choice-text {
     margin-left: -15px;
 }
+
 
 @media (max-width: 992px) {
     .first-choice-text, .third-choice-text {
@@ -1376,7 +1377,7 @@ a:hover {
 }
 
 .left-choices-tick {
-    right: 85px;
+    right: 110px;
 }
 
 @media (max-width: 992px) {
@@ -1570,6 +1571,23 @@ input:checked + .slider:before {
     margin-top: 30px;
 }
 
+.custom-control-label::before {
+    position: absolute;
+    top: .25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    content: "";
+    background-color: #333E4B;
+    border: #333E4B solid 1px;
+}
+
+.custom-switch .custom-control-label::after {
+    background-color: #adb5bd;
+}
+
 /*.owl-carousel .owl-stage-outer {*/
 /*    direction: rtl !important;*/
 /*}*/
@@ -1715,20 +1733,20 @@ input:checked + .slider:before {
 
 #carouselQuestionControls .carousel-control-next,
 #carouselQuestionControls .carousel-control-prev {
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     z-index: 1;
     display: -ms-flexbox;
-    display: flex;
+    display: inline-block;
     -ms-flex-align: center;
     align-items: center;
     -ms-flex-pack: center;
     justify-content: center;
-    width: 15%;
+    width: unset;
     color: #fff;
     text-align: center;
-    opacity: .5;
+    opacity: 1;
     transition: opacity .15s ease;
 }
 
@@ -2445,54 +2463,79 @@ pre {
 /*.editor-toolbar.fr-box.fr-basic.fr-top .fr-wrapper {*/
 /*    display: none;*/
 /*}*/
-.fr-toolbar__fixed .fr-toolbar.fr-top {
+.editor-toolbar {
+    border-bottom: 1px solid #333E4C;
+    background-color: #fff;
+    width: calc(100vw - 200px);
+    height: fit-content;
     position: fixed;
-    top: 0 !important;
-    left: 15px;
-    z-index: -1 !important;
-    border: none;
-    transition: 0.3s top;
+    top: 60px;
+    left: 0;
+    z-index: 999;
 }
 
-.fr-toolbar__fixed.show .fr-toolbar.fr-top {
-    top: 66px !important;
-    z-index: 10 !important;
+.editor-toolbar .fr-toolbar.fr-top {
+    background-color: transparent;
+    border-radius: 0;
+    border: 0;
 }
 
-.fr__single-line.fr-toolbar__fixed.show .fr-toolbar.fr-top {
-    margin-top: 0 !important;
-}
+/*.fr-toolbar__fixed.show .fr-toolbar.fr-top {*/
+/*    top: 66px !important;*/
+/*    z-index: 10 !important;*/
+/*}*/
 
-.fr-toolbar__fixed .fr-toolbar .fr-newline {
+/*.fr__single-line.fr-toolbar__fixed.show .fr-toolbar.fr-top {*/
+/*    margin-top: 0 !important;*/
+/*}*/
+
+.editor-toolbar .fr-toolbar .fr-newline {
     background: transparent;
 }
 
-.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {
-    background: #F8FAFB;
+/*.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {*/
+/*    background: #F8FAFB;*/
+/*    border: none;*/
+/*}*/
+
+/*.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper p {*/
+/*    margin-bottom: 5px;*/
+/*}*/
+
+/*.fr__single-line.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {*/
+/*    margin-left: 0;*/
+/*}*/
+
+.fr-element {
+    padding: 15px !important;
+    background-color: transparent;
+    font-family: "IRANSans", serif !important;
+}
+
+.fr-element p {
+    margin-bottom: 0 !important;
+}
+
+.choice .fr-element {
+    padding: 8px !important;
+    min-height: fit-content !important;
+    margin: 0 !important;
+}
+
+.fr-box.fr-basic .fr-wrapper {
+    background-color: #F8FAFB;
     border: none;
 }
 
-.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper p {
-    margin-bottom: 5px;
-}
+/*.fr__single-line.fr-toolbar__fixed.fr-box.fr-basic .fr-element {*/
+/*    margin: 0;*/
+/*    padding: 10px 10px 5px;*/
+/*    min-height: unset;*/
+/*}*/
 
-.fr__single-line.fr-toolbar__fixed.fr-box.fr-basic .fr-wrapper {
-    margin-left: 0;
-}
-
-.fr-toolbar__fixed.fr-box.fr-basic .fr-element {
-    padding: 15px;
-}
-
-.fr__single-line.fr-toolbar__fixed.fr-box.fr-basic .fr-element {
-    margin: 0;
-    padding: 10px 10px 5px;
-    min-height: unset;
-}
-
-.fr-toolbar__fixed .fr-quick-insert {
-    display: none !important;
-}
+/*.fr-toolbar__fixed .fr-quick-insert {*/
+/*    display: none !important;*/
+/*}*/
 
 .fancy-tree-container {
     /*direction: rtl;*/
@@ -3807,4 +3850,20 @@ input[type='تایید سوالات'] {
 .manage-exam .ti-search {
     right: 0;
     top: 21px;
+}
+
+.new-choice {
+    margin-top: 25px;
+}
+
+.new-choice__container {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center;
+}
+
+.new-choice__container span {
+    font-size: 14px;
 }
