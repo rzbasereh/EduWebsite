@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body data-url="{% url 'student:interval_save' %}">
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>آیا مطمئن هستید، می خواهید آزمون را ترک کنید؟</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                <a href="{% url 'student:end_exam' %}" class="btn btn-primary">اتمام آزمون</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% for pack in packs %}
+                <div class="alert alert-primary mb-4" role="alert">
+                    <span class="">{{ pack.time }}</span>
+                    <span class="float-right">{{ pack.title }}</span>
+                </div>
+                {% for question in pack.questions %}
+                    <div class="card mb-2" id="{{ question.id }}">
+                        <div class="card-body text-right" dir="rtl">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ forloop.counter }} - {{ question.body|safe }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <input class="form-check-input" type="radio" name="q-{{ question.id }}"
+                                           id="Radios-{{ question.id }}" value="1" {% if question.last_ans == "1" %}checked{% endif %}>
+                                    <label class="form-check-label mr-3" for="Radios-{{ question.id }}">
+                                        {{ question.choice_1|safe }}
+                                    </label>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-check-input" type="radio" name="q-{{ question.id }}"
+                                           id="Radios-{{ question.id }}" value="2" {% if question.last_ans == "2" %}checked{% endif %}>
+                                    <label class="form-check-label mr-3" for="Radios-{{ question.id }}">
+                                        {{ question.choice_2|safe }}
+                                    </label>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-check-input" type="radio" name="q-{{ question.id }}"
+                                           id="Radios-{{ question.id }}" value="3" {% if question.last_ans == "3" %}checked{% endif %}>
+                                    <label class="form-check-label mr-3" for="Radios-{{ question.id }}">
+                                        {{ question.choice_3|safe }}
+                                    </label>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-check-input" type="radio" name="q-{{ question.id }}"
+                                           id="Radios-{{ question.id }}" value="4" {% if question.last_ans == "4" %}checked{% endif %}>
+                                    <label class="form-check-label mr-3" for="Radios-{{ question.id }}">
+                                        {{ question.choice_4|safe }}
+                                    </label>
+                                </div>
+                                {% if question.choice_5 != "empty" %}
+                                    <div class="col-3">
+                                        {{ question.choice_5|safe }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <button class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">اتمام آزمون</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $("input[type='radio']").on("change", function () {
+            let pk = $(this).attr("name").replace("q-", "");
+            let ans = $(this).attr("value");
+            $.ajax({
+                method: "POST",
+                url: $("body").attr("data-url"),
+                data: {'pk': pk, 'ans': ans},
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("error");
+                }
+            });
+            console.log(ans);
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+{% extends 'student/layouts/base_layout.html' %}
+{% block title %}آزمون آنلاین{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <h1>آزمون آنلاین</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'student:index' %}">
+                    <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                              d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item">آزمون ها</li>
+            <li class="breadcrumb-item active" aria-current="page">آزمون آنلاین</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-12">
+            {% for exam in online_exams %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-0">
+                            <div class="card-header pb-0 text-right mr-0">
+                                <h5 class="font-weight-bold">اطلاعات آزمون</h5>
+                            </div>
+                            <div class="card-body bg-white pl-3 pr-3 pt-3">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-5 col-xl-4">
+                                        <img class="exam-cover" src="{% static 'img/default_exam_cover.svg' %}"
+                                             width="100%" alt="">
+                                    </div>
+                                    <div class="col-md-6 col-lg-7 col-xl-8 text-right">
+                                        <div class="example-info">
+                                            <div class="row">
+                                                <div class="col-12 tl-type">
+                                                    <div class="tl-type__header mt-0">عنوان</div>
+                                                    <div class="tl-type__body">{{ exam.name }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 tl-type">
+                                                    <div class="tl-type__header">توضیحات آزمون</div>
+                                                    <pre class="tl-type__body mr-0">{{ exam.info }}</pre>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 tl-type pr-md-0">
+                                                    <div class="tl-type__header">مدت آزمون</div>
+                                                    <div class="tl-type__body">
+                                                        <div class="">
+                                                            <span class="ml-2" data-toggle="tooltip"
+                                                                  data-placement="top" title="آزمون ایستا">
+                                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                                     class="bi bi-alarm" fill="currentColor"
+                                                                     xmlns="http://www.w3.org/2000/svg">
+                                                                      <path fill-rule="evenodd"
+                                                                            d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"></path>
+                                                                      <path fill-rule="evenodd"
+                                                                            d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"></path>
+                                                                      <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"></path>
+                                                                      <path fill-rule="evenodd"
+                                                                            d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"></path>
+                                                                      <path d="M7 1h2v2H7V1z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span>{{ exam.time }}</span>
+                                                        </div>
+{#                                                        <div class="">#}
+{#                                                            <span class="ml-2" data-toggle="tooltip"#}
+{#                                                                  data-placement="top" title="آزمون شناور">#}
+{#                                                                <svg width="1em" height="1em" viewBox="0 0 16 16"#}
+{#                                                                     class="bi bi-stopwatch" fill="currentColor"#}
+{#                                                                     xmlns="http://www.w3.org/2000/svg">#}
+{#                                                                      <path fill-rule="evenodd"#}
+{#                                                                            d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"></path>#}
+{#                                                                      <path fill-rule="evenodd"#}
+{#                                                                            d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5a.5.5 0 0 1 .5-.5zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"></path>#}
+{#                                                                      <path d="M7 1h2v2H7V1z"></path>#}
+{#                                                                </svg>#}
+{#                                                            </span>#}
+{#                                                            <span>{{ exam.time }}</span>#}
+{#                                                        </div>#}
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 tl-type">
+                                                    <div class="tl-type__header">زمان آزمون</div>
+                                                    <div class="tl-type__body">
+                                                        <span>10 مرداد 1399 8:5</span> - <span>10 مرداد 1399 8:5</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div class=""></div>
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 text-left">
+                                                    <a href="{% url 'student:preview_exam' exam.id %}" class="btn btn-blue">شرکت در آزمون</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="text-center no-data no-online-exam">
+                    <img src="{% static 'img/no_online_exam.svg' %}" alt="">
+                    <h5>آزمونی برای شما تعریف نشده است!</h5>
+                    <p>در صورت ایجاد آزمون جدید، این موضوع به وسیله رایانامه به شما اطلاع داده می شود.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

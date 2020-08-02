@@ -1,5 +1,6 @@
 import jdatetime
 import datetime
+import locale
 from django.contrib.auth.models import User
 from main.models import Teacher, Student, Manager
 from manager.models import ManagerForm
@@ -9,6 +10,8 @@ from django.utils.timezone import now, timedelta
 from django.utils import timezone
 from django.utils.timezone import utc
 from finglish import f2p
+from django.utils.timezone import localtime
+from khayyam import *
 
 
 # Create your models here.
@@ -118,7 +121,7 @@ class Exam(models.Model):
             month=self.initial_date.month,
             year=self.initial_date.year
         )
-        return date.strftime('%d %B %y')
+        return f2p(date.strftime('%d %B %y'))
 
 
 class QuestionPack(models.Model):
@@ -152,9 +155,10 @@ class ExamQuestion(models.Model):
 
 class ERun(models.Model):
     name = models.CharField(max_length=1000, null=True, blank=True)
+    info = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    class_name = models.ManyToManyField(ClassRoom)
-    add_on_user = models.ManyToManyField(Student)
+    class_name = models.ManyToManyField(ClassRoom, blank=True)
+    add_on_user = models.ManyToManyField(Student, blank=True)
     TYPE = (
         ('float', 'شناور'),
         ('fix', 'ایستا')
@@ -162,10 +166,45 @@ class ERun(models.Model):
     type = models.CharField(choices=TYPE, max_length=5, default="float")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    time = models.CharField(max_length=1000, default="")
     reject = models.BooleanField(default=False)
+    is_publish = models.BooleanField(default=True)
+    participant_num = models.IntegerField(default=0)
+    repeat_num = models.IntegerField(default=1)
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_active(self):
+        if self.start_time < now() < self.end_time:
+            return True
+        else:
+            return False
+
+    def jd_start_time(self):
+        time = localtime(self.start_time)
+        date = jdatetime.datetime.fromgregorian(
+            minute=time.minute,
+            hour=time.hour,
+            day=time.day,
+            month=time.month,
+            year=time.year
+        )
+        return date.strftime("%A %B")
+
+    def jd_end_time(self):
+        time = localtime(self.end_time)
+        # locale.setlocale(utc)
+        #
+        date = jdatetime.datetime.fromgregorian(
+            minute=time.minute,
+            hour=time.hour,
+            day=time.day,
+            month=time.month,
+            year=time.year
+        )
+        return date.strftime("%d %B %y %H:%M")
 
 
 class ExamERun(models.Model):
@@ -176,7 +215,7 @@ class ExamERun(models.Model):
     random_choice = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.exam + self.e_run)
+        return str(self.exam) + " - " + str(self.e_run)
 
 
 class Report(models.Model):
@@ -311,7 +350,7 @@ class ReportAttach(models.Model):
         ("report", "گزارش"),
         ("report_replay", "پاسخ گزارش")
     )
-    type = models.CharField(choices=TYPE ,max_length=20, default="report")
+    type = models.CharField(choices=TYPE, max_length=20, default="report")
     report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True, null=True)
     report_replay = models.ForeignKey(ReportReply, on_delete=models.CASCADE, blank=True, null=True)
     file = models.FileField(upload_to='reports/')
@@ -325,8 +364,7 @@ class ReportAttach(models.Model):
         if file_size < 1000:
             file_size = str(file_size) + " B"
         elif 1000 < file_size < 1000000:
-            file_size = str(int(file_size/1000)) + " KB"
+            file_size = str(int(file_size / 1000)) + " KB"
         else:
-            file_size = str(int(file_size/1000000)) + " MB"
+            file_size = str(int(file_size / 1000000)) + " MB"
         return file_size
-

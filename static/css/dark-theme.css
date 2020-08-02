@@ -2284,7 +2284,7 @@ pre {
 /*    color: #ffffff;*/
 /*}*/
 .fr-element {
-    color: #ffffff!important;
+    color: #ffffff !important;
 }
 
 .fr-box.fr-basic .fr-wrapper {
@@ -3529,4 +3529,12 @@ input[type='تایید سوالات'] {
     border-color: #ffffff;
     color: #ffffff;
     background-color: #15232E;
+}
+
+.table {
+    color: #ffffff;
+}
+
+.card-list-group .card-list__content .card-list__item{
+    background-color: #1F2935;
 }
