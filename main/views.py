@@ -11,6 +11,10 @@ def index(request):
     return render(request, 'main/index.html', {})
 
 
+def component(request):
+    return render(request, 'main/index.html', {})
+
+
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect(reverse('index'))
