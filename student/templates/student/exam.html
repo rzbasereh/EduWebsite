@@ -70,34 +70,31 @@
             </div>
         </span>
     </div>
-    {{ data }}
     <div class="row bottom-row">
         <div class="col-5">
             <div class="card">
                 <div class="card-body">
                     <h1>نتیجه آزمون</h1>
-                    {% for table in data.result %}
-                        <table class="table table-striped">
-                            <thead>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{ data.result.name }}</th>
+                            <th scope="col">درصد</th>
+                            <th scope="col">تراز</th>
+                            <th scope="col">رتبه</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rows in data.result.lesson_data %}
                             <tr>
-                                <th scope="col">{{ table.type }}</th>
-                                <th scope="col">درصد</th>
-                                <th scope="col">تراز</th>
-                                <th scope="col">رتبه</th>
+                                <td class="text-right">{{ rows.name }}</td>
+                                <td dir="ltr">{{ rows.percent }}%</td>
+                                <td>{{ rows.level }}</td>
+                                <td>{{ rows.rank }}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for rows in table.lessonDate %}
-                                <tr>
-                                    <td class="text-right">{{ rows.name }}</td>
-                                    <td>{{ rows.percent }}</td>
-                                    <td>{{ rows.level }}</td>
-                                    <td>{{ rows.rank }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -171,6 +171,8 @@ class ERun(models.Model):
     is_publish = models.BooleanField(default=True)
     participant_num = models.IntegerField(default=0)
     repeat_num = models.IntegerField(default=1)
+    has_negative_point = models.BooleanField(default=False)
+    negative_point = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -208,11 +210,13 @@ class ERun(models.Model):
 
 
 class ExamERun(models.Model):
+    name = models.CharField(max_length=1000, blank=True, null=True)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     e_run = models.ForeignKey(ERun, on_delete=models.CASCADE)
     time = models.TimeField()
     random_question = models.BooleanField(default=False)
     random_choice = models.BooleanField(default=False)
+    position = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.exam) + " - " + str(self.e_run)

@@ -20,12 +20,13 @@ class StudentForm(models.Model):
 class StudentExam(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     e_run = models.ForeignKey(ERun, on_delete=models.CASCADE)
+    repeat_num = models.IntegerField(default=1)
     start_time = models.DateTimeField(auto_now_add=timezone.now)
     end_time = models.DateTimeField(null=True, blank=True)
     is_finish = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.student) + " - " + str(self.e_run)
+        return str(self.student) + " - " + str(self.e_run) + " - " + str(self.repeat_num)
 
 
 class StudentExamQuestion(models.Model):
@@ -36,7 +37,7 @@ class StudentExamQuestion(models.Model):
     answer_order = models.CharField(max_length=5, default="12345")
 
     def __str__(self):
-        return str(self.student_exam) + " " + str(self.question.id) + " - " + str(self.answer)
+        return str(self.student_exam) + " " + str(self.position) + " - " + str(self.answer)
 
 
 class StudentExamResult(models.Model):
