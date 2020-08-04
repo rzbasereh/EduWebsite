@@ -302,6 +302,31 @@ def reports(request):
                   {'user': user, 'reports': reports_list, "attached_reports": attached_reports})
 
 
+def report_search(request):
+    if request.is_ajax():
+        if request.method == "GET":
+            q = request.GET.get("q")
+            reports_find = Report.objects.filter(
+                Q(title__contains=q) | Q(text__contains=q) | Q(teacher__user__first_name__contains=q) | Q(
+                    teacher__user__last_name__contains=q) | Q(teacher__user__username__contains=q) | Q(
+                    teacher__user__email__contains=q)).all()
+            reports_list = list()
+            for report in reports_find:
+                has_attachment = report in [ra.report for ra in ReportAttach.objects.all()]
+                reports_list.append({
+                    'id': report.id,
+                    'teacher_name': report.teacher.get_full_name(),
+                    'avatar': report.get_teacher_avatar(),
+                    'title': report.title,
+                    'body': report.text[0:100],
+                    'date_modified': report.get_time_diff(),
+                    'is_seen': report.is_seen,
+                    'has_attachment': has_attachment
+                })
+            return JsonResponse({"reports": reports_list})
+    return JsonResponse({"d": "fd"})
+
+
 def display_report(request):
     if request.method == "GET":
         pk = request.GET.get("id")
@@ -324,7 +349,9 @@ def display_report(request):
                 Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True)).index(
                 int(pk)) + 1,
         }
-        if report.get("num") == 1:
+        if report.get("all_reports") == 1:
+            pass
+        elif report.get("num") == 1:
             report["next_pk"] = \
                 list(Report.objects.filter(teacher__manager=request.user.manager).values_list("id", flat=True))[1]
         elif report.get("num") == report.get("all_reports"):

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/sapling.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %} داشبورد {% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -208,7 +209,8 @@
         <a href="{% url 'manager:news' %}" class="{% if request.path == news_url %}
          active
         {% endif %}">
-            <li><i class="ti-comments"></i><span class="{% block remove-text100 %}{% endblock %}">اطلاعیه ها </span></li>
+            <li><i class="ti-comments"></i><span class="{% block remove-text100 %}{% endblock %}">اطلاعیه ها </span>
+            </li>
         </a>
         {% url 'manager:chats' as chats_url %}
         <a href="{% url 'manager:chats' %}" class="{% if request.path == chats_url %}

@@ -2371,7 +2371,7 @@ pre {
 }
 
 .iziToast > .iziToast-body {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 .iziToast > .iziToast-body .iziToast-icon {
@@ -3956,7 +3956,8 @@ input[type='تایید سوالات'] {
     color: #44566C;
 }
 
-.sidder__list-view .sider-list .list-group-item-action:focus, .list-group-item-action:hover {
+.sidder__list-view .sider-list .list-group-item-action:focus, .list-group-item-action:hover,
+.sidder__list-view .sider-list .list-group-item-action.active {
     background-color: #ffffff;
 }
 

@@ -14,6 +14,7 @@ urlpatterns = [
     path('classes', views.classes, name="classes"),
     path('classes/students/<int:pk>', views.class_students, name="class_students"),
     path('reports', views.reports, name="reports"),
+    path('reports/search', views.report_search, name="report_search"),
     path('reports/display_report', views.display_report, name="display_report"),
     path('reports/send_reply', views.reply_report, name="reply_report"),
     path('reports/send_reply', views.reply_report, name="reply_report"),

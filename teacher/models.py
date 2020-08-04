@@ -227,6 +227,7 @@ class Report(models.Model):
     # className = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=1000, null=True, blank=True)
     text = models.TextField()
+    is_seen = models.BooleanField(default=False)
     date_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
