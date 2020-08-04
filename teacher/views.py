@@ -394,6 +394,29 @@ def report(request):
     return render(request, 'teacher/report.html', {'user': user, 'reports': reports_list})
 
 
+def report_search(request):
+    if request.is_ajax():
+        if request.method == "GET":
+            q = request.GET.get("q")
+            reports_find = Report.objects.filter(
+                Q(title__contains=q) | Q(text__contains=q) | Q(teacher__user__first_name__contains=q) | Q(
+                    teacher__user__last_name__contains=q) | Q(teacher__user__username__contains=q) | Q(
+                    teacher__user__email__contains=q)).all()
+            reports_list = list()
+            for report in reports_find:
+                has_attachment = report in [ra.report for ra in ReportAttach.objects.all()]
+                reports_list.append({
+                    'id': report.id,
+                    'title': report.title,
+                    'body': report.text[0:100],
+                    'date_modified': report.get_time_diff(),
+                    'is_seen': report.is_seen,
+                    'has_attachment': has_attachment
+                })
+            return JsonResponse({"reports": reports_list})
+    return JsonResponse({"d": "fd"})
+
+
 def save_report(request):
     title = request.POST.get("title")
     text = request.POST.get("text")
@@ -410,12 +433,12 @@ def display_report(request):
     if request.method == "GET":
         pk = request.GET.get("id")
         report = Report.objects.get(id=pk, teacher=request.user.teacher)
-        report_attaches = list() 
+        report_attaches = list()
         for attach in ReportAttach.objects.filter(type="report", report=report).all():
             report_attaches.append({
-                "name":attach.file.name,
-                "size":attach.get_file_size(),
-                "href":attach.file.url,  
+                "name": attach.file.name,
+                "size": attach.get_file_size(),
+                "href": attach.file.url,
             })
         report = {
             "avatar": TeacherForm.objects.get(user=report.teacher).avatar.url,
@@ -428,13 +451,19 @@ def display_report(request):
                 Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True)).index(
                 int(pk)) + 1,
         }
-        if report.get("num") == 1:
-            report["next_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[1]
+        if report.get("all_reports") == 1:
+            pass
+        elif report.get("num") == 1:
+            report["next_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[
+                1]
         elif report.get("num") == report.get("all_reports"):
-            report["prev_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[-2]
+            report["prev_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[
+                -2]
         else:
-            report["prev_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[report.get("num") - 2]
-            report["next_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[report.get("num")]
+            report["prev_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[
+                report.get("num") - 2]
+            report["next_pk"] = list(Report.objects.filter(teacher=request.user.teacher).values_list("id", flat=True))[
+                report.get("num")]
 
         report_replays = list()
         for replay in ReportReply.objects.filter(

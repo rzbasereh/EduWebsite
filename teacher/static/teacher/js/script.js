@@ -3,9 +3,61 @@ $(document).ready(function () {
     const host = window.location.host;
 
     // Report Page
-    if (url.indexOf('http://' + host + '/teacher/report') != -1) {
+    if (url.indexOf('http://' + host + '/teacher/report') !== -1) {
         console.log("report page");
         $('textarea').autogrow();
+
+        $(".search-box input").on("keyup", function () {
+            $(".sider-list #reportList #noResult").addClass("d-none");
+            $.ajax({
+                method: "GET",
+                url: $(this).attr("data-url"),
+                data: {"q": $(this).val()},
+                success: function (data) {
+                    $(".sider-list #reportList a.list-group-item-action").remove();
+                    if (data.reports.length === 0) {
+                        $(".sider-list #reportList #noResult").removeClass("d-none");
+                    }
+                    for (let i = 0; i < data.reports.length; i++) {
+                        let report = `<a href="#" class="list-group-item list-group-item-action text-right"
+                                   id="${data.reports[i].id}">
+                                    <div class="d-flex w-100 justify-content-between text-right">
+                                        <div class="d-flex"></div>
+                                        <small>
+                                            ${data.reports[i].has_attachment ?
+                            `
+                                                <svg class="bi bi-paperclip" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                                                </svg>
+                                                `
+                            :
+                            ""
+                            }
+                                            ${data.reports[i].date_modified}
+                                        </small>
+                                    </div>
+                                    <strong class="mb-1">${data.reports[i].title}</strong>
+                                    <p class="mb-1 text-justify" dir="rtl">${data.reports[i].body}...</p>
+                                    <small></small>
+                                </a>`;
+                        $(".sider-list #reportList").append(report);
+                    }
+                    $("#reportList .list-group-item").click(function () {
+                        let id = $(this).attr("id");
+                        $("#reportList .list-group-item").removeClass("active");
+                        $(this).addClass("active");
+                        displayReport(id);
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
 
         function displayReport(id) {
             $.ajax({
@@ -24,13 +76,16 @@ $(document).ready(function () {
                     $("#report-reply-form-ajax").find("input[name='pk']").attr("value", id);
                     $("#nextReport").prop('disabled', data.report.num === data.report.all_reports);
                     $("#prevReport").prop('disabled', data.report.num === 1);
-                    if (data.report.num === 1) {
+                    if (data.report.all_reports === 1) {
+                        $("#nextReport").prop('disabled', true);
+                        $("#prevReport").prop('disabled', true);
+                    } else if (data.report.num === 1) {
                         $("#nextReport").attr("value", data.report.next_pk);
                     } else if (data.report.num === data.report.all_reports) {
-                         $("#prevReport").attr("value", data.report.prev_pk);
+                        $("#prevReport").attr("value", data.report.prev_pk);
                     } else {
-                         $("#nextReport").attr("value", data.report.next_pk);
-                         $("#prevReport").attr("value", data.report.prev_pk);
+                        $("#nextReport").attr("value", data.report.next_pk);
+                        $("#prevReport").attr("value", data.report.prev_pk);
                     }
                     $("#replyList").html("");
                     for (let i = 0; i < data.report_replays.length; i++) {
@@ -45,23 +100,23 @@ $(document).ready(function () {
                                             <pre>${data.report_replays[i].text}</pre>
                                         </div>
                                         ${data.report_replays[i].me ?
-                                            ''
-                                            :
-                                            `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
+                            ''
+                            :
+                            `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
                                                 ${avatar}
                                             </div>`
-                                        }
+                            }
                                         ${data.report_replays[i].me ?
-                                            `<div class="chat-custom-item__options">
+                            `<div class="chat-custom-item__options">
                                                 <div class="chat-custom-item__options__toggler">
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                                     </svg>
                                                 </div>
                                             </div>`
-                                            :
-                                            ''
-                                        }
+                            :
+                            ''
+                            }
                                         <div class="chat-custom-item__modify-date">${data.report_replays[i].data_created}</div>
                                     </div>`;
                         $("#replyList").append(item);
@@ -83,6 +138,8 @@ $(document).ready(function () {
                                 </li>`;
                         $("#attachedList").append(li);
                     }
+                    $(".item-preview").removeClass("d-none");
+                    $(".item-preview").next().addClass("d-none");
                 },
                 error: function (data) {
                     console.log(data);

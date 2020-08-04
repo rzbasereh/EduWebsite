@@ -21,6 +21,7 @@ urlpatterns = [
     path('class', views.classRoom, name="class"),
     path('exam', views.examManagement, name="examManagement"),
     path('report', views.report, name="report"),
+    path('report/search', views.report_search, name="report_search"),
     path('report/save', views.save_report, name="save_report"),
     path('report/display', views.display_report, name="display_report"),
     path('report/reply', views.reply_report, name="reply_report"),

@@ -4,31 +4,35 @@
 
 {% block title %}گزارش ها{% endblock %}
 
-{% block pageBody-add__on-class %}no-padding overflow-hidden{% endblock %}
+{% block pageBody-add__on-class %}p-0 overflow-hidden{% endblock %}
 
 {% block content %}
     <div class="sidder__list-view">
         <div class="row h-100">
-            <div class="col-md-4 no-padding">
+            <div class="col-md-5 col-lg-4 col-12 p-0">
                 <div class="sider-list">
                     <div class="list-group-header">
-                        <div class="search-box">
-                            <div class="input-group mb-3">
+                        <div class="search-box w-100 mt-2">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                        <path fill-rule="evenodd"
+                                              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
                                     </svg>
                                 </span>
                                 </div>
                                 <input type="text" class="form-control prepend-input" placeholder="جستجو"
-                                    aria-label="جستجو"
-                                    aria-describedby="basic-addon1">
+                                       aria-label="جستجو"
+                                       aria-describedby="basic-addon1" data-url="{% url 'teacher:report_search' %}">
                             </div>
                         </div>
                     </div>
-                    <div class="list-group overflow-auto" dir="rtl" data-url="{% url 'teacher:display_report' %}" id="reportList" dir="rtl">
+                    <div class="list-group overflow-auto" dir="rtl" data-url="{% url 'teacher:display_report' %}"
+                         id="reportList" dir="rtl">
                         {% for report in reports %}
                             <a href="#" class="list-group-item list-group-item-action text-right" id="{{ report.id }}">
                                 <div class="d-flex w-100 justify-content-between text-right">
@@ -36,10 +40,10 @@
                                     <small>
                                         {% if report in attached_reports %}
                                             <svg class="bi bi-paperclip" width="1em" height="1em" viewBox="0 0 16 16"
-                                                fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                                 fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
-                                                    d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"></path>
+                                                      d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"></path>
                                             </svg>
                                         {% endif %}
                                         {{ report.get_time_diff }}
@@ -50,23 +54,39 @@
                                 <small></small>
                             </a>
                         {% endfor %}
+                        <div class="list-group-item text-right border-0 d-none"
+                             dir="rtl" id="noResult">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-frown"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"></path>
+                                <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path>
+                            </svg>
+                            <span class="mr-2">نتیجه ای یافت نشد!</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 no-padding">
-                <div class="item-preview">
+            <div class="col-md-7 col-lg-8 d-none d-md-block p-0">
+                <div class="item-preview d-none">
                     <div class="text-center item-preview__header">
                         <button type="button" class="btn btn-circle" id="prevReport">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                            </svg>
                         </button>
                         <span id="reportCount"></span>
                         /
                         <span id="allReports"></span>
                         <button type="button" class="btn btn-circle" id="nextReport">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
                             </svg>
                         </button>
                     </div>
@@ -93,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <form method="post" action="{% url 'teacher:reply_report' %}" id="report-reply-form-ajax">
                                 {% csrf_token %}
@@ -103,16 +123,16 @@
                                 <div class="form-group">
                                     <label for="reportReply"></label>
                                     <textarea class="form-control overflow-hidden" id="reportReply" rows="3"
-                                            placeholder="متن پیام" name="text"></textarea>
+                                              placeholder="متن پیام" name="text"></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 text-right pr-0">
                                         <button type="button" class="btn btn-circle" data-toggle="modal"
                                                 data-target="#staticBackdrop">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-paperclip"
-                                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
-                                                    d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"></path>
+                                                      d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"></path>
                                             </svg>
                                         </button>
                                     </div>
@@ -124,10 +144,11 @@
                                 </div>
                             </form>
                         </div>
-                        
+
                         <div class="col-12" id="replyList"></div>
                     </div>
                 </div>
+                <img src="{% static 'img/check_report.svg' %}" alt="" class="m-5">
             </div>
         </div>
     </div>
