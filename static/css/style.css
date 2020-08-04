@@ -523,16 +523,16 @@ h1 {
 }
 
 .card2 {
-    width: 25%;
+    width: 340px;
     position: absolute;
-    height: 53%;
+    height: 350px;
     font-size: 11px;
-    top: 45%;
-    left: 35%;
-    transform: translate(0%, -45%);
-    -webkit-transform: translate(0%, -45%);
-    -moz-transform: translate(0%, -45%);
-    -o-transform: translate(0%, -45%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
     border: none;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
     -webkit-border-radius: 10px !important;
@@ -4138,6 +4138,7 @@ textarea.form-control:hover {
 }
 
 .input-group input[type="text"].form-control.prepend-input,
+.input-group input[type="email"].form-control.prepend-input,
 .input-group input[type="password"].form-control.prepend-input,
 .input-group select.custom-select.prepend-select {
     border-radius: 5px 0 0 5px;

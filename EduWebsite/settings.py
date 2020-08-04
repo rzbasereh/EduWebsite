@@ -141,3 +141,12 @@ EXEMPT_URLS = (
     r'^/teacher/',
     r'^/manager/',
 )
+
+EMAIL_HOST = 'mail.domain.com'
+EMAIL_HOST_USER = 'rzbasereh1@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+SERVER_EMAIL = 'abc@domain.com'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "info@example.org"
+
