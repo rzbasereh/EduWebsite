@@ -150,18 +150,29 @@ input[type="password"]:hover {
     min-width: 85px;
 }
 
+.btn:disabled:hover {
+    cursor: default;
+}
+
+.btn .spinner-border {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0.15rem solid currentColor;
+    border-right-color: transparent;
+}
+
 .btn-blue {
     color: #FFFFFF;
     background-color: #007BFF;
     box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
 }
 
-.btn-blue:hover {
+.btn-blue:hover:not(:disabled) {
     color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #007BFF90;
 }
 
-.btn-blue:focus {
+.btn-blue:focus:not(:disabled) {
     color: #FFFFFF;
     box-shadow: 0 2px 8px 0 #007BFF90;
 }
@@ -384,7 +395,7 @@ input[type="password"]:hover {
     direction: rtl;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .card1 {
         min-width: auto;
         width: 95%;
@@ -468,13 +479,15 @@ h1 {
     color: #343A40;
 }
 
+
 .loginImg {
-    width: 115% !important;
+    display: none;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .loginImg {
-        display: none;
+        display: block;
+        width: 115%;
     }
 }
 
@@ -2303,13 +2316,17 @@ pre {
     background-color: #343A40;
 }
 
+.iziToast {
+    padding: 8px 0 9px 45px;
+}
+
 .iziToast > .iziToast-body .iziToast-texts {
     display: inline-grid;
     float: none;
     position: relative;
     direction: rtl;
-    left: -10%;
     font-size: 15px;
+    margin: 10px 0;
 }
 
 .iziToast > .iziToast-body .iziToast-texts > p {
@@ -2325,16 +2342,17 @@ pre {
 }
 
 .iziToast > .iziToast-close {
-    top: 7%;
-    left: 1%;
+    top: 50%;
+    left: 10px;
     right: unset;
-    height: 28px;
-    width: 28px;
+    height: 24px;
+    width: 24px;
     border-radius: 50%;
     border: 1px;
     color: #44566C;
     background: #E9ECEF none;
     opacity: 1;
+    transform: translateY(-50%);
 }
 
 .iziToast > .iziToast-close:hover {
@@ -2352,11 +2370,16 @@ pre {
     font-size: 20px;
 }
 
-.iziToast > .iziToast-body .iziToast-icon {
-    left: 97%;
-    top: 25%;
-    margin-top: auto;
+.iziToast > .iziToast-body {
+    padding: 0!important;
+}
 
+.iziToast > .iziToast-body .iziToast-icon {
+    right: 15px;
+    top: 50%;
+    margin-top: auto;
+    left: auto;
+    transform: translateY(-50%);
 }
 
 .customized-izi-icon-small {
@@ -2427,7 +2450,7 @@ pre {
     position: absolute;
     right: 0;
     top: 0;
-    width: 6px;
+    width: 3px;
     height: 100%;
     -webkit-border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -4051,6 +4074,7 @@ input[type='تایید سوالات'] {
 input[type="text"].form-control,
 input[type="email"].form-control,
 input[type="number"].form-control,
+input[type="password"].form-control,
 select.custom-select,
 select.form-control,
 textarea.form-control {
@@ -4075,12 +4099,14 @@ textarea.form-control {
 }
 
 .input-group input[type="text"].form-control,
+.input-group input[type="password"].form-control,
 .input-group select.custom-select,
 .input-group select.form-control {
     padding-right: 0;
 }
 
 .input-group.white-bg input[type="text"].form-control,
+.input-group.white-bg input[type="password"].form-control,
 .input-group.white-bg select.custom-select,
 .input-group.white-bg select.form-control {
     background-color: #ffffff;
@@ -4112,6 +4138,7 @@ textarea.form-control:hover {
 }
 
 .input-group input[type="text"].form-control.prepend-input,
+.input-group input[type="password"].form-control.prepend-input,
 .input-group select.custom-select.prepend-select {
     border-radius: 5px 0 0 5px;
 }
