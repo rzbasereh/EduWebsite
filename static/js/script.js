@@ -29,11 +29,29 @@ if (getCookie("sidebar-state") === "close") {
     $(".Page-Body").addClass('max-width');
 }
 
+if (getCookie("theme") === "dark") {
+    $("html > head").append(`<link rel="stylesheet" id="darkStyleTheme" href="../../static/css/dark-theme.css">`);
+}
+
 $(window).on("load", function () {
     $("body").css("visibility", "visible");
 });
 
 $(document).ready(function () {
+
+    $(".topDrive > .firstDropdown > .dropdown-menu > ul > li > a#changeTheme").click(function () {
+        if ($(this).find(".dark-theme").hasClass("d-none")) {
+            $(this).find(".dark-theme").removeClass("d-none");
+            $(this).find(".light-theme").addClass("d-none");
+            setCookie("theme", "dark", 30);
+            $("html > head").append(`<link rel="stylesheet" id="darkStyleTheme" href="../../static/css/dark-theme.css">`);
+        } else {
+            $(this).find(".dark-theme").addClass("d-none");
+            $(this).find(".light-theme").removeClass("d-none");
+            setCookie("theme", "light", 30);
+            $("html > head #darkStyleTheme").remove();
+        }
+    });
 
     $(".slider-control").click(function () {
         $(".sidebar").toggleClass('close-sidebar');
