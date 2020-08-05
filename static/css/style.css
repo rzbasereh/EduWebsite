@@ -583,6 +583,58 @@ h1 {
     transition: .5s;
 }
 
+@media (max-width: 992px) {
+    .sidebar {
+        width: 0;
+        z-index: 10000;
+    }
+
+    .sidebar a {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+
+    .topDrive {
+        width: 100% !important;
+    }
+
+    .Page-Body {
+        width: 100% !important;
+    }
+
+
+}
+
+
+.responsive-body-show {
+    z-index: 100000 !important;
+    background-color: #F8FAFB80;
+    transition: .5s;
+}
+
+
+.responsive-body {
+    width: calc(100% - 200px);
+    z-index: -1;
+    height: 100%;
+    position: absolute;
+    transition: .5s;
+}
+
+
+.responsive-sidebar {
+    width: 200px;
+}
+
+
+.responsive-sidebar-a {
+    visibility: visible;
+    opacity: 1 !important;
+    pointer-events: visible !important;
+}
+
 .sidebar > div {
     list-style: none;
     margin-top: 60px;
@@ -729,27 +781,32 @@ h1 {
     top: 20%;
     right: 80px;
 }
+
 .topDrive > .col-6 {
     height: 60px;
     direction: rtl;
 }
+
 .topDrive > .col-6:last-child > .input-group {
-            width: fit-content;
+    width: fit-content;
     margin-right: auto;
     margin-left: auto;
     position: relative;
     top: 13px;
 }
+
 .topDrive > .col-6:last-child > .input-group > input[type="text"] {
     background-color: #F8FAFB;
-    padding-right: 35px ;
-    font-size: 11px ;
-    height: 30px ;
-    margin-left: 0 ;
+    padding-right: 35px;
+    font-size: 11px;
+    height: 30px;
+    margin-left: 0;
 }
+
 .topDrive > .col-6:last-child > .input-group > input[type="text"]:focus {
     box-shadow: none;
 }
+
 [class^="ti-search"] {
     position: absolute;
     top: 18px;
