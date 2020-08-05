@@ -39,7 +39,7 @@ $(window).on("load", function () {
 
 $(document).ready(function () {
 
-    $(".topDrive > .firstDropdown > .dropdown-menu > ul > li > a#changeTheme").click(function () {
+    $(".topDrive > .col-6:first-child > .firstDropdown > .dropdown-menu > ul > li > a#changeTheme").click(function () {
         if ($(this).find(".dark-theme").hasClass("d-none")) {
             $(this).find(".dark-theme").removeClass("d-none");
             $(this).find(".light-theme").addClass("d-none");

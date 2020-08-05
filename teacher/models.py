@@ -155,7 +155,7 @@ class ExamQuestion(models.Model):
 
 class ERun(models.Model):
     name = models.CharField(max_length=1000, null=True, blank=True)
-    info = models.TextField()
+    info = models.TextField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class_name = models.ManyToManyField(ClassRoom, blank=True)
     add_on_user = models.ManyToManyField(Student, blank=True)
