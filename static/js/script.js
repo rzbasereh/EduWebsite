@@ -30,7 +30,7 @@ if (getCookie("sidebar-state") === "close") {
 }
 
 if (getCookie("theme") === "dark") {
-    $('link#mainStyleSheet').attr('href', $('link#mainStyleSheet').attr('href').replace("style.css", "dark-theme.css"));
+    $("html > head").append(`<link rel="stylesheet" id="darkStyleTheme" href="../../static/css/dark-theme.css">`);
 }
 
 $(window).on("load", function () {
@@ -44,12 +44,12 @@ $(document).ready(function () {
             $(this).find(".dark-theme").removeClass("d-none");
             $(this).find(".light-theme").addClass("d-none");
             setCookie("theme", "dark", 30);
-            $('link#mainStyleSheet').attr('href', $('link#mainStyleSheet').attr('href').replace("style.css", "dark-theme.css"));
+            $("html > head").append(`<link rel="stylesheet" id="darkStyleTheme" href="../../static/css/dark-theme.css">`);
         } else {
             $(this).find(".dark-theme").addClass("d-none");
             $(this).find(".light-theme").removeClass("d-none");
             setCookie("theme", "light", 30);
-            $('link#mainStyleSheet').attr('href', $('link#mainStyleSheet').attr('href').replace("dark-theme.css", "style.css"));
+            $("html > head #darkStyleTheme").remove();
         }
     });
 

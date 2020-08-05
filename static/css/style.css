@@ -877,7 +877,7 @@ h1 {
 
 
 .topDrive > .firstDropdown > .dropdown-menu > ul > li > a:hover,
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus{
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus {
     text-decoration: none;
     color: #343A40 !important;
     background-color: #F8FAFB;
@@ -2776,15 +2776,32 @@ span.fancytree-checkbox:hover {
     cursor: pointer;
 }
 
-.fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active:hover span.fancytree-title {
+.fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active:not(.fancytree-selected):hover span.fancytree-title {
     background-color: transparent;
-    border-color: unset !important;
+    border-color: transparent !important;
     color: unset;
 }
 
+.fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-focused span.fancytree-title {
+    border-color: transparent !important;
+}
+
 .fancytree-plain.fancytree-container span.fancytree-node.fancytree-active span.fancytree-title {
-    background-color: transparent !important;
-    color: unset;
+    background-color: transparent;
+    border-color: transparent !important;
+}
+
+.fancytree-plain.fancytree-container span.fancytree-title:focus {
+    outline: none;
+}
+
+.fancytree-node.fancytree-selected span.fancytree-title {
+    background-color: #F8FAFB !important;
+    color: #44566C;
+}
+
+span.fancytree-node span.fancytree-expander:hover {
+    color: #007BFF;
 }
 
 .fancy-tree-selected div.tagsinput span.tag {
