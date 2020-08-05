@@ -510,7 +510,6 @@ h1 {
     top: 0;
     width: calc(100% - 200px);
     color: #8697A8;
-    direction: rtl;
     z-index: 999;
     transition: .5s;
 }
@@ -677,17 +676,29 @@ h1 {
     width: fit-content;
     position: relative;
     top: 20%;
-    padding-right: 80px;
+    right: 80px;
 }
-
-.topDrive > .input-group > input[type="text"] {
+.topDrive > .col-6 {
+    height: 60px;
+    direction: rtl;
+}
+.topDrive > .col-6:last-child > .input-group {
+            width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    top: 13px;
+}
+.topDrive > .col-6:last-child > .input-group > input[type="text"] {
     background-color: #F8FAFB;
-    padding-right: 35px !important;
-    font-size: 11px !important;
-    height: 30px !important;
-    margin-left: 0 !important;
+    padding-right: 35px ;
+    font-size: 11px ;
+    height: 30px ;
+    margin-left: 0 ;
 }
-
+.topDrive > .col-6:last-child > .input-group > input[type="text"]:focus {
+    box-shadow: none;
+}
 [class^="ti-search"] {
     position: absolute;
     top: 18px;
