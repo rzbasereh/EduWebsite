@@ -61,38 +61,127 @@
     </span>
 </div>
 <div class="sidebar {% block change-sidebar %}{% endblock %}">
-    <ul>
+    {#    <ul>#}
+    {#        {% url 'student:index' as index %}#}
+    {#        <a href="{% url 'student:index' %}" class="{% if request.path == index %}#}
+    {#         active#}
+    {#        {% endif %}">#}
+    {#            <li>#}
+    {#                <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"#}
+    {#                     xmlns="http://www.w3.org/2000/svg">#}
+    {#                    <path fill-rule="evenodd"#}
+    {#                          d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"#}
+    {#                          clip-rule="evenodd"></path>#}
+    {#                </svg>#}
+    {#                <span class="{% block remove-text %}{% endblock %}">داشبورد</span></li>#}
+    {#        </a>#}
+    {#        <a href="#">#}
+    {#            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>#}
+    {#        </a>#}
+    {#        {% url 'student:exam' as exam %}#}
+    {#        <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}#}
+    {#         active#}
+    {#        {% endif %}">#}
+    {#            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span>#}
+    {#            </li>#}
+    {#        </a>#}
+    {#        <a href="#">#}
+    {#            <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>#}
+    {#        </a>#}
+    {#        <a href="#">#}
+    {#            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span>#}
+    {#            </li>#}
+    {#        </a>#}
+    {#    </ul>#}
+    <div>
         {% url 'student:index' as index %}
         <a href="{% url 'student:index' %}" class="{% if request.path == index %}
-         active
-        {% endif %}">
-            <li>
-                <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                    active
+                {% endif %}" data-toggle="tooltip" data-placement="left" title="<p class='tool'>داشبورد</p>">
+            <svg class="bi bi-columns-gap" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
+                      clip-rule="evenodd"></path>
+            </svg>
+            <span class="{% block remove-text %}{% endblock %}">داشبورد</span>
+        </a>
+
+        {% url 'student:class_room' as class_url %}
+        <a href="{% url 'student:class_room' %}" class="{% if request.path == class_url %}
+                    active
+                {% endif %}" data-toggle="tooltip" data-placement="left" title="<p class='tool'>کلاس ها</p>">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-easel" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"></path>
+                <path fill-rule="evenodd"
+                      d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"></path>
+            </svg>
+            <span class="">کلاس ها</span>
+        </a>
+
+        {#        {% url ':class' as index %}#}
+        {#        <a#}
+        {#                href="{% url 'teacher:class' %}"#}
+        {#                class="{% if request.path == index %}#}
+        {#                    active#}
+        {#                {% endif %}"#}
+        {#                data-toggle="tooltip"#}
+        {#                data-placement="left"#}
+        {#                title="<p class='tool'>کلاس ها</p>"#}
+        {#        >#}
+        {#            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-easel" fill="currentColor"#}
+        {#                 xmlns="http://www.w3.org/2000/svg">#}
+        {#                <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"></path>#}
+        {#                <path fill-rule="evenodd"#}
+        {#                      d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"></path>#}
+        {#            </svg>#}
+        {#            <span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span>#}
+        {#        </a>#}
+        <div class="list-group">
+            {% url 'student:exam' as exam_url %}
+            {% url 'student:online_exam' as online_exam_url %}
+            <a href="#" class="{% if request.path == exam_url or request.path == online_exam_url %}
+                    active
+                {% endif %} list-group-item__head" data-toggle="tooltip" data-placement="left"
+               title="<p class='tool'>آزمون ها</p>">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-square" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
-                          d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z"
-                          clip-rule="evenodd"/>
+                          d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                    <path fill-rule="evenodd"
+                          d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"></path>
                 </svg>
-                <span class="{% block remove-text %}{% endblock %}">داشبورد</span></li>
-        </a>
-        <a href="#">
-            <li><i class="ti-blackboard"></i><span class="{% block remove-text1 %}{% endblock %}">کلاس ها</span></li>
-        </a>
-        {% url 'student:exam' as exam %}
-        <a href="{% url 'student:exam' %}" class="{% if request.path == exam %}
-         active
-        {% endif %}">
-            <li><i class="far fa-check-square"></i><span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span>
-            </li>
-        </a>
-        <a href="#">
-            <li><i class="ti-comments"></i><span class="{% block remove-text3 %}{% endblock %}">گفتگو </span></li>
-        </a>
-        <a href="#">
-            <li><i class="far fa-calendar"></i><span class="{% block remove-text4 %}{% endblock %}">برنامه درسی</span>
-            </li>
-        </a>
-    </ul>
+                <span class="{% block remove-text2 %}{% endblock %}">آزمون ها</span>
+            </a>
+            <a href="{{ exam_url }}"
+               class="list-group-item list-group-item-action {% if request.path == exam_url %}active{% endif %}">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                </svg>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8" cy="8" r="8"></circle>
+                </svg>
+                <span>کارنامه ها</span>
+            </a>
+            <a href="{{ online_exam_url }}"
+               class="list-group-item list-group-item-action {% if request.path == online_exam_url %}active{% endif %}">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                </svg>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8" cy="8" r="8"></circle>
+                </svg>
+                <span>آزمون آنلاین</span>
+            </a>
+        </div>
+    </div>
     {% block loader-in-sidebar %}{% endblock %}
 </div>
 <div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"

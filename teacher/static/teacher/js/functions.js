@@ -1,5 +1,58 @@
+function initalEditor(elementID) {
+    let editor = new FroalaEditor(elementID, {
+        toolbarContainer: '#toolbarContainer',
+        toolbarButtons: {
+            'moreText': {
+                'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
+            },
+            'moreParagraph': {
+                'buttons': ['alignRight', 'alignCenter', 'formatOLSimple', 'alignLeft', 'alignJustify', 'formatOL', 'formatUL', 'paragraphStyle', 'lineHeight', 'outdent', 'indent']
+            },
+            'moreRich': {
+                'buttons': ['insertImage', 'insertTable', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
+            },
+            'moreMisc': {
+                'buttons': ['undo', 'redo'],
+                'align': 'right',
+                'buttonsVisible': 2
+            }
+        }
+    });
+
+    let arr = elementID.split(", ");
+    console.log("arr length ", arr.length);
+    // for (let i = 0; i < arr.length; i++) {
+    //     $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+    //     $(window).resize(function () {
+    //         $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+    //     });
+    //     $(".slider-control").click(function () {
+    //         $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
+    //     });
+    //     let math_keyboard = `<button type="button" role="button" title="Math Formula" class="fr-command fr-btn"
+    //                             data-cmd="add-math" data-popup="false">
+    //                             <svg class="bi bi-laptop" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    //                                 <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
+    //                                 <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
+    //                             </svg>
+    //                         </button>`;
+    //     $(".fr-toolbar__fixed .fr-toolbar.fr-top button[data-cmd='specialCharacters']").after(math_keyboard);
+    //     $(".fr-toolbar__fixed.fr-box.fr-basic .fr-element").on('focus', function () {
+    //         $(".sub-scrolled-header").addClass("show");
+    //         $(this).closest(".fr-toolbar__fixed").addClass("show");
+    //     }).on('focusout', function () {
+    //         $(".sub-scrolled-header").removeClass("show");
+    //         $(this).closest(".fr-toolbar__fixed").removeClass("show");
+    //     });
+    //     $(".fr-toolbar__fixed").find(".fr-toolbar.fr-top button[data-cmd='add-math']").click(function () {
+    //         // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
+    //         // init_MathLive('ML_editor');
+    //     });
+    // }
+}
+
 function pasteHtmlAtCaret(html) {
-    var sel, range;
+    let sel, range;
     if (window.getSelection) {
         // IE9 and non-IE
         sel = window.getSelection();
@@ -9,9 +62,9 @@ function pasteHtmlAtCaret(html) {
 
             // Range.createContextualFragment() would be useful here but is
             // non-standard and not supported in all browsers (IE9, for one)
-            var el = document.createElement("div");
+            let el = document.createElement("div");
             el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
+            let frag = document.createDocumentFragment(), node, lastNode;
             while ((node = el.firstChild)) {
                 lastNode = frag.appendChild(node);
             }
@@ -83,87 +136,30 @@ function collectData(element, mute) {
                 });
             }
         } else {
-            return CorrectChoice;
+            return $(".custom-input input:checked ~ .tick").closest(".choice").find(".choice-text").attr("id").replace("choice-text-","");
         }
         return false;
-    } else if (element === "ChoiceVal1") {
-        let ChoiceVal1 = $(".first-choice-text .fr-element.fr-view").html();
-        if (ChoiceVal1.length === 0) {
+    } else if (element === "Choices") {
+        let Choices = [];
+        $(".choices .choice").each(function () {
+            let choiceVal = $(this).find(".fr-element.fr-view").html();
+            Choices.push(choiceVal);
+        });
+        return Choices;
+    } else if (element === "selectSource") {
+        let selectSource = $("#selectSource").val();
+        let selectSourceOption = $("#selectSource").closest(".form-group").find("option[selected]").text();
+        if (selectSource === selectSourceOption) {
             if (mute) {
-                $(".first-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                if ($(".first-choice-text").closest('.choice').find('.choice-warning').length > 1) {
-                    $(".first-choice-text").closest('.choice').find('.choice-warning:last-child').css('display', 'none');
+                if ($("#selectSource").closest(".form-group").find(".choice-warning").length === 0) {
+                    $("#selectSource").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا منبع سوال را مشخص کنید</span>");
                 }
-                $(".first-choice-text").click(function () {
-                    $(".first-choice-text").closest('.choice').find('.choice-warning').css('display', 'none');
+                $("#selectSource").click(function () {
+                    $("#selectSource").closest(".form-group").find('.choice-warning').css('display', 'none');
                 });
             }
         } else {
-            return ChoiceVal1;
-        }
-        return false;
-    } else if (element === "ChoiceVal2") {
-        let ChoiceVal2 = $(".second-choice-text .fr-element.fr-view").html();
-        if (ChoiceVal2.length === 0) {
-            if (mute) {
-                $(".second-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                if ($(".second-choice-text").closest('.choice').find('.left-choice-warning').length > 1) {
-                    $(".second-choice-text").closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
-                }
-                $(".second-choice-text").click(function () {
-                    $(".second-choice-text").closest('.choice').find('.left-choice-warning').css('display', 'none');
-                });
-            }
-        } else {
-            return ChoiceVal2;
-        }
-        return false;
-    } else if (element === "ChoiceVal3") {
-        let ChoiceVal3 = $(".third-choice-text .fr-element.fr-view").html();
-        if (ChoiceVal3.length === 0) {
-            if (mute) {
-                $(".third-choice-text").closest('.choice').append("<span class='choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                if ($(".third-choice-text").closest('.choice').find('.choice-warning').length > 1) {
-                    $(".third-choice-text").closest('.choice').find('.choice-warning:last-child').css('display', 'none');
-                }
-                $(".third-choice-text").click(function () {
-                    $(".third-choice-text").closest('.choice').find('.choice-warning').css('display', 'none');
-                });
-            }
-        } else {
-            return ChoiceVal3;
-        }
-        return false;
-    } else if (element === "ChoiceVal4") {
-        let ChoiceVal4 = $(".fourth-choice-text .fr-element.fr-view").html();
-        if (ChoiceVal4.length === 0) {
-            if (mute) {
-                $(".fourth-choice-text").closest('.choice').append("<span class='left-choice-warning'><span>*</span> لطفا گزینه را کامل کنید</span>");
-                if ($(".fourth-choice-text").closest('.choice').find('.left-choice-warning').length > 1) {
-                    $(".fourth-choice-text").closest('.choice').find('.left-choice-warning:last-child').css('display', 'none');
-                }
-            }
-            $(".fourth-choice-text").click(function () {
-                $(".fourth-choice-text").closest('.choice').find('.left-choice-warning').css('display', 'none');
-            });
-        } else {
-            return ChoiceVal4;
-        }
-        return false;
-    } else if (element === "GradeSelect") {
-        let GradeSelect = $("#grade-select").val();
-        let GradeSelectOption = $("#grade-select").closest(".form-group").find("option[selected]").text();
-        if (GradeSelect === GradeSelectOption) {
-            if (mute) {
-                if ($("#grade-select").closest(".form-group").find(".choice-warning").length === 0) {
-                    $("#grade-select").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا وضعیت را مشخص کنید</span>");
-                }
-                $("#grade-select").click(function () {
-                    $("#grade-select").closest(".form-group").find('.choice-warning').css('display', 'none');
-                });
-            }
-        } else {
-            return GradeSelect;
+            return selectSource;
         }
         return false;
     } else if (element === "LessonSelect") {
@@ -181,6 +177,23 @@ function collectData(element, mute) {
             }
         } else {
             return LessonSelect;
+        }
+        return false;
+    } else if (element === "level") {
+        let level = $("#selectLevel").val();
+        let levelSelectOption = $("#selectLevel").closest(".form-group").find("option[selected]").text();
+        if (level === levelSelectOption) {
+            if (mute) {
+                $("#selectLevel").closest(".form-group").append("<span class='choice-warning'><span>*</span>لطفا سطح سوال را مشخص کنید</span>");
+                if ($("#selectLevel").closest(".form-group").find(".choice-warning").length > 1) {
+                    $("#selectLevel").closest(".form-group").find(".choice-warning:last-child").css('display', 'none');
+                }
+                $("#selectLevel").click(function () {
+                    $("#selectLevel").closest(".form-group").find('.choice-warning').css('display', 'none');
+                });
+            }
+        } else {
+            return level;
         }
         return false;
     } else if (element === "ChapterSelect") {
@@ -206,7 +219,7 @@ function collectData(element, mute) {
 function intervalSave() {
     $(".saved").removeClass('saved-show');
     $(".updating").addClass("updating-show ");
-
+    const addQuestionForm = $("#add-question-form");
     let data = {};
     data.pk = addQuestionForm.closest(".card").attr("id");
     if (collectData("QuestionSubject", true) !== false) {
@@ -219,30 +232,20 @@ function intervalSave() {
     } else {
         data.verbose_ans = ""
     }
-    if (collectData("ChoiceVal1", true) !== false) {
-        data.ChoiceVal1 = collectData("ChoiceVal1", true);
+    if (collectData("Choices", true) !== false) {
+        data.Choices = collectData("Choices", true);
     } else {
-        data.ChoiceVal1 = ""
+        data.Choices = ""
     }
-    if (collectData("ChoiceVal2", true) !== false) {
-        data.ChoiceVal2 = collectData("ChoiceVal2", true);
+    if (collectData("level", true) !== false) {
+        data.level = collectData("level", true);
     } else {
-        data.ChoiceVal2 = ""
+        data.level = ""
     }
-    if (collectData("ChoiceVal3", true) !== false) {
-        data.ChoiceVal3 = collectData("ChoiceVal3", true);
+    if (collectData("selectSource", true) !== false) {
+        data.selectSource = collectData("selectSource", true);
     } else {
-        data.ChoiceVal3 = ""
-    }
-    if (collectData("ChoiceVal4", true) !== false) {
-        data.ChoiceVal4 = collectData("ChoiceVal4", true);
-    } else {
-        data.ChoiceVal4 = ""
-    }
-    if (collectData("GradeSelect", true) !== false) {
-        data.GradeSelect = collectData("GradeSelect", true);
-    } else {
-        data.GradeSelect = ""
+        data.selectSource = ""
     }
     if (collectData("LessonSelect", true) !== false) {
         data.LessonSelect = collectData("LessonSelect", true);
@@ -259,9 +262,9 @@ function intervalSave() {
     } else {
         data.CorrectChoice = ""
     }
-    data.is_publish = $("input[name='is_publish']").val();
-    data.redirect = "true";
-    console.log("updating ...");
+    data.is_publish = $("input[name='is_publish']").is(':checked');
+    data.is_descriptive = $("input[name='is_descriptive']").is(':checked');
+    data.redirect = false;
     $.ajax({
         type: "POST",
         url: addQuestionForm.attr("action"),

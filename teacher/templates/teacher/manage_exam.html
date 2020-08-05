@@ -1,7 +1,7 @@
 {% extends 'teacher/layouts/base_layout.html' %}
 {% load static %}
 {% block title %}مدیریت آزمون{% endblock %}
-{% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}
+{#{% block no-padding-Page-Body %}no-padding-Page-Body{% endblock %}#}
 {% block script %}
     <script type="text/javascript" src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
     <script type="text/javascript"
@@ -13,12 +13,14 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js.map"></script>
 {% endblock %}
+
 {% block style %}
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
-{% block content %}
+
+{% block modal %}
     <div class="modal fade" id="ERun" tabindex="-1" role="dialog" aria-labelledby="ERunLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -30,9 +32,9 @@
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"></path>
                                 <path fill-rule="evenodd"
-                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"></path>
                             </svg>
                         </span>
                     </button>
@@ -84,15 +86,20 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="ERunAccidentalQuestion"
                                    name="random_questions">
-                            <label class="custom-control-label " for="ERunAccidentalQuestion">ترتیب تصادفی سوالات</label>
+                            <label class="custom-control-label " for="ERunAccidentalQuestion">ترتیب تصادفی
+                                سوالات</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice" name="random_choice">
-                            <label class="custom-control-label " for="ERunAccidentalChoice">ترتیب تصادفی گزینه ها</label>
+                            <input type="checkbox" class="custom-control-input" id="ERunAccidentalChoice"
+                                   name="random_choice">
+                            <label class="custom-control-label " for="ERunAccidentalChoice">ترتیب تصادفی گزینه
+                                ها</label>
                         </div>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators" name="publish" >
-                            <label class="custom-control-label " for="ERunShowToParticipators">نمایش برای شرکت کنندگان</label>
+                            <input type="checkbox" class="custom-control-input" id="ERunShowToParticipators"
+                                   name="publish">
+                            <label class="custom-control-label " for="ERunShowToParticipators">نمایش برای شرکت
+                                کنندگان</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -114,9 +121,9 @@
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"></path>
                                 <path fill-rule="evenodd"
-                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"></path>
                             </svg>
                         </span>
                     </button>
@@ -143,10 +150,13 @@
         </div>
     </div>
     {% include 'teacher/layouts/alert-modals.html' %}
-    <div class="manage-exam">
-        <h1>مدیریت آزمون</h1>
-        <div class="path">
-            <span>
+{% endblock %}
+
+{% block content %}
+    <h1>مدیریت آزمون</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
                 <a href="{% url 'teacher:index' %}">
                     <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -158,137 +168,269 @@
                               clip-rule="evenodd"></path>
                     </svg>
                 </a>
-            </span>
-            <span>
-                <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16"
-                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                          d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                          clip-rule="evenodd"></path>
-                </svg>
-            </span>
-            <a href="{% url 'teacher:examManagement' %}">مدیریت آزمون</a>
-        </div>
-        <div class="row header">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
-                       aria-label="Username"
-                       aria-describedby="basic-addon1">
-                <span class="ti-search"></span>
-            </div>
-        </div>
-        <div class="row w-100 packs">
-            <div class="card w-100 row">
-                <div class="card-body col-10">
-                    <span class="col-4 text-right">عنوان آزمون</span>
-                    <span class="col-3">تعداد سوالات</span>
-                    <span class="col-3">وضعیت برگزاری</span>
-                </div>
-            </div>
-            <div class="manage-exam-info-cards w-100 row accordion" id="accordionExample">
-                {% for exam in exams %}
-                    <div class="card w-100 row manage-examInfo"  id="{{ exam.id }}">
-                        <div class="card-header row not-run" id="headingThree">
-                            <div class="manage-exam-info col-10">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
-                                        aria-controls="collapseThree">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                                    </svg>
-                                </button>
-                                <span class="col-4 text-right">{{ exam.name }}</span>
-                                <span class="col-3">{{ exam.questions.count }}</span>
-                                <span class="col-3">
-                                    <span>برگزار نشده</span>
-                                </span>
-                            </div>
-                            <div class="manage-buttons col-2">
-                            <span
-                                    id="ExamRun"
-                                    data-toggle="tooltip"
-                                    data-placement="top"
-                                    title="<p class='tool'>اجرای آزمون</p>"
-                            >
-                                <svg
-                                        class="bi bi-play-fill"
-                                        width="1em" height="1em"
-                                        viewBox="0 0 16 16"
-                                        fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        data-toggle="modal"
-                                        data-target="#selectDestination"
-                                >
-                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>
-                                </svg>
-                            </span>
-                                <a href="{% url 'teacher:edit_exam' exam.id %}" data-toggle="tooltip"
-                                   data-placement="top"
-                                   title="<p class='tool'>ویرایش آزمون</p>">
-                                    <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                                        <path fill-rule="evenodd"
-                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
-                                    </svg>
-                                </a>
-                                <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف آزمون</p>" >
-                                    <svg
-                                            class="bi bi-trash"
-                                            width="1em" height="1em"
-                                            viewBox="0 0 16 16"
-                                            fill="currentColor"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            data-toggle="modal"
-                                            data-target="#exampleModal"
-                                    >
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                        <path fill-rule="evenodd"
-                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-                                    </svg>
-                                </div>
-                            </div>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">کلاس ها</li>
+        </ol>
+    </nav>
+    <div class="clearfix w-100 mb-4">
+        <span class="float-left">
+            <div class="input-group white-bg mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                        </svg>
+                        <div class="spinner-border d-none" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                             data-parent="#accordionExample">
-                            <div class="card-body">
-                                لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ،
-                                صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب
-                                بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می
-                                نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان
-                                گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به
-                                مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن
-                                قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از
-                                آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در
-                                همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه
-                                گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-                            </div>
+                    </span>
+                </div>
+                <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                       aria-label="جستجو"
+                       aria-describedby="basic-addon1" id="navSearch"
+                       data-url="">
+            </div>
+        </span>
+    </div>
+
+    <table class="table card-list-group text-center">
+        <thead class="card-list__header">
+        <tr>
+            <th class="text-right">عنوان</th>
+            <th></th>
+            <th>ایجاد</th>
+            <th>وضعیت</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody class="card-list__content">
+        {% for exam in exams %}
+            <tr class="card-list__item" id="{{ exam.id }}">
+                <td class="text-right">{{ exam.name }}</td>
+                <td></td>
+                <td>{{ exam.initial_date }}</td>
+                <td>فعال</td>
+                <td>
+                    <div class="dropdown card-options">
+                        <button class="dropdown-toggle" type="button" id="userOption{{ exam.id }}"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu text-right" aria-labelledby="userOption{{ exam.id }}">
+                            <button class="dropdown-item" type="button" data-toggle="modal"
+                                    data-target="#userInfo" value="{{ exam.id }}">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"></path>
+                                </svg>
+                                ویرایش
+                            </button>
+                            <a href="#" class="dropdown-item">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                                </svg>
+                                بیشتر
+                            </a>
+                            <button class="dropdown-item" type="button">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                </svg>
+                                حذف
+                            </button>
                         </div>
                     </div>
-                    {#                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"#}
-                    {#                         aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-                    {#                        <div class="modal-dialog modal-dialog-centered">#}
-                    {#                            <div class="modal-content">#}
-                    {#                                <div class="modal-header">#}
-                    {#                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
-                    {#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-                    {#                                        <span aria-hidden="true">&times;</span>#}
-                    {#                                    </button>#}
-                    {#                                </div>#}
-                    {#                                <div class="modal-body">#}
-                    {#                                    ...#}
-                    {#                                </div>#}
-                    {#                                <div class="modal-footer">#}
-                    {#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-                    {#                                    <button type="button" class="btn btn-primary">Save changes</button>#}
-                    {#                                </div>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+                    <div class="">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cursor" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"></path>
+                        </svg>
+                    </div>
+                </td>
+            </tr>
+            <tr class="card-list__divider">
+                <td></td>
+            </tr>
+            <tr class="card-list__item" id="{{ exam.id }}">
+                <td class="text-right">{{ exam.name }}</td>
+                <td></td>
+                <td>{{ exam.initial_date }}</td>
+                <td>فعال</td>
+                <td>
+                    <div class="dropdown card-options">
+                        <button class="dropdown-toggle" type="button" id="userOption{{ exam.id }}"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu text-right" aria-labelledby="userOption{{ exam.id }}">
+                            <button class="dropdown-item" type="button" data-toggle="modal"
+                                    data-target="#userInfo" value="{{ exam.id }}">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"></path>
+                                </svg>
+                                ویرایش
+                            </button>
+                            <a href="#" class="dropdown-item">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                                </svg>
+                                بیشتر
+                            </a>
+                            <button class="dropdown-item" type="button">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                </svg>
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {#    <div class="manage-exam">#}
+    {#        <div class="row w-100 packs">#}
+    {#            <div class="card w-100 row">#}
+    {#                <div class="card-body col-10">#}
+    {#                    <span class="col-4 text-right">عنوان آزمون</span>#}
+    {#                    <span class="col-3">تعداد سوالات</span>#}
+    {#                    <span class="col-3">وضعیت برگزاری</span>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="manage-exam-info-cards w-100 row accordion" id="accordionExample">#}
+    {#                {% for exam in exams %}#}
+    {#                    <div class="card w-100 row manage-examInfo"  id="{{ exam.id }}">#}
+    {#                        <div class="card-header row not-run" id="headingThree">#}
+    {#                            <div class="manage-exam-info col-10">#}
+    {#                                <button class="btn btn-link btn-block text-left collapsed" type="button"#}
+    {#                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"#}
+    {#                                        aria-controls="collapseThree">#}
+    {#                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list"#}
+    {#                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+    {#                                        <path fill-rule="evenodd"#}
+    {#                                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>#}
+    {#                                    </svg>#}
+    {#                                </button>#}
+    {#                                <span class="col-4 text-right">{{ exam.name }}</span>#}
+    {#                                <span class="col-3">{{ exam.questions.count }}</span>#}
+    {#                                <span class="col-3">#}
+    {#                                    <span>برگزار نشده</span>#}
+    {#                                </span>#}
+    {#                            </div>#}
+    {#                            <div class="manage-buttons col-2">#}
+    {#                            <span#}
+    {#                                    id="ExamRun"#}
+    {#                                    data-toggle="tooltip"#}
+    {#                                    data-placement="top"#}
+    {#                                    title="<p class='tool'>اجرای آزمون</p>"#}
+    {#                            >#}
+    {#                                <svg#}
+    {#                                        class="bi bi-play-fill"#}
+    {#                                        width="1em" height="1em"#}
+    {#                                        viewBox="0 0 16 16"#}
+    {#                                        fill="currentColor"#}
+    {#                                        xmlns="http://www.w3.org/2000/svg"#}
+    {#                                        data-toggle="modal"#}
+    {#                                        data-target="#selectDestination"#}
+    {#                                >#}
+    {#                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>#}
+    {#                                </svg>#}
+    {#                            </span>#}
+    {#                                <a href="{% url 'teacher:edit_exam' exam.id %}" data-toggle="tooltip"#}
+    {#                                   data-placement="top"#}
+    {#                                   title="<p class='tool'>ویرایش آزمون</p>">#}
+    {#                                    <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16"#}
+    {#                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">#}
+    {#                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>#}
+    {#                                        <path fill-rule="evenodd"#}
+    {#                                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>#}
+    {#                                    </svg>#}
+    {#                                </a>#}
+    {#                                <div data-toggle="tooltip" data-placement="top" title="<p class='tool'>حذف آزمون</p>" >#}
+    {#                                    <svg#}
+    {#                                            class="bi bi-trash"#}
+    {#                                            width="1em" height="1em"#}
+    {#                                            viewBox="0 0 16 16"#}
+    {#                                            fill="currentColor"#}
+    {#                                            xmlns="http://www.w3.org/2000/svg"#}
+    {#                                            data-toggle="modal"#}
+    {#                                            data-target="#exampleModal"#}
+    {#                                    >#}
+    {#                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>#}
+    {#                                        <path fill-rule="evenodd"#}
+    {#                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>#}
+    {#                                    </svg>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"#}
+    {#                             data-parent="#accordionExample">#}
+    {#                            <div class="card-body">#}
+    {#                                لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ،#}
+    {#                                صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب#}
+    {#                                بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+    {#                                نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد. معمولا طراحان#}
+    {#                                گرافیک برای صفحه‌آرایی، نخست از متن‌های آزمایشی و بی‌معنی استفاده می‌کنند تا صرفا به#}
+    {#                                مشتری یا صاحب کار خود نشان دهند که صفحه طراحی یا صفحه بندی شده بعد از اینکه متن در آن#}
+    {#                                قرار گیرد چگونه به نظر می‌رسد و قلم‌ها و اندازه‌بندی‌ها چگونه در نظر گرفته شده‌است. از#}
+    {#                                آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند و در#}
+    {#                                همان حال کار آنها به نوعی وابسته به متن می‌باشد آنها با استفاده از محتویات ساختگی، صفحه#}
+    {#                                گرافیکی خود را صفحه‌آرایی می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"#}
+    {#                         aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#                        <div class="modal-dialog modal-dialog-centered">#}
+    {#                            <div class="modal-content">#}
+    {#                                <div class="modal-header">#}
+    {#                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
+    {#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+    {#                                        <span aria-hidden="true">&times;</span>#}
+    {#                                    </button>#}
+    {#                                </div>#}
+    {#                                <div class="modal-body">#}
+    {#                                    ...#}
+    {#                                </div>#}
+    {#                                <div class="modal-footer">#}
+    {#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+    {#                                    <button type="button" class="btn btn-primary">Save changes</button>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 {% endblock %}

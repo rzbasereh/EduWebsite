@@ -1,0 +1,57 @@
+@font-face {
+    font-family: IRANSans;
+    src: url("../../../../static/fonts/IRANSans(FaNum).ttf") format("truetype");
+}
+
+body {
+    font-family: IRANSans, serif !important;
+}
+
+.hero-wrap .overlay {
+    left: auto;
+    right: 0;
+    background: linear-gradient(45deg, #0081FF 0%, #0081FF 0%, #22CCE2 100%);
+}
+
+.bg-light {
+    background: #F8FAFB !important;
+}
+
+.blog-entry span.day {
+    color: #0081FF;
+}
+
+.blog-entry .text .heading a:hover, .blog-entry .text .heading a:focus, .blog-entry .text .heading a:active {
+    color: #0081FF;
+}
+
+.shadow {
+    box-shadow: 0 5px 25px rgba(94, 100, 114, .13) !important;
+}
+
+.br-2 {
+    -webkit-border-radius: 0.5rem !important;
+    -moz-border-radius: 0.5rem !important;
+    border-radius: 0.5rem !important;
+}
+
+.ftco-section-parallax .parallax-img {
+    background: #0081FF;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item.cta > a {
+    color: #FFFFFF;
+    background-color: #007BFF;
+    box-shadow: 0 5px 10px #007BFF16, 0 15px 40px #007BFF16;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1.5rem!important;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item.cta > a:hover {
+    background: #007BFF;
+    border: 1px solid #007BFF;
+    color: #ffffff;
+    box-shadow: 0 2px 8px 0 #007BFF90;
+}

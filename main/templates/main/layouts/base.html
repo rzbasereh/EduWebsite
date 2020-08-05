@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>سایت آموزشی</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'landing/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'landing/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'landing/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'landing/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'landing/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'landing/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/main.css' %}">
+</head>
+<body>
+
+{% include 'main/layouts/header.html' %}
+<!-- END nav -->
+
+{% block content %}{% endblock %}
+
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Subcribe to our Newsletter</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts. Separated they live in</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Enter email address">
+                                    <input type="submit" value="Subscribe" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-gallery">
+    <div class="container-wrap">
+        <div class="row no-gutters">
+            <div class="col-md-3 ftco-animate">
+                <a href="images/image_1.jpg" class="gallery image-popup img d-flex align-items-center"
+                   style="background-image: url(images/image_1.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-instagram"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="images/image_2.jpg" class="gallery image-popup img d-flex align-items-center"
+                   style="background-image: url(images/image_2.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-instagram"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="images/image_3.jpg" class="gallery image-popup img d-flex align-items-center"
+                   style="background-image: url(images/image_3.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-instagram"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="images/image_4.jpg" class="gallery image-popup img d-flex align-items-center"
+                   style="background-image: url(images/image_4.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-instagram"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'main/layouts/footer.html' %}
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="{% static 'landing/js/jquery.min.js' %}"></script>
+<script src="{% static 'landing/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'landing/js/popper.min.js' %}"></script>
+<script src="{% static 'landing/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'landing/js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'landing/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'landing/js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'landing/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'landing/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'landing/js/aos.js' %}"></script>
+<script src="{% static 'landing/js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'landing/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'landing/js/jquery.timepicker.min.js' %}"></script>
+<script src="{% static 'landing/js/scrollax.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{% static 'landing/js/google-map.js' %}"></script>
+<script src="{% static 'landing/js/main.js' %}"></script>
+
+</body>
+</html>

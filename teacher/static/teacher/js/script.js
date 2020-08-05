@@ -1,11 +1,219 @@
 $(document).ready(function () {
+    const url = window.location.href;
+    const host = window.location.host;
+
+    // Report Page
+    if (url.indexOf('http://' + host + '/teacher/report') !== -1) {
+        console.log("report page");
+        $('textarea').autogrow();
+
+        $(".search-box input").on("keyup", function () {
+            $(".sider-list #reportList #noResult").addClass("d-none");
+            $.ajax({
+                method: "GET",
+                url: $(this).attr("data-url"),
+                data: {"q": $(this).val()},
+                success: function (data) {
+                    $(".sider-list #reportList a.list-group-item-action").remove();
+                    if (data.reports.length === 0) {
+                        $(".sider-list #reportList #noResult").removeClass("d-none");
+                    }
+                    for (let i = 0; i < data.reports.length; i++) {
+                        let report = `<a href="#" class="list-group-item list-group-item-action text-right"
+                                   id="${data.reports[i].id}">
+                                    <div class="d-flex w-100 justify-content-between text-right">
+                                        <div class="d-flex"></div>
+                                        <small>
+                                            ${data.reports[i].has_attachment ?
+                            `
+                                                <svg class="bi bi-paperclip" width="1em" height="1em"
+                                                     viewBox="0 0 16 16"
+                                                     fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                                                </svg>
+                                                `
+                            :
+                            ""
+                            }
+                                            ${data.reports[i].date_modified}
+                                        </small>
+                                    </div>
+                                    <strong class="mb-1">${data.reports[i].title}</strong>
+                                    <p class="mb-1 text-justify" dir="rtl">${data.reports[i].body}...</p>
+                                    <small></small>
+                                </a>`;
+                        $(".sider-list #reportList").append(report);
+                    }
+                    $("#reportList .list-group-item").click(function () {
+                        let id = $(this).attr("id");
+                        $("#reportList .list-group-item").removeClass("active");
+                        $(this).addClass("active");
+                        displayReport(id);
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        function displayReport(id) {
+            $.ajax({
+                method: "GET",
+                url: $("#reportList").attr("data-url"),
+                data: {"id": id},
+                success: function (data) {
+                    console.log(data);
+                    $("#userAvatar").attr("src", data.report.avatar);
+                    $("#writerName").text(data.report.full_name);
+                    $("#createdTime").text(data.report.created_time);
+                    $("#reportTitle").text(data.report.title);
+                    $("#reportBody").text(data.report.text);
+                    $("#reportCount").text(data.report.num);
+                    $("#allReports").text(data.report.all_reports);
+                    $("#report-reply-form-ajax").find("input[name='pk']").attr("value", id);
+                    $("#nextReport").prop('disabled', data.report.num === data.report.all_reports);
+                    $("#prevReport").prop('disabled', data.report.num === 1);
+                    if (data.report.all_reports === 1) {
+                        $("#nextReport").prop('disabled', true);
+                        $("#prevReport").prop('disabled', true);
+                    } else if (data.report.num === 1) {
+                        $("#nextReport").attr("value", data.report.next_pk);
+                    } else if (data.report.num === data.report.all_reports) {
+                        $("#prevReport").attr("value", data.report.prev_pk);
+                    } else {
+                        $("#nextReport").attr("value", data.report.next_pk);
+                        $("#prevReport").attr("value", data.report.prev_pk);
+                    }
+                    $("#replyList").html("");
+                    for (let i = 0; i < data.report_replays.length; i++) {
+                        let avatar = "";
+                        let full_name = "";
+                        if (!data.report_replays[i].me) {
+                            avatar = `<img src="${data.report_replays[i].avatar}" alt="avatar" width="50"/>`
+                            full_name = `<h5>${data.report_replays[i].full_name}</h5>`;
+                        }
+                        let item = `<div class="chat-custom-item ${data.report_replays[i].me ? '' : 'blue-left-side'}">
+                                        <div class="chat-custom-item__body">
+                                            <pre>${data.report_replays[i].text}</pre>
+                                        </div>
+                                        ${data.report_replays[i].me ?
+                            ''
+                            :
+                            `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
+                                                ${avatar}
+                                            </div>`
+                            }
+                                        ${data.report_replays[i].me ?
+                            `<div class="chat-custom-item__options">
+                                                <div class="chat-custom-item__options__toggler">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>`
+                            :
+                            ''
+                            }
+                                        <div class="chat-custom-item__modify-date">${data.report_replays[i].data_created}</div>
+                                    </div>`;
+                        $("#replyList").append(item);
+                    }
+                    $("#attachedList").html("");
+                    for (let i = 0; i < data.report_attaches.length; i++) {
+                        let li = `<li class="list-group-item attached-item">
+                                    <span class="attache-item-detail">
+                                        <div>${data.report_attaches[i].name}</div>
+                                        <div dir="ltr">${data.report_attaches[i].size}</div>
+                                    </span>
+                                    <a href="${data.report_attaches[i].href}">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+                                        <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
+                                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
+                                    </svg>
+                                    </a>
+                                </li>`;
+                        $("#attachedList").append(li);
+                    }
+                    $(".item-preview").removeClass("d-none");
+                    $(".item-preview").next().addClass("d-none");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        $("#reportList .list-group-item").click(function () {
+            let id = $(this).attr("id");
+            $("#reportList .list-group-item").removeClass("active");
+            $(this).addClass("active");
+            displayReport(id);
+        });
+
+        $("#nextReport").click(function () {
+            let id = $(this).val();
+            $("#reportList .list-group-item").removeClass("active");
+            $("#reportList .list-group-item#" + id).addClass("active");
+            if ($(this).attr("disabled") !== true) {
+                displayReport(id);
+            }
+        });
+
+        $("#prevReport").click(function () {
+            let id = $(this).val();
+            $("#reportList .list-group-item").removeClass("active");
+            $("#reportList .list-group-item#" + id).addClass("active");
+            if ($(this).attr("disabled") !== true) {
+                displayReport(id);
+            }
+        });
+
+        $("#report-reply-form-ajax").submit(function (event) {
+            event.preventDefault();
+            console.log("clicked!");
+            $.ajax({
+                method: "POST",
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $("#new_report_ajax_form").submit(function (event) {
+            event.preventDefault();
+            console.log("clicked!");
+            $.ajax({
+                method: "POST",
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    }
+    // End Report Page
+
+
     // add question Page
     $('[data-toggle="tooltip"]').tooltip({
         html: true
     });
 
-    $(".arrow-down-up").attr("data-toggle", "tooltip");
-    
+    // $(".arrow-down-up").attr("data-toggle", "tooltip");
+
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
@@ -35,32 +243,7 @@ $(document).ready(function () {
 
 
     if (window.location.href.indexOf("questions/add_new") !== -1) {
-        $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        $(window).resize(function () {
-            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        });
-        $(".slider-control").click(function () {
-            $(".sub-scrolled-header, .fr-toolbar__fixed .fr-toolbar.fr-top").width($(".Page-Body").width());
-        });
-        let math_keyboard = `<button type="button" role="button" title="Math Formula" class="fr-command fr-btn" 
-                                data-cmd="add-math" data-popup="false">
-                                <svg class="bi bi-laptop" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>
-                                    <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>
-                                </svg>
-                            </button>`;
-        $(".fr-toolbar__fixed .fr-toolbar.fr-top button[data-cmd='specialCharacters']").after(math_keyboard);
-        $(".fr-toolbar__fixed.fr-box.fr-basic .fr-element").on('focus', function () {
-            $(".sub-scrolled-header").addClass("show");
-            $(this).closest(".fr-toolbar__fixed").addClass("show");
-        }).on('focusout', function () {
-            $(".sub-scrolled-header").removeClass("show");
-            $(this).closest(".fr-toolbar__fixed").removeClass("show");
-        });
-        $(".fr-toolbar__fixed").find(".fr-toolbar.fr-top button[data-cmd='add-math']").click(function () {
-            // pasteHtmlAtCaret(`<div id="Ml__editor">REza</div>`);
-            // init_MathLive('ML_editor');
-        });
+
         $("input.tag-input").tagsInput({
             defaultText: '',
         });
@@ -81,16 +264,11 @@ $(document).ready(function () {
             event.preventDefault();
             let body = collectData("QuestionSubject", false);
             let verbose_ans = collectData("CompleteAns", false);
-            let ChoiceVal1 = collectData("ChoiceVal1", false);
-            let ChoiceVal2 = collectData("ChoiceVal2", false);
-            let ChoiceVal3 = collectData("ChoiceVal3", false);
-            let ChoiceVal4 = collectData("ChoiceVal4", false);
-            let GradeSelect = collectData("GradeSelect", false);
-            let LessonSelect = collectData("LessonSelect", false);
-            let ChapterSelect = collectData("ChapterSelect", false);
+            let Choices = collectData("Choices", false);
+            let level = collectData("level", false);
+            let selectSource = collectData("selectSource", false);
             let CorrectChoice = collectData("CorrectChoice", false);
-            if (body !== false && verbose_ans !== false && ChoiceVal1 !== false && ChoiceVal2 !== false && ChoiceVal3 !== false &&
-                ChoiceVal4 !== false && GradeSelect !== false && LessonSelect !== false && ChapterSelect !== false && CorrectChoice !== false) {
+            if (body !== false && verbose_ans !== false && Choices !== false && level !== false && selectSource !== false && CorrectChoice !== false) {
                 $.ajax({
                     type: "POST",
                     url: addQuestionForm.attr("action"),
@@ -98,19 +276,19 @@ $(document).ready(function () {
                         'pk': addQuestionForm.closest(".card").attr("id"),
                         'body': body,
                         'verbose_ans': verbose_ans,
-                        'is_publish': $("input[name='is_publish']").val(),
-                        'ChoiceVal1': ChoiceVal1,
-                        'ChoiceVal2': ChoiceVal2,
-                        'ChoiceVal3': ChoiceVal3,
-                        'ChoiceVal4': ChoiceVal4,
-                        'GradeSelect': GradeSelect,
-                        'LessonSelect': LessonSelect,
-                        'ChapterSelect': ChapterSelect,
+                        'is_publish': $("input[name='is_publish']").is(':checked'),
+                        'is_descriptive': $("input[name='is_descriptive']").is(':checked'),
+                        'Choices': Choices,
+                        'level': level,
+                        'selectSource': selectSource,
                         'CorrectChoice': CorrectChoice,
                         'redirect': true,
                     },
                     success: function (data) {
                         console.log(data);
+                        if (data.url) {
+                            $(location).attr("href", data.url)
+                        }
                     },
                     error: function (data) {
                         console.log(data);
@@ -118,25 +296,95 @@ $(document).ready(function () {
                 });
             }
         });
+
+
+        $('.carousel').carousel({
+            wrap: false
+        });
         $('.change-btns .btn:last-child').click(function () {
-            $('.owl-carousel').trigger('next.owl.carousel');
-            $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            $(".change-btns .btn:first-child").removeClass('btn-blue');
-            $(this).addClass('btn-blue')
+            if (!$("#isDescriptive").is(":checked")) {
+                $('.carousel').carousel('prev');
+                $('.change-btns .btn').removeClass('btn-blue');
+                $(this).addClass('btn-blue')
+            }
         });
         $('.change-btns .btn:first-child').click(function () {
-            $('.owl-carousel').trigger('prev.owl.carousel', [300]);
-            $(".owl-carousel .owl-stage").css('transition', '0.8s');
-            $(".change-btns .btn:last-child").removeClass('btn-blue');
-            $(this).addClass('btn-blue');
+            if (!$("#isDescriptive").is(":checked")) {
+                $('.carousel').carousel('next');
+                $('.change-btns .btn').removeClass('btn-blue');
+                $(this).addClass('btn-blue');
+            }
         });
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         });
 
+
+        $("#isDescriptive").click(function () {
+            if ($(this).is(":checked")) {
+                $(".carousel").carousel(0);
+                $('.change-btns .btn').removeClass('btn-blue');
+                $('.change-btns .btn:last-child').addClass('btn-blue');
+            } else {
+                $(".carousel").carousel(1);
+                $('.change-btns .btn').removeClass('btn-blue');
+                $('.change-btns .btn:first-child').addClass('btn-blue');
+            }
+        });
+
+
+        initalEditor("#choice-text-1, #complete-ans, #question-textarea");
+
+        $(".new-choice").click(function () {
+            console.log($(".choices .choice").length);
+            if ($(".choices .choice").length < 5) {
+                let i = $(".choices .choice").length + 1;
+
+                let label = "گزینه دوم";
+                if (i === 3) {
+                    label = "گزینه سوم";
+                } else if (i === 4) {
+                    label = "گزینه چهارم";
+                } else if (i === 5) {
+                    label = "گزینه پنجم";
+                }
+
+                let choice = $(`<div class="col-lg-6 choice" ${i % 2 === 0 ? `style="padding: 0 30px 0 0;"` : ""}>
+                                    <label for="choice-${i}" class="custom-input">
+                                        <span ${i % 2 === 0 ? "" : `class="m--15-right"`}>${label}</span>
+                                        <input type="radio" id="choice-${i}" name="choice" value="${i}">
+                                            <span class="tick ${i % 2 === 0 ? "left-choices-tick" : ""}"> </span>
+                                    </label>
+                                    <div id="choice-text-${i}" class="choice-text fr-toolbar__fixed fr__single-line"></div>
+                                </div>`);
+                choice.insertBefore(".new-choice");
+                initalEditor('#choice-text-' + i);
+            }
+            if ($(".choices .choice").length === 5) {
+                $(this).addClass("d-none");
+            }
+        });
+
         setInterval(intervalSave, 5000);
     }
+    if (window.location.href.indexOf("teacher/questions/edit") !== -1) {
+        $('.questions-content').sortable({
+            handle: '.move-item-handle',
+            swapThreshold: 1,
+        });
 
+        $("button[data-target='#examInfo']").click(function () {
+            let sort = [];
+            let i = 0;
+            $(".questions .card.sort_able").each(function () {
+                sort.push($(this).attr("id"));
+                i++;
+            });
+            $("#save_edited_changes_ajax input[name='sort']").attr("value", sort.join(","));
+            console.log(sort);
+        });
+
+    }
     // editor($('.question-textarea'));
 
     // $(".question-sidebar  a:nth-child(2), .question-sidebar  #my_questions").click(function () {
@@ -312,21 +560,21 @@ $(document).ready(function () {
     });
     $(".dropdown-menu[aria-labelledby='filterDropdown']").find("li button").click({type: "filter"}, getPage);
 
-    $(".arrow-down-up").click(function () {
-        $(this).toggleClass("active");
-        if ($(this).hasClass("active")) {
-            $(".next-question-page-body .questions-content").sortable({
-                axis: 'y'
-            });
-            $(".next-question-page-body .questions-content").disableSelection();
-            // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
-            $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
-        } else {
-            $(".next-question-page-body .questions-content").sortable("disable");
-            // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
-            $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
-        }
-    });
+    // $(".arrow-down-up").click(function () {
+    //     $(this).toggleClass("active");
+    //     if ($(this).hasClass("active")) {
+    //         $(".next-question-page-body .questions-content").sortable({
+    //             axis: 'y'
+    //         });
+    //         $(".next-question-page-body .questions-content").disableSelection();
+    //         // $(".next-question-page-body .card").addClass("get-ready-to-shake shake shake-constant");
+    //         $(".next-question-page-body .card > div:first-child").addClass("diactivation-card");
+    //     } else {
+    //         $(".next-question-page-body .questions-content").sortable("disable");
+    //         // $(".next-question-page-body .card").removeClass("get-ready-to-shake shake shake-constant");
+    //         $(".next-question-page-body .card > div:first-child").removeClass("diactivation-card");
+    //     }
+    // });
 
     $(window).on('load', function () {
         $(" div.loading-background").removeClass("loading-background");

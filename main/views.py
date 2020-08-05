@@ -6,8 +6,23 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+
+
+def send_html_email(to_list, subject, context, sender=settings.DEFAULT_FROM_EMAIL):
+    msg_html = render_to_string('main/layouts/email.html', context)
+    msg = EmailMessage(subject=subject, body=msg_html, from_email=sender, bcc=to_list)
+    msg.content_subtype = "html"  # Main content is now text/html
+    return msg.send()
+
 
 def index(request):
+    return render(request, 'main/index.html', {})
+
+
+def component(request):
     return render(request, 'main/index.html', {})
 
 
@@ -28,6 +43,18 @@ def notFound(request):
 
 def recoverPassword(request):
     return render(request, 'main/recoverPassword.html', {})
+
+
+def recover_password_request(request):
+    if request.is_ajax():
+        if request.method == "POST":
+            email = request.POST.get("email")
+            context = {
+                'news': 'We have good news!'
+            }
+            send_html_email(list(email), 'Good news', context, "info@example.org")
+
+            return JsonResponse({"ds": email})
 
 
 def LoginPost(request):

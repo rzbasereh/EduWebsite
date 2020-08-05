@@ -1,0 +1,84 @@
+{% extends 'manager/layouts/base_layout.html' %}
+{% block title %}اطلاعیه ها{% endblock %}
+
+
+{% block modal %}
+
+{% endblock %}
+
+{% block side_nav %}
+
+{% endblock %}
+
+{% block content %}
+
+    <h1>اطلاعیه ها</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'manager:index' %}">
+                    <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M8 3.293l6 6V13.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                              clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                              d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">اطلاعیه ها</li>
+        </ol>
+    </nav>
+    <div class="clearfix w-100 mb-4">
+        <span class="float-right">
+            <span>نمایش</span>
+            <select class="num-questions-showed">
+                <option value="10">10</option>
+                <option value="5">5</option>
+                <option value="1">1</option>
+            </select>
+        </span>
+
+        <span class="float-left">
+                    <div class="plus-question" data-toggle="side-nav" data-target="#createUser">
+                        <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"></path>
+                        </svg>
+                    </div>
+                </span>
+        <span class="float-left">
+                    <div class="input-group white-bg mb-3">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                            </svg>
+                            <div class="spinner-border d-none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </span>
+                        </div>
+                        <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                               aria-label="جستجو"
+                               aria-describedby="basic-addon1" id="navSearch"
+                               data-url="{% url 'manager:user_search' %}">
+                    </div>
+                </span>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+
+        </div>
+    </div>
+{% endblock %}

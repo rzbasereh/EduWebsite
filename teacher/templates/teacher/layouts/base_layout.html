@@ -11,11 +11,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
     {% block style %}{% endblock %}
     {% block animate.css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/dark-theme.css' %}">#}
 </head>
 <body>
+{% block modal %}{% endblock %}
 {% block page-loading %}{% endblock %}
 <div class="modal fade" id="profile" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
@@ -232,7 +236,7 @@
     </div>
     {% block loader-in-sidebar %}{% endblock %}
 </div>
-<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %}"
+<div class="Page-Body {% block change-Page-Body %}{% endblock %} {% block no-padding-Page-Body %}{% endblock %} {% block pageBody-add__on-class %}{% endblock %}"
      id="content">
     {% block content %}{% endblock %}
 </div>
@@ -249,6 +253,7 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ns-autogrow/1.1.6/jquery.ns-autogrow.min.js"></script>
 {% block script %}{% endblock %}
 {% block owl-js %}{% endblock %}
 {% block questions-alert %}{% endblock %}
@@ -265,7 +270,7 @@
     {#    }#}
     {#    return uuid#}
     {#{#}
-{#    #}
+    {#    #}
 
     {#$("#updatePhoto").on("change", function () {#}
     {#    console.log("df");#}
