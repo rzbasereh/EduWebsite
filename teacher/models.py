@@ -70,12 +70,12 @@ class Question(models.Model):
     verbose_ans = models.TextField(null=True, blank=True)
     grades = models.CharField(max_length=1000, blank=True, null=True)
     SOURCE = (
-        ('1', 'تالیفی'),
+        ('Author', 'تالیفی'),
         ('2', 'کنکور سراسری'),
         ('3', 'المپیاد'),
-        ('4', 'سنجش'),
-        ('5', 'قلم چی'),
-        ('6', 'گزینه دو'),
+        ('Sanjesh', 'سنجش'),
+        ('kanoon', 'قلم چی'),
+        ('Gozine2', 'گزینه دو'),
         ('7', 'سایر'),
     )
     source = models.CharField(choices=SOURCE, max_length=10, default='1')

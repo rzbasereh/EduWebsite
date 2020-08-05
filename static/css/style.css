@@ -37,6 +37,7 @@
 body {
     background-color: #F8FAFB;
     font-family: IRANSans, serif !important;
+    visibility: hidden;
 }
 
 div.radio-group {

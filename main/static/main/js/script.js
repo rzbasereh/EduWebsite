@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("body").css("visibility", "visible");
 
     let loginForm = $("form#login-form");
     loginForm.submit(function (event) {

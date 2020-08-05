@@ -1,3 +1,38 @@
+function setCookie(cname, cvalue, exdays) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+if (getCookie("sidebar-state") === "close") {
+    console.log("last state: ", getCookie("sidebar-state"));
+    $(".sidebar").addClass('close-sidebar');
+    $(".sidebar > div > a > span").addClass('removeText');
+    $(".topDrive").addClass('changeTopDrive');
+    $(".Page-Body").addClass('max-width');
+}
+
+$(window).on("load", function () {
+    $("body").css("visibility", "visible");
+});
+
 $(document).ready(function () {
 
     $(".slider-control").click(function () {
@@ -13,6 +48,11 @@ $(document).ready(function () {
             $('.sidebar a').addClass('responsive-sidebar-a');
             $('.sidebar a').attr('data-original-title', null);
             $('.responsive-body').addClass('responsive-body-show')
+        }
+        if ($(".sidebar").hasClass("close-sidebar")) {
+            setCookie("sidebar-state", "close", 30);
+        } else {
+            setCookie("sidebar-state", "open", 30);
         }
     });
 
@@ -80,22 +120,6 @@ $(document).ready(function () {
             $('.sidebar a:last-child').attr('data-original-title', "<p class=\'tool\'>گفتگو</p>");
         }
     });
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            let cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 
     function csrfSafeMethod(method) {
 // these HTTP methods do not require CSRF protection
