@@ -850,22 +850,43 @@ h1 {
     list-style: none;
     direction: ltr;
     text-align: right;
-    font-size: 12px;
-    padding: 0 10px 0 5px;
+    font-size: 0.8rem;
+    padding: 0;
+    margin: 0;
 }
 
 
 .topDrive > .firstDropdown > .dropdown-menu > ul > li > a {
     color: #343A40;
+    height: 3em;
+    display: inline-flex;
+    padding: 0.5em 1em;
+    width: 100%;
+    direction: rtl;
+    align-items: center;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:hover {
+.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a {
+    color: #FF3D57;
+}
+
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a svg {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:hover,
+.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus{
     text-decoration: none;
     color: #343A40 !important;
+    background-color: #F8FAFB;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus {
-    color: #343A40 !important;
+.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a:hover,
+.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a:focus {
+    color: #ffffff !important;
+    background-color: #FF3D57;
 }
 
 .dropdown-toggle::after {
