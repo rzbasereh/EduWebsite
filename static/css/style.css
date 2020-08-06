@@ -917,7 +917,6 @@ h1 {
 }
 
 .slider-control {
-    float: right;
     transform: translate(-30px, -32px);
     -webkit-transform: translate(-30px, -32px);
     -moz-transform: translate(-30px, -32px);

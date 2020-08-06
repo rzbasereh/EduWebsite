@@ -94,9 +94,6 @@ $(document).ready(function () {
         }
     });
 
-    // if ($(window).width() <= 992) {
-    //     $('.topDrive > .input-group ').hide();
-    // }
     $('.responsive-body').click(function () {
         $('.sidebar').removeClass('responsive-sidebar');
         $('.sidebar a').removeClass('responsive-sidebar-a');
