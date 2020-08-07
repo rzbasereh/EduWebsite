@@ -588,14 +588,11 @@ h1 {
         width: 0;
         z-index: 10000;
     }
-
-    .sidebar a {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-
+.sidebar a {
+    opacity: 0;
+    visibility: hidden;
+    width: 199px;
+}
     .topDrive {
         width: 100% !important;
     }
@@ -604,7 +601,9 @@ h1 {
         width: 100% !important;
     }
 
-
+    .firstDropdown, .spanBorder {
+        display: none;
+    }
 }
 
 
@@ -627,14 +626,10 @@ h1 {
 .responsive-sidebar {
     width: 200px;
 }
-
-
 .responsive-sidebar-a {
-    visibility: visible;
     opacity: 1 !important;
-    pointer-events: visible !important;
+    visibility: visible !important;
 }
-
 .sidebar > div {
     list-style: none;
     margin-top: 60px;
@@ -905,9 +900,7 @@ h1 {
 }
 
 .firstDropdown {
-    padding-left: 30px;
-    padding-top: 7px;
-    margin-right: 10px;
+    margin: 7px 15px;
 }
 
 .topDrive > .firstDropdown > .dropdown-toggle:hover {
@@ -974,11 +967,8 @@ h1 {
 }
 
 .slider-control {
-    float: right;
-    transform: translate(-30px, -32px);
-    -webkit-transform: translate(-30px, -32px);
-    -moz-transform: translate(-30px, -32px);
-    -o-transform: translate(-30px, -32px);
+    display: flex;
+    padding: 20px;
     font-size: 20px;
 }
 
@@ -3823,28 +3813,6 @@ input[type='تایید سوالات'] {
     padding: 20px;
 }
 
-.ripple {
-    margin: auto;
-    background-color: #fff;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    animation: ripple 2s linear infinite;
-}
-
-@keyframes ripple {
-    0% {
-        box-shadow: 0 0 0 .7rem rgba(0 0 0 0.2),
-        0 0 0 1.5rem rgba(0 0 0 0.2),
-        0 0 0 5rem rgba(0 0 0 0.2);
-    }
-    100% {
-        box-shadow: 0 0 0 1.5rem rgba(0 0 0 0.2),
-        0 0 0 4rem rgba(0 0 0 0.2),
-        0 0 0 8rem rgba(0 0 0 0);
-    }
-}
-
 .manage-exam-info > .btn {
     position: absolute;
     width: 0;
@@ -4750,4 +4718,26 @@ table.table tbody tr:not(:last-child) {
     font-size: 1rem;
     line-height: 1rem;
     top: unset;
+}
+
+
+.circle-ripple {
+    background-color: #FF7364;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: ripple 1.2s linear infinite;
+    position: relative;
+    top: -20px;
+}
+.envelope-circle-ripple {
+    left: 3px;
+}
+@keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 #FF3D5745;
+    }
+    100% {
+        box-shadow: 0 0 0 8px #FF3D5745;
+    }
 }
