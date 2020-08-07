@@ -53,6 +53,7 @@ $(document).ready(function () {
         }
     });
 
+    // sidebar and its responsive codes
     $(".slider-control").click(function () {
         $(".sidebar").toggleClass('close-sidebar');
         $(".sidebar > div > a > span").toggleClass('removeText');
@@ -62,11 +63,11 @@ $(document).ready(function () {
             $('.sidebar').removeClass('close-sidebar');
             $('.topDrive').removeClass('changeTopDrive');
             $('.Page-Body').removeClass('max-width');
+            $(".sidebar a").addClass('responsive-sidebar-a');
             $('.sidebar > div > a > span').removeClass('removeText');
             $('.sidebar').addClass('responsive-sidebar');
-            $('.sidebar a').addClass('responsive-sidebar-a');
             $('.sidebar a').attr('data-original-title', null);
-            $('.responsive-body').addClass('responsive-body-show')
+            $('.responsive-body').addClass('responsive-body-show');
         }
         if ($(".sidebar").hasClass("close-sidebar")) {
             setCookie("sidebar-state", "close", 30);
@@ -75,6 +76,9 @@ $(document).ready(function () {
         }
     });
 
+    if ($(window).width() <= 992) {
+         $('.sidebar').removeClass('close-sidebar');
+    }
     $(window).resize(function () {
         if ($(window).width() <= 992) {
             $('.topDrive').removeClass('changeTopDrive');
@@ -82,16 +86,19 @@ $(document).ready(function () {
             $('.Page-Body').removeClass('max-width');
             $('.sidebar').removeClass('responsive-sidebar');
             $('.sidebar a').removeClass('responsive-sidebar-a');
-            $('.sidebar > div > a > span').removeClass('removeText');
             $('.sidebar a').attr('data-original-title', null);
             $('.responsive-body').removeClass('responsive-body-show');
+            $(".sidebar a span").removeClass("remove-text")
+
         }
         if ($(window).width() >= 992) {
             $('.responsive-body').removeClass('responsive-body-show');
             if (!$('.sidebar').hasClass('close-sidebar')) {
                 $('.topDrive').removeClass('changeTopDrive');
+                $(".sidebar a span").removeClass("removeText");
             }
         }
+
     });
 
     $('.responsive-body').click(function () {
@@ -100,6 +107,10 @@ $(document).ready(function () {
         $(this).removeClass('responsive-body-show')
     });
 
+    // remove ripple
+    $(".bellEnvelope > span").click(function () {
+       $(".circle-ripple" , this).remove()
+    });
     // Side Nav
     $("[data-toggle='side-nav']").click(function () {
         const dataTarget = $(this).attr("data-target");
