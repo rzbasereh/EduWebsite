@@ -22,7 +22,6 @@ function getCookie(name) {
 }
 
 if (getCookie("sidebar-state") === "close") {
-    console.log("last state: ", getCookie("sidebar-state"));
     $(".sidebar").addClass('close-sidebar');
     $(".sidebar > div > a > span").addClass('removeText');
     $(".topDrive").addClass('changeTopDrive');

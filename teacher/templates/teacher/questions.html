@@ -27,6 +27,133 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css">
 {% endblock %}
 {% block content %}
+    <div class="modal fade" id="questionInfo" tabindex="-1" aria-labelledby="questionInfoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="questionInfoLabel">اطلاعات سوال</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                    <div class="row text-right">
+                        <div class="col-md-4">
+                            <div class="mb-3">اطلاعات</div>
+                            <div>
+                                <div>دفعات استفاده</div>
+                                <div>5 بار</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">درصد پاسخ گویی</div>
+                            <div class="chart">
+                                <canvas id="questionAnsweringPercent" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">درصد پاسخ گویی به تفکیک گزینه</div>
+                            <div class="chart">
+                                <canvas id="questionAnsweringChoicePercent" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="questionRequest" data-backdrop="static" tabindex="-1"
+         aria-labelledby="questionRequestLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="questionRequestLabel">ارسال درخواست</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg class="bi bi-x" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body text-right">
+                    <div class="form-group">
+                        <label for="inputGroupSelect01">نوع درخواست</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"></path>
+                                </svg>
+                            </span>
+                            </div>
+                            <select class="custom-select prepend-select" id="inputGroupSelect01">
+                                <option selected>انتخاب کنید</option>
+                                <option value="1">گزارش مشکل</option>
+                                <option value="2">ارسال پاسخ تشریحی</option>
+                                {#                                <option value="3"></option>#}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="complete-ans" class="complete-ans-label">پاسخ تشریحی</label>
+                                <div id="complete-ans" class="w-100 complete-ans fr-toolbar__fixed"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="reportReply">توضیحات</label>
+                                <textarea class="form-control overflow-hidden" id="reportReply" rows="3"
+                                          placeholder="اینجا وارد کنید ..." name="text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-blue" data-url="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cursor" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"></path>
+                        </svg>
+                        ارسال
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="selectGrade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg  modal-dialog-scrollable">
             <div class="modal-content">
@@ -117,18 +244,28 @@
                 </i>
                 <span>سوال های من </span>
             </a>
-            {#            <a href="#">#}
-            {#                <span>فیلتر ها</span>#}
-            {#            </a>#}
-            {#            <a href="#">#}
-            {#                <span>سوالات شما</span>#}
-            {#            </a>#}
 
             <a href="
+
+
+
+
+
+
+
+
                     {% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}"
                class="sidebar-bottom-box">
                 <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="
+
+
+
+
+
+
+
+
                              {% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
                     <h2>
                         <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -195,11 +332,13 @@
                 </div>
                 <div class="row header">
                     <span>نمایش</span>
-                    <select class="num-questions-showed">
-                        <option value="10">10</option>
-                        <option value="5">5</option>
-                        <option value="1">1</option>
-                    </select>
+                    <label>
+                        <select class="num-questions-showed">
+                            <option value="10">10</option>
+                            <option value="5">5</option>
+                            <option value="1">1</option>
+                        </select>
+                    </label>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown"
@@ -352,7 +491,7 @@
                                                             {% endif %}
                                                         </span>
                                                     </span>
-                                            <span>
+                                            <span data-toggle="modal" data-target="#questionInfo" data-url="">
                                                     <svg class="bi bi-pie-chart" width="1em" height="1em"
                                                          viewBox="0 0 16 16" fill="currentColor"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -363,7 +502,7 @@
                                                               d="M7.5 7.793V1h1v6.5H15v1H8.207l-4.853 4.854-.708-.708L7.5 7.793z"
                                                               clip-rule="evenodd"></path>
                                                     </svg>
-                                                        </span>
+                                            </span>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-toggle="dropdown"
@@ -376,7 +515,40 @@
                                                               clip-rule="evenodd"></path>
                                                     </svg>
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <div class="dropdown-menu text-right"
+                                                     aria-labelledby="dropdownMenuButton">
+                                                    <button class="dropdown-item" type="button" data-toggle="modal"
+                                                            data-target="#userInfo" value="{{ question.pk }}">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                             class="bi bi-pencil"
+                                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"></path>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"></path>
+                                                        </svg>
+                                                        ویرایش
+                                                    </button>
+                                                    <button class="dropdown-item" type="button" data-toggle="modal"
+                                                            data-target="#questionRequest">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                             class="bi bi-reply" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M9.502 5.013a.144.144 0 0 0-.202.134V6.3a.5.5 0 0 1-.5.5c-.667 0-2.013.005-3.3.822-.984.624-1.99 1.76-2.595 3.876C3.925 10.515 5.09 9.982 6.11 9.7a8.741 8.741 0 0 1 1.921-.306 7.403 7.403 0 0 1 .798.008h.013l.005.001h.001L8.8 9.9l.05-.498a.5.5 0 0 1 .45.498v1.153c0 .108.11.176.202.134l3.984-2.933a.494.494 0 0 1 .042-.028.147.147 0 0 0 0-.252.494.494 0 0 1-.042-.028L9.502 5.013zM8.3 10.386a7.745 7.745 0 0 0-1.923.277c-1.326.368-2.896 1.201-3.94 3.08a.5.5 0 0 1-.933-.305c.464-3.71 1.886-5.662 3.46-6.66 1.245-.79 2.527-.942 3.336-.971v-.66a1.144 1.144 0 0 1 1.767-.96l3.994 2.94a1.147 1.147 0 0 1 0 1.946l-3.994 2.94a1.144 1.144 0 0 1-1.767-.96v-.667z"></path>
+                                                        </svg>
+                                                        ارسال درخواست
+                                                    </button>
+                                                    <button class="dropdown-item" type="button">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                             class="bi bi-trash"
+                                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                        </svg>
+                                                        حذف
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -384,7 +556,7 @@
                                             <img src="{% static 'main/img/'|add:question.source|add:'.png' %}"
                                                  alt="question source">
                                         </div>
-                                        <span>98-99</span>
+                                        <span>{{ question.pk }}</span>
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label customBox"
@@ -717,6 +889,80 @@
                     }
                 },
             });
+
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script type="text/javascript">
+        $("[data-target='#questionInfo']").click(function () {
+            let ctx1 = document.getElementById('questionAnsweringPercent').getContext('2d');
+            let chart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ["درست", "نزده", "غلط"],
+                    datasets: [
+                        {
+                            backgroundColor: 'rgb(34, 204, 226)',
+                            borderColor: 'rgb(34, 204, 226)',
+                            data: [69.8, 57.8, 76],
+                            label: "همه"
+                        },
+                        {
+                            backgroundColor: 'rgb(255, 138, 72)',
+                            borderColor: 'rgb(255, 138, 72)',
+                            data: [69.8, 57.8, 76],
+                            label: "دانش آموزان من"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            barPercentage: 0.85,
+                            categoryPercentage: 0.5,
+                            gridLines: {
+                                display: false
+                            }
+                        }]
+                    }
+                }
+            });
+            let ctx2 = document.getElementById('questionAnsweringChoicePercent').getContext('2d');
+            let chart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ["1", "2", "3", "4"],
+                    datasets: [
+                        {
+                            backgroundColor: 'rgb(34, 204, 226)',
+                            borderColor: 'rgb(34, 204, 226)',
+                            data: [69.8, 57.8, 76, 10],
+                            label: "همه"
+                        },
+                        {
+                            backgroundColor: 'rgb(255, 138, 72)',
+                            borderColor: 'rgb(255, 138, 72)',
+                            data: [69.8, 57.8, 76, 15],
+                            label: "دانش آموزان من"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            barPercentage: 0.85,
+                            categoryPercentage: 0.5,
+                            gridLines: {
+                                display: false
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("[data-target='#questionRequest']").click(function () {
 
         });
     </script>
