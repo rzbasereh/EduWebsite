@@ -1,1 +1,3 @@
+automium_web
+wand
 Django~=2.2.4

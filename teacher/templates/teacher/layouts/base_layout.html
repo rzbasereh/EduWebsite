@@ -89,7 +89,7 @@
                     </li>
                     <li>
                         <a href="#" id="changeTheme">
-                            <div class="dark-theme">
+                            <div class="dark-theme d-none">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sun" fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.5 8a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0z"></path>
@@ -100,7 +100,7 @@
                                 حالت روز
                             </span>
                             </div>
-                            <div class="light-theme d-none">
+                            <div class="light-theme">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-moon" fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -149,7 +149,7 @@
         <span class="dropdown-toggle noTriangle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
                         <i class='far fa-envelope'>
-                            {% if  user.has_notification %}
+                            {% if  user.has_message %}
                                 <div class="circle-ripple envelope-circle-ripple"></div>
                             {% endif %}
                         </i></span>

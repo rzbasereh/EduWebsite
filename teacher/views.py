@@ -1,6 +1,6 @@
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib import messages
 from .models import *
 from manager.models import TeacherAccess, Grade
@@ -8,6 +8,19 @@ from main.models import Message, Notification
 from django.core import serializers
 from django.db.models import Q
 import json
+from django.conf import settings
+from os.path import isfile, join
+from mimetypes import MimeTypes
+from os import listdir
+from wand.image import Image
+import wand.image
+import hashlib
+import json
+import time
+import hmac
+import copy
+import sys
+import os
 
 
 # Create your views here.
@@ -54,8 +67,10 @@ def questions(request):
     else:
         user = commonData(request)
         questions_data = {
-            'count': Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).count(),
-            'list': list(Question.objects.filter(Q(author=request.user) | Q(is_publish=True)).order_by('-pk')[:10]),
+            'count': Question.objects.filter(Q(author=request.user) | Q(is_publish=True), visibility=True).count(),
+            'list': list(
+                Question.objects.filter(Q(author=request.user) | Q(is_publish=True), visibility=True).order_by('-pk')[
+                :10]),
         }
         grade = Grade.objects.last().source
         selected_question = []
@@ -100,46 +115,49 @@ def saveGrades(request):
 
 def addQuestion(request):
     if request.method == "POST":
-        pk = request.POST.get('pk')
-        author = request.user
-        body = request.POST.get('body')
-        choices = request.POST.getlist('Choices[]')
-        level = request.POST.get('level')
-        source = request.POST.get('selectSource')
-        correct_ans = request.POST.get('CorrectChoice')
-        is_publish = request.POST.get("is_publish") == "true"
-        is_descriptive = request.POST.get("is_descriptive") == "true"
-        verbose_ans = request.POST.get('verbose_ans')
-        is_redirect = request.POST.get('redirect') == "true"
-        if Question.objects.filter(id=pk).exists():
-            question = Question.objects.get(id=pk)
-            question.body = body
-            question.author = author
-            question.verbose_ans = verbose_ans
-            question.level = level
-            question.source = source
-            question.correct_ans = correct_ans
-            question.is_descriptive = is_descriptive
-            question.is_publish = is_publish
-            question.save()
-            if not is_descriptive:
-                if len(choices) < 5:
-                    for i in range(5 - len(choices)):
-                        choices.append("empty")
-                question.choice_1 = choices[0]
-                question.choice_2 = choices[1]
-                question.choice_3 = choices[2]
-                question.choice_4 = choices[3]
-                question.choice_5 = choices[4]
+        if Question.objects.filter(author=request.user, on_write=True).exists():
+            pk = request.POST.get('pk')
+            author = request.user
+            body = request.POST.get('body')
+            choices = request.POST.getlist('Choices[]')
+            level = request.POST.get('level')
+            source = request.POST.get('selectSource')
+            correct_ans = request.POST.get('CorrectChoice')
+            is_publish = request.POST.get("is_publish") == "true"
+            is_descriptive = request.POST.get("is_descriptive") == "true"
+            verbose_ans = request.POST.get('verbose_ans')
+            is_redirect = request.POST.get('redirect') == "true"
+            if Question.objects.filter(id=pk).exists():
+                question = Question.objects.get(id=pk)
+                question.body = body
+                question.author = author
+                question.verbose_ans = verbose_ans
+                question.level = level
+                question.source = source
+                question.correct_ans = correct_ans
+                question.is_descriptive = is_descriptive
+                question.is_publish = is_publish
                 question.save()
-            if not is_redirect:
-                return JsonResponse({'success': "update"})
+                if not is_descriptive:
+                    if len(choices) < 5:
+                        for i in range(5 - len(choices)):
+                            choices.append("empty")
+                    question.choice_1 = choices[0]
+                    question.choice_2 = choices[1]
+                    question.choice_3 = choices[2]
+                    question.choice_4 = choices[3]
+                    question.choice_5 = choices[4]
+                    question.save()
+                if not is_redirect:
+                    return JsonResponse({'success': "update"})
+                else:
+                    question.on_write = False
+                    question.save()
+                    return JsonResponse({'url': reverse('teacher:questions')})
             else:
-                question.on_write = False
-                question.save()
-                return JsonResponse({'url': reverse('teacher:questions')})
+                return JsonResponse({'success': "Error"})
         else:
-            return JsonResponse({'success': "Error"})
+            return JsonResponse({"error": 403})
     else:
         return JsonResponse({'error': 'Invalid Request!'})
 
@@ -157,10 +175,10 @@ def selectedQuestion(request):
         state = request.POST.get('state')
         count = 0
         if state == "add":
-            if not Exam.objects.filter(creator=request.user).exists():
+            if not Exam.objects.filter(creator=request.user, is_submit=False).exists():
                 exam = Exam(creator=request.user)
                 exam.save()
-                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam, stat="submit")
+                exam_question = ExamQuestion(question=Question.objects.get(id=pk), exam=exam, state="submit")
                 exam_question.save()
                 count = 1
             elif Exam.objects.filter(is_submit=False).exists():
@@ -251,7 +269,7 @@ def filter_page(request):
             new_questions = Question.objects.filter(Q(author=request.user) | Q(is_publish=True))
             if my_questions:
                 new_questions = new_questions.filter(author=request.user)
-            if level:
+            if level != '0' and level:
                 new_questions = new_questions.filter(level=level)
             checked = 1
             count = new_questions.count()
@@ -261,7 +279,155 @@ def filter_page(request):
         return JsonResponse({"value": "forbidden access"})
 
 
-def edit_question(request):
+def edit_question(request, pk):
+    if TempQuestion.objects.filter(related_question=Question.objects.get(id=pk)).exists():
+        temp_q = TempQuestion.objects.get(related_question=Question.objects.get(id=pk))
+    else:
+        q = Question.objects.get(id=pk)
+        temp_q = TempQuestion(related_question=q, editor_user=request.user, body=q.body, choice_layout=q.choice_layout,
+                              choice_1=q.choice_1, choice_2=q.choice_2, choice_3=q.choice_3, choice_4=q.choice_4,
+                              choice_5=q.choice_5, correct_ans=q.correct_ans, verbose_ans=q.verbose_ans,
+                              grades=q.grades, source=q.source, level=q.level, is_publish=q.is_publish,
+                              is_descriptive=q.is_descriptive, created_at=timezone.now(), on_write=True)
+        temp_q.save()
+    user = commonData(request)
+    return render(request, 'teacher/new_question.html', {"user": user, "temp_q": temp_q, "pk": pk})
+
+
+def store_edit_question(request):
+    if request.method == "POST":
+        if TempQuestion.objects.filter(on_write=True, editor_user=request.user).exists():
+            pk = request.POST.get('pk')
+            body = request.POST.get('body')
+            choices = request.POST.getlist('Choices[]')
+            level = request.POST.get('level')
+            source = request.POST.get('selectSource')
+            correct_ans = request.POST.get('CorrectChoice')
+            is_publish = request.POST.get("is_publish") == "true"
+            is_descriptive = request.POST.get("is_descriptive") == "true"
+            verbose_ans = request.POST.get('verbose_ans')
+            is_redirect = request.POST.get('is_redirect') == "true"
+            temp_q = TempQuestion.objects.get(on_write=True, editor_user=request.user)
+            temp_q.body = body
+            temp_q.verbose_ans = verbose_ans
+            temp_q.level = level
+            temp_q.source = source
+            temp_q.correct_ans = correct_ans
+            temp_q.is_descriptive = is_descriptive
+            temp_q.is_publish = is_publish
+            temp_q.save()
+            if not is_descriptive:
+                if len(choices) < 5:
+                    for i in range(5 - len(choices)):
+                        choices.append("empty")
+                        temp_q.choice_1 = choices[0]
+                        temp_q.choice_2 = choices[1]
+                        temp_q.choice_3 = choices[2]
+                        temp_q.choice_4 = choices[3]
+                        temp_q.choice_5 = choices[4]
+                        temp_q.save()
+            if not is_redirect:
+                return JsonResponse({'success': "update"})
+            else:
+                if ExamQuestion.objects.filter(question=temp_q.related_question, exam__is_submit=True).exists():
+                    return JsonResponse({'confirm': True})
+                else:
+                    q = temp_q.related_question
+                    q.body = temp_q.body
+                    q.choice_layout = temp_q.choice_layout
+                    q.choice_1 = temp_q.choice_1
+                    q.choice_2 = temp_q.choice_2
+                    q.choice_3 = temp_q.choice_3
+                    q.choice_4 = temp_q.choice_4
+                    q.choice_5 = temp_q.choice_5
+                    q.verbose_ans = temp_q.verbose_ans
+                    q.correct_ans = temp_q.correct_ans
+                    q.level = temp_q.level
+                    q.source = temp_q.source
+                    q.is_descriptive = temp_q.is_descriptive
+                    q.is_publish = temp_q.is_publish
+                    q.is_edited = True
+                    q.save()
+                    temp_q.delete()
+                    return JsonResponse({'url': reverse('teacher:questions')})
+        else:
+            return JsonResponse({"error": 403})
+    else:
+        return JsonResponse({'error': 'Invalid Request!'})
+
+
+def store_edit_question_as_new(request):
+    if TempQuestion.objects.filter(on_write=True, editor_user=request.user).exists():
+        temp_q = TempQuestion.objects.get(on_write=True, editor_user=request.user)
+        q = Question(author=request.user)
+        q.body = temp_q.body
+        q.choice_layout = temp_q.choice_layout
+        q.choice_1 = temp_q.choice_1
+        q.choice_2 = temp_q.choice_2
+        q.choice_3 = temp_q.choice_3
+        q.choice_4 = temp_q.choice_4
+        q.choice_5 = temp_q.choice_5
+        q.verbose_ans = temp_q.verbose_ans
+        q.correct_ans = temp_q.correct_ans
+        q.level = temp_q.level
+        q.source = temp_q.source
+        q.is_descriptive = temp_q.is_descriptive
+        q.is_publish = temp_q.is_publish
+        q.save()
+        temp_q.delete()
+        return HttpResponseRedirect(reverse('teacher:questions'))
+    else:
+        return render(request, 'main/403.html', {})
+
+
+def confirm_question_change(request):
+    if TempQuestion.objects.filter(on_write=True, editor_user=request.user).exists():
+        temp_q = TempQuestion.objects.get(on_write=True, editor_user=request.user)
+        if request.POST.get("status") == "accept":
+            q = temp_q.related_question
+            q.body = temp_q.body
+            q.choice_layout = temp_q.choice_layout
+            q.choice_1 = temp_q.choice_1
+            q.choice_2 = temp_q.choice_2
+            q.choice_3 = temp_q.choice_3
+            q.choice_4 = temp_q.choice_4
+            q.choice_5 = temp_q.choice_5
+            q.verbose_ans = temp_q.verbose_ans
+            q.correct_ans = temp_q.correct_ans
+            q.level = temp_q.level
+            q.source = temp_q.source
+            q.is_descriptive = temp_q.is_descriptive
+            q.is_publish = temp_q.is_publish
+            q.is_edited = True
+            q.save()
+            temp_q.delete()
+            return JsonResponse({'url': reverse('teacher:questions')})
+        else:
+            q = temp_q.related_question
+            q.visibility = False
+            q.save()
+            q = Question(author=request.user)
+            q.body = temp_q.body
+            q.choice_layout = temp_q.choice_layout
+            q.choice_1 = temp_q.choice_1
+            q.choice_2 = temp_q.choice_2
+            q.choice_3 = temp_q.choice_3
+            q.choice_4 = temp_q.choice_4
+            q.choice_5 = temp_q.choice_5
+            q.verbose_ans = temp_q.verbose_ans
+            q.correct_ans = temp_q.correct_ans
+            q.level = temp_q.level
+            q.source = temp_q.source
+            q.is_descriptive = temp_q.is_descriptive
+            q.is_publish = temp_q.is_publish
+            q.save()
+            temp_q.delete()
+            return JsonResponse({'url': reverse('teacher:questions')})
+    else:
+        return render(request, 'main/403.html', {})
+
+
+def edit_exam(request):
     user = commonData(request)
     if not Exam.objects.filter(creator=request.user, is_submit=False).exists():
         messages.success(request, "برای دسترسی به این صفحه لازم است ابتدا تعدادی سوال انتخاب کنید.")
@@ -483,3 +649,311 @@ def display_report(request):
                     "data_created": replay.get_time_diff()
                 })
         return JsonResponse({'report': report, 'report_attaches': report_attaches, "report_replays": report_replays})
+
+
+def upload_image(request):
+    print("upload_image")
+    print(request)
+    response = Image.upload(DjangoAdapter(request), "/media/")
+    try:
+        print("upload_image try")
+
+    except Exception:
+        print("upload_image except")
+        response = {"error": str(sys.exc_info()[1])}
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def upload_image_validation(request):
+    print("upload_image_validation")
+
+    def validation(filePath, mimetype):
+        with wand.image.Image(filename=filePath) as img:
+            if img.width != img.height:
+                return False
+            return True
+
+    options = {
+        "fieldname": "myImage",
+        "validation": validation
+    }
+
+    try:
+        response = Image.upload(DjangoAdapter(request), "/media/", options)
+    except Exception:
+        response = {"error": str(sys.exc_info()[1])}
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+class Image(object):
+    defaultUploadOptions = {
+        "fieldname": "file",
+        "validation": {
+            "allowedExts": ["gif", "jpeg", "jpg", "png", "svg", "blob"],
+            "allowedMimeTypes": ["image/gif", "image/jpeg", "image/pjpeg", "image/x-png", "image/png",
+                                 "image/svg+xml"]
+        },
+        # string resize param from http://docs.wand-py.org/en/0.4.3/guide/resizecrop.html#transform-images
+        # Examples: "100x100", "100x100!". Find more on http://www.imagemagick.org/script/command-line-processing.php#geometry
+        "resize": None
+    }
+
+    @staticmethod
+    def upload(req, fileRoute, options=None):
+        """
+        Image upload to disk.
+        Parameters:
+            req: framework adapter to http request. See BaseAdapter.
+            fileRoute: string
+            options: dict optional, see defaultUploadOptions attribute
+        Return:
+            dict: {link: "linkPath"}
+        """
+
+        if options is None:
+            options = Image.defaultUploadOptions
+        else:
+            options = Utils.merge_dicts(Image.defaultUploadOptions, options)
+
+        return File.upload(req, fileRoute, options)
+
+    @staticmethod
+    def delete(src):
+        """
+        Delete image from disk.
+        Parameters:
+            src: string
+        """
+        return File.delete(src)
+
+    @staticmethod
+    def list(folderPath, thumbPath=None):
+        """
+        List images from disk.
+        Parameters:
+            folderPath: string
+            thumbPath: string
+        Return:
+            list: list of images dicts. example: [{url: "url", thumb: "thumb", name: "name"}, ...]
+        """
+
+        if thumbPath is None:
+            thumbPath = folderPath
+
+        # Array of image objects to return.
+        response = []
+
+        absoluteFolderPath = Utils.getServerPath() + folderPath
+
+        # Image types.
+        imageTypes = Image.defaultUploadOptions["validation"]["allowedMimeTypes"]
+
+        # Filenames in the uploads folder.
+        fnames = [f for f in listdir(absoluteFolderPath) if isfile(join(absoluteFolderPath, f))]
+
+        for fname in fnames:
+            mime = MimeTypes()
+            mimeType = mime.guess_type(absoluteFolderPath + fname)[0]
+
+            if mimeType in imageTypes:
+                response.append({
+                    "url": folderPath + fname,
+                    "thumb": thumbPath + fname,
+                    "name": fname
+                })
+
+        return response
+
+
+class Utils(object):
+    """
+    Utils static class.
+    """
+
+    @staticmethod
+    def hmac(key, string, hex=False):
+        """
+        Calculate hmac.
+        Parameters:
+            key: string
+            string: string
+            hex: boolean optional, return in hex, else return in binary
+        Return:
+            string: hmax in hex or binary
+        """
+
+        # python 2-3 compatible:
+        try:
+            hmac256 = hmac.new(key.encode() if isinstance(key, str) else key,
+                               msg=string.encode("utf-8") if isinstance(string, str) else string,
+                               digestmod=hashlib.sha256)  # v3
+        except Exception:
+            hmac256 = hmac.new(key, msg=string, digestmod=hashlib.sha256)  # v2
+
+        return hmac256.hexdigest() if hex else hmac256.digest()
+
+    @staticmethod
+    def merge_dicts(a, b, path=None):
+        """
+        Deep merge two dicts without modifying them. Source: http://stackoverflow.com/questions/7204805/dictionaries-of-dictionaries-merge/7205107#7205107
+        Parameters:
+            a: dict
+            b: dict
+            path: list
+        Return:
+            dict: Deep merged dict.
+        """
+
+        aClone = copy.deepcopy(a)
+        # Returns deep b into a without affecting the sources.
+        if path is None:
+            path = []
+        for key in b:
+            if key in a:
+                if isinstance(a[key], dict) and isinstance(b[key], dict):
+                    aClone[key] = Utils.merge_dicts(a[key], b[key], path + [str(key)])
+                else:
+                    aClone[key] = b[key]
+            else:
+                aClone[key] = b[key]
+        return aClone
+
+    @staticmethod
+    def getExtension(filename):
+        """
+        Get filename extension.
+        Parameters:
+            filename: string
+        Return:
+            string: The extension without the dot.
+        """
+        return os.path.splitext(filename)[1][1:]
+
+    @staticmethod
+    def getServerPath():
+        """
+        Get the path where the server has started.
+        Return:
+            string: serverPath
+        """
+        return os.path.abspath(os.path.dirname(sys.argv[0]))
+
+    @staticmethod
+    def isFileValid(filename, mimetype, allowedExts, allowedMimeTypes):
+        """
+        Test if a file is valid based on its extension and mime type.
+        Parameters:
+            filename string
+            mimeType string
+            allowedExts list
+            allowedMimeTypes list
+        Return:
+            boolean
+        """
+
+        # Skip if the allowed extensions or mime types are missing.
+        if not allowedExts or not allowedMimeTypes:
+            return False
+
+        extension = Utils.getExtension(filename)
+        return extension.lower() in allowedExts and mimetype in allowedMimeTypes
+
+    @staticmethod
+    def isValid(validation, filePath, mimetype):
+        """
+        Generic file validation.
+        Parameters:
+            validation: dict or function
+            filePath: string
+            mimetype: string
+        """
+
+        # No validation means you dont want to validate, so return affirmative.
+        if not validation:
+            return True
+
+        # Validation is a function provided by the user.
+        if callable(validation):
+            return validation(filePath, mimetype)
+
+        if isinstance(validation, dict):
+            return Utils.isFileValid(filePath, mimetype, validation["allowedExts"], validation["allowedMimeTypes"])
+
+        # Else: no specific validating behaviour found.
+        return False
+
+
+class BaseAdapter(object):
+    """
+    Interface. Inherit this class to use the lib in your framework.
+    """
+
+    def __init__(self, request):
+        """
+        Constructor.
+        Parameters:
+            request: http request object from some framework.
+        """
+        self.request = request
+
+    def riseError(self):
+        """
+        Use this when you want to make an abstract method.
+        """
+        raise NotImplementedError("Should have implemented this method.")
+
+    def getFilename(self, fieldname):
+        """
+        Get upload filename based on the fieldname.
+        Parameters:
+            fieldname: string
+        Return:
+            string: filename
+        """
+        self.riseError()
+
+    def getMimetype(self, fieldname):
+        """
+        Get upload file mime type based on the fieldname.
+        Parameters:
+            fieldname: string
+        Return:
+            string: mimetype
+        """
+        self.riseError()
+
+    def saveFile(self, fieldname, fullNamePath):
+        """
+        Save the upload file based on the fieldname on the fullNamePath location.
+        Parameters:
+            fieldname: string
+            fullNamePath: string
+        """
+        self.riseError()
+
+
+class DjangoAdapter(BaseAdapter):
+    """
+    Django Adapter: Check BaseAdapter to see what methods description.
+    """
+
+    def checkFile(self, fieldname):
+        if fieldname not in self.request.FILES:
+            raise Exception("File does not exist.")
+
+    def getFilename(self, fieldname):
+        self.checkFile(fieldname)
+        return self.request.FILES[fieldname].name
+
+    def getMimetype(self, fieldname):
+        self.checkFile(fieldname)
+        return self.request.FILES[fieldname].content_type
+
+    def saveFile(self, fieldname, fullNamePath):
+        print("should save now")
+        print("the path" + fullNamePath)
+        self.checkFile(fieldname)
+
+        with open(fullNamePath, "wb+") as destination:
+            for chunk in self.request.FILES[fieldname].chunks():
+                destination.write(chunk)

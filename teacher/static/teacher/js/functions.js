@@ -16,9 +16,14 @@ function initalEditor(elementID) {
                 'align': 'right',
                 'buttonsVisible': 2
             }
-        }
+        },
+        imageUploadURL: '/teacher/upload_image',
+        imageUploadParams: {
+            id: 'question_image',
+            'csrfmiddlewaretoken': getCookie('csrftoken')
+        },
+        imageUploadMethod: 'POST',
     });
-
     let arr = elementID.split(", ");
     console.log("arr length ", arr.length);
     // for (let i = 0; i < arr.length; i++) {
@@ -136,7 +141,7 @@ function collectData(element, mute) {
                 });
             }
         } else {
-            return $(".custom-input input:checked ~ .tick").closest(".choice").find(".choice-text").attr("id").replace("choice-text-","");
+            return $(".custom-input input:checked ~ .tick").closest(".choice").find(".choice-text").attr("id").replace("choice-text-", "");
         }
         return false;
     } else if (element === "Choices") {
@@ -309,6 +314,7 @@ function questionSelection() {
                     iziToast.success({
                         class: 'customized-success-izi-toast-small',
                         message: 'سوال با موفقیت انتخاب شد !',
+                        timeout: 999999,
                         position: 'bottomLeft',
                         onOpening: function () {
                             $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
@@ -329,6 +335,7 @@ function questionSelection() {
                     iziToast.success({
                         class: 'customized-success-izi-toast-small',
                         message: 'سوال با موفقیت حذف شد !',
+                        timeout: 999999,
                         position: 'bottomLeft',
                         onOpening: function () {
                             $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
@@ -351,6 +358,7 @@ function questionSelection() {
                     class: 'customized-info-izi-toast',
                     title: 'هشدار',
                     message: 'لطفا دوباره امتحان کنید',
+                    timeout: 999999,
                     position: 'bottomLeft',
                     onOpening: function () {
                         $(".iziToast-title").addClass("customized-izi-title");
@@ -419,7 +427,7 @@ function getPage(event) {
     let thisElement = $(this);
     let flag = 0;
     let data = {};
-    let unit = parseInt($('.t').val());
+    let unit = parseInt($('#previewUnit').val());
     let url = $(".question-body").attr("data-url");
     let page = 1;
     let filters = {
@@ -698,7 +706,7 @@ function getPage(event) {
                     $(".path a:last-child").text(thisElement.text());
                     $(".question-page-body h1 > span:first-child").text(thisElement.text());
                 }
-                $(".question-page-body h1 > span:last-child").text("(" + data.count + ")");
+                $("#pageHeader > span").text(" (" + data.count + ") ");
                 $("div.pagination > div > span.all-questions").text(data.count);
             },
             error: function (data) {

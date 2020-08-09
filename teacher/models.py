@@ -89,6 +89,52 @@ class Question(models.Model):
     is_publish = models.BooleanField(default=False)
     is_descriptive = models.BooleanField(default=False)
     on_write = models.BooleanField(default=False)
+    is_edited = models.BooleanField(default=False)
+    visibility = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class TempQuestion(models.Model):
+    related_question = models.OneToOneField(Question, on_delete=models.CASCADE)
+    editor_user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    body = models.TextField()
+    LAYOUT = (
+        ('horizontal', "افقی"),
+        ('vertical', "عمودی"),
+        ('2in2', "دو در دو")
+    )
+    choice_layout = models.CharField(choices=LAYOUT, max_length=10, default="horizontal")
+    choice_1 = models.TextField()
+    choice_2 = models.TextField()
+    choice_3 = models.TextField()
+    choice_4 = models.TextField()
+    choice_5 = models.TextField()
+    correct_ans = models.CharField(max_length=1, blank=True, null=True)
+    verbose_ans = models.TextField(null=True, blank=True)
+    grades = models.CharField(max_length=1000, blank=True, null=True)
+    SOURCE = (
+        ('Author', 'تالیفی'),
+        ('2', 'کنکور سراسری'),
+        ('3', 'المپیاد'),
+        ('Sanjesh', 'سنجش'),
+        ('kanoon', 'قلم چی'),
+        ('Gozine2', 'گزینه دو'),
+        ('7', 'سایر'),
+    )
+    source = models.CharField(choices=SOURCE, max_length=10, default='1')
+    LEVEL = (
+        ('1', 'ساده'),
+        ('2', 'متوسط'),
+        ('3', 'دشوار'),
+        ('4', 'پیل افکن'),
+    )
+    level = models.CharField(choices=LEVEL, max_length=1, blank=True, null=True)
+    is_publish = models.BooleanField(default=False)
+    is_descriptive = models.BooleanField(default=False)
+    on_write = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

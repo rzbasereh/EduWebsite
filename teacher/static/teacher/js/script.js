@@ -242,7 +242,7 @@ $(document).ready(function () {
     });
 
 
-    if (window.location.href.indexOf("questions/add_new") !== -1) {
+    if (window.location.href.indexOf("teacher/question/add") !== -1 || window.location.href.indexOf("teacher/question/edit/") !== -1) {
 
         $("input.tag-input").tagsInput({
             defaultText: '',
@@ -334,7 +334,25 @@ $(document).ready(function () {
 
 
         initalEditor("#choice-text-1, #complete-ans, #question-textarea");
-
+        if ($("#choice-text-2").length > 0) {
+            initalEditor("#choice-text-2");
+        }
+        if ($("#choice-text-3").length > 0) {
+            initalEditor("#choice-text-3");
+        }
+        if ($("#choice-text-4").length > 0) {
+            initalEditor("#choice-text-4");
+        }
+        if ($("#choice-text-5").length > 0) {
+            initalEditor("#choice-text-5");
+        }
+        $(".editor-toolbar .editor-toggle").click(function () {
+            if ($(this).closest(".editor-toolbar").hasClass("show")) {
+                $(this).closest(".editor-toolbar").removeClass("show");
+            } else {
+                $(this).closest(".editor-toolbar").addClass("show");
+            }
+        });
         $(".new-choice").click(function () {
             console.log($(".choices .choice").length);
             if ($(".choices .choice").length < 5) {
@@ -365,12 +383,89 @@ $(document).ready(function () {
             }
         });
 
-        setInterval(intervalSave, 5000);
+        let interval_save = setInterval(intervalSave, 5000);
+
+        if ($("#submitEdit").length > 0) {
+            $("#submitEdit").click(function () {
+                let thisElement = $(this);
+                thisElement.find("span").addClass("d-none");
+                thisElement.find("div").removeClass("d-none");
+                thisElement.prop("disabled", true);
+                clearInterval(interval_save);
+                let body = collectData("QuestionSubject", false);
+                let verbose_ans = collectData("CompleteAns", false);
+                let Choices = collectData("Choices", false);
+                let level = collectData("level", false);
+                let selectSource = collectData("selectSource", false);
+                let CorrectChoice = collectData("CorrectChoice", false);
+                if (body !== false && verbose_ans !== false && Choices !== false && level !== false && selectSource !== false && CorrectChoice !== false) {
+                    $.ajax({
+                        type: "POST",
+                        url: addQuestionForm.attr("action"),
+                        data: {
+                            'pk': addQuestionForm.closest(".card").attr("id"),
+                            'body': body,
+                            'verbose_ans': verbose_ans,
+                            'is_publish': $("input[name='is_publish']").is(':checked'),
+                            'is_descriptive': $("input[name='is_descriptive']").is(':checked'),
+                            'Choices': Choices,
+                            'level': level,
+                            'selectSource': selectSource,
+                            'CorrectChoice': CorrectChoice,
+                            'is_redirect': true,
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            thisElement.find("span").removeClass("d-none");
+                            thisElement.find("div").addClass("d-none");
+                            thisElement.prop("disabled", false);
+                            if (data.confirm) {
+                                $("#confirmExamChange").modal("show");
+                                $("#confirmExamChange button.btn").click(function () {
+                                    let status = "accept";
+                                    if ($(this).hasClass("refuse-confirm")) {
+                                        status = "reject";
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: $("#confirmExamChange").attr("data-url"),
+                                        data: {
+                                            'status': status,
+                                        },
+                                        success: function (data) {
+                                            console.log(data);
+                                            if (data.url) {
+                                                $(location).attr("href", data.url)
+                                            }
+                                        },
+                                        error: function (data) {
+                                            console.log(data);
+                                        }
+                                    });
+                                });
+                            }
+                            if (data.url) {
+                                $(location).attr("href", data.url)
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            thisElement.find("span").removeClass("d-none");
+                            thisElement.find("div").addClass("d-none");
+                            thisElement.prop("disabled", false);
+                        }
+                    });
+                }
+            });
+        }
+
     }
-    if (window.location.href.indexOf("teacher/questions/edit") !== -1) {
-        $('.questions-content').sortable({
+    if (window.location.href.indexOf("/teacher/questions/edit_exam") !== -1) {
+        console.log("edit page");
+        Sortable.create(questionsContent, {
             handle: '.move-item-handle',
             swapThreshold: 1,
+            animation: 150
         });
 
         $("button[data-target='#examInfo']").click(function () {
@@ -581,55 +676,58 @@ $(document).ready(function () {
         $(" div.linear-activity").remove();
     });
 
-    $(".manage-buttons span").click(function () {
-        $(this).tooltip('hide');
-        if ($("svg", this).hasClass("bi-play-fill")) {
-            $(this).attr("data-original-title", "<p class='tool'>متوقف کردن آزمون</p>");
-            $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    if (window.location.href.indexOf("/teacher/exam") !== -1) {
+        $(".manage-buttons span").click(function () {
+            $(this).tooltip('hide');
+            if ($("svg", this).hasClass("bi-play-fill")) {
+                $(this).attr("data-original-title", "<p class='tool'>متوقف کردن آزمون</p>");
+                $(this).html(`<svg class="bi bi-pause-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                           </svg>`);
-        } else {
-            $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" 
+            } else {
+                $(this).html(`<svg class="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16"fill="currentColor" 
                                         xmlns="http://www.w3.org/2000/svg" data-toggle="modal" 
                                         data-target="#selectDestination">
                                  <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                           </svg>`);
-            $(this).attr("data-original-title", "<p class='tool'>اجرای ازمون</p>");
-        }
-    });
+                $(this).attr("data-original-title", "<p class='tool'>اجرای ازمون</p>");
+            }
+        });
 
-    $('.manage-exam-info > .btn').click(function () {
-        if ($(this).hasClass('collapsed')) {
-            $(this).css('transform', 'rotate(-90deg)');
-        } else if (!$(this).hasClass('collapsed')) {
-            $(this).css('transform', 'rotate(0deg)');
-        }
-    });
+        $('.manage-exam-info > .btn').click(function () {
+            if ($(this).hasClass('collapsed')) {
+                $(this).css('transform', 'rotate(-90deg)');
+            } else if (!$(this).hasClass('collapsed')) {
+                $(this).css('transform', 'rotate(0deg)');
+            }
+        });
 
-    $("button[data-target='#selectDestination']").click(function () {
-        let EID = $(this).attr("id");
-        console.log(EID);
-        $('#ERun').find("input[name='EID']").attr('value', EID);
-    });
-    $("#startExam").click(function () {
-        $('#selectDestination').modal('hide');
-        $('#ERun').modal('show');
-    });
+        $("button[data-target='#selectDestination']").click(function () {
+            let EID = $(this).attr("id");
+            console.log(EID);
+            $('#ERun').find("input[name='EID']").attr('value', EID);
+        });
+        $("#startExam").click(function () {
+            $('#selectDestination').modal('hide');
+            $('#ERun').modal('show');
+        });
 
-    $('#ERunTimeSelection').bootstrapMaterialDatePicker({date: false});
-    $('#ERunStartTimeShowed').bootstrapMaterialDatePicker({
-        format: 'DD/MM/YYYY HH:mm',
-        weekStart: 1,
-        nowButton: true,
-        minDate: new Date()
-    });
-    $('#ERunEndExam').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', weekStart: 0});
-    $('#ERunStartTime').bootstrapMaterialDatePicker({
-        format: 'DD/MM/YYYY HH:mm',
-        weekStart: 0
-    }).on('change', function (e, date) {
-        $('#ERunEndExam').bootstrapMaterialDatePicker('setMinDate', date);
-    });
+        $('#ERunTimeSelection').bootstrapMaterialDatePicker({date: false});
+        $('#ERunStartTimeShowed').bootstrapMaterialDatePicker({
+            format: 'DD/MM/YYYY HH:mm',
+            weekStart: 1,
+            nowButton: true,
+            minDate: new Date()
+        });
+        $('#ERunEndExam').bootstrapMaterialDatePicker({format: 'DD/MM/YYYY HH:mm', weekStart: 0});
+        $('#ERunStartTime').bootstrapMaterialDatePicker({
+            format: 'DD/MM/YYYY HH:mm',
+            weekStart: 0
+        }).on('change', function (e, date) {
+            $('#ERunEndExam').bootstrapMaterialDatePicker('setMinDate', date);
+        });
+    }
+
 
     // chaining alert modal
     if (window.location.pathname === '/teacher/exam') {

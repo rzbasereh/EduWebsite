@@ -247,25 +247,10 @@
 
             <a href="
 
-
-
-
-
-
-
-
                     {% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}"
                class="sidebar-bottom-box">
                 <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="
-
-
-
-
-
-
-
-
                              {% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
                     <h2>
                         <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -295,10 +280,10 @@
             {#                    <span class="ti-search"></span>#}
             {#                </div>#}
             {#            </div>#}
-            <div class="question-page-body">
-                <h1><span>همه ی سوالات</span> <span>({{ questions.count }})</span></h1>
-                <div class="path">
-                        <span>
+            <h1 id="pageHeader">همه سوالات <span> ({{ questions.count }}) </span></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
                         <a href="{% url 'teacher:index' %}">
                             <svg class="bi bi-house-fill" width="1em" height="1em" viewBox="0 0 16 16"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -310,136 +295,160 @@
                                       clip-rule="evenodd"></path>
                             </svg>
                         </a>
-                        <span>
-                            <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                        <a href="{% url 'teacher:questions' %}">بانک سوال</a>
-                        <span>
-                            <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                        <a href="#">همه ی سوالات</a>
-                        </span>
-                </div>
-                <div class="row header">
-                    <span>نمایش</span>
-                    <label>
-                        <select class="num-questions-showed">
-                            <option value="10">10</option>
-                            <option value="5">5</option>
-                            <option value="1">1</option>
-                        </select>
-                    </label>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            <span>ساده به سخت</span>
-                            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16"
-                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        </div>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">بانک سوال</li>
+                    <li class="breadcrumb-item active" aria-current="page">همه سوال ها</li>
+                </ol>
+            </nav>
+            <div class="clearfix w-100 mb-2">
+                <span class="float-right mt-2 ml-2 mr-3">نمایش</span>
+                <span class="float-right">
+                    <div class="form-group m-0 white-bg">
+                        <label>
+                            <select class="form-control white-bg bg-white" id="previewUnit">
+                                <option selected>10</option>
+                                <option>5</option>
+                                <option>1</option>
+                            </select>
+                        </label>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control fc1" placeholder=" جستجوی سوالات"
-                               aria-label="Username"
-                               aria-describedby="basic-addon1">
-                        <span class="ti-search"></span>
-                    </div>
-                    <div class="dropdown keep_it_open">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterDropdown">
-                            <div class="filter-question">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-funnel-fill"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"></path>
-                                </svg>
+                </span>
+                <span class="float-right mr-2">
+                    <div class="form-group m-0 white-bg">
+                        <div class="input-group white-bg">
+                            <div class="input-group-prepend">
+                             <span class="input-group-text">
+                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-up"
+                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                           d="M11 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"></path>
+                                     <path fill-rule="evenodd"
+                                           d="M10.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L11 3.707 8.354 6.354a.5.5 0 1 1-.708-.708l3-3zm-9 7a.5.5 0 0 1 .708 0L5 12.293l2.646-2.647a.5.5 0 1 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"></path>
+                                     <path fill-rule="evenodd"
+                                           d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"></path>
+                                 </svg>
+                             </span>
                             </div>
-                        </div>
-                        <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <ul>
-                                <li>
-                                    <h6>سطح سوال</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="level"
-                                               id="level0" value="0" checked>
-                                        <label class="form-check-label" for="level0">
-                                            همه
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="level"
-                                               id="level1" value="1">
-                                        <label class="form-check-label" for="level1">
-                                            ساده
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="level"
-                                               id="level2" value="2">
-                                        <label class="form-check-label" for="level2">
-                                            متوسط
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="level"
-                                               id="level3" value="3">
-                                        <label class="form-check-label" for="level3">
-                                            سخت
-                                        </label>
-                                    </div>
-                                </li>
-                                {#                                <li>#}
-                                {#                                    <h6>منبع</h6>#}
-                                {#                                    <div class="form-check">#}
-                                {#                                        <input class="form-check-input" type="radio" name="source"#}
-                                {#                                               id="exampleRadios1" value="option1" checked>#}
-                                {#                                        <label class="form-check-label" for="exampleRadios1">#}
-                                {#                                            همه#}
-                                {#                                        </label>#}
-                                {#                                    </div>#}
-                                {#                                    <div class="form-check">#}
-                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-                                {#                                               id="exampleRadios2" value="option2">#}
-                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
-                                {#                                            قلمچی#}
-                                {#                                        </label>#}
-                                {#                                    </div>#}
-                                {#                                    <div class="form-check">#}
-                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-                                {#                                               id="exampleRadios2" value="option2">#}
-                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
-                                {#                                            گزینه دو#}
-                                {#                                        </label>#}
-                                {#                                    </div>#}
-                                {#                                    <div class="form-check">#}
-                                {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
-                                {#                                               id="exampleRadios2" value="option2">#}
-                                {#                                        <label class="form-check-label" for="exampleRadios2">#}
-                                {#                                            سنجش#}
-                                {#                                        </label>#}
-                                {#                                    </div>#}
-                                {#                                </li>#}
-                                <li>
-                                    <button type="button" class="btn btn-blue w-100">اعمال فیلتر</button>
-                                </li>
-                            </ul>
+                            <label class="m-0">
+                                <select class="custom-select prepend-select pl-4">
+                                    <option selected>انتخاب کنید</option>
+                                    <option value="1">سخت به آسان</option>
+                                    <option value="2">آسان به سخت</option>
+                                    <option value="3">جدیدترین ها</option>
+                                    <option value="4">قدیمی ها</option>
+                                </select>
+                            </label>
                         </div>
                     </div>
+                </span>
+                <span class="float-left">
+                    <div class="dropdown keep_it_open">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterDropdown">
+                        <div class="filter-question">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-funnel-fill"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <ul>
+                            <li>
+                                <h6>سطح سوال</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level0" value="0" checked>
+                                    <label class="form-check-label" for="level0">
+                                        همه
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level1" value="1">
+                                    <label class="form-check-label" for="level1">
+                                        ساده
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level2" value="2">
+                                    <label class="form-check-label" for="level2">
+                                        متوسط
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level3" value="3">
+                                    <label class="form-check-label" for="level3">
+                                        سخت
+                                    </label>
+                                </div>
+                            </li>
+                            {#                                <li>#}
+                            {#                                    <h6>منبع</h6>#}
+                            {#                                    <div class="form-check">#}
+                            {#                                        <input class="form-check-input" type="radio" name="source"#}
+                            {#                                               id="exampleRadios1" value="option1" checked>#}
+                            {#                                        <label class="form-check-label" for="exampleRadios1">#}
+                            {#                                            همه#}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                    <div class="form-check">#}
+                            {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                            {#                                               id="exampleRadios2" value="option2">#}
+                            {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                            {#                                            قلمچی#}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                    <div class="form-check">#}
+                            {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                            {#                                               id="exampleRadios2" value="option2">#}
+                            {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                            {#                                            گزینه دو#}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                    <div class="form-check">#}
+                            {#                                        <input class="form-check-input" type="radio" name="exampleRadios"#}
+                            {#                                               id="exampleRadios2" value="option2">#}
+                            {#                                        <label class="form-check-label" for="exampleRadios2">#}
+                            {#                                            سنجش#}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                </li>#}
+                            <li>
+                                <button type="button" class="btn btn-blue w-100">اعمال فیلتر</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                </span>
+                <span class="float-left">
+                    <div class="input-group white-bg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                                </svg>
+                                <div class="spinner-border d-none" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control prepend-input" placeholder="جستجو"
+                               aria-label="جستجو"
+                               aria-describedby="basic-addon1" id="navSearch"
+                               data-url="">
+                    </div>
+                </span>
+            </div>
+
+            <div class="question-page-body">
                 <div class="questions">
                     <div class="row questions-content">
                         {% for question in questions.list %}
@@ -517,8 +526,7 @@
                                                 </button>
                                                 <div class="dropdown-menu text-right"
                                                      aria-labelledby="dropdownMenuButton">
-                                                    <button class="dropdown-item" type="button" data-toggle="modal"
-                                                            data-target="#userInfo" value="{{ question.pk }}">
+                                                    <a href="{% url 'teacher:edit_question' pk=question.pk %}" class="dropdown-item">
                                                         <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                              class="bi bi-pencil"
                                                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -528,7 +536,7 @@
                                                                   d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"></path>
                                                         </svg>
                                                         ویرایش
-                                                    </button>
+                                                    </a>
                                                     <button class="dropdown-item" type="button" data-toggle="modal"
                                                             data-target="#questionRequest">
                                                         <svg width="1em" height="1em" viewBox="0 0 16 16"
@@ -693,35 +701,36 @@
                     </div>
                     <div id="data-container"></div>
                     <div id="pagination-container"></div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <i class="fas fa-angle-left" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            {% for count in  questions.count|divide:10 %}
-                                {% if forloop.counter < 4 or forloop.last %}
-                                    <li class="page-item {% if forloop.first %}active{% endif %} pagination-item">
-                                        <a class="page-link" href="#">
-                                            <span>{{ count|add:1 }}</span>
-                                        </a>
-                                    </li>
-                                {% elif forloop.counter == 4 %}
-                                    <li class="page-item disabled pagination-item">
-                                        <a class="page-link" href="#">
-                                            <span>...</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <i class="fas fa-angle-right" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <div id="pagination"></div>
+                    {#                    <nav aria-label="Page navigation example">#}
+                    {#                        <ul class="pagination">#}
+                    {#                            <li class="page-item disabled">#}
+                    {#                                <a class="page-link" href="#" aria-label="Previous">#}
+                    {#                                    <i class="fas fa-angle-left" aria-hidden="true"></i>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                            {% for count in  questions.count|divide:10 %}#}
+                    {#                                {% if forloop.counter < 4 or forloop.last %}#}
+                    {#                                    <li class="page-item {% if forloop.first %}active{% endif %} pagination-item">#}
+                    {#                                        <a class="page-link" href="#">#}
+                    {#                                            <span>{{ count|add:1 }}</span>#}
+                    {#                                        </a>#}
+                    {#                                    </li>#}
+                    {#                                {% elif forloop.counter == 4 %}#}
+                    {#                                    <li class="page-item disabled pagination-item">#}
+                    {#                                        <a class="page-link" href="#">#}
+                    {#                                            <span>...</span>#}
+                    {#                                        </a>#}
+                    {#                                    </li>#}
+                    {#                                {% endif %}#}
+                    {#                            {% endfor %}#}
+                    {#                            <li class="page-item">#}
+                    {#                                <a class="page-link" href="#" aria-label="Next">#}
+                    {#                                    <i class="fas fa-angle-right" aria-hidden="true"></i>#}
+                    {#                                </a>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </nav>#}
                 </div>
             {% endif %}
         </div>
@@ -731,6 +740,21 @@
     </div>
 {% endblock %}
 {% block questions-alert %}
+    {#    <script type="text/javascript" src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>#}
+    {#    <script type="text/javascript">#}
+    {#        $('#pagination').pagination({#}
+    {#            dataSource: [1, 2, 3, 4, 5, 6, 7, 25],#}
+    {#            pageSize: 5,#}
+    {#            showGoInput: true,#}
+    {#            showGoButton: true,#}
+    {#            formatGoInput: 'برو به <%= input %> ',#}
+    {#            callback: function (data, pagination) {#}
+    {#                // template method of yourself#}
+    {#var html = template(data);#}
+    {#dataContainer.html(html);#}
+    {#            }#}
+    {#        });#}
+    {#    </script>#}
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <script type="text/javascript"
