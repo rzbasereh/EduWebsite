@@ -924,7 +924,7 @@ h1 {
     direction: rtl;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul {
+.user-profile-list {
     list-style: none;
     direction: ltr;
     text-align: right;
@@ -934,7 +934,7 @@ h1 {
 }
 
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a {
+.user-profile-list > li > a {
     color: #343A40;
     height: 3em;
     display: inline-flex;
@@ -944,25 +944,25 @@ h1 {
     align-items: center;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a {
+.user-profile-list > li:last-child > a {
     color: #FF3D57;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a svg {
+.user-profile-list > li > a svg {
     font-size: 1rem;
     margin-left: 0.5rem;
 }
 
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:hover,
-.topDrive > .firstDropdown > .dropdown-menu > ul > li > a:focus {
+.user-profile-list > li > a:hover,
+.user-profile-list > li > a:focus {
     text-decoration: none;
     color: #343A40 !important;
     background-color: #F8FAFB;
 }
 
-.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a:hover,
-.topDrive > .firstDropdown > .dropdown-menu > ul > li:last-child > a:focus {
+.user-profile-list > li:last-child > a:hover,
+.user-profile-list > li:last-child > a:focus {
     color: #ffffff !important;
     background-color: #FF3D57;
 }
@@ -4963,24 +4963,6 @@ table.table tbody tr:not(:last-child) {
     transition: .5s;
 }
 
-.user-profile-list {
-    list-style: none;
-    padding: 0 10px;
-    text-align: right;
-    font-size: 14px;
-    margin-bottom: 0;
-}
-
-.user-profile-list a {
-    color: #8697A8;
-}
-
-.user-profile-list .d-lg-none {
-    text-align: center;
-    color: #343A40;
-    border-bottom: 1px solid;
-    padding-bottom: 5px;
-}
 
 .iziToast-capsule {
     text-align: left;
