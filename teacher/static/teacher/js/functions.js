@@ -314,7 +314,6 @@ function questionSelection() {
                     iziToast.success({
                         class: 'customized-success-izi-toast-small',
                         message: 'سوال با موفقیت انتخاب شد !',
-                        timeout: 999999,
                         position: 'bottomLeft',
                         onOpening: function () {
                             $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
@@ -335,7 +334,6 @@ function questionSelection() {
                     iziToast.success({
                         class: 'customized-success-izi-toast-small',
                         message: 'سوال با موفقیت حذف شد !',
-                        timeout: 999999,
                         position: 'bottomLeft',
                         onOpening: function () {
                             $(".customized-success-izi-toast-small>.iziToast-body .iziToast-texts").addClass("customized-izi-text-small");
@@ -358,7 +356,6 @@ function questionSelection() {
                     class: 'customized-info-izi-toast',
                     title: 'هشدار',
                     message: 'لطفا دوباره امتحان کنید',
-                    timeout: 999999,
                     position: 'bottomLeft',
                     onOpening: function () {
                         $(".iziToast-title").addClass("customized-izi-title");

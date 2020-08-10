@@ -29,6 +29,6 @@ urlpatterns = [
     path('report/save', views.save_report, name="save_report"),
     path('report/display', views.display_report, name="display_report"),
     path('report/reply', views.reply_report, name="reply_report"),
-    path("upload_image", views.upload_image, name="upload_image"),
-    path("upload_image_validation", views.upload_image_validation, name="upload_image_validation"),
+    # path("upload_image", views.upload_image, name="upload_image"),
+    # path("upload_image_validation", views.upload_image_validation, name="upload_image_validation"),
 ]

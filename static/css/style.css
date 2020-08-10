@@ -4981,3 +4981,7 @@ table.table tbody tr:not(:last-child) {
     border-bottom: 1px solid;
     padding-bottom: 5px;
 }
+
+.iziToast-capsule {
+    text-align: left;
+}
