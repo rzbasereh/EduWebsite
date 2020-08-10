@@ -78,6 +78,7 @@ $(document).ready(function () {
 
     if ($(window).width() <= 992) {
          $('.sidebar').removeClass('close-sidebar');
+         $('.question-sidebar').hide();
     }
     $(window).resize(function () {
         if ($(window).width() <= 992) {
@@ -88,8 +89,8 @@ $(document).ready(function () {
             $('.sidebar a').removeClass('responsive-sidebar-a');
             $('.sidebar a').attr('data-original-title', null);
             $('.responsive-body').removeClass('responsive-body-show');
-            $(".sidebar a span").removeClass("remove-text")
-
+            $(".sidebar a span").removeClass("remove-text");
+            $('.question-sidebar').hide();
         }
         if ($(window).width() >= 992) {
             $('.responsive-body').removeClass('responsive-body-show');
@@ -97,8 +98,8 @@ $(document).ready(function () {
                 $('.topDrive').removeClass('changeTopDrive');
                 $(".sidebar a span").removeClass("removeText");
             }
+            $('.question-sidebar').show();
         }
-
     });
 
     $('.responsive-body').click(function () {
