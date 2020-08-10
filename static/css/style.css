@@ -4893,3 +4893,9 @@ table.table tbody tr:not(:last-child) {
         box-shadow: 0 0 0 8px #FF3D5745;
     }
 }
+
+.accordion > .card {
+    border: none;
+    border-radius: 0.5rem!important;
+    margin-bottom: 1rem;
+}

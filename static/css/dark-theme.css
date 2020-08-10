@@ -193,7 +193,7 @@ h1 {
 }
 
 .sidebar a:hover {
-    color: #1F2935;
+    color: #ffffff;
     background-color: #15232E;
 }
 
@@ -529,14 +529,6 @@ input:checked + .slider {
     padding-left: 15px;
 }
 
-.inline-selected-correct-choice-tick:after {
-    border: solid #0081FF;
-}
-
-.block-selected-correct-choice-tick:after {
-    border: solid #0081FF;
-}
-
 .alert-circle {
     background-color: #343A40;
 }
@@ -633,7 +625,7 @@ input:checked + .slider {
 }
 
 .modal-header .modal-title {
-    color: #44566C;
+    color: #ffffff;
 }
 
 .modal-header .close {
@@ -1028,6 +1020,28 @@ ul.pagination {
     color: #ffffff;
 }
 
-.card-list-group .card-list__content .card-list__item{
+.card-list-group .card-list__content .card-list__item {
     background-color: #1F2935;
+}
+
+.input-group.white-bg input[type="text"].form-control, .input-group.white-bg input[type="password"].form-control, .input-group.white-bg select.custom-select, .input-group.white-bg select.form-control {
+    background-color: #1F2935;
+}
+
+.card {
+    background-color: #1F2935;
+}
+
+.input-group.white-bg, select.white-bg,
+.input-group.white-bg .input-group-text{
+    background-color: #1F2935;
+}
+
+input[type="text"].form-control, input[type="email"].form-control, input[type="number"].form-control, input[type="password"].form-control, select.custom-select, select.form-control, textarea.form-control {
+    color: #8697A8;
+}
+
+.modal-content {
+    background-color: #1F2935;
+    color: #8697A8;
 }
