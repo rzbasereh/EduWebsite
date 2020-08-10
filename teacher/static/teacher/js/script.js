@@ -36,7 +36,7 @@ $(document).ready(function () {
                                                 `
                             :
                             ""
-                            }
+                        }
                                             ${data.reports[i].date_modified}
                                         </small>
                                     </div>
@@ -105,7 +105,7 @@ $(document).ready(function () {
                             `<div class="chat-custom-item__avatar" data-toggle="tooltip" data-placement="top" title="<p class='tool'>${full_name}</p>">
                                                 ${avatar}
                                             </div>`
-                            }
+                        }
                                         ${data.report_replays[i].me ?
                             `<div class="chat-custom-item__options">
                                                 <div class="chat-custom-item__options__toggler">
@@ -116,7 +116,7 @@ $(document).ready(function () {
                                             </div>`
                             :
                             ''
-                            }
+                        }
                                         <div class="chat-custom-item__modify-date">${data.report_replays[i].data_created}</div>
                                     </div>`;
                         $("#replyList").append(item);
@@ -214,6 +214,20 @@ $(document).ready(function () {
 
     // $(".arrow-down-up").attr("data-toggle", "tooltip");
 
+    $('.sidebar .d-lg-none').click(function () {
+        $(this).addClass('no-margin-sidebar-item');
+        $(this).toggleClass('sidebar-hover-a');
+    });
+
+    if (window.location.pathname === '/teacher/questions') {
+        $('#collapseExample .sidebar-collapse-a:first-child').addClass('activated');
+        $('.sidebar .d-lg-none').removeClass('collapse');
+        $('.sidebar .d-lg-none').addClass('no-margin-sidebar-item');
+        $('.sidebar #collapseExample').addClass('show');
+    } else {
+        $('#collapseExample .sidebar-collapse-a:first-child').removeClass('activated');
+    }
+
     // sidebar tooltip
     if (!$("div.sidebar").hasClass('close-sidebar')) {
         $('.sidebar a:first-child').attr('data-original-title', null);
@@ -241,8 +255,23 @@ $(document).ready(function () {
         }
     });
 
+    if ($(window).width() <= 992) {
+        $('.sidebar a:nth-child(4)').hide();
+    }
+    if ($(window).width() >= 992) {
+        $('.sidebar a:nth-child(4)').show();
+    }
+    $(window).resize(function () {
+        if ($(window).width() <= 992) {
+            $('.sidebar a:nth-child(4)').hide();
+        }
+        if ($(window).width() >= 992) {
+            $('.sidebar a:nth-child(4)').show();
+        }
+    });
 
-    if (window.location.href.indexOf("teacher/question/add") !== -1 || window.location.href.indexOf("teacher/question/edit/") !== -1) {
+
+    if (window.location.href.indexOf("teacher/question/add") !== -1) {
 
         $("input.tag-input").tagsInput({
             defaultText: '',
