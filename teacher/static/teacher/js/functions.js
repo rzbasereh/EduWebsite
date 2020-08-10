@@ -302,12 +302,14 @@ function questionSelection() {
             console.log(data);
             if (data.value === "success") {
                 $(".question-counter").addClass("question-counter-active");
+                $(".sidebar-bottom-box.d-lg-none").css("display" , "block");
                 $(".question-counter h2 > span").css("display", "inline-block");
                 this_element.toggleClass("clicked");
                 $(".counter").html(data["count"]);
 
                 if (data["count"] === 0) {
                     $(".question-counter").removeClass("question-counter-active");
+                    $(".sidebar-bottom-box.d-lg-none").css("display" , "none");
                     $(".question-counter h2 > span").css("display", "none");
                 }
                 if (data.type === "add") {

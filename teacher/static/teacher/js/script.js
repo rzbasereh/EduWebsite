@@ -255,17 +255,21 @@ $(document).ready(function () {
         }
     });
 
-    if ($(window).width() <= 992) {
+    if ($(window).width() <= 992 && window.location.pathname === '/teacher/questions') {
         $('.sidebar a:nth-child(4)').hide();
+    } else if (window.location.pathname !== '/teacher/questions') {
+        $('.d-lg-none').hide();
     }
-    if ($(window).width() >= 992) {
+    if ($(window).width() >= 992 && window.location.pathname === '/teacher/questions') {
         $('.sidebar a:nth-child(4)').show();
     }
     $(window).resize(function () {
-        if ($(window).width() <= 992) {
+        if ($(window).width() <= 992 && window.location.pathname === '/teacher/questions') {
             $('.sidebar a:nth-child(4)').hide();
+        } else if (window.location.pathname !== '/teacher/questions') {
+            $('.d-lg-none').hide();
         }
-        if ($(window).width() >= 992) {
+        if ($(window).width() >= 992 && window.location.pathname === '/teacher/questions') {
             $('.sidebar a:nth-child(4)').show();
         }
     });
@@ -527,6 +531,7 @@ $(document).ready(function () {
 
     if ($("span.clicked").length !== 0) {
         $(".question-counter h2 > span").css("display", "inline-block");
+        $(".sidebar-bottom-box.d-lg-none").css("display" , "block");
     }
 
     $(".questions-content .checkmark").click(questionSelection);

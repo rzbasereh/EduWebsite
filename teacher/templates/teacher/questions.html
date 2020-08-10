@@ -246,12 +246,11 @@
             </a>
 
             <a href="
-
                     {% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}"
                class="sidebar-bottom-box">
                 <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
                      data-url="
-                             {% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
+                       {% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
                     <h2>
                         <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">
@@ -301,8 +300,127 @@
                 </ol>
             </nav>
             <div class="clearfix w-100 mb-2">
-                <span class="float-right mt-2 ml-2 mr-3">نمایش</span>
-                <span class="float-right">
+                <div class="d-lg-none options-not-lg row">
+                    <span class="btn">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+                                    <path fill-rule="evenodd"
+                                          d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                        </svg>
+                    </span>
+                    <a href="#" class="btn btn-blue responsive-go-to-add d-lg-none" data-toggle="modal"
+                       data-target="#selectGrade">
+                        {#                {% url 'teacher:newQuestion' %}#}
+                        <span>
+                    <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                          clip-rule="evenodd">
+                    </path>
+                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                          clip-rule="evenodd">
+                    </path>
+                    </svg>
+                </span>
+                    </a>
+                    <span class="">
+                    <div class="dropdown keep_it_open">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterDropdown">
+                        <div class="filter-question">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-funnel-fill"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <ul>
+                            <li>
+                                <h6>سطح سوال</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level0" value="0" checked>
+                                    <label class="form-check-label" for="level0">
+                                        همه
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level1" value="1">
+                                    <label class="form-check-label" for="level1">
+                                        ساده
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level2" value="2">
+                                    <label class="form-check-label" for="level2">
+                                        متوسط
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="level"
+                                           id="level3" value="3">
+                                    <label class="form-check-label" for="level3">
+                                        سخت
+                                    </label>
+                                </div>
+                            </li>
+                                                            <li>
+                                                                <h6>منبع</h6>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           name="source"
+                                                                           id="exampleRadios1" value="option1" checked>
+                                                                    <label class="form-check-label"
+                                                                           for="exampleRadios1">
+                                                                        همه
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           name="exampleRadios"
+                                                                           id="exampleRadios2" value="option2">
+                                                                    <label class="form-check-label"
+                                                                           for="exampleRadios2">
+                                                                        قلمچی
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           name="exampleRadios"
+                                                                           id="exampleRadios2" value="option2">
+                                                                    <label class="form-check-label"
+                                                                           for="exampleRadios2">
+                                                                        گزینه دو
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                           name="exampleRadios"
+                                                                           id="exampleRadios2" value="option2">
+                                                                    <label class="form-check-label"
+                                                                           for="exampleRadios2">
+                                                                        سنجش
+                                                                    </label>
+                                                                </div>
+                                                            </li>
+                            <li>
+                                <button type="button" class="btn btn-blue w-100">اعمال فیلتر</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </span>
+                </div>
+                <div class="row">
+                    <span class="float-right mt-2 ml-2 mr-3">نمایش</span>
+                    <span class="float-right">
                     <div class="form-group m-0 white-bg">
                         <label>
                             <select class="form-control white-bg" id="previewUnit">
@@ -313,7 +431,7 @@
                         </label>
                     </div>
                 </span>
-                <span class="float-right mr-2">
+                    <span class="float-right mr-2">
                     <div class="form-group m-0 white-bg">
                         <div class="input-group white-bg">
                             <div class="input-group-prepend">
@@ -341,7 +459,7 @@
                         </div>
                     </div>
                 </span>
-                <span class="float-left">
+                    <span class="float-left options-in-lg">
                     <div class="dropdown keep_it_open">
                     <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterDropdown">
                         <div class="filter-question">
@@ -423,7 +541,7 @@
                     </div>
                 </div>
                 </span>
-                <span class="float-left">
+                    <span class="float-left options-in-lg">
                     <div class="input-group white-bg">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
@@ -446,6 +564,7 @@
                                data-url="">
                     </div>
                 </span>
+                </div>
             </div>
 
             <div class="question-page-body">
@@ -526,7 +645,8 @@
                                                 </button>
                                                 <div class="dropdown-menu text-right"
                                                      aria-labelledby="dropdownMenuButton">
-                                                    <a href="{% url 'teacher:edit_question' pk=question.pk %}" class="dropdown-item">
+                                                    <a href="{% url 'teacher:edit_question' pk=question.pk %}"
+                                                       class="dropdown-item">
                                                         <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                              class="bi bi-pencil"
                                                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -737,6 +857,30 @@
         <div class="linear-activity">
             <div class="indeterminate"></div>
         </div>
+    <a href="
+                    {% if exam_info.state == "submitted" %}{% url 'teacher:edit_exam' exam_info.pk %}{% else %}{% url 'teacher:new_exam' %}{% endif %}"
+               class="sidebar-bottom-box d-lg-none">
+                <div class="question-counter {% if selected_question|length %}question-counter-active{% endif %}"
+                     data-url="
+                       {% if exam_info.state == "submitted" %}{% url 'teacher:selectedQuestion_edit' exam_info.pk %}{% else %}{% url 'teacher:selectedQuestion' %}{% endif %}">
+                    <h2>
+                        <svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+
+                        <span class="counter-parent"
+                              style="{% if selected_question|length %}display:inline-block {% endif %}">
+                            (<span class="counter">{{ selected_question|length }}</span>)
+                        </span>
+                    </h2>
+                </div>
+            </a>
     </div>
 {% endblock %}
 {% block questions-alert %}
